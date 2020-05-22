@@ -15,7 +15,6 @@
 		875D6E07247431B100C6DF31 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875D6E06247431B100C6DF31 /* AppDelegate.swift */; };
 		875D6E09247431B100C6DF31 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875D6E08247431B100C6DF31 /* SceneDelegate.swift */; };
 		875D6E11247431B100C6DF31 /* ColorsMe.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 875D6E0F247431B100C6DF31 /* ColorsMe.xcdatamodeld */; };
-		875D6E13247431B600C6DF31 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 875D6E12247431B600C6DF31 /* Assets.xcassets */; };
 		875D6E16247431B600C6DF31 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 875D6E14247431B600C6DF31 /* LaunchScreen.storyboard */; };
 		875D6E21247431B700C6DF31 /* ColorsMeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875D6E20247431B700C6DF31 /* ColorsMeTests.swift */; };
 		875D6E2C247431B700C6DF31 /* ColorsMeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875D6E2B247431B700C6DF31 /* ColorsMeUITests.swift */; };
@@ -29,6 +28,7 @@
 		87CEC7AC2477FCE300206255 /* FormatterInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CEC7A82477FCE300206255 /* FormatterInterface.swift */; };
 		87CEC7AD2477FCE300206255 /* InteractorInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CEC7A92477FCE300206255 /* InteractorInterface.swift */; };
 		87CEC7AE2477FCE300206255 /* ViewInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CEC7AA2477FCE300206255 /* ViewInterface.swift */; };
+		87CEC7B22477FF4300206255 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87CEC7B12477FF4300206255 /* Assets.xcassets */; };
 		F3D52F6E555A555C15C17169 /* Pods_ColorsMeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43F552BF2D55B2BE38E1B9E6 /* Pods_ColorsMeTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -61,7 +61,6 @@
 		875D6E06247431B100C6DF31 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		875D6E08247431B100C6DF31 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		875D6E10247431B100C6DF31 /* ColorsMe.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ColorsMe.xcdatamodel; sourceTree = "<group>"; };
-		875D6E12247431B600C6DF31 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		875D6E15247431B600C6DF31 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		875D6E17247431B600C6DF31 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		875D6E1C247431B700C6DF31 /* ColorsMeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ColorsMeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,6 +79,7 @@
 		87CEC7A82477FCE300206255 /* FormatterInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormatterInterface.swift; sourceTree = "<group>"; };
 		87CEC7A92477FCE300206255 /* InteractorInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractorInterface.swift; sourceTree = "<group>"; };
 		87CEC7AA2477FCE300206255 /* ViewInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewInterface.swift; sourceTree = "<group>"; };
+		87CEC7B12477FF4300206255 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A9FC000EFEB6C462BFF86E19 /* Pods-ColorsMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorsMe.debug.xcconfig"; path = "Target Support Files/Pods-ColorsMe/Pods-ColorsMe.debug.xcconfig"; sourceTree = "<group>"; };
 		B2B66BE1C363E8E37B8BE064 /* Pods-ColorsMeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorsMeTests.debug.xcconfig"; path = "Target Support Files/Pods-ColorsMeTests/Pods-ColorsMeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		BD375A421E8BA2D3309FE03B /* Pods-ColorsMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorsMe.release.xcconfig"; path = "Target Support Files/Pods-ColorsMe/Pods-ColorsMe.release.xcconfig"; sourceTree = "<group>"; };
@@ -210,11 +210,12 @@
 		875D6E05247431B100C6DF31 /* ColorsMe */ = {
 			isa = PBXGroup;
 			children = (
+				87CEC7B12477FF4300206255 /* Assets.xcassets */,
 				8767E4D82476C6D900A8CA55 /* Common */,
 				873AC7312477D82300261CD5 /* Modules */,
+				87CEC7B02477FEEF00206255 /* Resources */,
 				875D6E06247431B100C6DF31 /* AppDelegate.swift */,
 				875D6E08247431B100C6DF31 /* SceneDelegate.swift */,
-				875D6E12247431B600C6DF31 /* Assets.xcassets */,
 				875D6E14247431B600C6DF31 /* LaunchScreen.storyboard */,
 				875D6E17247431B600C6DF31 /* Info.plist */,
 				875D6E0F247431B100C6DF31 /* ColorsMe.xcdatamodeld */,
@@ -282,6 +283,14 @@
 				87CEC7992477FB1000206255 /* MainWireframe.swift */,
 			);
 			path = Main;
+			sourceTree = "<group>";
+		};
+		87CEC7B02477FEEF00206255 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Resources;
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -395,8 +404,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				87CEC79A2477FB1000206255 /* Main.storyboard in Resources */,
+				87CEC7B22477FF4300206255 /* Assets.xcassets in Resources */,
 				875D6E16247431B600C6DF31 /* LaunchScreen.storyboard in Resources */,
-				875D6E13247431B600C6DF31 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
