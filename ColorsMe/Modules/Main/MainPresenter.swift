@@ -26,4 +26,12 @@ final class MainPresenter {
 // MARK: - Extensions -
 
 extension MainPresenter: MainPresenterInterface {
+    func didSelectSkipAction() {
+        wireframe.navigate(to: .colormap)
+    }
+    
+    func didSelectAddColorAction(with color: EmotionalColor) {
+        wireframe.navigate(to: .colormapwith(color))
+    }
+    
 }

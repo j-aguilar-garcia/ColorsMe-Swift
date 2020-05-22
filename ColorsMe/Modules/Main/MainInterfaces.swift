@@ -8,11 +8,19 @@
 
 import UIKit
 
+enum MainNavigationOption {
+    case colormap
+    case colormapwith(EmotionalColor)
+}
+
 protocol MainWireframeInterface: WireframeInterface {
+    func navigate(to option: MainNavigationOption)
 }
 
 protocol MainViewInterface: ViewInterface {
 }
 
 protocol MainPresenterInterface: PresenterInterface {
+    func didSelectSkipAction()
+    func didSelectAddColorAction(with color: EmotionalColor)
 }

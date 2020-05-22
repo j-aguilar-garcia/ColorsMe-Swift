@@ -29,6 +29,7 @@
 		87CEC7AD2477FCE300206255 /* InteractorInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CEC7A92477FCE300206255 /* InteractorInterface.swift */; };
 		87CEC7AE2477FCE300206255 /* ViewInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CEC7AA2477FCE300206255 /* ViewInterface.swift */; };
 		87CEC7B22477FF4300206255 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87CEC7B12477FF4300206255 /* Assets.xcassets */; };
+		87CEC7B52478216100206255 /* EmotionalColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CEC7B42478216100206255 /* EmotionalColor.swift */; };
 		F3D52F6E555A555C15C17169 /* Pods_ColorsMeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43F552BF2D55B2BE38E1B9E6 /* Pods_ColorsMeTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -80,6 +81,7 @@
 		87CEC7A92477FCE300206255 /* InteractorInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractorInterface.swift; sourceTree = "<group>"; };
 		87CEC7AA2477FCE300206255 /* ViewInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewInterface.swift; sourceTree = "<group>"; };
 		87CEC7B12477FF4300206255 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		87CEC7B42478216100206255 /* EmotionalColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionalColor.swift; sourceTree = "<group>"; };
 		A9FC000EFEB6C462BFF86E19 /* Pods-ColorsMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorsMe.debug.xcconfig"; path = "Target Support Files/Pods-ColorsMe/Pods-ColorsMe.debug.xcconfig"; sourceTree = "<group>"; };
 		B2B66BE1C363E8E37B8BE064 /* Pods-ColorsMeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorsMeTests.debug.xcconfig"; path = "Target Support Files/Pods-ColorsMeTests/Pods-ColorsMeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		BD375A421E8BA2D3309FE03B /* Pods-ColorsMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorsMe.release.xcconfig"; path = "Target Support Files/Pods-ColorsMe/Pods-ColorsMe.release.xcconfig"; sourceTree = "<group>"; };
@@ -252,6 +254,7 @@
 		8767E4D82476C6D900A8CA55 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				87CEC7B32478215000206255 /* Models */,
 				873AC72E2477D58500261CD5 /* Extension */,
 				873AC71E2477C9C000261CD5 /* Protocols */,
 				873AC71D2477C9B000261CD5 /* Wireframe */,
@@ -291,6 +294,14 @@
 			);
 			name = Resources;
 			path = "New Group";
+			sourceTree = "<group>";
+		};
+		87CEC7B32478215000206255 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				87CEC7B42478216100206255 /* EmotionalColor.swift */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -557,6 +568,7 @@
 				875D6E11247431B100C6DF31 /* ColorsMe.xcdatamodeld in Sources */,
 				87CEC79E2477FB1000206255 /* MainWireframe.swift in Sources */,
 				87CEC79C2477FB1000206255 /* MainPresenter.swift in Sources */,
+				87CEC7B52478216100206255 /* EmotionalColor.swift in Sources */,
 				87CEC7AD2477FCE300206255 /* InteractorInterface.swift in Sources */,
 				873AC7122477C8DC00261CD5 /* TabBarViewProtocol.swift in Sources */,
 				875D6E07247431B100C6DF31 /* AppDelegate.swift in Sources */,

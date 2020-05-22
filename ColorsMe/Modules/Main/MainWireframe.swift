@@ -29,4 +29,23 @@ final class MainWireframe: BaseWireframe {
 // MARK: - Extensions -
 
 extension MainWireframe: MainWireframeInterface {
+    func navigate(to option: MainNavigationOption) {
+        switch option {
+        case .colormap:
+            presentColorMap()
+            break
+        case .colormapwith(let color):
+            presentColorMap(with: color)
+            break
+        }
+    }
+    
+    private func presentColorMap() {
+        // MARK: - TODO 
+    }
+    
+    private func presentColorMap(with color: EmotionalColor) {
+        
+    }
+    
 }

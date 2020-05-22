@@ -39,19 +39,19 @@ final class MainViewController: UIViewController {
     // Actions
     
     @IBAction func onGreenDot(_ sender: Any) {
-
+        presenter.didSelectAddColorAction(with: .Green)
     }
     
     @IBAction func onYellowDot(_ sender: Any) {
-        
+        presenter.didSelectAddColorAction(with: .Yellow)
     }
     
     @IBAction func onRedDot(_ sender: Any) {
-
+        presenter.didSelectAddColorAction(with: .Red)
     }
     
     @IBAction func onSkipButton(_ sender: Any) {
-
+        presenter.didSelectSkipAction()
     }
 
     // MARK: - Lifecycle -
