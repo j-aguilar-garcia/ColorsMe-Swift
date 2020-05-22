@@ -12,10 +12,17 @@ import CoreData
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
+    var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        let mainWireframe = MainWireframe()
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        self.window?.rootViewController = mainWireframe.viewController
+        self.window?.makeKeyAndVisible()
+        
+        
         return true
     }
 
