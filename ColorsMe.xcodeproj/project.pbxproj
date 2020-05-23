@@ -30,6 +30,17 @@
 		87CEC7AE2477FCE300206255 /* ViewInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CEC7AA2477FCE300206255 /* ViewInterface.swift */; };
 		87CEC7B22477FF4300206255 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87CEC7B12477FF4300206255 /* Assets.xcassets */; };
 		87CEC7B52478216100206255 /* EmotionalColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CEC7B42478216100206255 /* EmotionalColor.swift */; };
+		87CEC7BB2478265400206255 /* ColorTabBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87CEC7B62478265400206255 /* ColorTabBar.storyboard */; };
+		87CEC7BC2478265400206255 /* ColorTabBarInterfaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CEC7B72478265400206255 /* ColorTabBarInterfaces.swift */; };
+		87CEC7BD2478265400206255 /* ColorTabBarPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CEC7B82478265400206255 /* ColorTabBarPresenter.swift */; };
+		87CEC7BE2478265400206255 /* ColorTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CEC7B92478265400206255 /* ColorTabBarViewController.swift */; };
+		87CEC7BF2478265400206255 /* ColorTabBarWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CEC7BA2478265400206255 /* ColorTabBarWireframe.swift */; };
+		87CEC7C624782A7400206255 /* ColorMap.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87CEC7C024782A7400206255 /* ColorMap.storyboard */; };
+		87CEC7C724782A7400206255 /* ColorMapInterfaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CEC7C124782A7400206255 /* ColorMapInterfaces.swift */; };
+		87CEC7C824782A7400206255 /* ColorMapPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CEC7C224782A7400206255 /* ColorMapPresenter.swift */; };
+		87CEC7C924782A7400206255 /* ColorMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CEC7C324782A7400206255 /* ColorMapViewController.swift */; };
+		87CEC7CA24782A7400206255 /* ColorMapInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CEC7C424782A7400206255 /* ColorMapInteractor.swift */; };
+		87CEC7CB24782A7400206255 /* ColorMapWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CEC7C524782A7400206255 /* ColorMapWireframe.swift */; };
 		F3D52F6E555A555C15C17169 /* Pods_ColorsMeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43F552BF2D55B2BE38E1B9E6 /* Pods_ColorsMeTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -82,6 +93,17 @@
 		87CEC7AA2477FCE300206255 /* ViewInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewInterface.swift; sourceTree = "<group>"; };
 		87CEC7B12477FF4300206255 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		87CEC7B42478216100206255 /* EmotionalColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionalColor.swift; sourceTree = "<group>"; };
+		87CEC7B62478265400206255 /* ColorTabBar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ColorTabBar.storyboard; sourceTree = "<group>"; };
+		87CEC7B72478265400206255 /* ColorTabBarInterfaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorTabBarInterfaces.swift; sourceTree = "<group>"; };
+		87CEC7B82478265400206255 /* ColorTabBarPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorTabBarPresenter.swift; sourceTree = "<group>"; };
+		87CEC7B92478265400206255 /* ColorTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorTabBarViewController.swift; sourceTree = "<group>"; };
+		87CEC7BA2478265400206255 /* ColorTabBarWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorTabBarWireframe.swift; sourceTree = "<group>"; };
+		87CEC7C024782A7400206255 /* ColorMap.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ColorMap.storyboard; sourceTree = "<group>"; };
+		87CEC7C124782A7400206255 /* ColorMapInterfaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorMapInterfaces.swift; sourceTree = "<group>"; };
+		87CEC7C224782A7400206255 /* ColorMapPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorMapPresenter.swift; sourceTree = "<group>"; };
+		87CEC7C324782A7400206255 /* ColorMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorMapViewController.swift; sourceTree = "<group>"; };
+		87CEC7C424782A7400206255 /* ColorMapInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorMapInteractor.swift; sourceTree = "<group>"; };
+		87CEC7C524782A7400206255 /* ColorMapWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorMapWireframe.swift; sourceTree = "<group>"; };
 		A9FC000EFEB6C462BFF86E19 /* Pods-ColorsMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorsMe.debug.xcconfig"; path = "Target Support Files/Pods-ColorsMe/Pods-ColorsMe.debug.xcconfig"; sourceTree = "<group>"; };
 		B2B66BE1C363E8E37B8BE064 /* Pods-ColorsMeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorsMeTests.debug.xcconfig"; path = "Target Support Files/Pods-ColorsMeTests/Pods-ColorsMeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		BD375A421E8BA2D3309FE03B /* Pods-ColorsMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorsMe.release.xcconfig"; path = "Target Support Files/Pods-ColorsMe/Pods-ColorsMe.release.xcconfig"; sourceTree = "<group>"; };
@@ -247,6 +269,11 @@
 		8767E4C92476C56100A8CA55 /* ColorTabBar */ = {
 			isa = PBXGroup;
 			children = (
+				87CEC7B62478265400206255 /* ColorTabBar.storyboard */,
+				87CEC7B72478265400206255 /* ColorTabBarInterfaces.swift */,
+				87CEC7B82478265400206255 /* ColorTabBarPresenter.swift */,
+				87CEC7B92478265400206255 /* ColorTabBarViewController.swift */,
+				87CEC7BA2478265400206255 /* ColorTabBarWireframe.swift */,
 			);
 			path = ColorTabBar;
 			sourceTree = "<group>";
@@ -265,6 +292,12 @@
 		877F837E247502C8009BA6BE /* ColorMap */ = {
 			isa = PBXGroup;
 			children = (
+				87CEC7C024782A7400206255 /* ColorMap.storyboard */,
+				87CEC7C124782A7400206255 /* ColorMapInterfaces.swift */,
+				87CEC7C224782A7400206255 /* ColorMapPresenter.swift */,
+				87CEC7C324782A7400206255 /* ColorMapViewController.swift */,
+				87CEC7C424782A7400206255 /* ColorMapInteractor.swift */,
+				87CEC7C524782A7400206255 /* ColorMapWireframe.swift */,
 			);
 			path = ColorMap;
 			sourceTree = "<group>";
@@ -414,7 +447,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				87CEC7BB2478265400206255 /* ColorTabBar.storyboard in Resources */,
 				87CEC79A2477FB1000206255 /* Main.storyboard in Resources */,
+				87CEC7C624782A7400206255 /* ColorMap.storyboard in Resources */,
 				87CEC7B22477FF4300206255 /* Assets.xcassets in Resources */,
 				875D6E16247431B600C6DF31 /* LaunchScreen.storyboard in Resources */,
 			);
@@ -562,21 +597,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				87CEC7C724782A7400206255 /* ColorMapInterfaces.swift in Sources */,
 				87CEC7922477F9AF00206255 /* ColorsNavigationViewController.swift in Sources */,
 				873AC71C2477C95400261CD5 /* BaseWireframe.swift in Sources */,
+				87CEC7CA24782A7400206255 /* ColorMapInteractor.swift in Sources */,
 				873AC7302477D59100261CD5 /* Storyboard.swift in Sources */,
 				875D6E11247431B100C6DF31 /* ColorsMe.xcdatamodeld in Sources */,
 				87CEC79E2477FB1000206255 /* MainWireframe.swift in Sources */,
 				87CEC79C2477FB1000206255 /* MainPresenter.swift in Sources */,
+				87CEC7BF2478265400206255 /* ColorTabBarWireframe.swift in Sources */,
+				87CEC7C924782A7400206255 /* ColorMapViewController.swift in Sources */,
 				87CEC7B52478216100206255 /* EmotionalColor.swift in Sources */,
+				87CEC7BC2478265400206255 /* ColorTabBarInterfaces.swift in Sources */,
 				87CEC7AD2477FCE300206255 /* InteractorInterface.swift in Sources */,
 				873AC7122477C8DC00261CD5 /* TabBarViewProtocol.swift in Sources */,
+				87CEC7BD2478265400206255 /* ColorTabBarPresenter.swift in Sources */,
 				875D6E07247431B100C6DF31 /* AppDelegate.swift in Sources */,
 				87CEC79D2477FB1000206255 /* MainViewController.swift in Sources */,
+				87CEC7C824782A7400206255 /* ColorMapPresenter.swift in Sources */,
+				87CEC7BE2478265400206255 /* ColorTabBarViewController.swift in Sources */,
 				87CEC7AE2477FCE300206255 /* ViewInterface.swift in Sources */,
 				87CEC7AB2477FCE300206255 /* PresenterInterface.swift in Sources */,
 				875D6E09247431B100C6DF31 /* SceneDelegate.swift in Sources */,
 				87CEC79B2477FB1000206255 /* MainInterfaces.swift in Sources */,
+				87CEC7CB24782A7400206255 /* ColorMapWireframe.swift in Sources */,
 				87CEC7AC2477FCE300206255 /* FormatterInterface.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

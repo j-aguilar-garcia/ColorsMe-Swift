@@ -41,7 +41,8 @@ extension MainWireframe: MainWireframeInterface {
     }
     
     private func presentColorMap() {
-        // MARK: - TODO 
+        let colorTabWireframe = ColorTabBarWireframe()
+        viewController.presentWireframe(colorTabWireframe)
     }
     
     private func presentColorMap(with color: EmotionalColor) {
