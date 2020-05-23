@@ -1,18 +1,19 @@
 //
-//  MainViewController.swift
+//  IntroViewController.swift
 //  ColorsMe
 //
-//  Created by Juan Carlos Aguilar-Garcia on 22.05.20.
+//  Created by Juan Carlos Aguilar Garcia on 23.05.20.
 //  Copyright (c) 2020 Juan Carlos Aguilar Garcia. All rights reserved.
 //
 
 import UIKit
 
-final class MainViewController: UIViewController {
+final class IntroViewController: UIViewController {
 
     // MARK: - Public properties -
 
-    var presenter: MainPresenterInterface!
+    var presenter: IntroPresenterInterface!
+
     
     // Portrait Constraints for iPad
     
@@ -36,24 +37,25 @@ final class MainViewController: UIViewController {
     @IBOutlet weak var yellowDotTrailingToRedDotLeadingConstraint: NSLayoutConstraint!
     
     
+    
     // Actions
     
     @IBAction func onGreenDot(_ sender: Any) {
-        presenter.didSelectAddColorAction(with: .Green)
+        presenter.didSelectAddAction(color: .Green)
     }
     
     @IBAction func onYellowDot(_ sender: Any) {
-        presenter.didSelectAddColorAction(with: .Yellow)
+        presenter.didSelectAddAction(color: .Yellow)
     }
     
     @IBAction func onRedDot(_ sender: Any) {
-        presenter.didSelectAddColorAction(with: .Red)
+        presenter.didSelectAddAction(color: .Red)
     }
     
     @IBAction func onSkipButton(_ sender: Any) {
         presenter.didSelectSkipAction()
     }
-
+    
     // MARK: - Lifecycle -
 
     override func viewDidLoad() {
@@ -64,5 +66,5 @@ final class MainViewController: UIViewController {
 
 // MARK: - Extensions -
 
-extension MainViewController: MainViewInterface {
+extension IntroViewController: IntroViewInterface {
 }

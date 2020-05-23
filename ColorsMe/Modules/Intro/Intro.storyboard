@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jjj-bN-sFd">
+    <device id="retina6_5" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Intro View Controller-->
+        <scene sceneID="ASv-Lx-7gQ">
+            <objects>
+                <viewController storyboardIdentifier="IntroViewController" id="jjj-bN-sFd" customClass="IntroViewController" customModule="ColorsMe" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="EWc-zU-rKP">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UqK-Be-p2b">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="rFO-yu-EUR">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How do you feel at the moment?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="AK4-QX-8p3">
+                                            <rect key="frame" x="66" y="68" width="282.33333333333331" height="23.666666666666671"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                            <variation key="heightClass=regular-widthClass=regular">
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="26"/>
+                                            </variation>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Green means Happy | Red means sick" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="Z6H-gK-pY6">
+                                            <rect key="frame" x="74.666666666666686" y="106.66666666666667" width="265" height="19"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
+                                            <nil key="highlightedColor"/>
+                                            <variation key="heightClass=regular-widthClass=regular">
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="21"/>
+                                            </variation>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ud7-Pv-ROj">
+                                            <rect key="frame" x="177" y="819" width="60" height="45"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="45" id="hKP-cM-eDT"/>
+                                                <constraint firstAttribute="width" constant="60" id="kcI-FG-xcB"/>
+                                            </constraints>
+                                            <state key="normal" title="not now">
+                                                <color key="titleColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="onSkipButton:" destination="jjj-bN-sFd" eventType="touchUpInside" id="uiB-WY-1Et"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PxM-uM-FBA" userLabel="yellow">
+                                            <rect key="frame" x="157" y="398" width="100" height="100"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="100" id="UPF-LL-NWx">
+                                                    <variation key="heightClass=regular-widthClass=regular" constant="200"/>
+                                                </constraint>
+                                                <constraint firstAttribute="height" constant="100" id="oVN-3c-5wu">
+                                                    <variation key="heightClass=regular-widthClass=regular" constant="200"/>
+                                                </constraint>
+                                            </constraints>
+                                            <state key="normal" image="YellowBigDot"/>
+                                            <connections>
+                                                <action selector="onYellowDot:" destination="jjj-bN-sFd" eventType="touchUpInside" id="Q2d-y1-c9M"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="roQ-dG-7Nl" userLabel="green">
+                                            <rect key="frame" x="157" y="248" width="100" height="100"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="100" id="46u-NM-gl0">
+                                                    <variation key="heightClass=regular-widthClass=regular" constant="200"/>
+                                                </constraint>
+                                                <constraint firstAttribute="width" constant="100" id="4hB-dy-rdM">
+                                                    <variation key="heightClass=regular-widthClass=regular" constant="200"/>
+                                                </constraint>
+                                            </constraints>
+                                            <state key="normal" image="GreenBigDot"/>
+                                            <connections>
+                                                <action selector="onGreenDot:" destination="jjj-bN-sFd" eventType="touchUpInside" id="g8k-Td-ShW"/>
+                                            </connections>
+                                        </button>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fs9-0E-NV8" userLabel="red">
+                                            <rect key="frame" x="157" y="548" width="100" height="100"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="100" id="BKc-1a-QxE">
+                                                    <variation key="heightClass=regular-widthClass=regular" constant="200"/>
+                                                </constraint>
+                                                <constraint firstAttribute="width" constant="100" id="Vb2-gN-sA1">
+                                                    <variation key="heightClass=regular-widthClass=regular" constant="200"/>
+                                                </constraint>
+                                            </constraints>
+                                            <state key="normal" image="RedBigDot"/>
+                                            <connections>
+                                                <action selector="onRedDot:" destination="jjj-bN-sFd" eventType="touchUpInside" id="hnI-NZ-UB6"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="PxM-uM-FBA" firstAttribute="top" secondItem="roQ-dG-7Nl" secondAttribute="bottom" constant="50" id="0sG-m0-yHr"/>
+                                        <constraint firstItem="Z6H-gK-pY6" firstAttribute="top" secondItem="AK4-QX-8p3" secondAttribute="bottom" constant="15" id="1jZ-nI-ppo">
+                                            <variation key="heightClass=regular-widthClass=regular" constant="20"/>
+                                        </constraint>
+                                        <constraint firstItem="PxM-uM-FBA" firstAttribute="centerX" secondItem="rFO-yu-EUR" secondAttribute="centerX" id="3hK-rE-atm"/>
+                                        <constraint firstItem="roQ-dG-7Nl" firstAttribute="centerX" secondItem="rFO-yu-EUR" secondAttribute="centerX" id="JZS-7M-iFH"/>
+                                        <constraint firstItem="Fs9-0E-NV8" firstAttribute="centerX" secondItem="rFO-yu-EUR" secondAttribute="centerX" id="KjZ-cC-PQt"/>
+                                        <constraint firstItem="PxM-uM-FBA" firstAttribute="centerY" secondItem="rFO-yu-EUR" secondAttribute="centerY" id="Lih-ME-LKu"/>
+                                        <constraint firstItem="roQ-dG-7Nl" firstAttribute="centerY" secondItem="rFO-yu-EUR" secondAttribute="centerY" priority="250" id="NJy-we-DDj"/>
+                                        <constraint firstAttribute="bottom" secondItem="ud7-Pv-ROj" secondAttribute="bottom" constant="32" id="WXo-pB-LRd">
+                                            <variation key="heightClass=regular-widthClass=regular" constant="64"/>
+                                        </constraint>
+                                        <constraint firstItem="ud7-Pv-ROj" firstAttribute="centerX" secondItem="rFO-yu-EUR" secondAttribute="centerX" id="b1h-C8-Bfn"/>
+                                        <constraint firstItem="AK4-QX-8p3" firstAttribute="centerX" secondItem="rFO-yu-EUR" secondAttribute="centerX" id="crv-Zu-hBw"/>
+                                        <constraint firstItem="Z6H-gK-pY6" firstAttribute="centerX" secondItem="rFO-yu-EUR" secondAttribute="centerX" id="jDQ-yd-4J5"/>
+                                        <constraint firstItem="AK4-QX-8p3" firstAttribute="top" secondItem="rFO-yu-EUR" secondAttribute="top" constant="68" id="mmq-KG-6b7">
+                                            <variation key="heightClass=regular-widthClass=regular" constant="88"/>
+                                        </constraint>
+                                        <constraint firstItem="Fs9-0E-NV8" firstAttribute="centerY" secondItem="rFO-yu-EUR" secondAttribute="centerY" priority="250" id="qJG-l4-TX4"/>
+                                        <constraint firstItem="PxM-uM-FBA" firstAttribute="leading" secondItem="roQ-dG-7Nl" secondAttribute="trailing" priority="250" constant="70" id="w4k-7n-5hB"/>
+                                        <constraint firstItem="Fs9-0E-NV8" firstAttribute="leading" secondItem="PxM-uM-FBA" secondAttribute="trailing" priority="250" constant="70" id="xbq-5i-37n"/>
+                                        <constraint firstItem="Fs9-0E-NV8" firstAttribute="top" secondItem="PxM-uM-FBA" secondAttribute="bottom" constant="50" id="yPw-5e-aW0"/>
+                                    </constraints>
+                                </view>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <blurEffect style="regular"/>
+                            </visualEffectView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="UqK-Be-p2b" firstAttribute="top" secondItem="Roq-3c-mPi" secondAttribute="top" constant="-44" id="2Ci-uW-Qfi"/>
+                            <constraint firstItem="Roq-3c-mPi" firstAttribute="bottom" secondItem="UqK-Be-p2b" secondAttribute="bottom" constant="-34" id="6Hg-gy-WeJ"/>
+                            <constraint firstItem="UqK-Be-p2b" firstAttribute="leading" secondItem="Roq-3c-mPi" secondAttribute="leading" id="Lpd-u7-4wn"/>
+                            <constraint firstItem="Roq-3c-mPi" firstAttribute="trailing" secondItem="UqK-Be-p2b" secondAttribute="trailing" id="gB3-Hg-nY2"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Roq-3c-mPi"/>
+                    </view>
+                    <connections>
+                        <outlet property="greenCenterX" destination="JZS-7M-iFH" id="Iy7-iX-aU7"/>
+                        <outlet property="greenCenterY" destination="NJy-we-DDj" id="XEj-Ea-ZKp"/>
+                        <outlet property="greenDotBottomToYellowDotTopConstraint" destination="0sG-m0-yHr" id="ZIH-ik-GRH"/>
+                        <outlet property="greenDotTrailingToYellowLeadingConstraint" destination="w4k-7n-5hB" id="4cU-31-RKv"/>
+                        <outlet property="redCenterX" destination="KjZ-cC-PQt" id="IwC-5v-PDX"/>
+                        <outlet property="redCenterY" destination="qJG-l4-TX4" id="yTs-8F-fZZ"/>
+                        <outlet property="yellowDotBottomToRedDotTopConstraint" destination="yPw-5e-aW0" id="cy5-1G-LQc"/>
+                        <outlet property="yellowDotTrailingToRedDotLeadingConstraint" destination="xbq-5i-37n" id="WiG-cL-a9C"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bIC-Cn-AJh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-823" y="0.0"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="GreenBigDot" width="104.66666412353516" height="106.66666412353516"/>
+        <image name="RedBigDot" width="104.66666412353516" height="106.66666412353516"/>
+        <image name="YellowBigDot" width="104.66666412353516" height="106.66666412353516"/>
+    </resources>
+</document>

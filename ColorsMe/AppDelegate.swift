@@ -8,6 +8,8 @@
 
 import UIKit
 import CoreData
+import SwiftyBeaver
+let log = SwiftyBeaver.self
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,10 +18,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        let console = ConsoleDestination()  // log to Xcode Console
+        let file = FileDestination()
+        log.addDestination(console)
+        log.addDestination(file)
         
-        let mainWireframe = MainWireframe()
+        let introWireframe = IntroWireframe()
+
         self.window = UIWindow(frame: UIScreen.main.bounds)
-        self.window?.rootViewController = mainWireframe.viewController
+        self.window?.rootViewController = introWireframe.viewController
         self.window?.makeKeyAndVisible()
         
         

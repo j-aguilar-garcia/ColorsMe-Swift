@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		07342E0E247956E800A77BF7 /* Intro.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07342E09247956E800A77BF7 /* Intro.storyboard */; };
+		07342E0F247956E800A77BF7 /* IntroInterfaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07342E0A247956E800A77BF7 /* IntroInterfaces.swift */; };
+		07342E10247956E800A77BF7 /* IntroPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07342E0B247956E800A77BF7 /* IntroPresenter.swift */; };
+		07342E11247956E800A77BF7 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07342E0C247956E800A77BF7 /* IntroViewController.swift */; };
+		07342E12247956E800A77BF7 /* IntroWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07342E0D247956E800A77BF7 /* IntroWireframe.swift */; };
 		53D40F3CD091A40F37168060 /* Pods_ColorsMe_ColorsMeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE899B237EC7777F01FF7D36 /* Pods_ColorsMe_ColorsMeUITests.framework */; };
 		5CFCF9B2C97F7E1198EBD59B /* Pods_ColorsMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4843E0A33CA60452C7772E53 /* Pods_ColorsMe.framework */; };
 		873AC7122477C8DC00261CD5 /* TabBarViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873AC7112477C8DC00261CD5 /* TabBarViewProtocol.swift */; };
@@ -19,11 +24,6 @@
 		875D6E21247431B700C6DF31 /* ColorsMeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875D6E20247431B700C6DF31 /* ColorsMeTests.swift */; };
 		875D6E2C247431B700C6DF31 /* ColorsMeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 875D6E2B247431B700C6DF31 /* ColorsMeUITests.swift */; };
 		87CEC7922477F9AF00206255 /* ColorsNavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CEC7912477F9AF00206255 /* ColorsNavigationViewController.swift */; };
-		87CEC79A2477FB1000206255 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87CEC7952477FB1000206255 /* Main.storyboard */; };
-		87CEC79B2477FB1000206255 /* MainInterfaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CEC7962477FB1000206255 /* MainInterfaces.swift */; };
-		87CEC79C2477FB1000206255 /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CEC7972477FB1000206255 /* MainPresenter.swift */; };
-		87CEC79D2477FB1000206255 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CEC7982477FB1000206255 /* MainViewController.swift */; };
-		87CEC79E2477FB1000206255 /* MainWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CEC7992477FB1000206255 /* MainWireframe.swift */; };
 		87CEC7AB2477FCE300206255 /* PresenterInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CEC7A72477FCE300206255 /* PresenterInterface.swift */; };
 		87CEC7AC2477FCE300206255 /* FormatterInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CEC7A82477FCE300206255 /* FormatterInterface.swift */; };
 		87CEC7AD2477FCE300206255 /* InteractorInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87CEC7A92477FCE300206255 /* InteractorInterface.swift */; };
@@ -62,6 +62,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		07342E09247956E800A77BF7 /* Intro.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Intro.storyboard; sourceTree = "<group>"; };
+		07342E0A247956E800A77BF7 /* IntroInterfaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroInterfaces.swift; sourceTree = "<group>"; };
+		07342E0B247956E800A77BF7 /* IntroPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroPresenter.swift; sourceTree = "<group>"; };
+		07342E0C247956E800A77BF7 /* IntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
+		07342E0D247956E800A77BF7 /* IntroWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroWireframe.swift; sourceTree = "<group>"; };
 		11CF73532C8DABECA62F6556 /* Pods-ColorsMeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorsMeTests.release.xcconfig"; path = "Target Support Files/Pods-ColorsMeTests/Pods-ColorsMeTests.release.xcconfig"; sourceTree = "<group>"; };
 		2FF592CE8B7E90DCFFB2C306 /* Pods-ColorsMe-ColorsMeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorsMe-ColorsMeUITests.debug.xcconfig"; path = "Target Support Files/Pods-ColorsMe-ColorsMeUITests/Pods-ColorsMe-ColorsMeUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		43F552BF2D55B2BE38E1B9E6 /* Pods_ColorsMeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ColorsMeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -82,11 +87,6 @@
 		875D6E2B247431B700C6DF31 /* ColorsMeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsMeUITests.swift; sourceTree = "<group>"; };
 		875D6E2D247431B700C6DF31 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		87CEC7912477F9AF00206255 /* ColorsNavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsNavigationViewController.swift; sourceTree = "<group>"; };
-		87CEC7952477FB1000206255 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		87CEC7962477FB1000206255 /* MainInterfaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainInterfaces.swift; sourceTree = "<group>"; };
-		87CEC7972477FB1000206255 /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
-		87CEC7982477FB1000206255 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		87CEC7992477FB1000206255 /* MainWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWireframe.swift; sourceTree = "<group>"; };
 		87CEC7A72477FCE300206255 /* PresenterInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PresenterInterface.swift; sourceTree = "<group>"; };
 		87CEC7A82477FCE300206255 /* FormatterInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormatterInterface.swift; sourceTree = "<group>"; };
 		87CEC7A92477FCE300206255 /* InteractorInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractorInterface.swift; sourceTree = "<group>"; };
@@ -149,6 +149,18 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		07342E08247956DA00A77BF7 /* Intro */ = {
+			isa = PBXGroup;
+			children = (
+				07342E09247956E800A77BF7 /* Intro.storyboard */,
+				07342E0A247956E800A77BF7 /* IntroInterfaces.swift */,
+				07342E0B247956E800A77BF7 /* IntroPresenter.swift */,
+				07342E0C247956E800A77BF7 /* IntroViewController.swift */,
+				07342E0D247956E800A77BF7 /* IntroWireframe.swift */,
+			);
+			path = Intro;
+			sourceTree = "<group>";
+		};
 		6023A95306E6FB5FDF38A0BA /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -200,7 +212,7 @@
 		873AC7312477D82300261CD5 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				87CEC7932477FAE300206255 /* Main */,
+				07342E08247956DA00A77BF7 /* Intro */,
 				8767E4C92476C56100A8CA55 /* ColorTabBar */,
 				877F837E247502C8009BA6BE /* ColorMap */,
 				877F837F24750313009BA6BE /* EmotionalDiary */,
@@ -307,18 +319,6 @@
 			children = (
 			);
 			path = EmotionalDiary;
-			sourceTree = "<group>";
-		};
-		87CEC7932477FAE300206255 /* Main */ = {
-			isa = PBXGroup;
-			children = (
-				87CEC7952477FB1000206255 /* Main.storyboard */,
-				87CEC7962477FB1000206255 /* MainInterfaces.swift */,
-				87CEC7972477FB1000206255 /* MainPresenter.swift */,
-				87CEC7982477FB1000206255 /* MainViewController.swift */,
-				87CEC7992477FB1000206255 /* MainWireframe.swift */,
-			);
-			path = Main;
 			sourceTree = "<group>";
 		};
 		87CEC7B02477FEEF00206255 /* Resources */ = {
@@ -448,10 +448,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				87CEC7BB2478265400206255 /* ColorTabBar.storyboard in Resources */,
-				87CEC79A2477FB1000206255 /* Main.storyboard in Resources */,
 				87CEC7C624782A7400206255 /* ColorMap.storyboard in Resources */,
 				87CEC7B22477FF4300206255 /* Assets.xcassets in Resources */,
 				875D6E16247431B600C6DF31 /* LaunchScreen.storyboard in Resources */,
+				07342E0E247956E800A77BF7 /* Intro.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -600,27 +600,27 @@
 				87CEC7C724782A7400206255 /* ColorMapInterfaces.swift in Sources */,
 				87CEC7922477F9AF00206255 /* ColorsNavigationViewController.swift in Sources */,
 				873AC71C2477C95400261CD5 /* BaseWireframe.swift in Sources */,
+				07342E12247956E800A77BF7 /* IntroWireframe.swift in Sources */,
 				87CEC7CA24782A7400206255 /* ColorMapInteractor.swift in Sources */,
 				873AC7302477D59100261CD5 /* Storyboard.swift in Sources */,
 				875D6E11247431B100C6DF31 /* ColorsMe.xcdatamodeld in Sources */,
-				87CEC79E2477FB1000206255 /* MainWireframe.swift in Sources */,
-				87CEC79C2477FB1000206255 /* MainPresenter.swift in Sources */,
 				87CEC7BF2478265400206255 /* ColorTabBarWireframe.swift in Sources */,
 				87CEC7C924782A7400206255 /* ColorMapViewController.swift in Sources */,
 				87CEC7B52478216100206255 /* EmotionalColor.swift in Sources */,
 				87CEC7BC2478265400206255 /* ColorTabBarInterfaces.swift in Sources */,
 				87CEC7AD2477FCE300206255 /* InteractorInterface.swift in Sources */,
 				873AC7122477C8DC00261CD5 /* TabBarViewProtocol.swift in Sources */,
+				07342E0F247956E800A77BF7 /* IntroInterfaces.swift in Sources */,
 				87CEC7BD2478265400206255 /* ColorTabBarPresenter.swift in Sources */,
 				875D6E07247431B100C6DF31 /* AppDelegate.swift in Sources */,
-				87CEC79D2477FB1000206255 /* MainViewController.swift in Sources */,
+				07342E11247956E800A77BF7 /* IntroViewController.swift in Sources */,
 				87CEC7C824782A7400206255 /* ColorMapPresenter.swift in Sources */,
 				87CEC7BE2478265400206255 /* ColorTabBarViewController.swift in Sources */,
 				87CEC7AE2477FCE300206255 /* ViewInterface.swift in Sources */,
 				87CEC7AB2477FCE300206255 /* PresenterInterface.swift in Sources */,
 				875D6E09247431B100C6DF31 /* SceneDelegate.swift in Sources */,
-				87CEC79B2477FB1000206255 /* MainInterfaces.swift in Sources */,
 				87CEC7CB24782A7400206255 /* ColorMapWireframe.swift in Sources */,
+				07342E10247956E800A77BF7 /* IntroPresenter.swift in Sources */,
 				87CEC7AC2477FCE300206255 /* FormatterInterface.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -718,7 +718,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -772,7 +772,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -790,6 +790,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MPA25UYNXL;
 				INFOPLIST_FILE = ColorsMe/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -809,6 +810,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MPA25UYNXL;
 				INFOPLIST_FILE = ColorsMe/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

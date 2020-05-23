@@ -1,23 +1,23 @@
 //
-//  MainPresenter.swift
+//  IntroPresenter.swift
 //  ColorsMe
 //
-//  Created by Juan Carlos Aguilar-Garcia on 22.05.20.
+//  Created by Juan Carlos Aguilar Garcia on 23.05.20.
 //  Copyright (c) 2020 Juan Carlos Aguilar Garcia. All rights reserved.
 //
 
 import Foundation
 
-final class MainPresenter {
+final class IntroPresenter {
 
     // MARK: - Private properties -
 
-    private unowned let view: MainViewInterface
-    private let wireframe: MainWireframeInterface
+    private unowned let view: IntroViewInterface
+    private let wireframe: IntroWireframeInterface
 
     // MARK: - Lifecycle -
 
-    init(view: MainViewInterface, wireframe: MainWireframeInterface) {
+    init(view: IntroViewInterface, wireframe: IntroWireframeInterface) {
         self.view = view
         self.wireframe = wireframe
     }
@@ -25,13 +25,12 @@ final class MainPresenter {
 
 // MARK: - Extensions -
 
-extension MainPresenter: MainPresenterInterface {
-    
+extension IntroPresenter: IntroPresenterInterface {
     func didSelectSkipAction() {
         wireframe.navigate(to: .colormap)
     }
     
-    func didSelectAddColorAction(with color: EmotionalColor) {
+    func didSelectAddAction(color: EmotionalColor) {
         wireframe.navigate(to: .colormapwith(color))
     }
     
