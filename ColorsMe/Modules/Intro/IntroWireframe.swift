@@ -22,7 +22,6 @@ final class IntroWireframe: BaseWireframe {
         log.verbose("")
         let presenter = IntroPresenter(view: moduleViewController, wireframe: self)
         moduleViewController.presenter = presenter
-        log.warning(moduleViewController.presenter)
     }
 
 }
@@ -43,11 +42,14 @@ extension IntroWireframe: IntroWireframeInterface {
     
     private func openColorMap() {
         let tabBarWireframe = ColorTabBarWireframe()
-        self.viewController.presentWireframe(tabBarWireframe)
+        tabBarWireframe.installTabBar()
+        self.viewController.view.window?.rootViewController = tabBarWireframe.viewController
     }
     
     private func openColorMap(with color: EmotionalColor) {
-        
+        let tabBarWireframe = ColorTabBarWireframe()
+        tabBarWireframe.installTabBar(with: color)
+        self.viewController.view.window?.rootViewController = tabBarWireframe.viewController
     }
     
 }

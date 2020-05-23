@@ -21,9 +21,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
         let introWireframe = IntroWireframe()
-
+        let navigationController = UINavigationController()
+        navigationController.setRootWireframe(introWireframe)
         self.window = UIWindow(windowScene: windowScene)
-        self.window?.rootViewController = introWireframe.viewController
+        self.window?.rootViewController = navigationController
         self.window?.makeKeyAndVisible()
 
     }

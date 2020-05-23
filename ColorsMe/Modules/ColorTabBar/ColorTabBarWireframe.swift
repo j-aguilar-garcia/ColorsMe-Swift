@@ -9,17 +9,17 @@
 import UIKit
 
 final class ColorTabBarWireframe: BaseWireframe {
-
+    
     // MARK: - Private properties -
-
+    
     private let storyboard = UIStoryboard(name: "ColorTabBar", bundle: nil)
-
+    
     // MARK: - Module setup -
-
+    
     init() {
         let moduleViewController = storyboard.instantiateViewController(ofType: ColorTabBarViewController.self)
         super.init(viewController: moduleViewController)
-
+        
         let presenter = ColorTabBarPresenter(view: moduleViewController, wireframe: self)
         moduleViewController.presenter = presenter
     }
@@ -30,16 +30,29 @@ final class ColorTabBarWireframe: BaseWireframe {
 
 extension ColorTabBarWireframe: ColorTabBarWireframeInterface {
     
-    func installTabBar(with color: EmotionalColor?) {
-        guard let color = color else {
-             
-            //var colorMapWireframe = ColorMapWireFrame()
-            //var emotionalDiaryWireframe = EmotionalDiaryWireFrame()
-            //var settingsWireframe = SettingsWireFrame()
+    func installTabBar(with color: EmotionalColor? = nil) {
+        let colorMapWireframe = ColorMapWireframe()
+        //var emotionalDiaryWireframe = EmotionalDiaryWireFrame()
+        //var settingsWireframe = SettingsWireFrame()
+        
+        let wireframes = [colorMapWireframe] //, emotionalDiaryWireframe, settingsWireframe]
+        
+        var viewControllers = [UIViewController]()
+        
+        for wireFrame in wireframes {
+            let tabBarItem = UITabBarItem()
+            tabBarItem.image = wireFrame.tabIcon
+            tabBarItem.title = wireFrame.tabTitle
             
-            //var wireframes = [colorMapWireframe, emotionalDiaryWireframe, settingsWireframe]
-            
-            return
+            let navigationController = UINavigationController()
+            navigationController.setRootWireframe(wireFrame)
+            navigationController.tabBarItem = tabBarItem
+
+            viewControllers.append(navigationController)
+        }
+        
+        if let controller = self.viewController as? ColorTabBarViewController {
+            controller.viewControllers = viewControllers
         }
     }
     

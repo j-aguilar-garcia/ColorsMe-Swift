@@ -10,7 +10,7 @@ import UIKit
 
 final class ColorMapWireframe: BaseWireframe, TabBarViewProtocol {
     
-    var tabIcon: UIImage = UIImage()
+    var tabIcon: UIImage = UIImage(named: "MapMarker")!
     var tabTitle: String = "ColorMap"
     
     func configuredViewController() -> UIViewController {

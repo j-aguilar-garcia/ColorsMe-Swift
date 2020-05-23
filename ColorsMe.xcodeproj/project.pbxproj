@@ -149,6 +149,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		072D5459247981CA00551637 /* AnnotationView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = AnnotationView;
+			sourceTree = "<group>";
+		};
 		07342E08247956DA00A77BF7 /* Intro */ = {
 			isa = PBXGroup;
 			children = (
@@ -255,7 +262,6 @@
 				875D6E14247431B600C6DF31 /* LaunchScreen.storyboard */,
 				875D6E17247431B600C6DF31 /* Info.plist */,
 				875D6E0F247431B100C6DF31 /* ColorsMe.xcdatamodeld */,
-				87CEC7912477F9AF00206255 /* ColorsNavigationViewController.swift */,
 			);
 			path = ColorsMe;
 			sourceTree = "<group>";
@@ -293,6 +299,7 @@
 		8767E4D82476C6D900A8CA55 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				87CEC7912477F9AF00206255 /* ColorsNavigationViewController.swift */,
 				87CEC7B32478215000206255 /* Models */,
 				873AC72E2477D58500261CD5 /* Extension */,
 				873AC71E2477C9C000261CD5 /* Protocols */,
@@ -304,6 +311,7 @@
 		877F837E247502C8009BA6BE /* ColorMap */ = {
 			isa = PBXGroup;
 			children = (
+				072D5459247981CA00551637 /* AnnotationView */,
 				87CEC7C024782A7400206255 /* ColorMap.storyboard */,
 				87CEC7C124782A7400206255 /* ColorMapInterfaces.swift */,
 				87CEC7C224782A7400206255 /* ColorMapPresenter.swift */,

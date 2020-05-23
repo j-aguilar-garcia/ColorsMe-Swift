@@ -11,6 +11,7 @@ target 'ColorsMe' do
     pod 'Firebase/RemoteConfig'
     pod 'MGSwipeTableCell'    
     pod 'Mapbox-iOS-SDK', '~> 5.9'
+    pod 'MapboxGeocoder.swift', '~> 0.12'
     pod 'SwiftyBeaver'
   # Pods for ColorsMe
 
