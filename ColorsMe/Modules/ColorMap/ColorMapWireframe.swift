@@ -44,4 +44,24 @@ final class ColorMapWireframe: BaseWireframe, TabBarViewProtocol {
 // MARK: - Extensions -
 
 extension ColorMapWireframe: ColorMapWireframeInterface {
+    
+    func navigate(to option: ColorMapNavigationOption) {
+        switch option {
+        case .pickerdialog:
+            openPickerDialog()
+        }
+    }
+    
+    private func openPickerDialog() {
+        let pickerWireframe = PickerDialogWireframe()
+        
+        let popOver = pickerWireframe.viewController.popoverPresentationController
+        popOver?.sourceView = self.viewController.view
+        popOver?.delegate = self.viewController as? UIPopoverPresentationControllerDelegate
+        popOver?.sourceRect = CGRect(x: self.viewController.view.center.x, y: self.viewController.view.center.y, width: 0, height: 0)
+        popOver?.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
+        
+        viewController.presentWireframe(pickerWireframe)
+    }
+
 }

@@ -10,7 +10,9 @@ import Foundation
 import UIKit
 
 protocol WireframeInterface: class {
-
+    func popFromNavigationController(animated: Bool)
+    func dismiss(animated: Bool)
+    func dismissNavigation(animated: Bool)
 }
 
 class BaseWireframe {
@@ -28,6 +30,18 @@ class BaseWireframe {
 }
 
 extension BaseWireframe: WireframeInterface {
+    
+    func popFromNavigationController(animated: Bool) {
+        let _ = navigationController?.popViewController(animated: animated)
+    }
+    
+    func dismiss(animated: Bool) {
+        viewController.dismiss(animated: animated)
+    }
+    
+    func dismissNavigation(animated: Bool) {
+        viewController.navigationController?.dismiss(animated: animated)
+    }
     
 }
 

@@ -28,4 +28,8 @@ final class ColorMapPresenter {
 // MARK: - Extensions -
 
 extension ColorMapPresenter: ColorMapPresenterInterface {
+    func didSelectFilterButton() {
+        wireframe.navigate(to: .pickerdialog)
+    }
+    
 }

@@ -12,6 +12,15 @@
 		07342E10247956E800A77BF7 /* IntroPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07342E0B247956E800A77BF7 /* IntroPresenter.swift */; };
 		07342E11247956E800A77BF7 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07342E0C247956E800A77BF7 /* IntroViewController.swift */; };
 		07342E12247956E800A77BF7 /* IntroWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07342E0D247956E800A77BF7 /* IntroWireframe.swift */; };
+		07E06B5E247A7AFD007139E2 /* PickerDialog.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07E06B58247A7AFD007139E2 /* PickerDialog.storyboard */; };
+		07E06B5F247A7AFD007139E2 /* PickerDialogInterfaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B59247A7AFD007139E2 /* PickerDialogInterfaces.swift */; };
+		07E06B60247A7AFD007139E2 /* PickerDialogPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B5A247A7AFD007139E2 /* PickerDialogPresenter.swift */; };
+		07E06B61247A7AFD007139E2 /* PickerDialogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B5B247A7AFD007139E2 /* PickerDialogViewController.swift */; };
+		07E06B62247A7AFD007139E2 /* PickerDialogInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B5C247A7AFD007139E2 /* PickerDialogInteractor.swift */; };
+		07E06B63247A7AFD007139E2 /* PickerDialogWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B5D247A7AFD007139E2 /* PickerDialogWireframe.swift */; };
+		07E06B65247A7EA4007139E2 /* PickerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B64247A7EA4007139E2 /* PickerData.swift */; };
+		07E06B67247A8234007139E2 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B66247A8234007139E2 /* DateFormatter.swift */; };
+		07E06B69247A8266007139E2 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B68247A8266007139E2 /* String.swift */; };
 		53D40F3CD091A40F37168060 /* Pods_ColorsMe_ColorsMeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE899B237EC7777F01FF7D36 /* Pods_ColorsMe_ColorsMeUITests.framework */; };
 		5CFCF9B2C97F7E1198EBD59B /* Pods_ColorsMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4843E0A33CA60452C7772E53 /* Pods_ColorsMe.framework */; };
 		873AC7122477C8DC00261CD5 /* TabBarViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873AC7112477C8DC00261CD5 /* TabBarViewProtocol.swift */; };
@@ -67,6 +76,15 @@
 		07342E0B247956E800A77BF7 /* IntroPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroPresenter.swift; sourceTree = "<group>"; };
 		07342E0C247956E800A77BF7 /* IntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
 		07342E0D247956E800A77BF7 /* IntroWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroWireframe.swift; sourceTree = "<group>"; };
+		07E06B58247A7AFD007139E2 /* PickerDialog.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PickerDialog.storyboard; sourceTree = "<group>"; };
+		07E06B59247A7AFD007139E2 /* PickerDialogInterfaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerDialogInterfaces.swift; sourceTree = "<group>"; };
+		07E06B5A247A7AFD007139E2 /* PickerDialogPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerDialogPresenter.swift; sourceTree = "<group>"; };
+		07E06B5B247A7AFD007139E2 /* PickerDialogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerDialogViewController.swift; sourceTree = "<group>"; };
+		07E06B5C247A7AFD007139E2 /* PickerDialogInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerDialogInteractor.swift; sourceTree = "<group>"; };
+		07E06B5D247A7AFD007139E2 /* PickerDialogWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerDialogWireframe.swift; sourceTree = "<group>"; };
+		07E06B64247A7EA4007139E2 /* PickerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerData.swift; sourceTree = "<group>"; };
+		07E06B66247A8234007139E2 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
+		07E06B68247A8266007139E2 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		11CF73532C8DABECA62F6556 /* Pods-ColorsMeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorsMeTests.release.xcconfig"; path = "Target Support Files/Pods-ColorsMeTests/Pods-ColorsMeTests.release.xcconfig"; sourceTree = "<group>"; };
 		2FF592CE8B7E90DCFFB2C306 /* Pods-ColorsMe-ColorsMeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorsMe-ColorsMeUITests.debug.xcconfig"; path = "Target Support Files/Pods-ColorsMe-ColorsMeUITests/Pods-ColorsMe-ColorsMeUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		43F552BF2D55B2BE38E1B9E6 /* Pods_ColorsMeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ColorsMeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -168,6 +186,19 @@
 			path = Intro;
 			sourceTree = "<group>";
 		};
+		07E06B57247A7ADA007139E2 /* PickerDialog */ = {
+			isa = PBXGroup;
+			children = (
+				07E06B58247A7AFD007139E2 /* PickerDialog.storyboard */,
+				07E06B59247A7AFD007139E2 /* PickerDialogInterfaces.swift */,
+				07E06B5A247A7AFD007139E2 /* PickerDialogPresenter.swift */,
+				07E06B5B247A7AFD007139E2 /* PickerDialogViewController.swift */,
+				07E06B5C247A7AFD007139E2 /* PickerDialogInteractor.swift */,
+				07E06B5D247A7AFD007139E2 /* PickerDialogWireframe.swift */,
+			);
+			path = PickerDialog;
+			sourceTree = "<group>";
+		};
 		6023A95306E6FB5FDF38A0BA /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -212,6 +243,8 @@
 			isa = PBXGroup;
 			children = (
 				873AC72F2477D59100261CD5 /* Storyboard.swift */,
+				07E06B66247A8234007139E2 /* DateFormatter.swift */,
+				07E06B68247A8266007139E2 /* String.swift */,
 			);
 			name = Extension;
 			sourceTree = "<group>";
@@ -224,6 +257,7 @@
 				877F837E247502C8009BA6BE /* ColorMap */,
 				877F837F24750313009BA6BE /* EmotionalDiary */,
 				873AC70E2477C39E00261CD5 /* Settings */,
+				07E06B57247A7ADA007139E2 /* PickerDialog */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -253,7 +287,6 @@
 		875D6E05247431B100C6DF31 /* ColorsMe */ = {
 			isa = PBXGroup;
 			children = (
-				87CEC7B12477FF4300206255 /* Assets.xcassets */,
 				8767E4D82476C6D900A8CA55 /* Common */,
 				873AC7312477D82300261CD5 /* Modules */,
 				87CEC7B02477FEEF00206255 /* Resources */,
@@ -332,6 +365,7 @@
 		87CEC7B02477FEEF00206255 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				87CEC7B12477FF4300206255 /* Assets.xcassets */,
 			);
 			name = Resources;
 			path = "New Group";
@@ -341,6 +375,7 @@
 			isa = PBXGroup;
 			children = (
 				87CEC7B42478216100206255 /* EmotionalColor.swift */,
+				07E06B64247A7EA4007139E2 /* PickerData.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -459,6 +494,7 @@
 				87CEC7C624782A7400206255 /* ColorMap.storyboard in Resources */,
 				87CEC7B22477FF4300206255 /* Assets.xcassets in Resources */,
 				875D6E16247431B600C6DF31 /* LaunchScreen.storyboard in Resources */,
+				07E06B5E247A7AFD007139E2 /* PickerDialog.storyboard in Resources */,
 				07342E0E247956E800A77BF7 /* Intro.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -609,15 +645,22 @@
 				87CEC7922477F9AF00206255 /* ColorsNavigationViewController.swift in Sources */,
 				873AC71C2477C95400261CD5 /* BaseWireframe.swift in Sources */,
 				07342E12247956E800A77BF7 /* IntroWireframe.swift in Sources */,
+				07E06B65247A7EA4007139E2 /* PickerData.swift in Sources */,
+				07E06B63247A7AFD007139E2 /* PickerDialogWireframe.swift in Sources */,
 				87CEC7CA24782A7400206255 /* ColorMapInteractor.swift in Sources */,
 				873AC7302477D59100261CD5 /* Storyboard.swift in Sources */,
 				875D6E11247431B100C6DF31 /* ColorsMe.xcdatamodeld in Sources */,
+				07E06B62247A7AFD007139E2 /* PickerDialogInteractor.swift in Sources */,
 				87CEC7BF2478265400206255 /* ColorTabBarWireframe.swift in Sources */,
 				87CEC7C924782A7400206255 /* ColorMapViewController.swift in Sources */,
+				07E06B69247A8266007139E2 /* String.swift in Sources */,
 				87CEC7B52478216100206255 /* EmotionalColor.swift in Sources */,
 				87CEC7BC2478265400206255 /* ColorTabBarInterfaces.swift in Sources */,
 				87CEC7AD2477FCE300206255 /* InteractorInterface.swift in Sources */,
+				07E06B61247A7AFD007139E2 /* PickerDialogViewController.swift in Sources */,
 				873AC7122477C8DC00261CD5 /* TabBarViewProtocol.swift in Sources */,
+				07E06B60247A7AFD007139E2 /* PickerDialogPresenter.swift in Sources */,
+				07E06B67247A8234007139E2 /* DateFormatter.swift in Sources */,
 				07342E0F247956E800A77BF7 /* IntroInterfaces.swift in Sources */,
 				87CEC7BD2478265400206255 /* ColorTabBarPresenter.swift in Sources */,
 				875D6E07247431B100C6DF31 /* AppDelegate.swift in Sources */,
@@ -628,6 +671,7 @@
 				87CEC7AB2477FCE300206255 /* PresenterInterface.swift in Sources */,
 				875D6E09247431B100C6DF31 /* SceneDelegate.swift in Sources */,
 				87CEC7CB24782A7400206255 /* ColorMapWireframe.swift in Sources */,
+				07E06B5F247A7AFD007139E2 /* PickerDialogInterfaces.swift in Sources */,
 				07342E10247956E800A77BF7 /* IntroPresenter.swift in Sources */,
 				87CEC7AC2477FCE300206255 /* FormatterInterface.swift in Sources */,
 			);

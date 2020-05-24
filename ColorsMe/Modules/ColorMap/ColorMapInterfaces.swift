@@ -8,7 +8,12 @@
 
 import UIKit
 
+enum ColorMapNavigationOption {
+    case pickerdialog
+}
+
 protocol ColorMapWireframeInterface: WireframeInterface {
+    func navigate(to option: ColorMapNavigationOption)
 }
 
 protocol ColorMapViewInterface: ViewInterface {
@@ -19,7 +24,9 @@ protocol ColorMapViewInterface: ViewInterface {
 }
 
 protocol ColorMapPresenterInterface: PresenterInterface {
+    func didSelectFilterButton()
 }
 
 protocol ColorMapInteractorInterface: InteractorInterface {
+    
 }

@@ -37,15 +37,9 @@ final class ColorMapViewController: UIViewController {
     @IBOutlet weak var noNetworkConnectionView: UIView!
         
     @IBOutlet weak var filterButton: UIBarButtonItem!
-    var display = true
+    
     @IBAction func onFilterButton(_ sender: Any) {
-        if display {
-            hideScale()
-            display = false
-        } else {
-            showScale()
-            display = true
-        }
+        presenter.didSelectFilterButton()
     }
     
     // MARK: - Lifecycle -
@@ -70,6 +64,7 @@ final class ColorMapViewController: UIViewController {
 // MARK: - Extensions -
 
 extension ColorMapViewController: ColorMapViewInterface {
+    
     func switchMapViewAppearance() {
         if traitCollection.userInterfaceStyle == .dark {
             self.mapView.styleURL = URL(string: "mapbox://styles/spagnolo/ck0t58kmm0u0q1clfch1oum2e")
@@ -77,7 +72,6 @@ extension ColorMapViewController: ColorMapViewInterface {
             self.mapView.styleURL = URL(string: "mapbox://styles/spagnolo/ck0t583631r121cnuxtknci3z")
         }
     }
-    
     
     func showScale(_ animated: Bool = true) {
         if animated {
@@ -99,11 +93,9 @@ extension ColorMapViewController: ColorMapViewInterface {
         self.scaleView.frame = CGRect(x: self.scaleView.frame.minX + self.scaleView.frame.width + 8, y: self.scaleView.frame.minY, width: self.scaleView.frame.width, height: self.scaleView.frame.height)
     }
     
-    
     func updateScale() {
-
+        
     }
-    
     
 }
 
@@ -144,4 +136,14 @@ extension ColorMapViewController : MGLMapViewDelegate {
     func mapViewDidFinishRenderingMap(_ mapView: MGLMapView, fullyRendered: Bool) {
         showScale()
     }
+}
+
+
+extension ColorMapViewController : UIPopoverPresentationControllerDelegate {
+    
+    func adaptivePresentationStyle(for controller:
+        UIPresentationController) -> UIModalPresentationStyle {
+        return UIModalPresentationStyle.none
+    }
+    
 }
