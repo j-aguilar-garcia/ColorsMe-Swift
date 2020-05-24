@@ -15,6 +15,7 @@ protocol ColorMapViewInterface: ViewInterface {
     func updateScale()
     func showScale(_ animated: Bool)
     func hideScale(_ animated: Bool)
+    func switchMapViewAppearance()
 }
 
 protocol ColorMapPresenterInterface: PresenterInterface {

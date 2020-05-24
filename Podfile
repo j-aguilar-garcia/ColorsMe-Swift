@@ -13,6 +13,7 @@ target 'ColorsMe' do
     pod 'Mapbox-iOS-SDK', '~> 5.9'
     pod 'MapboxGeocoder.swift', '~> 0.12'
     pod 'SwiftyBeaver'
+    pod 'CloudCore'
   # Pods for ColorsMe
 
   target 'ColorsMeTests' do

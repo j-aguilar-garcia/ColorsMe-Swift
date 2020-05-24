@@ -20,9 +20,11 @@ final class ColorMapViewController: UIViewController {
     
     @IBOutlet weak var countColorsLabel: UILabel!
         
+    @IBOutlet weak var scaleView: UIView!
     @IBOutlet weak var slider: UISlider!{
         didSet {
             slider.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi / 2))
+            slider.setThumbImage(UIImage.init(named: "Arrow"), for: .normal)
         }
     }
     
@@ -35,6 +37,16 @@ final class ColorMapViewController: UIViewController {
     @IBOutlet weak var noNetworkConnectionView: UIView!
         
     @IBOutlet weak var filterButton: UIBarButtonItem!
+    var display = true
+    @IBAction func onFilterButton(_ sender: Any) {
+        if display {
+            hideScale()
+            display = false
+        } else {
+            showScale()
+            display = true
+        }
+    }
     
     // MARK: - Lifecycle -
 
@@ -42,19 +54,49 @@ final class ColorMapViewController: UIViewController {
         super.viewDidLoad()
         mapView.delegate = self
     }
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        switchMapViewAppearance()
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        switchMapViewAppearance()
+    }
 
 }
 
 // MARK: - Extensions -
 
 extension ColorMapViewController: ColorMapViewInterface {
-    
-    func showScale(_ animated: Bool) {
-        
+    func switchMapViewAppearance() {
+        if traitCollection.userInterfaceStyle == .dark {
+            self.mapView.styleURL = URL(string: "mapbox://styles/spagnolo/ck0t58kmm0u0q1clfch1oum2e")
+        } else {
+            self.mapView.styleURL = URL(string: "mapbox://styles/spagnolo/ck0t583631r121cnuxtknci3z")
+        }
     }
     
-    func hideScale(_ animated: Bool) {
-        
+    
+    func showScale(_ animated: Bool = true) {
+        if animated {
+            UIView.animate(withDuration: 0.5, delay: 0.2, animations: {
+                self.scaleView.frame = CGRect(x: self.scaleView.frame.minX - self.scaleView.frame.width - 8, y: self.scaleView.frame.minY, width: self.scaleView.frame.width, height: self.scaleView.frame.height)
+            })
+            return
+        }
+        self.scaleView.frame = CGRect(x: self.scaleView.frame.minX - self.scaleView.frame.width - 8, y: self.scaleView.frame.minY, width: self.scaleView.frame.width, height: self.scaleView.frame.height)
+    }
+    
+    func hideScale(_ animated: Bool = true) {
+        if animated {
+            UIView.animate(withDuration: 0.5, delay: 0.2, animations: {
+                self.scaleView.frame = CGRect(x: self.scaleView.frame.minX + self.scaleView.frame.width + 8, y: self.scaleView.frame.minY, width: self.scaleView.frame.width, height: self.scaleView.frame.height)
+            })
+            return
+        }
+        self.scaleView.frame = CGRect(x: self.scaleView.frame.minX + self.scaleView.frame.width + 8, y: self.scaleView.frame.minY, width: self.scaleView.frame.width, height: self.scaleView.frame.height)
     }
     
     
@@ -99,5 +141,7 @@ extension ColorMapViewController : MGLMapViewDelegate {
         updateScale()
     }
     
-    
+    func mapViewDidFinishRenderingMap(_ mapView: MGLMapView, fullyRendered: Bool) {
+        showScale()
+    }
 }
