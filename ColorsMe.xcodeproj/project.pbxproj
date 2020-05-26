@@ -90,7 +90,7 @@
 		07342E0B247956E800A77BF7 /* IntroPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroPresenter.swift; sourceTree = "<group>"; };
 		07342E0C247956E800A77BF7 /* IntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
 		07342E0D247956E800A77BF7 /* IntroWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroWireframe.swift; sourceTree = "<group>"; };
-		0737FA88247D7C600015A8F7 /* AppProperties.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = AppProperties.plist; sourceTree = "<group>"; };
+		0737FA88247D7C600015A8F7 /* AppProperties.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = AppProperties.plist; path = ../AppProperties.plist; sourceTree = "<group>"; };
 		0737FA8A247D7E430015A8F7 /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		073E3B13247BD92E00540BF0 /* AppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
 		079840F4247BC5310054024B /* LocalDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataManager.swift; sourceTree = "<group>"; };
@@ -215,6 +215,102 @@
 			path = Intro;
 			sourceTree = "<group>";
 		};
+		0737FA8C247D96080015A8F7 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				073E3B13247BD92E00540BF0 /* AppData.swift */,
+				0737FA8D247D96170015A8F7 /* DataManager */,
+				0737FA90247D964D0015A8F7 /* Models */,
+				0737FA92247D96850015A8F7 /* Extension */,
+				0737FA93247D96960015A8F7 /* Protocols */,
+				0737FA91247D96660015A8F7 /* Wireframe */,
+				87CEC7912477F9AF00206255 /* ColorsNavigationViewController.swift */,
+				0737FA88247D7C600015A8F7 /* AppProperties.plist */,
+				0737FA8A247D7E430015A8F7 /* AppConfiguration.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		0737FA8D247D96170015A8F7 /* DataManager */ = {
+			isa = PBXGroup;
+			children = (
+				0737FA8F247D96350015A8F7 /* RemoteDataManager */,
+				0737FA8E247D96240015A8F7 /* LocalDataManager */,
+				07E06B79247AF680007139E2 /* DataManager.swift */,
+				07B2BA0F247C558300ED5BE7 /* DataManagerProtocol.swift */,
+			);
+			path = DataManager;
+			sourceTree = "<group>";
+		};
+		0737FA8E247D96240015A8F7 /* LocalDataManager */ = {
+			isa = PBXGroup;
+			children = (
+				079840F4247BC5310054024B /* LocalDataManager.swift */,
+			);
+			path = LocalDataManager;
+			sourceTree = "<group>";
+		};
+		0737FA8F247D96350015A8F7 /* RemoteDataManager */ = {
+			isa = PBXGroup;
+			children = (
+				07E06B7B247AF975007139E2 /* RemoteDataManager.swift */,
+			);
+			path = RemoteDataManager;
+			sourceTree = "<group>";
+		};
+		0737FA90247D964D0015A8F7 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				87CEC7B42478216100206255 /* EmotionalColor.swift */,
+				07E06B64247A7EA4007139E2 /* PickerData.swift */,
+				07E06B6D247AAC7A007139E2 /* Annotation.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		0737FA91247D96660015A8F7 /* Wireframe */ = {
+			isa = PBXGroup;
+			children = (
+				873AC71B2477C95400261CD5 /* BaseWireframe.swift */,
+			);
+			path = Wireframe;
+			sourceTree = "<group>";
+		};
+		0737FA92247D96850015A8F7 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				873AC72F2477D59100261CD5 /* Storyboard.swift */,
+				07E06B66247A8234007139E2 /* DateFormatter.swift */,
+				07E06B68247A8266007139E2 /* String.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		0737FA93247D96960015A8F7 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				87CEC7A82477FCE300206255 /* FormatterInterface.swift */,
+				87CEC7A92477FCE300206255 /* InteractorInterface.swift */,
+				87CEC7A72477FCE300206255 /* PresenterInterface.swift */,
+				87CEC7AA2477FCE300206255 /* ViewInterface.swift */,
+				873AC7112477C8DC00261CD5 /* TabBarViewProtocol.swift */,
+				07E06B6F247AF1EE007139E2 /* RemoteDataManagerInputProtocol.swift */,
+				07E06B71247AF1FC007139E2 /* RemoteDataManagerOutputProtocol.swift */,
+				07E06B73247AF20B007139E2 /* LocalDataManagerInputProtocol.swift */,
+				07E06B75247AF218007139E2 /* LocalDataManagerOutputProtocol.swift */,
+				07E06B77247AF384007139E2 /* DataManagerInputProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		0737FA94247D97270015A8F7 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				87CEC7B12477FF4300206255 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		07E06B57247A7ADA007139E2 /* PickerDialog */ = {
 			isa = PBXGroup;
 			children = (
@@ -226,34 +322,6 @@
 				07E06B5D247A7AFD007139E2 /* PickerDialogWireframe.swift */,
 			);
 			path = PickerDialog;
-			sourceTree = "<group>";
-		};
-		07E06B6A247A99C5007139E2 /* DataManager */ = {
-			isa = PBXGroup;
-			children = (
-				07E06B79247AF680007139E2 /* DataManager.swift */,
-				07B2BA0F247C558300ED5BE7 /* DataManagerProtocol.swift */,
-				07E06B6C247A99D6007139E2 /* RemoteDataManager */,
-				07E06B6B247A99CD007139E2 /* LocalDataManager */,
-				073E3B13247BD92E00540BF0 /* AppData.swift */,
-			);
-			name = DataManager;
-			sourceTree = "<group>";
-		};
-		07E06B6B247A99CD007139E2 /* LocalDataManager */ = {
-			isa = PBXGroup;
-			children = (
-				079840F4247BC5310054024B /* LocalDataManager.swift */,
-			);
-			name = LocalDataManager;
-			sourceTree = "<group>";
-		};
-		07E06B6C247A99D6007139E2 /* RemoteDataManager */ = {
-			isa = PBXGroup;
-			children = (
-				07E06B7B247AF975007139E2 /* RemoteDataManager.swift */,
-			);
-			name = RemoteDataManager;
 			sourceTree = "<group>";
 		};
 		6023A95306E6FB5FDF38A0BA /* Pods */ = {
@@ -274,41 +342,6 @@
 			children = (
 			);
 			path = Settings;
-			sourceTree = "<group>";
-		};
-		873AC71D2477C9B000261CD5 /* Wireframe */ = {
-			isa = PBXGroup;
-			children = (
-				873AC71B2477C95400261CD5 /* BaseWireframe.swift */,
-			);
-			name = Wireframe;
-			sourceTree = "<group>";
-		};
-		873AC71E2477C9C000261CD5 /* Protocols */ = {
-			isa = PBXGroup;
-			children = (
-				87CEC7A82477FCE300206255 /* FormatterInterface.swift */,
-				87CEC7A92477FCE300206255 /* InteractorInterface.swift */,
-				87CEC7A72477FCE300206255 /* PresenterInterface.swift */,
-				87CEC7AA2477FCE300206255 /* ViewInterface.swift */,
-				873AC7112477C8DC00261CD5 /* TabBarViewProtocol.swift */,
-				07E06B6F247AF1EE007139E2 /* RemoteDataManagerInputProtocol.swift */,
-				07E06B71247AF1FC007139E2 /* RemoteDataManagerOutputProtocol.swift */,
-				07E06B73247AF20B007139E2 /* LocalDataManagerInputProtocol.swift */,
-				07E06B75247AF218007139E2 /* LocalDataManagerOutputProtocol.swift */,
-				07E06B77247AF384007139E2 /* DataManagerInputProtocol.swift */,
-			);
-			name = Protocols;
-			sourceTree = "<group>";
-		};
-		873AC72E2477D58500261CD5 /* Extension */ = {
-			isa = PBXGroup;
-			children = (
-				873AC72F2477D59100261CD5 /* Storyboard.swift */,
-				07E06B66247A8234007139E2 /* DateFormatter.swift */,
-				07E06B68247A8266007139E2 /* String.swift */,
-			);
-			name = Extension;
 			sourceTree = "<group>";
 		};
 		873AC7312477D82300261CD5 /* Modules */ = {
@@ -349,9 +382,9 @@
 		875D6E05247431B100C6DF31 /* ColorsMe */ = {
 			isa = PBXGroup;
 			children = (
-				8767E4D82476C6D900A8CA55 /* Common */,
+				0737FA94247D97270015A8F7 /* Resources */,
+				0737FA8C247D96080015A8F7 /* Common */,
 				873AC7312477D82300261CD5 /* Modules */,
-				87CEC7B02477FEEF00206255 /* Resources */,
 				875D6E06247431B100C6DF31 /* AppDelegate.swift */,
 				875D6E08247431B100C6DF31 /* SceneDelegate.swift */,
 				875D6E14247431B600C6DF31 /* LaunchScreen.storyboard */,
@@ -391,21 +424,6 @@
 			path = ColorTabBar;
 			sourceTree = "<group>";
 		};
-		8767E4D82476C6D900A8CA55 /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				07E06B6A247A99C5007139E2 /* DataManager */,
-				87CEC7B32478215000206255 /* Models */,
-				873AC72E2477D58500261CD5 /* Extension */,
-				873AC71E2477C9C000261CD5 /* Protocols */,
-				873AC71D2477C9B000261CD5 /* Wireframe */,
-				87CEC7912477F9AF00206255 /* ColorsNavigationViewController.swift */,
-				0737FA88247D7C600015A8F7 /* AppProperties.plist */,
-				0737FA8A247D7E430015A8F7 /* AppConfiguration.swift */,
-			);
-			name = Common;
-			sourceTree = "<group>";
-		};
 		877F837E247502C8009BA6BE /* ColorMap */ = {
 			isa = PBXGroup;
 			children = (
@@ -425,25 +443,6 @@
 			children = (
 			);
 			path = EmotionalDiary;
-			sourceTree = "<group>";
-		};
-		87CEC7B02477FEEF00206255 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				87CEC7B12477FF4300206255 /* Assets.xcassets */,
-			);
-			name = Resources;
-			path = "New Group";
-			sourceTree = "<group>";
-		};
-		87CEC7B32478215000206255 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				87CEC7B42478216100206255 /* EmotionalColor.swift */,
-				07E06B64247A7EA4007139E2 /* PickerData.swift */,
-				07E06B6D247AAC7A007139E2 /* Annotation.swift */,
-			);
-			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
