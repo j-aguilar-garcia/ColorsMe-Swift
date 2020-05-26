@@ -60,7 +60,7 @@ extension ColorMapWireframe: ColorMapWireframeInterface {
         popOver?.delegate = self.viewController as? UIPopoverPresentationControllerDelegate
         popOver?.sourceRect = CGRect(x: self.viewController.view.center.x, y: self.viewController.view.center.y, width: 0, height: 0)
         popOver?.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
-        
+        pickerWireframe.delegate = self.viewController as? PickerDialogDelegate
         viewController.presentWireframe(pickerWireframe)
     }
 

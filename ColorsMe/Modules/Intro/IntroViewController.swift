@@ -64,7 +64,7 @@ final class IntroViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let results = DataManager.shared.dataManager(willRetrieveWith: .remote)
+        _ = DataManager.shared.dataManager(willRetrieveWith: .remote)
     }
     
     override func viewWillAppear(_ animated: Bool) {

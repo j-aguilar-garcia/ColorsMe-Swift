@@ -8,15 +8,27 @@
 
 import UIKit
 
+enum PickerDialogFilterOption {
+    case allcolors
+    case mycolors
+    case today
+    case yesterday
+    case lastweek
+    case year(Date)
+    case month(Date)
+}
+
 protocol PickerDialogWireframeInterface: WireframeInterface {
     func navigate()
+    func navigate(with option: PickerDialogFilterOption)
 }
 
 protocol PickerDialogViewInterface: ViewInterface {
+    func updatePicker(row: Int)
 }
 
 protocol PickerDialogPresenterInterface: PresenterInterface {
-    func didSelectDoneButton()
+    func didSelectDoneButton(with row: Int)
     func didSelectCancelButton()
     var pickerData: [PickerData] { get }
 }

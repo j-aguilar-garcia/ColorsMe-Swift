@@ -17,7 +17,7 @@ class CMAnnotationView : MGLAnnotationView {
     
     override init(annotation: MGLAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
-        guard let annotation = annotation as? CMAnnotation else { return }
+        guard let _ = annotation as? CMAnnotation else { return }
         
     }
     

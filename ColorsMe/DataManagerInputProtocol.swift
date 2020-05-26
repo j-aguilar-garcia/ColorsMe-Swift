@@ -8,17 +8,24 @@
 
 import Foundation
 
-
-@objc enum DataManagerType : Int {
+enum DataManagerType {
     case remote
     case local
     case both
 }
 
-@objc protocol DataManagerInputProtocol {
+protocol DataManagerInputProtocol {
     
-    @objc optional func dataManager(annotation: Annotation, willSaveWith type: DataManagerType, completion: @escaping (_ success: Bool) -> Void)
-    @objc optional func dataManager(annotation: Annotation, willDeleteWith type: DataManagerType, completion: @escaping (_ success: Bool) -> Void)
-    @objc optional func dataManager(willRetrieveWith type: DataManagerType, completion: (() -> Void)?) -> [CMAnnotation]
+    /// parse and save annotation to local or remote database
+    func dataManager(annotation: Annotation, willSaveWith type: DataManagerType, completion: @escaping (_ success: Bool) -> Void)
     
+    /// parse and delte annotation to local or remote database
+    func dataManager(annotation: Annotation, willDeleteWith type: DataManagerType, completion: @escaping (_ success: Bool) -> Void)
+    
+    /// fetches data from remote database or calls all local objects
+    func dataManager(willRetrieveWith type: DataManagerType, completion: (() -> Void)?) -> [CMAnnotation]
+    
+    /// filters annotation by PickerDialogFilterOption
+    func dataManager(filterBy: PickerDialogFilterOption, with type: DataManagerType, completion: (() -> Void)?) -> [CMAnnotation]
+
 }

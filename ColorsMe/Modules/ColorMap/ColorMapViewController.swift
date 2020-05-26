@@ -84,9 +84,11 @@ extension ColorMapViewController: ColorMapViewInterface {
             UIView.animate(withDuration: 0.5, delay: 0.2, animations: {
                 self.scaleView.frame = CGRect(x: self.scaleView.frame.minX - self.scaleView.frame.width - 8, y: self.scaleView.frame.minY, width: self.scaleView.frame.width, height: self.scaleView.frame.height)
             })
+            updateScale()
             return
         }
         self.scaleView.frame = CGRect(x: self.scaleView.frame.minX - self.scaleView.frame.width - 8, y: self.scaleView.frame.minY, width: self.scaleView.frame.width, height: self.scaleView.frame.height)
+        updateScale()
     }
     
     func hideScale(_ animated: Bool = true) {
@@ -100,7 +102,29 @@ extension ColorMapViewController: ColorMapViewInterface {
     }
     
     func updateScale() {
+        var result: Float!
+        var duration: Double!
+        let oldSliderValue = slider.value
+        guard let visibleAnnotations = mapView.visibleAnnotations as? [CMAnnotation] else { return }
+
+        if visibleAnnotations.count == 0 {
+            result = 0.5
+        } else {
+            let countRedColors = visibleAnnotations.filter { $0.color! == EmotionalColor.Red }.count
+            let countYellowColors = visibleAnnotations.filter { $0.color! == EmotionalColor.Yellow }.count
+            let countGreenColors = visibleAnnotations.filter { $0.color! == EmotionalColor.Green }.count
+            let yellowColorsValue = Float(countYellowColors) * 0.5
+            result = (yellowColorsValue + Float(countGreenColors)) / (Float(countRedColors) + Float(countYellowColors) + Float(countGreenColors))
+        }
         
+        let isOldValueBigger = oldSliderValue > result
+        let differenceBetweenValues = isOldValueBigger ? oldSliderValue - result : result - oldSliderValue
+
+        duration = differenceBetweenValues <= 0.33 ? 1 : differenceBetweenValues > 0.33 && differenceBetweenValues <= 0.66 ? 0.8 : 0.4
+        
+        UIView.animate(withDuration: duration, animations: {
+            self.slider.setValue(self.slider.maximumValue - result, animated: true)
+        })
     }
     
 }
@@ -121,6 +145,21 @@ extension ColorMapViewController : MGLMapViewDelegate {
         }
         return annotationImage
     }
+    
+    
+    /*
+    func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
+        let reuseIdentifier = "pin"
+        guard let cmAnnotation = annotation as? CMAnnotation else {
+            return MGLAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
+        }
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
+        
+        if annotationView == nil {
+            annotationView = CMAnnotationView(annotation: cmAnnotation, reuseIdentifier: reuseIdentifier)
+        }
+        return annotationView
+    }*/
     
     
     func mapView(_ mapView: MGLMapView, regionDidChangeWith reason: MGLCameraChangeReason, animated: Bool) {
@@ -170,6 +209,25 @@ extension ColorMapViewController : UIPopoverPresentationControllerDelegate {
     func adaptivePresentationStyle(for controller:
         UIPresentationController) -> UIModalPresentationStyle {
         return UIModalPresentationStyle.none
+    }
+    
+}
+
+
+extension ColorMapViewController : PickerDialogDelegate {
+    func pickerDialogDidChange(with annotations: [CMAnnotation]) {
+        log.debug("Filtered Annotations: \(annotations.count)")
+        if let currentAnnotations = self.mapView.annotations {
+            self.mapView.removeAnnotations(currentAnnotations)
+        }
+        self.mapView.addAnnotations(annotations)
+        self.mapView.showAnnotations(annotations, animated: true)
+        countColorsLabel.text = "\(AppData.selectedFilterName) : \(annotations.count)"
+        showScale()
+    }
+    
+    func pickerDialogDidClose() {
+        showScale()
     }
     
 }
