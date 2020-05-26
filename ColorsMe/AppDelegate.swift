@@ -18,11 +18,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        // Init SwiftyBeaver
         let console = ConsoleDestination()  // log to Xcode Console
         let file = FileDestination()
+        let cloud = SBPlatformDestination(
+            appID: AppConfiguration.default.swiftyBeaverAppId,
+            appSecret: AppConfiguration.default.swiftyBeaverAppSecret,
+            encryptionKey: AppConfiguration.default.swiftyBeaverEncryptionKey)
         log.addDestination(console)
         log.addDestination(file)
+        log.addDestination(cloud)
         
         Realm.registerRealmables([RealmAnnotation.self])
         

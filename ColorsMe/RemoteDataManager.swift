@@ -10,10 +10,6 @@ import Foundation
 import Backendless
 import CoreLocation
 
-private let APPLICATION_ID = "66EA18F7-900C-B8AC-FF71-DE3840F6F300"
-private let API_KEY = "6E3F3D27-BB5E-6B7F-FFD2-1208DAC94600"
-private let SERVER_URL = "https://api.backendless.com"
-
 class RemoteDataManager : RemoteDataManagerInputProtocol {
         
     init() { }
@@ -25,8 +21,8 @@ class RemoteDataManager : RemoteDataManagerInputProtocol {
     private var backendlessDataRetrieved = false
 
     func initBackendless() {
-        Backendless.shared.hostUrl = SERVER_URL
-        Backendless.shared.initApp(applicationId: APPLICATION_ID, apiKey: API_KEY)
+        Backendless.shared.hostUrl = AppConfiguration.default.backendlessServerUrl
+        Backendless.shared.initApp(applicationId: AppConfiguration.default.backendlessAppKey, apiKey: AppConfiguration.default.backendlessApiKey)
     }
     
     func saveToBackendless(annotation: Annotation, completion: @escaping (_ annotation: Annotation) -> Void) {
