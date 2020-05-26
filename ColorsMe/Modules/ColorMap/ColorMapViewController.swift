@@ -47,16 +47,22 @@ final class ColorMapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
+        mapView.automaticallyAdjustsContentInset = true
+        mapView.locationManager.delegate = self
+        
+        // Add initial annotations
+        let annotations = DataManager.shared.dataManager(willRetrieveWith: .local)
+        mapView.addAnnotations(annotations)
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
-        switchMapViewAppearance()
+        //switchMapViewAppearance()
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        switchMapViewAppearance()
+        switchAppearanceFor(mapView: self.mapView)
     }
 
 }
@@ -65,11 +71,11 @@ final class ColorMapViewController: UIViewController {
 
 extension ColorMapViewController: ColorMapViewInterface {
     
-    func switchMapViewAppearance() {
+    func switchAppearanceFor(mapView: MGLMapView) {
         if traitCollection.userInterfaceStyle == .dark {
-            self.mapView.styleURL = URL(string: "mapbox://styles/spagnolo/ck0t58kmm0u0q1clfch1oum2e")
+            mapView.styleURL = URL(string: "mapbox://styles/spagnolo/ck0t58kmm0u0q1clfch1oum2e")
         } else {
-            self.mapView.styleURL = URL(string: "mapbox://styles/spagnolo/ck0t583631r121cnuxtknci3z")
+            mapView.styleURL = URL(string: "mapbox://styles/spagnolo/ck0t583631r121cnuxtknci3z")
         }
     }
     
@@ -100,44 +106,64 @@ extension ColorMapViewController: ColorMapViewInterface {
 }
 
 
+// MARK: - MGLMapViewDelegate
 extension ColorMapViewController : MGLMapViewDelegate {
-    func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
-        let reuseIdentifier = "pin"
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
+    
+    func mapView(_ mapView: MGLMapView, imageFor annotation: MGLAnnotation) -> MGLAnnotationImage? {
+        guard let cmAnnotation = annotation as? CMAnnotation else { return MGLAnnotationImage() }
+        let reuseIdentifier = "\(cmAnnotation.color!)"
         
-        if annotationView == nil {
-            annotationView = MGLAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
-            
-        } else {
-            annotationView?.annotation = annotation
+        var annotationImage = mapView.dequeueReusableAnnotationImage(withIdentifier: reuseIdentifier)
+        if annotationImage == nil {
+            // lookup the image for this annotation
+            let image = UIImage(named: "\(cmAnnotation.color!)")
+            annotationImage = MGLAnnotationImage(image: image!, reuseIdentifier: reuseIdentifier)
         }
-        
-        
-        let scaleTransform = CGAffineTransform(scaleX: 0.0, y: 0.0)
-        UIView.animate(withDuration: 0.2, animations: {
-            annotationView?.transform = scaleTransform
-            annotationView?.layoutIfNeeded()
-        }) { (isCompleted) in
-            UIView.animate(withDuration: 0.3, animations: {
-                annotationView?.alpha = 1.0
-                annotationView?.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-                annotationView?.layoutIfNeeded()
-            })
-        }
-        return annotationView
+        return annotationImage
     }
     
     
     func mapView(_ mapView: MGLMapView, regionDidChangeWith reason: MGLCameraChangeReason, animated: Bool) {
-        log.verbose(#function)
         updateScale()
     }
     
     func mapViewDidFinishRenderingMap(_ mapView: MGLMapView, fullyRendered: Bool) {
         showScale()
     }
+    
+    func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
+        return true
+    }
+    
+    func mapViewWillStartRenderingMap(_ mapView: MGLMapView) {
+        switchAppearanceFor(mapView: mapView)
+    }
 }
 
+
+// MARK: - MGLLocationManagerDelegate
+
+extension ColorMapViewController : MGLLocationManagerDelegate {
+    
+    func locationManager(_ manager: MGLLocationManager, didUpdate locations: [CLLocation]) {
+        
+    }
+    
+    func locationManager(_ manager: MGLLocationManager, didUpdate newHeading: CLHeading) {
+        
+    }
+    
+    func locationManagerShouldDisplayHeadingCalibration(_ manager: MGLLocationManager) -> Bool {
+        return true
+    }
+    
+    func locationManager(_ manager: MGLLocationManager, didFailWithError error: Error) {
+        
+    }
+    
+}
+
+// MARK: - PopOverPresentationDelegate
 
 extension ColorMapViewController : UIPopoverPresentationControllerDelegate {
     

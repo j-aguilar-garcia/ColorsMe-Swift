@@ -41,18 +41,22 @@ final class IntroViewController: UIViewController {
     // Actions
     
     @IBAction func onGreenDot(_ sender: Any) {
+        log.verbose(#function)
         presenter.didSelectAddAction(color: .Green)
     }
     
     @IBAction func onYellowDot(_ sender: Any) {
+        log.verbose(#function)
         presenter.didSelectAddAction(color: .Yellow)
     }
     
     @IBAction func onRedDot(_ sender: Any) {
+        log.verbose(#function)
         presenter.didSelectAddAction(color: .Red)
     }
     
     @IBAction func onSkipButton(_ sender: Any) {
+        log.verbose(#function)
         presenter.didSelectSkipAction()
     }
     
@@ -60,6 +64,7 @@ final class IntroViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        let results = DataManager.shared.dataManager(willRetrieveWith: .remote)
     }
     
     override func viewWillAppear(_ animated: Bool) {

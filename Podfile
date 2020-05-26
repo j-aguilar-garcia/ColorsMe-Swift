@@ -14,6 +14,7 @@ target 'ColorsMe' do
     pod 'MapboxGeocoder.swift', '~> 0.12'
     pod 'SwiftyBeaver'
     pod 'CloudCore'
+    pod 'Unrealm'
   # Pods for ColorsMe
 
   target 'ColorsMeTests' do
