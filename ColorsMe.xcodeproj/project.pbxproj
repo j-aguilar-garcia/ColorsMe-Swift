@@ -12,6 +12,10 @@
 		07342E10247956E800A77BF7 /* IntroPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07342E0B247956E800A77BF7 /* IntroPresenter.swift */; };
 		07342E11247956E800A77BF7 /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07342E0C247956E800A77BF7 /* IntroViewController.swift */; };
 		07342E12247956E800A77BF7 /* IntroWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07342E0D247956E800A77BF7 /* IntroWireframe.swift */; };
+		073E3B14247BD92E00540BF0 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073E3B13247BD92E00540BF0 /* AppData.swift */; };
+		079840F5247BC5310054024B /* LocalDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079840F4247BC5310054024B /* LocalDataManager.swift */; };
+		07B2BA0E247C2AFD00ED5BE7 /* CMAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B2BA0D247C2AFD00ED5BE7 /* CMAnnotationView.swift */; };
+		07B2BA10247C558300ED5BE7 /* DataManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B2BA0F247C558300ED5BE7 /* DataManagerProtocol.swift */; };
 		07E06B5E247A7AFD007139E2 /* PickerDialog.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07E06B58247A7AFD007139E2 /* PickerDialog.storyboard */; };
 		07E06B5F247A7AFD007139E2 /* PickerDialogInterfaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B59247A7AFD007139E2 /* PickerDialogInterfaces.swift */; };
 		07E06B60247A7AFD007139E2 /* PickerDialogPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B5A247A7AFD007139E2 /* PickerDialogPresenter.swift */; };
@@ -21,6 +25,14 @@
 		07E06B65247A7EA4007139E2 /* PickerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B64247A7EA4007139E2 /* PickerData.swift */; };
 		07E06B67247A8234007139E2 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B66247A8234007139E2 /* DateFormatter.swift */; };
 		07E06B69247A8266007139E2 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B68247A8266007139E2 /* String.swift */; };
+		07E06B6E247AAC7A007139E2 /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B6D247AAC7A007139E2 /* Annotation.swift */; };
+		07E06B70247AF1EF007139E2 /* RemoteDataManagerInputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B6F247AF1EE007139E2 /* RemoteDataManagerInputProtocol.swift */; };
+		07E06B72247AF1FC007139E2 /* RemoteDataManagerOutputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B71247AF1FC007139E2 /* RemoteDataManagerOutputProtocol.swift */; };
+		07E06B74247AF20B007139E2 /* LocalDataManagerInputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B73247AF20B007139E2 /* LocalDataManagerInputProtocol.swift */; };
+		07E06B76247AF218007139E2 /* LocalDataManagerOutputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B75247AF218007139E2 /* LocalDataManagerOutputProtocol.swift */; };
+		07E06B78247AF385007139E2 /* DataManagerInputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B77247AF384007139E2 /* DataManagerInputProtocol.swift */; };
+		07E06B7A247AF680007139E2 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B79247AF680007139E2 /* DataManager.swift */; };
+		07E06B7C247AF975007139E2 /* RemoteDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B7B247AF975007139E2 /* RemoteDataManager.swift */; };
 		53D40F3CD091A40F37168060 /* Pods_ColorsMe_ColorsMeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE899B237EC7777F01FF7D36 /* Pods_ColorsMe_ColorsMeUITests.framework */; };
 		5CFCF9B2C97F7E1198EBD59B /* Pods_ColorsMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4843E0A33CA60452C7772E53 /* Pods_ColorsMe.framework */; };
 		873AC7122477C8DC00261CD5 /* TabBarViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873AC7112477C8DC00261CD5 /* TabBarViewProtocol.swift */; };
@@ -76,6 +88,10 @@
 		07342E0B247956E800A77BF7 /* IntroPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroPresenter.swift; sourceTree = "<group>"; };
 		07342E0C247956E800A77BF7 /* IntroViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
 		07342E0D247956E800A77BF7 /* IntroWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroWireframe.swift; sourceTree = "<group>"; };
+		073E3B13247BD92E00540BF0 /* AppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
+		079840F4247BC5310054024B /* LocalDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataManager.swift; sourceTree = "<group>"; };
+		07B2BA0D247C2AFD00ED5BE7 /* CMAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMAnnotationView.swift; sourceTree = "<group>"; };
+		07B2BA0F247C558300ED5BE7 /* DataManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagerProtocol.swift; sourceTree = "<group>"; };
 		07E06B58247A7AFD007139E2 /* PickerDialog.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PickerDialog.storyboard; sourceTree = "<group>"; };
 		07E06B59247A7AFD007139E2 /* PickerDialogInterfaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerDialogInterfaces.swift; sourceTree = "<group>"; };
 		07E06B5A247A7AFD007139E2 /* PickerDialogPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerDialogPresenter.swift; sourceTree = "<group>"; };
@@ -85,6 +101,14 @@
 		07E06B64247A7EA4007139E2 /* PickerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerData.swift; sourceTree = "<group>"; };
 		07E06B66247A8234007139E2 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		07E06B68247A8266007139E2 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		07E06B6D247AAC7A007139E2 /* Annotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
+		07E06B6F247AF1EE007139E2 /* RemoteDataManagerInputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteDataManagerInputProtocol.swift; sourceTree = "<group>"; };
+		07E06B71247AF1FC007139E2 /* RemoteDataManagerOutputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteDataManagerOutputProtocol.swift; sourceTree = "<group>"; };
+		07E06B73247AF20B007139E2 /* LocalDataManagerInputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataManagerInputProtocol.swift; sourceTree = "<group>"; };
+		07E06B75247AF218007139E2 /* LocalDataManagerOutputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataManagerOutputProtocol.swift; sourceTree = "<group>"; };
+		07E06B77247AF384007139E2 /* DataManagerInputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagerInputProtocol.swift; sourceTree = "<group>"; };
+		07E06B79247AF680007139E2 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		07E06B7B247AF975007139E2 /* RemoteDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteDataManager.swift; sourceTree = "<group>"; };
 		11CF73532C8DABECA62F6556 /* Pods-ColorsMeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorsMeTests.release.xcconfig"; path = "Target Support Files/Pods-ColorsMeTests/Pods-ColorsMeTests.release.xcconfig"; sourceTree = "<group>"; };
 		2FF592CE8B7E90DCFFB2C306 /* Pods-ColorsMe-ColorsMeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorsMe-ColorsMeUITests.debug.xcconfig"; path = "Target Support Files/Pods-ColorsMe-ColorsMeUITests/Pods-ColorsMe-ColorsMeUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		43F552BF2D55B2BE38E1B9E6 /* Pods_ColorsMeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ColorsMeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -170,6 +194,7 @@
 		072D5459247981CA00551637 /* AnnotationView */ = {
 			isa = PBXGroup;
 			children = (
+				07B2BA0D247C2AFD00ED5BE7 /* CMAnnotationView.swift */,
 			);
 			path = AnnotationView;
 			sourceTree = "<group>";
@@ -197,6 +222,34 @@
 				07E06B5D247A7AFD007139E2 /* PickerDialogWireframe.swift */,
 			);
 			path = PickerDialog;
+			sourceTree = "<group>";
+		};
+		07E06B6A247A99C5007139E2 /* DataManager */ = {
+			isa = PBXGroup;
+			children = (
+				07E06B79247AF680007139E2 /* DataManager.swift */,
+				07B2BA0F247C558300ED5BE7 /* DataManagerProtocol.swift */,
+				07E06B6C247A99D6007139E2 /* RemoteDataManager */,
+				07E06B6B247A99CD007139E2 /* LocalDataManager */,
+				073E3B13247BD92E00540BF0 /* AppData.swift */,
+			);
+			name = DataManager;
+			sourceTree = "<group>";
+		};
+		07E06B6B247A99CD007139E2 /* LocalDataManager */ = {
+			isa = PBXGroup;
+			children = (
+				079840F4247BC5310054024B /* LocalDataManager.swift */,
+			);
+			name = LocalDataManager;
+			sourceTree = "<group>";
+		};
+		07E06B6C247A99D6007139E2 /* RemoteDataManager */ = {
+			isa = PBXGroup;
+			children = (
+				07E06B7B247AF975007139E2 /* RemoteDataManager.swift */,
+			);
+			name = RemoteDataManager;
 			sourceTree = "<group>";
 		};
 		6023A95306E6FB5FDF38A0BA /* Pods */ = {
@@ -235,6 +288,11 @@
 				87CEC7A72477FCE300206255 /* PresenterInterface.swift */,
 				87CEC7AA2477FCE300206255 /* ViewInterface.swift */,
 				873AC7112477C8DC00261CD5 /* TabBarViewProtocol.swift */,
+				07E06B6F247AF1EE007139E2 /* RemoteDataManagerInputProtocol.swift */,
+				07E06B71247AF1FC007139E2 /* RemoteDataManagerOutputProtocol.swift */,
+				07E06B73247AF20B007139E2 /* LocalDataManagerInputProtocol.swift */,
+				07E06B75247AF218007139E2 /* LocalDataManagerOutputProtocol.swift */,
+				07E06B77247AF384007139E2 /* DataManagerInputProtocol.swift */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -332,11 +390,12 @@
 		8767E4D82476C6D900A8CA55 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				87CEC7912477F9AF00206255 /* ColorsNavigationViewController.swift */,
+				07E06B6A247A99C5007139E2 /* DataManager */,
 				87CEC7B32478215000206255 /* Models */,
 				873AC72E2477D58500261CD5 /* Extension */,
 				873AC71E2477C9C000261CD5 /* Protocols */,
 				873AC71D2477C9B000261CD5 /* Wireframe */,
+				87CEC7912477F9AF00206255 /* ColorsNavigationViewController.swift */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -376,6 +435,7 @@
 			children = (
 				87CEC7B42478216100206255 /* EmotionalColor.swift */,
 				07E06B64247A7EA4007139E2 /* PickerData.swift */,
+				07E06B6D247AAC7A007139E2 /* Annotation.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -643,22 +703,27 @@
 			files = (
 				87CEC7C724782A7400206255 /* ColorMapInterfaces.swift in Sources */,
 				87CEC7922477F9AF00206255 /* ColorsNavigationViewController.swift in Sources */,
+				07E06B7C247AF975007139E2 /* RemoteDataManager.swift in Sources */,
 				873AC71C2477C95400261CD5 /* BaseWireframe.swift in Sources */,
 				07342E12247956E800A77BF7 /* IntroWireframe.swift in Sources */,
+				07E06B72247AF1FC007139E2 /* RemoteDataManagerOutputProtocol.swift in Sources */,
 				07E06B65247A7EA4007139E2 /* PickerData.swift in Sources */,
 				07E06B63247A7AFD007139E2 /* PickerDialogWireframe.swift in Sources */,
 				87CEC7CA24782A7400206255 /* ColorMapInteractor.swift in Sources */,
 				873AC7302477D59100261CD5 /* Storyboard.swift in Sources */,
+				07E06B74247AF20B007139E2 /* LocalDataManagerInputProtocol.swift in Sources */,
 				875D6E11247431B100C6DF31 /* ColorsMe.xcdatamodeld in Sources */,
 				07E06B62247A7AFD007139E2 /* PickerDialogInteractor.swift in Sources */,
 				87CEC7BF2478265400206255 /* ColorTabBarWireframe.swift in Sources */,
 				87CEC7C924782A7400206255 /* ColorMapViewController.swift in Sources */,
 				07E06B69247A8266007139E2 /* String.swift in Sources */,
 				87CEC7B52478216100206255 /* EmotionalColor.swift in Sources */,
+				073E3B14247BD92E00540BF0 /* AppData.swift in Sources */,
 				87CEC7BC2478265400206255 /* ColorTabBarInterfaces.swift in Sources */,
 				87CEC7AD2477FCE300206255 /* InteractorInterface.swift in Sources */,
 				07E06B61247A7AFD007139E2 /* PickerDialogViewController.swift in Sources */,
 				873AC7122477C8DC00261CD5 /* TabBarViewProtocol.swift in Sources */,
+				07E06B6E247AAC7A007139E2 /* Annotation.swift in Sources */,
 				07E06B60247A7AFD007139E2 /* PickerDialogPresenter.swift in Sources */,
 				07E06B67247A8234007139E2 /* DateFormatter.swift in Sources */,
 				07342E0F247956E800A77BF7 /* IntroInterfaces.swift in Sources */,
@@ -666,14 +731,21 @@
 				875D6E07247431B100C6DF31 /* AppDelegate.swift in Sources */,
 				07342E11247956E800A77BF7 /* IntroViewController.swift in Sources */,
 				87CEC7C824782A7400206255 /* ColorMapPresenter.swift in Sources */,
+				079840F5247BC5310054024B /* LocalDataManager.swift in Sources */,
 				87CEC7BE2478265400206255 /* ColorTabBarViewController.swift in Sources */,
 				87CEC7AE2477FCE300206255 /* ViewInterface.swift in Sources */,
 				87CEC7AB2477FCE300206255 /* PresenterInterface.swift in Sources */,
+				07E06B78247AF385007139E2 /* DataManagerInputProtocol.swift in Sources */,
+				07E06B70247AF1EF007139E2 /* RemoteDataManagerInputProtocol.swift in Sources */,
 				875D6E09247431B100C6DF31 /* SceneDelegate.swift in Sources */,
 				87CEC7CB24782A7400206255 /* ColorMapWireframe.swift in Sources */,
+				07E06B7A247AF680007139E2 /* DataManager.swift in Sources */,
+				07B2BA0E247C2AFD00ED5BE7 /* CMAnnotationView.swift in Sources */,
+				07E06B76247AF218007139E2 /* LocalDataManagerOutputProtocol.swift in Sources */,
 				07E06B5F247A7AFD007139E2 /* PickerDialogInterfaces.swift in Sources */,
 				07342E10247956E800A77BF7 /* IntroPresenter.swift in Sources */,
 				87CEC7AC2477FCE300206255 /* FormatterInterface.swift in Sources */,
+				07B2BA10247C558300ED5BE7 /* DataManagerProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -839,6 +911,7 @@
 			baseConfigurationReference = A9FC000EFEB6C462BFF86E19 /* Pods-ColorsMe.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MPA25UYNXL;
 				INFOPLIST_FILE = ColorsMe/Info.plist;
@@ -849,6 +922,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.bit-design.ColorsMe";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -859,6 +933,7 @@
 			baseConfigurationReference = BD375A421E8BA2D3309FE03B /* Pods-ColorsMe.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = MPA25UYNXL;
 				INFOPLIST_FILE = ColorsMe/Info.plist;
@@ -869,6 +944,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.bit-design.ColorsMe";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

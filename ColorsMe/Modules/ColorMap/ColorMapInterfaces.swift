@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Mapbox
 
 enum ColorMapNavigationOption {
     case pickerdialog
@@ -20,7 +21,7 @@ protocol ColorMapViewInterface: ViewInterface {
     func updateScale()
     func showScale(_ animated: Bool)
     func hideScale(_ animated: Bool)
-    func switchMapViewAppearance()
+    func switchAppearanceFor(mapView: MGLMapView)
 }
 
 protocol ColorMapPresenterInterface: PresenterInterface {

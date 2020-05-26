@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import Unrealm
 import SwiftyBeaver
 let log = SwiftyBeaver.self
 
@@ -22,6 +23,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let file = FileDestination()
         log.addDestination(console)
         log.addDestination(file)
+        
+        Realm.registerRealmables([RealmAnnotation.self])
         
         let introWireframe = IntroWireframe()
 

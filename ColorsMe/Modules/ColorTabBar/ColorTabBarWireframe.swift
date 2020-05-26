@@ -31,6 +31,7 @@ final class ColorTabBarWireframe: BaseWireframe {
 extension ColorTabBarWireframe: ColorTabBarWireframeInterface {
     
     func installTabBar(with color: EmotionalColor? = nil) {
+        log.verbose(#function)
         let colorMapWireframe = ColorMapWireframe()
         //var emotionalDiaryWireframe = EmotionalDiaryWireFrame()
         //var settingsWireframe = SettingsWireFrame()

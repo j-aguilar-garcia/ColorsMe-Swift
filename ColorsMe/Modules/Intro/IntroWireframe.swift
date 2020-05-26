@@ -30,6 +30,7 @@ final class IntroWireframe: BaseWireframe {
 
 extension IntroWireframe: IntroWireframeInterface {
     func navigate(to option: IntroNavigationOption) {
+        log.verbose(#function)
         switch option {
         case .colormap:
             openColorMap()
@@ -41,12 +42,14 @@ extension IntroWireframe: IntroWireframeInterface {
     }
     
     private func openColorMap() {
+        log.verbose(#function)
         let tabBarWireframe = ColorTabBarWireframe()
         tabBarWireframe.installTabBar()
         self.viewController.view.window?.rootViewController = tabBarWireframe.viewController
     }
     
     private func openColorMap(with color: EmotionalColor) {
+        log.verbose(#function)
         let tabBarWireframe = ColorTabBarWireframe()
         tabBarWireframe.installTabBar(with: color)
         self.viewController.view.window?.rootViewController = tabBarWireframe.viewController

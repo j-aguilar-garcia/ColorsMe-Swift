@@ -27,10 +27,12 @@ final class IntroPresenter {
 
 extension IntroPresenter: IntroPresenterInterface {
     func didSelectSkipAction() {
+        log.verbose(#function)
         wireframe.navigate(to: .colormap)
     }
     
     func didSelectAddAction(color: EmotionalColor) {
+        log.verbose(#function)
         wireframe.navigate(to: .colormapwith(color))
     }
     
