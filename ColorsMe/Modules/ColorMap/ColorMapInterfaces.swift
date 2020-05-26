@@ -31,3 +31,8 @@ protocol ColorMapPresenterInterface: PresenterInterface {
 protocol ColorMapInteractorInterface: InteractorInterface {
     
 }
+
+protocol PickerDialogDelegate {
+    func pickerDialogDidChange(with annotations: [CMAnnotation])
+    func pickerDialogDidClose()
+}

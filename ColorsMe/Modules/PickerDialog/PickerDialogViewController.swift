@@ -25,7 +25,7 @@ final class PickerDialogViewController: UIViewController {
     }
     
     @IBAction func onDone(_ sender: Any) {
-        presenter.didSelectDoneButton()
+        presenter.didSelectDoneButton(with: AppData.selectedFilterIndex)
     }
     
     // MARK: - Lifecycle -
@@ -34,7 +34,7 @@ final class PickerDialogViewController: UIViewController {
         super.viewDidLoad()
         pickerView.delegate = self
         pickerView.dataSource = self
-        
+        pickerView.selectRow(AppData.selectedFilterIndex, inComponent: 0, animated: false)
     }
 
 }
@@ -42,6 +42,10 @@ final class PickerDialogViewController: UIViewController {
 // MARK: - Extensions -
 
 extension PickerDialogViewController: PickerDialogViewInterface {
+    
+    func updatePicker(row: Int) {
+    }
+    
 }
 
 
@@ -66,9 +70,7 @@ extension PickerDialogViewController : UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        //AppData.selectedFilterIndex = row
-        //updatePickerView(row: row)
-        //colorMapViewController.updateSlider()
+        AppData.selectedFilterIndex = row
     }
     
 }

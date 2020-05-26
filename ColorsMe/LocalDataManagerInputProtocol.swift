@@ -18,4 +18,7 @@ protocol LocalDataManagerInputProtocol {
     
     func getAllLocal() -> [CMAnnotation] 
  
+    func filterLocal(by option: PickerDialogFilterOption) -> [CMAnnotation]
+    
+    func filterLocal(with predicate: NSPredicate) -> [CMAnnotation]
 }

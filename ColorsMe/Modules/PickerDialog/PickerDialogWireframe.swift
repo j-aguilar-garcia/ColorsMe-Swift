@@ -14,6 +14,7 @@ final class PickerDialogWireframe: BaseWireframe {
 
     private let storyboard = UIStoryboard(name: "PickerDialog", bundle: nil)
 
+    var delegate: PickerDialogDelegate?
     // MARK: - Module setup -
 
     init() {
@@ -25,7 +26,6 @@ final class PickerDialogWireframe: BaseWireframe {
         moduleViewController.presenter = presenter
         moduleViewController.modalTransitionStyle = .crossDissolve
         moduleViewController.modalPresentationStyle = .popover
-        
     }
 
 }
@@ -33,6 +33,12 @@ final class PickerDialogWireframe: BaseWireframe {
 // MARK: - Extensions -
 
 extension PickerDialogWireframe: PickerDialogWireframeInterface {
+    func navigate(with option: PickerDialogFilterOption) {
+        let annotations = DataManager.shared.dataManager(filterBy: option, with: .local, completion: nil)
+        delegate?.pickerDialogDidChange(with: annotations)
+        self.dismiss(animated: true)
+    }
+    
     func navigate() {
         // TODO: 
     }

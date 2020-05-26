@@ -82,6 +82,9 @@ class RemoteDataManager : RemoteDataManagerInputProtocol {
                     log.debug("Retrieved data in (ms) - \(Int(Date().timeIntervalSince(startTime) * 1000)) in secs \(Int(Date().timeIntervalSince(startTime)))")
                     return
                 }
+                if localDataManager.getAllLocal().count == allColors {
+                    return
+                }
                 if size == 0 {
                     self.backendlessDataRetrieved = true
                     log.debug("Retrieved data in (ms) - \(Int(Date().timeIntervalSince(startTime) * 1000)) in secs \(Int(Date().timeIntervalSince(startTime)))")

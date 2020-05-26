@@ -15,7 +15,8 @@ final class PickerDialogPresenter {
     private unowned let view: PickerDialogViewInterface
     private let interactor: PickerDialogInteractorInterface
     private let wireframe: PickerDialogWireframeInterface
-
+    var delegate: PickerDialogDelegate?
+    
     var pickerData = [
         PickerData.init(value: "All Colors", index: 0),
         PickerData.init(value: "My Colors", index: 1),
@@ -38,12 +39,31 @@ final class PickerDialogPresenter {
 // MARK: - Extensions -
 
 extension PickerDialogPresenter: PickerDialogPresenterInterface {
-    func didSelectDoneButton() {
-        wireframe.dismiss(animated: true)
+    
+    func didSelectDoneButton(with row: Int) {
+        AppData.selectedFilterName = pickerData[row].value
+        if row == 0 {
+            wireframe.navigate(with: .allcolors)
+        } else if row == 1 {
+            wireframe.navigate(with: .mycolors)
+        } else if row == 2 {
+            wireframe.navigate(with: .today)
+        } else if row == 3 {
+            wireframe.navigate(with: .yesterday)
+        } else if row == 4 {
+            wireframe.navigate(with: .lastweek)
+        } else if pickerData[row].value.count == 4 && pickerData[row].value.starts(with: "20") {
+            let date = pickerData[row].date
+            wireframe.navigate(with: .year(date!))
+        } else {
+            let date = pickerData[row].date
+            wireframe.navigate(with: .month(date!))
+        }
     }
     
     func didSelectCancelButton() {
         wireframe.dismiss(animated: true)
+        delegate?.pickerDialogDidClose()
     }
     
 }
