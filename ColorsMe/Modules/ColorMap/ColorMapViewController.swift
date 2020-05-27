@@ -24,7 +24,7 @@ final class ColorMapViewController: UIViewController {
     @IBOutlet weak var slider: UISlider!{
         didSet {
             slider.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi / 2))
-            slider.setThumbImage(UIImage.init(named: "Arrow"), for: .normal)
+            slider.setThumbImage(UIImage(named: "Arrow"), for: .normal)
         }
     }
     
@@ -42,6 +42,9 @@ final class ColorMapViewController: UIViewController {
         presenter.didSelectFilterButton()
     }
     
+    var sideButtonsView: MenuSideButtons!
+    var menuButtons : [MenuButtonView]!
+    
     // MARK: - Lifecycle -
 
     override func viewDidLoad() {
@@ -49,14 +52,45 @@ final class ColorMapViewController: UIViewController {
         mapView.delegate = self
         mapView.automaticallyAdjustsContentInset = true
         mapView.locationManager.delegate = self
-        
         // Add initial annotations
         let annotations = DataManager.shared.dataManager(willRetrieveWith: .local)
         mapView.addAnnotations(annotations)
+        
+        let image = UIImage(named: "Filter")!.withRenderingMode(.alwaysTemplate)
+        filterButton.image = image
+        filterButton.tintColor = .gray
+        
+        
+        let triggerButton = MenuTriggerButtonView(highlightedImage: UIImage(systemName: "xmark.circle.fill")!) {
+            $0.image = UIImage(systemName: "rectangle.stack.fill")
+            $0.hasShadow = true
+        }
+        
+        sideButtonsView = MenuSideButtons(parentView: self.view, triggerButton: triggerButton)
+        sideButtonsView.delegate = self
+        sideButtonsView.dataSource = self
+        
+        menuButtons = [
+            MenuButtonView {
+                $0.image = UIImage(named: "Defaultmap")
+                $0.hasShadow = true
+            },
+            MenuButtonView {
+                $0.image = UIImage(named: "Heatmap")
+                $0.hasShadow = true
+            },
+            MenuButtonView {
+                $0.image = UIImage(named: "Clustermap")
+                $0.hasShadow = true
+            }
+        ]
+        sideButtonsView.setTriggerButtonPosition(CGPoint(x: self.view.frame.maxX - 70, y: self.view.frame.height - 170))
+        sideButtonsView.reloadButtons()
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
+        sideButtonsView.reloadButtons()
         //switchMapViewAppearance()
     }
     
@@ -79,7 +113,7 @@ extension ColorMapViewController: ColorMapViewInterface {
         }
     }
     
-    func showScale(_ animated: Bool = true) {
+    func hideScale(_ animated: Bool = true) {
         if animated {
             UIView.animate(withDuration: 0.5, delay: 0.2, animations: {
                 self.scaleView.frame = CGRect(x: self.scaleView.frame.minX - self.scaleView.frame.width - 8, y: self.scaleView.frame.minY, width: self.scaleView.frame.width, height: self.scaleView.frame.height)
@@ -91,7 +125,7 @@ extension ColorMapViewController: ColorMapViewInterface {
         updateScale()
     }
     
-    func hideScale(_ animated: Bool = true) {
+    func showScale(_ animated: Bool = true) {
         if animated {
             UIView.animate(withDuration: 0.5, delay: 0.2, animations: {
                 self.scaleView.frame = CGRect(x: self.scaleView.frame.minX + self.scaleView.frame.width + 8, y: self.scaleView.frame.minY, width: self.scaleView.frame.width, height: self.scaleView.frame.height)
@@ -167,7 +201,8 @@ extension ColorMapViewController : MGLMapViewDelegate {
     }
     
     func mapViewDidFinishRenderingMap(_ mapView: MGLMapView, fullyRendered: Bool) {
-        showScale()
+        updateScale()
+        //showScale()
     }
     
     func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
@@ -213,7 +248,28 @@ extension ColorMapViewController : UIPopoverPresentationControllerDelegate {
     
 }
 
+extension ColorMapViewController : MenuSideButtonsDelegate, MenuSideButtonsDataSource {
+    func sideButtons(_ sideButtons: MenuSideButtons, didSelectButtonAtIndex index: Int) {
+        //presenter.didSelectMenuButton(at: index)
+        log.verbose("didSelectButtonAtIndx")
+    }
+    
+    func sideButtons(_ sideButtons: MenuSideButtons, didTriggerButtonChangeStateTo state: MenuButtonState) {
+        log.verbose("didTriggerButtonChangeStateTo = \(state)")
+    }
+    
+    func sideButtonsNumberOfButtons(_ sideButtons: MenuSideButtons) -> Int {
+        return menuButtons.count
+    }
+    
+    func sideButtons(_ sideButtons: MenuSideButtons, buttonAtIndex index: Int) -> MenuButtonView {
+        return menuButtons[index]
+    }
+    
+    
+}
 
+// MARK: - PickerDialogDelegate
 extension ColorMapViewController : PickerDialogDelegate {
     func pickerDialogDidChange(with annotations: [CMAnnotation]) {
         log.debug("Filtered Annotations: \(annotations.count)")
@@ -223,7 +279,7 @@ extension ColorMapViewController : PickerDialogDelegate {
         self.mapView.addAnnotations(annotations)
         self.mapView.showAnnotations(annotations, animated: true)
         countColorsLabel.text = "\(AppData.selectedFilterName) : \(annotations.count)"
-        showScale()
+        //showScale()
     }
     
     func pickerDialogDidClose() {

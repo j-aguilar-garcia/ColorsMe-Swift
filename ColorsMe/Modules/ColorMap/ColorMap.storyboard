@@ -44,7 +44,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xDi-7F-XAk">
-                                <rect key="frame" x="414" y="275" width="33" height="400"/>
+                                <rect key="frame" x="0.0" y="275" width="33" height="400"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Scala" translatesAutoresizingMaskIntoConstraints="NO" id="qBu-4p-1OQ">
                                         <rect key="frame" x="0.0" y="0.0" width="33" height="400"/>
@@ -54,7 +54,7 @@
                                         </constraints>
                                     </imageView>
                                     <slider opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Dvc-bU-MaE">
-                                        <rect key="frame" x="-161.33333333333334" y="185" width="384" height="31"/>
+                                        <rect key="frame" x="-185.66666666666666" y="185" width="384.33333333333331" height="31"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="380" id="HDC-9v-cjO"/>
                                         </constraints>
@@ -66,7 +66,7 @@
                                 <constraints>
                                     <constraint firstItem="Dvc-bU-MaE" firstAttribute="centerY" secondItem="qBu-4p-1OQ" secondAttribute="centerY" id="8MM-3k-4Sn"/>
                                     <constraint firstAttribute="bottom" secondItem="qBu-4p-1OQ" secondAttribute="bottom" id="8Z4-TV-alO"/>
-                                    <constraint firstItem="Dvc-bU-MaE" firstAttribute="centerX" secondItem="qBu-4p-1OQ" secondAttribute="centerX" constant="14" id="Ctu-rB-NaB"/>
+                                    <constraint firstItem="Dvc-bU-MaE" firstAttribute="centerX" secondItem="qBu-4p-1OQ" secondAttribute="centerX" constant="-10" id="Ctu-rB-NaB"/>
                                     <constraint firstItem="qBu-4p-1OQ" firstAttribute="centerY" secondItem="xDi-7F-XAk" secondAttribute="centerY" id="Gz6-ml-Vum"/>
                                     <constraint firstItem="qBu-4p-1OQ" firstAttribute="top" secondItem="xDi-7F-XAk" secondAttribute="top" id="NWg-L0-495"/>
                                     <constraint firstItem="qBu-4p-1OQ" firstAttribute="centerX" secondItem="xDi-7F-XAk" secondAttribute="centerX" id="Rg9-mf-Tdn"/>
@@ -156,7 +156,7 @@
                             <constraint firstItem="0jB-FR-tnl" firstAttribute="top" secondItem="S9n-Vg-RQ5" secondAttribute="top" id="m0m-An-Nia"/>
                             <constraint firstItem="xDi-7F-XAk" firstAttribute="centerY" secondItem="8b5-2i-HSf" secondAttribute="centerY" id="pXX-GP-WSI"/>
                             <constraint firstItem="Ddn-hA-xal" firstAttribute="trailing" secondItem="8b5-2i-HSf" secondAttribute="trailing" id="qfN-Zk-bpI"/>
-                            <constraint firstItem="8b5-2i-HSf" firstAttribute="trailing" secondItem="xDi-7F-XAk" secondAttribute="leading" id="xnO-sx-c6d"/>
+                            <constraint firstItem="8b5-2i-HSf" firstAttribute="leading" secondItem="xDi-7F-XAk" secondAttribute="leading" id="xnO-sx-c6d"/>
                             <constraint firstItem="0jB-FR-tnl" firstAttribute="leading" secondItem="8b5-2i-HSf" secondAttribute="leading" id="z8U-Qq-mxc"/>
                             <constraint firstItem="8b5-2i-HSf" firstAttribute="trailing" secondItem="Slh-es-dKu" secondAttribute="trailing" constant="16" id="zfU-1l-Whg"/>
                         </constraints>

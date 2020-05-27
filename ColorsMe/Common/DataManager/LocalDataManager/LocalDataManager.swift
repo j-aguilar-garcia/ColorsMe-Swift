@@ -8,6 +8,7 @@
 
 import Foundation
 import Unrealm
+import Mapbox
 
 class LocalDataManager : LocalDataManagerInputProtocol {
     
@@ -46,6 +47,15 @@ class LocalDataManager : LocalDataManagerInputProtocol {
         
         return annotations
     }
+    
+    
+    func getAllCoordinates() -> [CLLocationCoordinate2D] {
+        let annotations = getAllLocal()
+        var coordinates = [CLLocationCoordinate2D]()
+        annotations.forEach({ coordinates.append(CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude)) })
+        return coordinates
+    }
+    
     
     func filterLocal(by option: PickerDialogFilterOption) -> [CMAnnotation] {
         switch option {

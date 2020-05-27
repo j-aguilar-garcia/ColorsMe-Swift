@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		072D9D00247E3FCC00390186 /* MenuButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072D9CFF247E3FCC00390186 /* MenuButtons.swift */; };
+		072D9D03247E402B00390186 /* MenuButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072D9D02247E402B00390186 /* MenuButtonView.swift */; };
+		072D9D05247E406000390186 /* MenuButtonViewConfigProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072D9D04247E406000390186 /* MenuButtonViewConfigProtocol.swift */; };
+		072D9D07247E407F00390186 /* MenuButtonAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072D9D06247E407F00390186 /* MenuButtonAnimator.swift */; };
+		072D9D09247E40D900390186 /* TriggerMenuButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072D9D08247E40D900390186 /* TriggerMenuButtonView.swift */; };
 		07342E0E247956E800A77BF7 /* Intro.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07342E09247956E800A77BF7 /* Intro.storyboard */; };
 		07342E0F247956E800A77BF7 /* IntroInterfaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07342E0A247956E800A77BF7 /* IntroInterfaces.swift */; };
 		07342E10247956E800A77BF7 /* IntroPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07342E0B247956E800A77BF7 /* IntroPresenter.swift */; };
@@ -85,6 +90,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		072D9CFF247E3FCC00390186 /* MenuButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButtons.swift; sourceTree = "<group>"; };
+		072D9D02247E402B00390186 /* MenuButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButtonView.swift; sourceTree = "<group>"; };
+		072D9D04247E406000390186 /* MenuButtonViewConfigProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButtonViewConfigProtocol.swift; sourceTree = "<group>"; };
+		072D9D06247E407F00390186 /* MenuButtonAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButtonAnimator.swift; sourceTree = "<group>"; };
+		072D9D08247E40D900390186 /* TriggerMenuButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriggerMenuButtonView.swift; sourceTree = "<group>"; };
 		07342E09247956E800A77BF7 /* Intro.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Intro.storyboard; sourceTree = "<group>"; };
 		07342E0A247956E800A77BF7 /* IntroInterfaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroInterfaces.swift; sourceTree = "<group>"; };
 		07342E0B247956E800A77BF7 /* IntroPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroPresenter.swift; sourceTree = "<group>"; };
@@ -203,6 +213,18 @@
 			path = AnnotationView;
 			sourceTree = "<group>";
 		};
+		072D9D01247E401700390186 /* MenuButton */ = {
+			isa = PBXGroup;
+			children = (
+				072D9CFF247E3FCC00390186 /* MenuButtons.swift */,
+				072D9D02247E402B00390186 /* MenuButtonView.swift */,
+				072D9D04247E406000390186 /* MenuButtonViewConfigProtocol.swift */,
+				072D9D06247E407F00390186 /* MenuButtonAnimator.swift */,
+				072D9D08247E40D900390186 /* TriggerMenuButtonView.swift */,
+			);
+			path = MenuButton;
+			sourceTree = "<group>";
+		};
 		07342E08247956DA00A77BF7 /* Intro */ = {
 			isa = PBXGroup;
 			children = (
@@ -225,8 +247,8 @@
 				0737FA93247D96960015A8F7 /* Protocols */,
 				0737FA91247D96660015A8F7 /* Wireframe */,
 				87CEC7912477F9AF00206255 /* ColorsNavigationViewController.swift */,
-				0737FA88247D7C600015A8F7 /* AppProperties.plist */,
 				0737FA8A247D7E430015A8F7 /* AppConfiguration.swift */,
+				0737FA88247D7C600015A8F7 /* AppProperties.plist */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -427,6 +449,7 @@
 		877F837E247502C8009BA6BE /* ColorMap */ = {
 			isa = PBXGroup;
 			children = (
+				072D9D01247E401700390186 /* MenuButton */,
 				072D5459247981CA00551637 /* AnnotationView */,
 				87CEC7C024782A7400206255 /* ColorMap.storyboard */,
 				87CEC7C124782A7400206255 /* ColorMapInterfaces.swift */,
@@ -721,10 +744,13 @@
 				875D6E11247431B100C6DF31 /* ColorsMe.xcdatamodeld in Sources */,
 				07E06B62247A7AFD007139E2 /* PickerDialogInteractor.swift in Sources */,
 				87CEC7BF2478265400206255 /* ColorTabBarWireframe.swift in Sources */,
+				072D9D00247E3FCC00390186 /* MenuButtons.swift in Sources */,
 				87CEC7C924782A7400206255 /* ColorMapViewController.swift in Sources */,
 				07E06B69247A8266007139E2 /* String.swift in Sources */,
+				072D9D09247E40D900390186 /* TriggerMenuButtonView.swift in Sources */,
 				87CEC7B52478216100206255 /* EmotionalColor.swift in Sources */,
 				073E3B14247BD92E00540BF0 /* AppData.swift in Sources */,
+				072D9D07247E407F00390186 /* MenuButtonAnimator.swift in Sources */,
 				87CEC7BC2478265400206255 /* ColorTabBarInterfaces.swift in Sources */,
 				87CEC7AD2477FCE300206255 /* InteractorInterface.swift in Sources */,
 				07E06B61247A7AFD007139E2 /* PickerDialogViewController.swift in Sources */,
@@ -733,6 +759,7 @@
 				07E06B60247A7AFD007139E2 /* PickerDialogPresenter.swift in Sources */,
 				07E06B67247A8234007139E2 /* DateFormatter.swift in Sources */,
 				07342E0F247956E800A77BF7 /* IntroInterfaces.swift in Sources */,
+				072D9D03247E402B00390186 /* MenuButtonView.swift in Sources */,
 				87CEC7BD2478265400206255 /* ColorTabBarPresenter.swift in Sources */,
 				875D6E07247431B100C6DF31 /* AppDelegate.swift in Sources */,
 				07342E11247956E800A77BF7 /* IntroViewController.swift in Sources */,
@@ -741,6 +768,7 @@
 				87CEC7BE2478265400206255 /* ColorTabBarViewController.swift in Sources */,
 				87CEC7AE2477FCE300206255 /* ViewInterface.swift in Sources */,
 				87CEC7AB2477FCE300206255 /* PresenterInterface.swift in Sources */,
+				072D9D05247E406000390186 /* MenuButtonViewConfigProtocol.swift in Sources */,
 				07E06B78247AF385007139E2 /* DataManagerInputProtocol.swift in Sources */,
 				07E06B70247AF1EF007139E2 /* RemoteDataManagerInputProtocol.swift in Sources */,
 				875D6E09247431B100C6DF31 /* SceneDelegate.swift in Sources */,
@@ -918,8 +946,8 @@
 			baseConfigurationReference = A9FC000EFEB6C462BFF86E19 /* Pods-ColorsMe.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = MPA25UYNXL;
 				INFOPLIST_FILE = ColorsMe/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -929,7 +957,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.bit-design.ColorsMe";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "org.bit-design.ColorsMe iOS Development";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -940,8 +968,8 @@
 			baseConfigurationReference = BD375A421E8BA2D3309FE03B /* Pods-ColorsMe.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = MPA25UYNXL;
 				INFOPLIST_FILE = ColorsMe/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -951,7 +979,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.bit-design.ColorsMe";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "org.bit-design.ColorsMe iOS Development";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
