@@ -15,6 +15,7 @@ target 'ColorsMe' do
     pod 'SwiftyBeaver'
     pod 'CloudCore'
     pod 'Unrealm'
+    pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git', :tag => '5.1.0'
   # Pods for ColorsMe
 
   target 'ColorsMeTests' do

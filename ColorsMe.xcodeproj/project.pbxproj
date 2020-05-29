@@ -20,6 +20,7 @@
 		0737FA89247D7C600015A8F7 /* AppProperties.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0737FA88247D7C600015A8F7 /* AppProperties.plist */; };
 		0737FA8B247D7E430015A8F7 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0737FA8A247D7E430015A8F7 /* AppConfiguration.swift */; };
 		073E3B14247BD92E00540BF0 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073E3B13247BD92E00540BF0 /* AppData.swift */; };
+		074C7CCB247EBEFC00C8EAC5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 074C7CCA247EBEFC00C8EAC5 /* GoogleService-Info.plist */; };
 		079840F5247BC5310054024B /* LocalDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079840F4247BC5310054024B /* LocalDataManager.swift */; };
 		07B2BA0E247C2AFD00ED5BE7 /* CMAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B2BA0D247C2AFD00ED5BE7 /* CMAnnotationView.swift */; };
 		07B2BA10247C558300ED5BE7 /* DataManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B2BA0F247C558300ED5BE7 /* DataManagerProtocol.swift */; };
@@ -40,6 +41,12 @@
 		07E06B78247AF385007139E2 /* DataManagerInputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B77247AF384007139E2 /* DataManagerInputProtocol.swift */; };
 		07E06B7A247AF680007139E2 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B79247AF680007139E2 /* DataManager.swift */; };
 		07E06B7C247AF975007139E2 /* RemoteDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B7B247AF975007139E2 /* RemoteDataManager.swift */; };
+		07E2BA47247ED1DF00465688 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07E2BA46247ED1DE00465688 /* MapKit.framework */; };
+		07E2BA4A247EE07E00465688 /* CMHeatMapLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E2BA49247EE07E00465688 /* CMHeatMapLayer.swift */; };
+		07E2BA4C247EE4A400465688 /* CMClusterMapLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E2BA4B247EE4A400465688 /* CMClusterMapLayer.swift */; };
+		07E2BA4E247FCF4C00465688 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E2BA4D247FCF4C00465688 /* Color.swift */; };
+		07E2BA502481274C00465688 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E2BA4F2481274C00465688 /* Font.swift */; };
+		07E2BA522481389C00465688 /* CMLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E2BA512481389C00465688 /* CMLayer.swift */; };
 		53D40F3CD091A40F37168060 /* Pods_ColorsMe_ColorsMeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE899B237EC7777F01FF7D36 /* Pods_ColorsMe_ColorsMeUITests.framework */; };
 		5CFCF9B2C97F7E1198EBD59B /* Pods_ColorsMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4843E0A33CA60452C7772E53 /* Pods_ColorsMe.framework */; };
 		873AC7122477C8DC00261CD5 /* TabBarViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873AC7112477C8DC00261CD5 /* TabBarViewProtocol.swift */; };
@@ -103,6 +110,7 @@
 		0737FA88247D7C600015A8F7 /* AppProperties.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = AppProperties.plist; path = ../AppProperties.plist; sourceTree = "<group>"; };
 		0737FA8A247D7E430015A8F7 /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		073E3B13247BD92E00540BF0 /* AppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
+		074C7CCA247EBEFC00C8EAC5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		079840F4247BC5310054024B /* LocalDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataManager.swift; sourceTree = "<group>"; };
 		07B2BA0D247C2AFD00ED5BE7 /* CMAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMAnnotationView.swift; sourceTree = "<group>"; };
 		07B2BA0F247C558300ED5BE7 /* DataManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagerProtocol.swift; sourceTree = "<group>"; };
@@ -123,6 +131,12 @@
 		07E06B77247AF384007139E2 /* DataManagerInputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagerInputProtocol.swift; sourceTree = "<group>"; };
 		07E06B79247AF680007139E2 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		07E06B7B247AF975007139E2 /* RemoteDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteDataManager.swift; sourceTree = "<group>"; };
+		07E2BA46247ED1DE00465688 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		07E2BA49247EE07E00465688 /* CMHeatMapLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMHeatMapLayer.swift; sourceTree = "<group>"; };
+		07E2BA4B247EE4A400465688 /* CMClusterMapLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMClusterMapLayer.swift; sourceTree = "<group>"; };
+		07E2BA4D247FCF4C00465688 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		07E2BA4F2481274C00465688 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
+		07E2BA512481389C00465688 /* CMLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMLayer.swift; sourceTree = "<group>"; };
 		11CF73532C8DABECA62F6556 /* Pods-ColorsMeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorsMeTests.release.xcconfig"; path = "Target Support Files/Pods-ColorsMeTests/Pods-ColorsMeTests.release.xcconfig"; sourceTree = "<group>"; };
 		2FF592CE8B7E90DCFFB2C306 /* Pods-ColorsMe-ColorsMeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorsMe-ColorsMeUITests.debug.xcconfig"; path = "Target Support Files/Pods-ColorsMe-ColorsMeUITests/Pods-ColorsMe-ColorsMeUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		43F552BF2D55B2BE38E1B9E6 /* Pods_ColorsMeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ColorsMeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -172,6 +186,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				07E2BA47247ED1DF00465688 /* MapKit.framework in Frameworks */,
 				5CFCF9B2C97F7E1198EBD59B /* Pods_ColorsMe.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -198,6 +213,7 @@
 		01903B64009F56808E460FCC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				07E2BA46247ED1DE00465688 /* MapKit.framework */,
 				4843E0A33CA60452C7772E53 /* Pods_ColorsMe.framework */,
 				CE899B237EC7777F01FF7D36 /* Pods_ColorsMe_ColorsMeUITests.framework */,
 				43F552BF2D55B2BE38E1B9E6 /* Pods_ColorsMeTests.framework */,
@@ -248,7 +264,6 @@
 				0737FA91247D96660015A8F7 /* Wireframe */,
 				87CEC7912477F9AF00206255 /* ColorsNavigationViewController.swift */,
 				0737FA8A247D7E430015A8F7 /* AppConfiguration.swift */,
-				0737FA88247D7C600015A8F7 /* AppProperties.plist */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -304,6 +319,8 @@
 				873AC72F2477D59100261CD5 /* Storyboard.swift */,
 				07E06B66247A8234007139E2 /* DateFormatter.swift */,
 				07E06B68247A8266007139E2 /* String.swift */,
+				07E2BA4D247FCF4C00465688 /* Color.swift */,
+				07E2BA4F2481274C00465688 /* Font.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -328,7 +345,9 @@
 		0737FA94247D97270015A8F7 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				074C7CCA247EBEFC00C8EAC5 /* GoogleService-Info.plist */,
 				87CEC7B12477FF4300206255 /* Assets.xcassets */,
+				0737FA88247D7C600015A8F7 /* AppProperties.plist */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -344,6 +363,16 @@
 				07E06B5D247A7AFD007139E2 /* PickerDialogWireframe.swift */,
 			);
 			path = PickerDialog;
+			sourceTree = "<group>";
+		};
+		07E2BA48247EE06900465688 /* MapLayer */ = {
+			isa = PBXGroup;
+			children = (
+				07E2BA49247EE07E00465688 /* CMHeatMapLayer.swift */,
+				07E2BA4B247EE4A400465688 /* CMClusterMapLayer.swift */,
+				07E2BA512481389C00465688 /* CMLayer.swift */,
+			);
+			path = MapLayer;
 			sourceTree = "<group>";
 		};
 		6023A95306E6FB5FDF38A0BA /* Pods */ = {
@@ -449,6 +478,7 @@
 		877F837E247502C8009BA6BE /* ColorMap */ = {
 			isa = PBXGroup;
 			children = (
+				07E2BA48247EE06900465688 /* MapLayer */,
 				072D9D01247E401700390186 /* MenuButton */,
 				072D5459247981CA00551637 /* AnnotationView */,
 				87CEC7C024782A7400206255 /* ColorMap.storyboard */,
@@ -481,6 +511,7 @@
 				875D6E01247431B100C6DF31 /* Resources */,
 				875D6E392474335500C6DF31 /* Build Number */,
 				2D9A2E674DCC264C24B8091B /* [CP] Embed Pods Frameworks */,
+				0725E758247ECA4B00FDDD46 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -579,6 +610,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				87CEC7BB2478265400206255 /* ColorTabBar.storyboard in Resources */,
+				074C7CCB247EBEFC00C8EAC5 /* GoogleService-Info.plist in Resources */,
 				0737FA89247D7C600015A8F7 /* AppProperties.plist in Resources */,
 				87CEC7C624782A7400206255 /* ColorMap.storyboard in Resources */,
 				87CEC7B22477FF4300206255 /* Assets.xcassets in Resources */,
@@ -605,6 +637,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0725E758247ECA4B00FDDD46 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "find dSYM_directory -name \"*.dSYM\" | xargs -I \\{\\} $PODS_ROOT/FirebaseCrashlytics/upload-symbols -gsp ${PROJECT_DIR}/Resources/GoogleService-Info.plist -p platform \\{\\}\n";
+		};
 		2C56D9C5BA39023FFC852E1E /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -742,11 +791,13 @@
 				873AC7302477D59100261CD5 /* Storyboard.swift in Sources */,
 				07E06B74247AF20B007139E2 /* LocalDataManagerInputProtocol.swift in Sources */,
 				875D6E11247431B100C6DF31 /* ColorsMe.xcdatamodeld in Sources */,
+				07E2BA502481274C00465688 /* Font.swift in Sources */,
 				07E06B62247A7AFD007139E2 /* PickerDialogInteractor.swift in Sources */,
 				87CEC7BF2478265400206255 /* ColorTabBarWireframe.swift in Sources */,
 				072D9D00247E3FCC00390186 /* MenuButtons.swift in Sources */,
 				87CEC7C924782A7400206255 /* ColorMapViewController.swift in Sources */,
 				07E06B69247A8266007139E2 /* String.swift in Sources */,
+				07E2BA4E247FCF4C00465688 /* Color.swift in Sources */,
 				072D9D09247E40D900390186 /* TriggerMenuButtonView.swift in Sources */,
 				87CEC7B52478216100206255 /* EmotionalColor.swift in Sources */,
 				073E3B14247BD92E00540BF0 /* AppData.swift in Sources */,
@@ -765,15 +816,18 @@
 				07342E11247956E800A77BF7 /* IntroViewController.swift in Sources */,
 				87CEC7C824782A7400206255 /* ColorMapPresenter.swift in Sources */,
 				079840F5247BC5310054024B /* LocalDataManager.swift in Sources */,
+				07E2BA522481389C00465688 /* CMLayer.swift in Sources */,
 				87CEC7BE2478265400206255 /* ColorTabBarViewController.swift in Sources */,
 				87CEC7AE2477FCE300206255 /* ViewInterface.swift in Sources */,
 				87CEC7AB2477FCE300206255 /* PresenterInterface.swift in Sources */,
 				072D9D05247E406000390186 /* MenuButtonViewConfigProtocol.swift in Sources */,
 				07E06B78247AF385007139E2 /* DataManagerInputProtocol.swift in Sources */,
+				07E2BA4C247EE4A400465688 /* CMClusterMapLayer.swift in Sources */,
 				07E06B70247AF1EF007139E2 /* RemoteDataManagerInputProtocol.swift in Sources */,
 				875D6E09247431B100C6DF31 /* SceneDelegate.swift in Sources */,
 				87CEC7CB24782A7400206255 /* ColorMapWireframe.swift in Sources */,
 				0737FA8B247D7E430015A8F7 /* AppConfiguration.swift in Sources */,
+				07E2BA4A247EE07E00465688 /* CMHeatMapLayer.swift in Sources */,
 				07E06B7A247AF680007139E2 /* DataManager.swift in Sources */,
 				07B2BA0E247C2AFD00ED5BE7 /* CMAnnotationView.swift in Sources */,
 				07E06B76247AF218007139E2 /* LocalDataManagerOutputProtocol.swift in Sources */,
@@ -860,7 +914,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;

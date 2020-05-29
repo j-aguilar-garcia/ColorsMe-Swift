@@ -35,7 +35,7 @@ final class PickerDialogWireframe: BaseWireframe {
 extension PickerDialogWireframe: PickerDialogWireframeInterface {
     func navigate(with option: PickerDialogFilterOption) {
         let annotations = DataManager.shared.dataManager(filterBy: option, with: .local, completion: nil)
-        delegate?.pickerDialogDidChange(with: annotations)
+        delegate?.pickerDialogDidChange(with: option, annotations: annotations)
         self.dismiss(animated: true)
     }
     

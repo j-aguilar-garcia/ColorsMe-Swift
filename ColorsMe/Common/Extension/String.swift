@@ -32,4 +32,17 @@ extension String {
         return nwd
     }
     
+    func generateTimeBasedUUID() -> String? {
+        let uuidSize = MemoryLayout<uuid_t>.size
+        let uuidStringSize = MemoryLayout<uuid_string_t>.size
+        let uuidPointer = UnsafeMutablePointer<UInt8>.allocate(capacity: uuidSize)
+        let uuidStringPointer = UnsafeMutablePointer<Int8>.allocate(capacity: uuidStringSize)
+        uuid_generate_time(uuidPointer)
+        uuid_unparse(uuidPointer, uuidStringPointer)
+        let uuidString = NSString(utf8String: uuidStringPointer) as String?
+        uuidPointer.deallocate()
+        uuidStringPointer.deallocate()
+        return uuidString
+    }
+    
 }

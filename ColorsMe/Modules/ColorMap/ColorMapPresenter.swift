@@ -28,6 +28,17 @@ final class ColorMapPresenter {
 // MARK: - Extensions -
 
 extension ColorMapPresenter: ColorMapPresenterInterface {
+    
+    func didSelectMenuButton(at index: Int) {
+        log.verbose(index)
+        view.removeMapLayers()
+        if index == 1 {
+            view.createHeatMapLayer()
+        } else if index == 2 {
+            view.createClusterMapLayer()
+        }
+    }
+    
     func didSelectFilterButton() {
         wireframe.navigate(to: .pickerdialog)
     }

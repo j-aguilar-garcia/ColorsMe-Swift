@@ -9,13 +9,13 @@
 import UIKit
 import CoreData
 import Unrealm
+import Firebase
+import Sentry
 import SwiftyBeaver
 let log = SwiftyBeaver.self
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-    var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
@@ -32,12 +32,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Realm.registerRealmables([RealmAnnotation.self])
         
+        _ = DataManager.shared.dataManager(willRetrieveWith: .remote)
+        
+        SentrySDK.start(options: [ "dsn": AppConfiguration.default.sentryDsn!, "debug": true ])
+        
+        FirebaseApp.configure()
+        /*
         let introWireframe = IntroWireframe()
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.rootViewController = introWireframe.viewController
         self.window?.makeKeyAndVisible()
-        
+        */
         
         return true
     }

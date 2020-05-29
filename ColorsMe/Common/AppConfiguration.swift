@@ -20,6 +20,7 @@ class AppConfiguration {
     var swiftyBeaverAppSecret: String!
     var swiftyBeaverEncryptionKey: String!
     
+    var sentryDsn: String!
     
     init() {
         let bundleURL = Bundle.main.url(forResource: "AppProperties", withExtension: "plist")!
@@ -32,6 +33,7 @@ class AppConfiguration {
         swiftyBeaverAppId = plist["swiftybeaver_app_id"] as? String
         swiftyBeaverAppSecret = plist["swiftybeaver_app_secret"] as? String
         swiftyBeaverEncryptionKey = plist["swiftybeaver_encryption_key"] as? String
+        sentryDsn = plist["sentry_dsn"] as? String
     }
     
 }

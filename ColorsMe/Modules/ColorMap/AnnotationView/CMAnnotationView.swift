@@ -14,15 +14,25 @@ class CMAnnotationView : MGLAnnotationView {
     
     var title: String!
     var subtitle: String!
+    var imageView: UIImageView!
     
     override init(annotation: MGLAnnotation?, reuseIdentifier: String?) {
         super.init(annotation: annotation, reuseIdentifier: reuseIdentifier)
-        guard let _ = annotation as? CMAnnotation else { return }
-        
+        guard let cmAnnotation = annotation as? CMAnnotation else { return }
+        self.title = cmAnnotation.title!
+        self.subtitle = cmAnnotation.subtitle!
+        let color = String(describing: cmAnnotation.color!)
+        self.imageView = UIImageView(image: UIImage(named: color))
+        self.addSubview(self.imageView)
+        self.frame = self.imageView.frame
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
     }
     
 }

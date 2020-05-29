@@ -20,10 +20,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
+        
         let introWireframe = IntroWireframe()
         let navigationController = UINavigationController()
         navigationController.setRootWireframe(introWireframe)
         self.window = UIWindow(windowScene: windowScene)
+        self.window!.tintColor = .cmAppDefaultColor
         self.window?.rootViewController = navigationController
         self.window?.makeKeyAndVisible()
 

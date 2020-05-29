@@ -15,6 +15,9 @@ final class ColorMapViewController: UIViewController {
     // MARK: - Public properties -
 
     var presenter: ColorMapPresenterInterface!
+    
+    var heatMapLayer: CMHeatMapLayer?
+    var clusterMapLayer: CMClusterMapLayer?
 
     @IBOutlet weak var mapView: MGLMapView!
     
@@ -56,42 +59,14 @@ final class ColorMapViewController: UIViewController {
         let annotations = DataManager.shared.dataManager(willRetrieveWith: .local)
         mapView.addAnnotations(annotations)
         
-        let image = UIImage(named: "Filter")!.withRenderingMode(.alwaysTemplate)
-        filterButton.image = image
-        filterButton.tintColor = .gray
+        mapView.attributionButtonPosition = .topLeft
         
-        
-        let triggerButton = MenuTriggerButtonView(highlightedImage: UIImage(systemName: "xmark.circle.fill")!) {
-            $0.image = UIImage(systemName: "rectangle.stack.fill")
-            $0.hasShadow = true
-        }
-        
-        sideButtonsView = MenuSideButtons(parentView: self.view, triggerButton: triggerButton)
-        sideButtonsView.delegate = self
-        sideButtonsView.dataSource = self
-        
-        menuButtons = [
-            MenuButtonView {
-                $0.image = UIImage(named: "Defaultmap")
-                $0.hasShadow = true
-            },
-            MenuButtonView {
-                $0.image = UIImage(named: "Heatmap")
-                $0.hasShadow = true
-            },
-            MenuButtonView {
-                $0.image = UIImage(named: "Clustermap")
-                $0.hasShadow = true
-            }
-        ]
-        sideButtonsView.setTriggerButtonPosition(CGPoint(x: self.view.frame.maxX - 70, y: self.view.frame.height - 170))
-        sideButtonsView.reloadButtons()
+        addMenuButton()
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
         sideButtonsView.reloadButtons()
-        //switchMapViewAppearance()
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -104,6 +79,83 @@ final class ColorMapViewController: UIViewController {
 // MARK: - Extensions -
 
 extension ColorMapViewController: ColorMapViewInterface {
+    
+    func removeMapLayers() {
+        log.verbose("")
+        
+        heatMapLayer?.removeAllLayers(mapView: mapView)
+        heatMapLayer = nil
+        
+        clusterMapLayer?.removeAllLayers(mapView: mapView)
+        //clusterMapLayer?.removeGestures()
+        clusterMapLayer = nil
+        /*
+        heatMapLayer?.layerStyles.forEach({ $0.isVisible = false })
+        clusterMapLayer?.layerStyles.forEach({ $0.isVisible = false })
+        clusterMapLayer?.removeGestures()
+ */
+        let allAnnotations = DataManager.shared.dataManager(willRetrieveWith: .local)
+        if mapView.annotations?.count == allAnnotations.count {
+            return
+        }
+        mapView.addAnnotations(allAnnotations)
+        showScale()
+    }
+    
+    func createHeatMapLayer() {
+        hideScale(true)
+        log.verbose("")
+        
+        heatMapLayer = CMHeatMapLayer(mapView: mapView)
+        mapView.removeAnnotations(mapView!.annotations!)
+
+        //heatMapLayer?.layerStyles.forEach({ $0.isVisible = true })
+    }
+    
+    func createClusterMapLayer() {
+        log.verbose("")
+        hideScale(true)
+        
+        clusterMapLayer = CMClusterMapLayer(mapView: mapView, view: view)
+        mapView.removeAnnotations(mapView!.annotations!)
+        
+        
+        //clusterMapLayer?.layerStyles.forEach({ $0.isVisible = true })
+        
+        //clusterMapLayer?.addGestures()
+    }
+    
+    
+    func addMenuButton() {
+        let triggerButton = MenuTriggerButtonView(highlightedImage: UIImage(systemName: "xmark.circle.fill")!) {
+            $0.image = UIImage(named: "Menu")
+            $0.hasShadow = false
+        }
+        
+        sideButtonsView = MenuSideButtons(parentView: self.view, triggerButton: triggerButton)
+        sideButtonsView.delegate = self
+        sideButtonsView.dataSource = self
+        
+        menuButtons = [
+            MenuButtonView {
+                $0.image = UIImage(named: "Defaultmap")
+                $0.hasShadow = false
+            },
+            MenuButtonView {
+                $0.image = UIImage(named: "Heatmap")
+                $0.hasShadow = false
+            },
+            MenuButtonView {
+                $0.image = UIImage(named: "Clustermap")
+                $0.hasShadow = false
+            }
+        ]
+        let tabBarHeight = tabBarController?.tabBar.frame.size.height ?? 83
+        log.debug("tabBarHeight = \(tabBarHeight)")
+        sideButtonsView.setTriggerButtonPosition(CGPoint(x: self.view.frame.maxX - triggerButton.frame.width - 16, y: self.view.frame.height - tabBarHeight - triggerButton.frame.height - 16))
+        sideButtonsView.reloadButtons()
+    }
+    
     
     func switchAppearanceFor(mapView: MGLMapView) {
         if traitCollection.userInterfaceStyle == .dark {
@@ -122,7 +174,6 @@ extension ColorMapViewController: ColorMapViewInterface {
             return
         }
         self.scaleView.frame = CGRect(x: self.scaleView.frame.minX - self.scaleView.frame.width - 8, y: self.scaleView.frame.minY, width: self.scaleView.frame.width, height: self.scaleView.frame.height)
-        updateScale()
     }
     
     func showScale(_ animated: Bool = true) {
@@ -133,6 +184,7 @@ extension ColorMapViewController: ColorMapViewInterface {
             return
         }
         self.scaleView.frame = CGRect(x: self.scaleView.frame.minX + self.scaleView.frame.width + 8, y: self.scaleView.frame.minY, width: self.scaleView.frame.width, height: self.scaleView.frame.height)
+        updateScale()
     }
     
     func updateScale() {
@@ -167,42 +219,37 @@ extension ColorMapViewController: ColorMapViewInterface {
 // MARK: - MGLMapViewDelegate
 extension ColorMapViewController : MGLMapViewDelegate {
     
-    func mapView(_ mapView: MGLMapView, imageFor annotation: MGLAnnotation) -> MGLAnnotationImage? {
-        guard let cmAnnotation = annotation as? CMAnnotation else { return MGLAnnotationImage() }
-        let reuseIdentifier = "\(cmAnnotation.color!)"
-        
-        var annotationImage = mapView.dequeueReusableAnnotationImage(withIdentifier: reuseIdentifier)
-        if annotationImage == nil {
-            // lookup the image for this annotation
-            let image = UIImage(named: "\(cmAnnotation.color!)")
-            annotationImage = MGLAnnotationImage(image: image!, reuseIdentifier: reuseIdentifier)
-        }
-        return annotationImage
-    }
-    
-    
-    /*
     func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
         let reuseIdentifier = "pin"
-        guard let cmAnnotation = annotation as? CMAnnotation else {
-            return MGLAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
-        }
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
+        let cmAnnotation = annotation as? CMAnnotation
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier) as? CMAnnotationView
         
         if annotationView == nil {
             annotationView = CMAnnotationView(annotation: cmAnnotation, reuseIdentifier: reuseIdentifier)
         }
+        
+        let scaleTransform = CGAffineTransform(scaleX: 0.0, y: 0.0)  // Scale
+        UIView.animate(withDuration: 0.2, animations: {
+            annotationView!.imageView.transform = scaleTransform
+            annotationView!.imageView.layoutIfNeeded()
+        }) { (isCompleted) in
+            UIView.animate(withDuration: 0.3, animations: {
+                annotationView!.imageView.alpha = 1.0
+                annotationView!.imageView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                annotationView!.imageView.layoutIfNeeded()
+            })
+        }
         return annotationView
-    }*/
+    }
     
     
     func mapView(_ mapView: MGLMapView, regionDidChangeWith reason: MGLCameraChangeReason, animated: Bool) {
         updateScale()
+        log.debug(mapView.zoomLevel)
     }
     
     func mapViewDidFinishRenderingMap(_ mapView: MGLMapView, fullyRendered: Bool) {
         updateScale()
-        //showScale()
     }
     
     func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
@@ -212,6 +259,18 @@ extension ColorMapViewController : MGLMapViewDelegate {
     func mapViewWillStartRenderingMap(_ mapView: MGLMapView) {
         switchAppearanceFor(mapView: mapView)
     }
+    
+    func mapViewDidFinishLoadingMap(_ mapView: MGLMapView) {
+        //heatMapLayer = CMHeatMapLayer(mapView: mapView)
+    }
+    
+    func mapView(_ mapView: MGLMapView, didFinishLoading style: MGLStyle) {
+        //clusterMapLayer = CMClusterMapLayer(mapView: mapView, view: view)
+    }
+    
+    func mapView(_ mapView: MGLMapView, didChange mode: MGLUserTrackingMode, animated: Bool) {
+    }
+    
 }
 
 
@@ -249,8 +308,9 @@ extension ColorMapViewController : UIPopoverPresentationControllerDelegate {
 }
 
 extension ColorMapViewController : MenuSideButtonsDelegate, MenuSideButtonsDataSource {
+    
     func sideButtons(_ sideButtons: MenuSideButtons, didSelectButtonAtIndex index: Int) {
-        //presenter.didSelectMenuButton(at: index)
+        presenter.didSelectMenuButton(at: index)
         log.verbose("didSelectButtonAtIndx")
     }
     
@@ -266,12 +326,12 @@ extension ColorMapViewController : MenuSideButtonsDelegate, MenuSideButtonsDataS
         return menuButtons[index]
     }
     
-    
 }
 
 // MARK: - PickerDialogDelegate
 extension ColorMapViewController : PickerDialogDelegate {
-    func pickerDialogDidChange(with annotations: [CMAnnotation]) {
+    
+    func pickerDialogDidChange(with option: PickerDialogFilterOption, annotations: [CMAnnotation]) {
         log.debug("Filtered Annotations: \(annotations.count)")
         if let currentAnnotations = self.mapView.annotations {
             self.mapView.removeAnnotations(currentAnnotations)
@@ -279,7 +339,6 @@ extension ColorMapViewController : PickerDialogDelegate {
         self.mapView.addAnnotations(annotations)
         self.mapView.showAnnotations(annotations, animated: true)
         countColorsLabel.text = "\(AppData.selectedFilterName) : \(annotations.count)"
-        //showScale()
     }
     
     func pickerDialogDidClose() {
