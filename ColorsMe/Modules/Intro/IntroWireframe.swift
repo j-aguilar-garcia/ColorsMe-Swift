@@ -45,14 +45,14 @@ extension IntroWireframe: IntroWireframeInterface {
         log.verbose(#function)
         let tabBarWireframe = ColorTabBarWireframe()
         tabBarWireframe.installTabBar()
-        self.viewController.view.window?.rootViewController = tabBarWireframe.viewController
+        switchRootWireframe(rootWireframe: tabBarWireframe, animated: true, completion: nil)
     }
     
     private func openColorMap(with color: EmotionalColor) {
         log.verbose(#function)
         let tabBarWireframe = ColorTabBarWireframe()
         tabBarWireframe.installTabBar(with: color)
-        self.viewController.view.window?.rootViewController = tabBarWireframe.viewController
+        switchRootWireframe(rootWireframe: tabBarWireframe, animated: true, completion: nil)
     }
     
 }

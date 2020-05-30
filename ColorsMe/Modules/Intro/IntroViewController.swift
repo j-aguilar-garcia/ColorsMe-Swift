@@ -36,7 +36,10 @@ final class IntroViewController: UIViewController {
     
     @IBOutlet weak var yellowDotTrailingToRedDotLeadingConstraint: NSLayoutConstraint!
     
-    
+    @IBOutlet weak var greenDotButton: UIButton!
+    @IBOutlet weak var yellowDotButton: UIButton!
+    @IBOutlet weak var redDotButton: UIButton!
+    @IBOutlet weak var splashScreenImageView: UIImageView!
     
     // Actions
     
@@ -64,6 +67,7 @@ final class IntroViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        presenter.viewDidLoad()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -75,4 +79,37 @@ final class IntroViewController: UIViewController {
 // MARK: - Extensions -
 
 extension IntroViewController: IntroViewInterface {
+    
+    func animateSplashScreen() {
+        let commonAnimationDuration = TimeInterval(0.4)
+        let commonSpringDumping = CGFloat(0.4)
+        let commonInitSpringVelocity = CGFloat(0.1)
+        
+        var delay: TimeInterval = 0.0
+        let colorButtons = [greenDotButton, yellowDotButton, redDotButton]
+        greenDotButton.alpha = 0
+        yellowDotButton.alpha = 0
+        redDotButton.alpha = 0
+        
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
+            self.splashScreenImageView?.transform = CGAffineTransform(scaleX: 2, y: 2)
+            self.splashScreenImageView?.alpha = 0.0
+            self.splashScreenImageView?.layoutIfNeeded()
+        }) { finish in
+            for button in colorButtons {
+                UIView.animate(withDuration: commonAnimationDuration, delay: delay, usingSpringWithDamping: commonSpringDumping, initialSpringVelocity: commonInitSpringVelocity, options: .curveEaseOut, animations: {
+                    button?.transform = CGAffineTransform(scaleX: 0.0, y: 0.0)
+                    button?.layoutIfNeeded()
+                }) { finish in
+                    UIView.animate(withDuration: 0.3) {
+                        button?.alpha = 1.0
+                        button?.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                        button?.layoutIfNeeded()
+                    }
+                }
+                delay += 0.1
+            }
+        }
+    }
+    
 }

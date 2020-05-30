@@ -43,6 +43,23 @@ extension BaseWireframe: WireframeInterface {
         viewController.navigationController?.dismiss(animated: animated)
     }
     
+    func switchRootWireframe(rootWireframe: BaseWireframe, animated: Bool, completion: (() -> Void)?) {
+        if animated {
+            UIView.transition(with: viewController.view.window!, duration: 0.5, options: .transitionCrossDissolve, animations: {
+                let oldState: Bool = UIView.areAnimationsEnabled
+                UIView.setAnimationsEnabled(false)
+                self.viewController.view.window!.rootViewController = rootWireframe.viewController
+                UIView.setAnimationsEnabled(oldState)
+            }, completion: { (finished: Bool) -> () in
+                if (completion != nil) {
+                    completion!()
+                }
+            })
+        } else {
+            viewController.view.window!.rootViewController = rootWireframe.viewController
+        }
+    }
+    
 }
 
 extension BaseWireframe {

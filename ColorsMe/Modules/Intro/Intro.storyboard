@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jjj-bN-sFd">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jjj-bN-sFd">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
@@ -125,13 +125,20 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <blurEffect style="regular"/>
                             </visualEffectView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Splashscreen" translatesAutoresizingMaskIntoConstraints="NO" id="zQ7-Ky-FEI">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="UqK-Be-p2b" firstAttribute="top" secondItem="Roq-3c-mPi" secondAttribute="top" constant="-44" id="2Ci-uW-Qfi"/>
                             <constraint firstItem="Roq-3c-mPi" firstAttribute="bottom" secondItem="UqK-Be-p2b" secondAttribute="bottom" constant="-34" id="6Hg-gy-WeJ"/>
+                            <constraint firstAttribute="bottom" secondItem="zQ7-Ky-FEI" secondAttribute="bottom" id="9Tq-bz-Ix0"/>
                             <constraint firstItem="UqK-Be-p2b" firstAttribute="leading" secondItem="Roq-3c-mPi" secondAttribute="leading" id="Lpd-u7-4wn"/>
+                            <constraint firstItem="zQ7-Ky-FEI" firstAttribute="leading" secondItem="EWc-zU-rKP" secondAttribute="leading" id="bKd-dp-Fzj"/>
+                            <constraint firstAttribute="trailing" secondItem="zQ7-Ky-FEI" secondAttribute="trailing" id="dir-CU-JMa"/>
                             <constraint firstItem="Roq-3c-mPi" firstAttribute="trailing" secondItem="UqK-Be-p2b" secondAttribute="trailing" id="gB3-Hg-nY2"/>
+                            <constraint firstItem="zQ7-Ky-FEI" firstAttribute="top" secondItem="EWc-zU-rKP" secondAttribute="top" id="kzZ-V7-E4h"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Roq-3c-mPi"/>
                     </view>
@@ -139,21 +146,26 @@
                         <outlet property="greenCenterX" destination="JZS-7M-iFH" id="Iy7-iX-aU7"/>
                         <outlet property="greenCenterY" destination="NJy-we-DDj" id="XEj-Ea-ZKp"/>
                         <outlet property="greenDotBottomToYellowDotTopConstraint" destination="0sG-m0-yHr" id="ZIH-ik-GRH"/>
+                        <outlet property="greenDotButton" destination="roQ-dG-7Nl" id="bLx-xI-ORu"/>
                         <outlet property="greenDotTrailingToYellowLeadingConstraint" destination="w4k-7n-5hB" id="4cU-31-RKv"/>
                         <outlet property="redCenterX" destination="KjZ-cC-PQt" id="IwC-5v-PDX"/>
                         <outlet property="redCenterY" destination="qJG-l4-TX4" id="yTs-8F-fZZ"/>
+                        <outlet property="redDotButton" destination="Fs9-0E-NV8" id="WJ3-sr-zBX"/>
+                        <outlet property="splashScreenImageView" destination="zQ7-Ky-FEI" id="sGV-Y0-RBE"/>
                         <outlet property="yellowDotBottomToRedDotTopConstraint" destination="yPw-5e-aW0" id="cy5-1G-LQc"/>
+                        <outlet property="yellowDotButton" destination="PxM-uM-FBA" id="fxW-Vd-ABt"/>
                         <outlet property="yellowDotTrailingToRedDotLeadingConstraint" destination="xbq-5i-37n" id="WiG-cL-a9C"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bIC-Cn-AJh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-823" y="0.0"/>
+            <point key="canvasLocation" x="-823.1884057971015" y="0.0"/>
         </scene>
     </scenes>
     <resources>
         <image name="GreenBigDot" width="104.66666412353516" height="106.66666412353516"/>
         <image name="RedBigDot" width="104.66666412353516" height="106.66666412353516"/>
+        <image name="Splashscreen" width="354.66665649414062" height="600.33331298828125"/>
         <image name="YellowBigDot" width="104.66666412353516" height="106.66666412353516"/>
     </resources>
 </document>

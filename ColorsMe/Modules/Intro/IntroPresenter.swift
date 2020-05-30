@@ -26,6 +26,11 @@ final class IntroPresenter {
 // MARK: - Extensions -
 
 extension IntroPresenter: IntroPresenterInterface {
+    
+    func viewDidLoad() {
+        view.animateSplashScreen()
+    }
+    
     func didSelectSkipAction() {
         log.verbose(#function)
         wireframe.navigate(to: .colormap)

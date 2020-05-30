@@ -18,6 +18,7 @@ protocol IntroWireframeInterface: WireframeInterface {
 }
 
 protocol IntroViewInterface: ViewInterface {
+    func animateSplashScreen()
 }
 
 protocol IntroPresenterInterface: PresenterInterface {

@@ -29,7 +29,5 @@ protocol DataManagerInputProtocol {
     /// filters annotation by PickerDialogFilterOption
     func dataManager(filterBy: PickerDialogFilterOption, with type: DataManagerType, completion: (() -> Void)?) -> [CMAnnotation]
     
-    /// return an annotation with specified coordinates
-    func dataManager(filterLocalBy: [CLLocationCoordinate2D]) -> [CMAnnotation]
 
 }
