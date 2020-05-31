@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Mapbox
 
 final class IntroPresenter {
 
@@ -29,6 +30,12 @@ extension IntroPresenter: IntroPresenterInterface {
     
     func viewDidLoad() {
         view.animateSplashScreen()
+        let mapView = MGLMapView()
+        let authorizationStatus = mapView.locationManager.authorizationStatus
+        if authorizationStatus == .notDetermined {
+            mapView.locationManager.requestWhenInUseAuthorization()
+        }
+        
     }
     
     func didSelectSkipAction() {

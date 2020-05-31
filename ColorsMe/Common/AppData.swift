@@ -10,6 +10,7 @@ import Foundation
 
 /// Wrapper for the UserDefaults
 struct AppData {
+    
     /// Checks the iCloud sync status
     @Storage(key: "allowCloudSync", defaultValue: true)
     static var iCloudDataSyncIsEnabled: Bool
@@ -26,10 +27,6 @@ struct AppData {
     @Storage(key: "cloudSyncDone", defaultValue: false)
     static var iCloudHasSynced: Bool
     
-    /// The index of the filter of the ColorMap
-    @Storage(key: "selected", defaultValue: 0)
-    static var selectedFilterIndex: Int
-    
     /// Last cloud sync as date
     @Storage(key: "lastCloudSync", defaultValue: Date())
     static var lastCloudSync: Date
@@ -37,6 +34,21 @@ struct AppData {
     /// Determines the first start of the app
     @Storage(key: "isFirstStart", defaultValue: false)
     static var isFirstStart: Bool
+    
+    /// Last backendless sync as date
+    @Storage(key: "backendlessLastSyncTimeStamp", defaultValue: nil)
+    static var backendlessSyncTimeStamp: Date?
+    
+    /// Last selected ColorMapLayerItem - .defaultmap - .heatmap - .clustermap
+    @Storage(key: "ColorMapLayerItemCurrentVisible", defaultValue: ColorMapLayerType.defaultmap.rawValue)
+    static var colorMapLayerItem: ColorMapLayerType.RawValue
+    
+    
+    // MARK: - PickerDialog
+    
+    /// The index of the filter of the ColorMap
+    @Storage(key: "selected", defaultValue: 0)
+    static var selectedFilterIndex: Int
     
     /// Selected index of DialogPicker
     @Storage(key: "selectedFilterCount", defaultValue: 0)
@@ -46,9 +58,10 @@ struct AppData {
     @Storage(key: "selectedFilterName", defaultValue: "All Colors")
     static var selectedFilterName: String
     
-    /// Last backendless sync as date
-    @Storage(key: "backendlessLastSyncTimeStamp", defaultValue: nil)
-    static var backendlessSyncTimeStamp: Date?
+    /// Store selected Date
+    @Storage(key: "selectedFilterDate", defaultValue: Date())
+    static var selectedFilterDate: Date
+    
 }
 
 

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Mapbox
 
 final class IntroViewController: UIViewController {
 

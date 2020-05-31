@@ -30,13 +30,9 @@ final class ColorMapPresenter {
 extension ColorMapPresenter: ColorMapPresenterInterface {
     
     func didSelectMenuButton(at index: Int) {
-        log.verbose(index)
-        view.removeMapLayers()
-        if index == 1 {
-            view.createHeatMapLayer()
-        } else if index == 2 {
-            view.createClusterMapLayer()
-        }
+        guard let mapLayer = ColorMapLayerType(rawValue: index) else { return }
+        view.showMapLayer(layerType: mapLayer, annotations: nil)
+        AppData.colorMapLayerItem = mapLayer.rawValue
     }
     
     func didSelectFilterButton() {

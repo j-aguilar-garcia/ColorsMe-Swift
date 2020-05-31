@@ -64,6 +64,7 @@ class LocalDataManager : LocalDataManagerInputProtocol {
             return getAllLocal()
             
         case .mycolors:
+            #warning("Filter my colors!")
             return getAllLocal()
             // TODO: - filter my colors
             //let predicate = NSPredicate(format: "isMyColor == %@", true)
@@ -72,28 +73,33 @@ class LocalDataManager : LocalDataManagerInputProtocol {
         case .today:
             let today = Date()
             let interval = Calendar.current.dateInterval(of: .day, for: today)
+            log.debug("interval start \(String(describing: interval?.start)) - end \(String(describing: interval?.end))")
             let predicate = NSPredicate(format: "created BETWEEN {%@, %@}", interval!.start as NSDate, interval!.end as NSDate)
             return filterLocal(with: predicate)
             
         case .yesterday:
             let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())
             let interval = Calendar.current.dateInterval(of: .day, for: yesterday!)
+            log.debug("interval start \(String(describing: interval?.start)) - end \(String(describing: interval?.end))")
             let predicate = NSPredicate(format: "created BETWEEN {%@, %@}", interval!.start as NSDate, interval!.end as NSDate)
             return filterLocal(with: predicate)
             
         case .lastweek:
             let lastWeek = Calendar.current.date(byAdding: .day, value: -7, to: Date())
             let interval = Calendar.current.dateInterval(of: .day, for: lastWeek!)
+            log.debug("interval start \(String(describing: interval?.start)) - end \(String(describing: interval?.end))")
             let predicate = NSPredicate(format: "created BETWEEN {%@, %@}", interval!.start as NSDate, interval!.end as NSDate)
             return filterLocal(with: predicate)
             
         case .year(let date):
             let interval = Calendar.current.dateInterval(of: .year, for: date)
+            log.debug("interval start \(String(describing: interval?.start)) - end \(String(describing: interval?.end))")
             let predicate = NSPredicate(format: "created BETWEEN {%@, %@}", interval!.start as NSDate, interval!.end as NSDate)
             return filterLocal(with: predicate)
             
         case .month(let date):
             let interval = Calendar.current.dateInterval(of: .month, for: date)
+            log.debug("interval start \(String(describing: interval?.start)) - end \(String(describing: interval?.end))")
             let predicate = NSPredicate(format: "created BETWEEN {%@, %@}", interval!.start as NSDate, interval!.end as NSDate)
             return filterLocal(with: predicate)
         }

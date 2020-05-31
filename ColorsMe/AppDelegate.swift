@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         _ = DataManager.shared.dataManager(willRetrieveWith: .remote)
         
-        SentrySDK.start(options: [ "dsn": AppConfiguration.default.sentryDsn!, "debug": true ])
+        SentrySDK.start(options: [ "dsn": AppConfiguration.default.sentryDsn!, "debug": false ])
         
         FirebaseApp.configure()
         /*

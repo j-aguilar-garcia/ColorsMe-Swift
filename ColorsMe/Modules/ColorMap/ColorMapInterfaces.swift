@@ -29,9 +29,7 @@ protocol ColorMapViewInterface: ViewInterface {
     func switchAppearanceFor(mapView: MGLMapView)
     func addMenuButton()
     
-    func removeMapLayers()
-    func createHeatMapLayer()
-    func createClusterMapLayer()
+    func showMapLayer(layerType: ColorMapLayerType, annotations: [CMAnnotation]?)
 }
 
 protocol ColorMapPresenterInterface: PresenterInterface {
@@ -42,6 +40,17 @@ protocol ColorMapPresenterInterface: PresenterInterface {
 protocol ColorMapInteractorInterface: InteractorInterface {
     
 }
+
+// MARK: - Menubutton
+
+enum ColorMapLayerType : Int {
+    case defaultmap = 0
+    case heatmap = 1
+    case clustermap = 2
+}
+
+
+// MARK: - PickerDialog
 
 protocol PickerDialogDelegate {
     func pickerDialogDidChange(with option: PickerDialogFilterOption, annotations: [CMAnnotation])

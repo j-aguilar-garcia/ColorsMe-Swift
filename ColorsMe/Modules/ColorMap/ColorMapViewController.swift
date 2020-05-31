@@ -55,17 +55,16 @@ final class ColorMapViewController: UIViewController {
         mapView.delegate = self
         mapView.automaticallyAdjustsContentInset = true
         mapView.locationManager.delegate = self
-        // Add initial annotations
-        let annotations = DataManager.shared.dataManager(willRetrieveWith: .local)
-        mapView.addAnnotations(annotations)
-        
+
         mapView.attributionButtonPosition = .topLeft
-        
+
         addMenuButton()
+        showMapLayer(layerType: .defaultmap)
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
+        log.debug("")
         sideButtonsView.reloadButtons()
     }
     
@@ -80,49 +79,37 @@ final class ColorMapViewController: UIViewController {
 
 extension ColorMapViewController: ColorMapViewInterface {
     
-    func removeMapLayers() {
-        log.verbose("")
-        
+    func showMapLayer(layerType: ColorMapLayerType, annotations: [CMAnnotation]? = nil) {
+        log.debug("")
         heatMapLayer?.removeAllLayers(mapView: mapView)
         heatMapLayer = nil
-        
         clusterMapLayer?.removeAllLayers(mapView: mapView)
-        //clusterMapLayer?.removeGestures()
         clusterMapLayer = nil
-        /*
-        heatMapLayer?.layerStyles.forEach({ $0.isVisible = false })
-        clusterMapLayer?.layerStyles.forEach({ $0.isVisible = false })
-        clusterMapLayer?.removeGestures()
- */
-        let allAnnotations = DataManager.shared.dataManager(willRetrieveWith: .local)
-        if mapView.annotations?.count == allAnnotations.count {
-            return
+        
+        if annotations != nil {
+            mapView.addAnnotations(annotations!)
+        } else {
+            let allAnnotations = DataManager.shared.dataManager(willRetrieveWith: .local)
+            if mapView.annotations?.count != allAnnotations.count {
+                mapView.addAnnotations(allAnnotations)
+            }
         }
-        mapView.addAnnotations(allAnnotations)
-        showScale()
-    }
-    
-    func createHeatMapLayer() {
-        hideScale(true)
-        log.verbose("")
         
-        heatMapLayer = CMHeatMapLayer(mapView: mapView)
-        mapView.removeAnnotations(mapView!.annotations!)
-
-        //heatMapLayer?.layerStyles.forEach({ $0.isVisible = true })
-    }
-    
-    func createClusterMapLayer() {
-        log.verbose("")
-        hideScale(true)
-        
-        clusterMapLayer = CMClusterMapLayer(mapView: mapView, view: view)
-        mapView.removeAnnotations(mapView!.annotations!)
-        
-        
-        //clusterMapLayer?.layerStyles.forEach({ $0.isVisible = true })
-        
-        //clusterMapLayer?.addGestures()
+        switch layerType {
+            
+        case .defaultmap:
+            showScale()
+            
+        case .heatmap:
+            hideScale(true)
+            heatMapLayer = CMHeatMapLayer(mapView: mapView)
+            mapView.removeAnnotations(mapView!.annotations!)
+            
+        case .clustermap:
+            hideScale(true)
+            clusterMapLayer = CMClusterMapLayer(mapView: mapView, view: view)
+            mapView.removeAnnotations(mapView!.annotations!)
+        }
     }
     
     
@@ -166,24 +153,36 @@ extension ColorMapViewController: ColorMapViewInterface {
     }
     
     func hideScale(_ animated: Bool = true) {
+        let hideScaleViewFrame = CGRect(x: 0 - self.scaleView.frame.width - 8, y: self.scaleView.frame.minY, width: self.scaleView.frame.width, height: self.scaleView.frame.height)
+        
+        if scaleView.frame == hideScaleViewFrame {
+            return
+        }
+        
         if animated {
             UIView.animate(withDuration: 0.5, delay: 0.2, animations: {
-                self.scaleView.frame = CGRect(x: self.scaleView.frame.minX - self.scaleView.frame.width - 8, y: self.scaleView.frame.minY, width: self.scaleView.frame.width, height: self.scaleView.frame.height)
+                self.scaleView.frame = hideScaleViewFrame
+            })
+            return
+        }
+        self.scaleView.frame = hideScaleViewFrame
+    }
+    
+    func showScale(_ animated: Bool = true) {
+        let showScaleViewFrame = CGRect(x: 0, y: self.scaleView.frame.minY, width: self.scaleView.frame.width, height: self.scaleView.frame.height)
+        
+        if scaleView.frame == showScaleViewFrame {
+            return
+        }
+        
+        if animated {
+            UIView.animate(withDuration: 0.5, delay: 0.2, animations: {
+                self.scaleView.frame = showScaleViewFrame
             })
             updateScale()
             return
         }
-        self.scaleView.frame = CGRect(x: self.scaleView.frame.minX - self.scaleView.frame.width - 8, y: self.scaleView.frame.minY, width: self.scaleView.frame.width, height: self.scaleView.frame.height)
-    }
-    
-    func showScale(_ animated: Bool = true) {
-        if animated {
-            UIView.animate(withDuration: 0.5, delay: 0.2, animations: {
-                self.scaleView.frame = CGRect(x: self.scaleView.frame.minX + self.scaleView.frame.width + 8, y: self.scaleView.frame.minY, width: self.scaleView.frame.width, height: self.scaleView.frame.height)
-            })
-            return
-        }
-        self.scaleView.frame = CGRect(x: self.scaleView.frame.minX + self.scaleView.frame.width + 8, y: self.scaleView.frame.minY, width: self.scaleView.frame.width, height: self.scaleView.frame.height)
+        self.scaleView.frame = showScaleViewFrame
         updateScale()
     }
     
@@ -213,6 +212,10 @@ extension ColorMapViewController: ColorMapViewInterface {
         })
     }
     
+    private func updateColorsLabel(count: Int) {
+        countColorsLabel.text = "\(AppData.selectedFilterName) : \(count)"
+    }
+    
 }
 
 
@@ -228,7 +231,7 @@ extension ColorMapViewController : MGLMapViewDelegate {
             annotationView = CMAnnotationView(annotation: cmAnnotation, reuseIdentifier: reuseIdentifier)
         }
         
-        let scaleTransform = CGAffineTransform(scaleX: 0.0, y: 0.0)  // Scale
+        let scaleTransform = CGAffineTransform(scaleX: 0.0, y: 0.0)
         UIView.animate(withDuration: 0.2, animations: {
             annotationView!.imageView.transform = scaleTransform
             annotationView!.imageView.layoutIfNeeded()
@@ -245,6 +248,7 @@ extension ColorMapViewController : MGLMapViewDelegate {
     
     func mapView(_ mapView: MGLMapView, regionDidChangeWith reason: MGLCameraChangeReason, animated: Bool) {
         updateScale()
+        
         log.debug(mapView.zoomLevel)
     }
     
@@ -336,9 +340,8 @@ extension ColorMapViewController : PickerDialogDelegate {
         if let currentAnnotations = self.mapView.annotations {
             self.mapView.removeAnnotations(currentAnnotations)
         }
-        self.mapView.addAnnotations(annotations)
-        self.mapView.showAnnotations(annotations, animated: true)
-        countColorsLabel.text = "\(AppData.selectedFilterName) : \(annotations.count)"
+        showMapLayer(layerType: ColorMapLayerType(rawValue: AppData.colorMapLayerItem)!, annotations: annotations)
+        updateColorsLabel(count: annotations.count)
     }
     
     func pickerDialogDidClose() {
