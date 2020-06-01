@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Mapbox
+import CoreLocation
 
 final class IntroViewController: UIViewController {
 
@@ -74,6 +74,15 @@ final class IntroViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.navigationBar.isHidden = true
     }
+    
+    override func viewWillLayoutSubviews() {
+        updateConstraints()
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        updateConstraints()
+    }
 
 }
 
@@ -102,14 +111,41 @@ extension IntroViewController: IntroViewInterface {
                     button?.transform = CGAffineTransform(scaleX: 0.0, y: 0.0)
                     button?.layoutIfNeeded()
                 }) { finish in
-                    UIView.animate(withDuration: 0.3) {
+                    UIView.animate(withDuration: 0.3, animations:  {
                         button?.alpha = 1.0
                         button?.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
                         button?.layoutIfNeeded()
+                    }) { finish in
+                        if button == colorButtons.last {
+                            LocationService.default.startLocationRequest()
+                        }
                     }
                 }
                 delay += 0.1
             }
+        }
+    }
+    
+    
+    private func updateConstraints() {
+        if UIDevice.current.orientation.isLandscape && UIDevice.current.userInterfaceIdiom == .pad {
+            greenCenterY.priority = .required
+            redCenterY.priority = .required
+            greenDotTrailingToYellowLeadingConstraint.priority = .required
+            yellowDotTrailingToRedDotLeadingConstraint.priority = .required
+            greenDotBottomToYellowDotTopConstraint.priority = .defaultLow
+            yellowDotBottomToRedDotTopConstraint.priority = .defaultLow
+            greenCenterX.priority = .defaultLow
+            redCenterX.priority = .defaultLow
+        } else if UIDevice.current.orientation.isPortrait && UIDevice.current.userInterfaceIdiom == .pad {
+            greenDotBottomToYellowDotTopConstraint.priority = .required
+            yellowDotBottomToRedDotTopConstraint.priority = .required
+            greenCenterX.priority = .required
+            redCenterX.priority = .required
+            greenCenterY.priority = .defaultLow
+            redCenterY.priority = .defaultLow
+            greenDotTrailingToYellowLeadingConstraint.priority = .defaultLow
+            yellowDotTrailingToRedDotLeadingConstraint.priority = .defaultLow
         }
     }
     
