@@ -79,6 +79,7 @@ class CMAnnotation : MGLPointAnnotation {
     var objectId : String!
     var latitude : Double!
     var guid : String!
+    var created: Date!
     
     init(annotation: Annotation) {
         super.init()
@@ -90,6 +91,7 @@ class CMAnnotation : MGLPointAnnotation {
         self.latitude = annotation.latitude?.doubleValue
         self.objectId = annotation.objectId!
         self.guid = annotation.guid!
+        self.created = annotation.created!
         coordinate = CLLocationCoordinate2D(latitude: annotation.latitude!.doubleValue, longitude: annotation.longitude!.doubleValue)
         title = annotation.title?.convertDate()
         subtitle = annotation.title?.convertTime()
@@ -101,11 +103,12 @@ class CMAnnotation : MGLPointAnnotation {
         self.country = annotation.country!
         self.city = annotation.city!
         self.isocountrycode = annotation.isocountrycode!
-        self.color = EmotionalColor(rawValue: "\(annotation.color!)")
+        self.color = EmotionalColor(rawValue: annotation.color!)
         self.longitude = annotation.longitude
         self.latitude = annotation.latitude
         self.objectId = annotation.objectId!
         self.guid = annotation.guid!
+        self.created = annotation.created!
         coordinate = CLLocationCoordinate2D(latitude: annotation.latitude!, longitude: annotation.longitude!)
         title = annotation.title?.convertDate()
         subtitle = annotation.title?.convertTime()
