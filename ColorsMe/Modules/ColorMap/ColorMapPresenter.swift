@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Mapbox
 
 final class ColorMapPresenter {
 
@@ -32,11 +33,17 @@ extension ColorMapPresenter: ColorMapPresenterInterface {
     func didSelectMenuButton(at index: Int) {
         guard let mapLayer = ColorMapLayerType(rawValue: index) else { return }
         view.showMapLayer(layerType: mapLayer, annotations: nil)
-        AppData.colorMapLayerItem = mapLayer.rawValue
     }
     
     func didSelectFilterButton() {
         wireframe.navigate(to: .pickerdialog)
     }
     
+    func willUpdateScale(value: Float, duration: Double) {
+        view.updateScale(value: value, duration: duration)
+    }
+    
+    func shouldUpdateScale(_ mapView: MGLMapView, _ oldValue: Float) {
+        interactor.shouldUpdateScale(mapView: mapView, oldValue: oldValue)
+    }
 }

@@ -23,7 +23,7 @@ protocol ColorMapWireframeInterface: WireframeInterface {
 }
 
 protocol ColorMapViewInterface: ViewInterface {    
-    func updateScale()
+    func updateScale(value: Float, duration: Double)
     func showScale(_ animated: Bool)
     func hideScale(_ animated: Bool)
     func switchAppearanceFor(mapView: MGLMapView)
@@ -35,10 +35,12 @@ protocol ColorMapViewInterface: ViewInterface {
 protocol ColorMapPresenterInterface: PresenterInterface {
     func didSelectFilterButton()
     func didSelectMenuButton(at index: Int)
+    func shouldUpdateScale(_ mapView: MGLMapView, _ oldValue: Float)
+    func willUpdateScale(value: Float, duration: Double)
 }
 
 protocol ColorMapInteractorInterface: InteractorInterface {
-    
+    func shouldUpdateScale(mapView: MGLMapView, oldValue: Float)
 }
 
 // MARK: - Menubutton

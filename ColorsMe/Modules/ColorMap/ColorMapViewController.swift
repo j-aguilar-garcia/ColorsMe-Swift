@@ -91,6 +91,8 @@ extension ColorMapViewController: ColorMapViewInterface {
     
     func showMapLayer(layerType: ColorMapLayerType, annotations: [CMAnnotation]? = nil) {
         log.debug("")
+        AppData.colorMapLayerItem = layerType.rawValue
+
         heatMapLayer?.removeAllLayers(mapView: mapView)
         heatMapLayer = nil
         clusterMapLayer?.removeAllLayers(mapView: mapView)
@@ -194,36 +196,16 @@ extension ColorMapViewController: ColorMapViewInterface {
             UIView.animate(withDuration: 0.5, delay: 0.2, animations: {
                 self.scaleView.frame = showScaleViewFrame
             })
-            updateScale()
+            presenter.shouldUpdateScale(mapView, slider.value)
             return
         }
         self.scaleView.frame = showScaleViewFrame
-        updateScale()
+        presenter.shouldUpdateScale(mapView, slider.value)
     }
     
-    func updateScale() {
-        var result: Float!
-        var duration: Double!
-        let oldSliderValue = slider.value
-        guard let visibleAnnotations = mapView.visibleAnnotations as? [CMAnnotation] else { return }
-
-        if visibleAnnotations.count == 0 {
-            result = 0.5
-        } else {
-            let countRedColors = visibleAnnotations.filter { $0.color! == EmotionalColor.Red }.count
-            let countYellowColors = visibleAnnotations.filter { $0.color! == EmotionalColor.Yellow }.count
-            let countGreenColors = visibleAnnotations.filter { $0.color! == EmotionalColor.Green }.count
-            let yellowColorsValue = Float(countYellowColors) * 0.5
-            result = (yellowColorsValue + Float(countGreenColors)) / (Float(countRedColors) + Float(countYellowColors) + Float(countGreenColors))
-        }
-        
-        let isOldValueBigger = oldSliderValue > result
-        let differenceBetweenValues = isOldValueBigger ? oldSliderValue - result : result - oldSliderValue
-
-        duration = differenceBetweenValues <= 0.33 ? 1 : differenceBetweenValues > 0.33 && differenceBetweenValues <= 0.66 ? 0.8 : 0.4
-        
+    func updateScale(value: Float, duration: Double) {
         UIView.animate(withDuration: duration, animations: {
-            self.slider.setValue(self.slider.maximumValue - result, animated: true)
+            self.slider.setValue(self.slider.maximumValue - value, animated: true)
         })
     }
     
@@ -266,8 +248,8 @@ extension ColorMapViewController : MGLMapViewDelegate {
     
     
     func mapView(_ mapView: MGLMapView, regionDidChangeWith reason: MGLCameraChangeReason, animated: Bool) {
-        updateScale()
-        
+        presenter.shouldUpdateScale(mapView, slider.value)
+
         log.debug(mapView.zoomLevel)
     }
     
