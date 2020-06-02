@@ -163,6 +163,7 @@
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="cvW-gD-tp3"/>
+                                <exclude reference="Ddn-hA-xal"/>
                             </mask>
                         </variation>
                     </view>

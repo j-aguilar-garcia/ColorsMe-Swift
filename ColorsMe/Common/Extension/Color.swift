@@ -30,4 +30,12 @@ extension UIColor {
     public class var cmClusterImage : UIColor {
         return UIColor(named: "CMClusterImageColor")!
     }
+    
+    public class var cmPolylineStroke : UIColor {
+        return UIColor(named: "PolylineStroke")!
+    }
+    
+    public class var cmPolylineFill : UIColor {
+        return UIColor(named: "PolylineFill")!
+    }
 }

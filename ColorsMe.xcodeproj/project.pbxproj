@@ -21,6 +21,7 @@
 		0737FA8B247D7E430015A8F7 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0737FA8A247D7E430015A8F7 /* AppConfiguration.swift */; };
 		073E3B14247BD92E00540BF0 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073E3B13247BD92E00540BF0 /* AppData.swift */; };
 		074C7CCB247EBEFC00C8EAC5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 074C7CCA247EBEFC00C8EAC5 /* GoogleService-Info.plist */; };
+		077325F524855401009DDB57 /* CMOverlayLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077325F424855401009DDB57 /* CMOverlayLayer.swift */; };
 		079840F5247BC5310054024B /* LocalDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079840F4247BC5310054024B /* LocalDataManager.swift */; };
 		07B2BA0E247C2AFD00ED5BE7 /* CMAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B2BA0D247C2AFD00ED5BE7 /* CMAnnotationView.swift */; };
 		07B2BA10247C558300ED5BE7 /* DataManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B2BA0F247C558300ED5BE7 /* DataManagerProtocol.swift */; };
@@ -47,6 +48,13 @@
 		07E2BA4E247FCF4C00465688 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E2BA4D247FCF4C00465688 /* Color.swift */; };
 		07E2BA502481274C00465688 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E2BA4F2481274C00465688 /* Font.swift */; };
 		07E2BA522481389C00465688 /* CMLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E2BA512481389C00465688 /* CMLayer.swift */; };
+		07E2BA5724851B3D00465688 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E2BA5624851B3D00465688 /* LocationService.swift */; };
+		07E2BA5F2485232900465688 /* LocationSearch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07E2BA592485232900465688 /* LocationSearch.storyboard */; };
+		07E2BA602485232900465688 /* LocationSearchInterfaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E2BA5A2485232900465688 /* LocationSearchInterfaces.swift */; };
+		07E2BA612485232900465688 /* LocationSearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E2BA5B2485232900465688 /* LocationSearchPresenter.swift */; };
+		07E2BA622485232900465688 /* LocationSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E2BA5C2485232900465688 /* LocationSearchViewController.swift */; };
+		07E2BA632485232900465688 /* LocationSearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E2BA5D2485232900465688 /* LocationSearchInteractor.swift */; };
+		07E2BA642485232900465688 /* LocationSearchWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E2BA5E2485232900465688 /* LocationSearchWireframe.swift */; };
 		53D40F3CD091A40F37168060 /* Pods_ColorsMe_ColorsMeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE899B237EC7777F01FF7D36 /* Pods_ColorsMe_ColorsMeUITests.framework */; };
 		5CFCF9B2C97F7E1198EBD59B /* Pods_ColorsMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4843E0A33CA60452C7772E53 /* Pods_ColorsMe.framework */; };
 		873AC7122477C8DC00261CD5 /* TabBarViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 873AC7112477C8DC00261CD5 /* TabBarViewProtocol.swift */; };
@@ -111,6 +119,7 @@
 		0737FA8A247D7E430015A8F7 /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		073E3B13247BD92E00540BF0 /* AppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
 		074C7CCA247EBEFC00C8EAC5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
+		077325F424855401009DDB57 /* CMOverlayLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMOverlayLayer.swift; sourceTree = "<group>"; };
 		079840F4247BC5310054024B /* LocalDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataManager.swift; sourceTree = "<group>"; };
 		07B2BA0D247C2AFD00ED5BE7 /* CMAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMAnnotationView.swift; sourceTree = "<group>"; };
 		07B2BA0F247C558300ED5BE7 /* DataManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagerProtocol.swift; sourceTree = "<group>"; };
@@ -137,6 +146,13 @@
 		07E2BA4D247FCF4C00465688 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		07E2BA4F2481274C00465688 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		07E2BA512481389C00465688 /* CMLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMLayer.swift; sourceTree = "<group>"; };
+		07E2BA5624851B3D00465688 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		07E2BA592485232900465688 /* LocationSearch.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LocationSearch.storyboard; sourceTree = "<group>"; };
+		07E2BA5A2485232900465688 /* LocationSearchInterfaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchInterfaces.swift; sourceTree = "<group>"; };
+		07E2BA5B2485232900465688 /* LocationSearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchPresenter.swift; sourceTree = "<group>"; };
+		07E2BA5C2485232900465688 /* LocationSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchViewController.swift; sourceTree = "<group>"; };
+		07E2BA5D2485232900465688 /* LocationSearchInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchInteractor.swift; sourceTree = "<group>"; };
+		07E2BA5E2485232900465688 /* LocationSearchWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchWireframe.swift; sourceTree = "<group>"; };
 		11CF73532C8DABECA62F6556 /* Pods-ColorsMeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorsMeTests.release.xcconfig"; path = "Target Support Files/Pods-ColorsMeTests/Pods-ColorsMeTests.release.xcconfig"; sourceTree = "<group>"; };
 		2FF592CE8B7E90DCFFB2C306 /* Pods-ColorsMe-ColorsMeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ColorsMe-ColorsMeUITests.debug.xcconfig"; path = "Target Support Files/Pods-ColorsMe-ColorsMeUITests/Pods-ColorsMe-ColorsMeUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		43F552BF2D55B2BE38E1B9E6 /* Pods_ColorsMeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ColorsMeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -256,6 +272,7 @@
 		0737FA8C247D96080015A8F7 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				07E2BA5524851B3100465688 /* Services */,
 				073E3B13247BD92E00540BF0 /* AppData.swift */,
 				0737FA8D247D96170015A8F7 /* DataManager */,
 				0737FA90247D964D0015A8F7 /* Models */,
@@ -370,9 +387,31 @@
 			children = (
 				07E2BA49247EE07E00465688 /* CMHeatMapLayer.swift */,
 				07E2BA4B247EE4A400465688 /* CMClusterMapLayer.swift */,
+				077325F424855401009DDB57 /* CMOverlayLayer.swift */,
 				07E2BA512481389C00465688 /* CMLayer.swift */,
 			);
 			path = MapLayer;
+			sourceTree = "<group>";
+		};
+		07E2BA5524851B3100465688 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				07E2BA5624851B3D00465688 /* LocationService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		07E2BA582485230800465688 /* LocationSearch */ = {
+			isa = PBXGroup;
+			children = (
+				07E2BA592485232900465688 /* LocationSearch.storyboard */,
+				07E2BA5A2485232900465688 /* LocationSearchInterfaces.swift */,
+				07E2BA5B2485232900465688 /* LocationSearchPresenter.swift */,
+				07E2BA5C2485232900465688 /* LocationSearchViewController.swift */,
+				07E2BA5D2485232900465688 /* LocationSearchInteractor.swift */,
+				07E2BA5E2485232900465688 /* LocationSearchWireframe.swift */,
+			);
+			path = LocationSearch;
 			sourceTree = "<group>";
 		};
 		6023A95306E6FB5FDF38A0BA /* Pods */ = {
@@ -398,6 +437,7 @@
 		873AC7312477D82300261CD5 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				07E2BA582485230800465688 /* LocationSearch */,
 				07342E08247956DA00A77BF7 /* Intro */,
 				8767E4C92476C56100A8CA55 /* ColorTabBar */,
 				877F837E247502C8009BA6BE /* ColorMap */,
@@ -611,6 +651,7 @@
 			files = (
 				87CEC7BB2478265400206255 /* ColorTabBar.storyboard in Resources */,
 				074C7CCB247EBEFC00C8EAC5 /* GoogleService-Info.plist in Resources */,
+				07E2BA5F2485232900465688 /* LocationSearch.storyboard in Resources */,
 				0737FA89247D7C600015A8F7 /* AppProperties.plist in Resources */,
 				87CEC7C624782A7400206255 /* ColorMap.storyboard in Resources */,
 				87CEC7B22477FF4300206255 /* Assets.xcassets in Resources */,
@@ -786,6 +827,7 @@
 				07342E12247956E800A77BF7 /* IntroWireframe.swift in Sources */,
 				07E06B72247AF1FC007139E2 /* RemoteDataManagerOutputProtocol.swift in Sources */,
 				07E06B65247A7EA4007139E2 /* PickerData.swift in Sources */,
+				07E2BA622485232900465688 /* LocationSearchViewController.swift in Sources */,
 				07E06B63247A7AFD007139E2 /* PickerDialogWireframe.swift in Sources */,
 				87CEC7CA24782A7400206255 /* ColorMapInteractor.swift in Sources */,
 				873AC7302477D59100261CD5 /* Storyboard.swift in Sources */,
@@ -803,10 +845,14 @@
 				073E3B14247BD92E00540BF0 /* AppData.swift in Sources */,
 				072D9D07247E407F00390186 /* MenuButtonAnimator.swift in Sources */,
 				87CEC7BC2478265400206255 /* ColorTabBarInterfaces.swift in Sources */,
+				07E2BA612485232900465688 /* LocationSearchPresenter.swift in Sources */,
+				077325F524855401009DDB57 /* CMOverlayLayer.swift in Sources */,
+				07E2BA632485232900465688 /* LocationSearchInteractor.swift in Sources */,
 				87CEC7AD2477FCE300206255 /* InteractorInterface.swift in Sources */,
 				07E06B61247A7AFD007139E2 /* PickerDialogViewController.swift in Sources */,
 				873AC7122477C8DC00261CD5 /* TabBarViewProtocol.swift in Sources */,
 				07E06B6E247AAC7A007139E2 /* Annotation.swift in Sources */,
+				07E2BA642485232900465688 /* LocationSearchWireframe.swift in Sources */,
 				07E06B60247A7AFD007139E2 /* PickerDialogPresenter.swift in Sources */,
 				07E06B67247A8234007139E2 /* DateFormatter.swift in Sources */,
 				07342E0F247956E800A77BF7 /* IntroInterfaces.swift in Sources */,
@@ -823,6 +869,7 @@
 				072D9D05247E406000390186 /* MenuButtonViewConfigProtocol.swift in Sources */,
 				07E06B78247AF385007139E2 /* DataManagerInputProtocol.swift in Sources */,
 				07E2BA4C247EE4A400465688 /* CMClusterMapLayer.swift in Sources */,
+				07E2BA602485232900465688 /* LocationSearchInterfaces.swift in Sources */,
 				07E06B70247AF1EF007139E2 /* RemoteDataManagerInputProtocol.swift in Sources */,
 				875D6E09247431B100C6DF31 /* SceneDelegate.swift in Sources */,
 				87CEC7CB24782A7400206255 /* ColorMapWireframe.swift in Sources */,
@@ -832,6 +879,7 @@
 				07B2BA0E247C2AFD00ED5BE7 /* CMAnnotationView.swift in Sources */,
 				07E06B76247AF218007139E2 /* LocalDataManagerOutputProtocol.swift in Sources */,
 				07E06B5F247A7AFD007139E2 /* PickerDialogInterfaces.swift in Sources */,
+				07E2BA5724851B3D00465688 /* LocationService.swift in Sources */,
 				07342E10247956E800A77BF7 /* IntroPresenter.swift in Sources */,
 				87CEC7AC2477FCE300206255 /* FormatterInterface.swift in Sources */,
 				07B2BA10247C558300ED5BE7 /* DataManagerProtocol.swift in Sources */,

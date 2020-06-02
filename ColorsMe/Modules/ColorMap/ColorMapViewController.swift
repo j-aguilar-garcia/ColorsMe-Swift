@@ -8,6 +8,7 @@
 
 import UIKit
 import Mapbox
+import MapboxGeocoder
 import Reachability
 
 final class ColorMapViewController: UIViewController {
@@ -18,6 +19,7 @@ final class ColorMapViewController: UIViewController {
     
     var heatMapLayer: CMHeatMapLayer?
     var clusterMapLayer: CMClusterMapLayer?
+    var searchResultsOverlay: CMOverlayLayer?
 
     @IBOutlet weak var mapView: MGLMapView!
     
@@ -45,8 +47,14 @@ final class ColorMapViewController: UIViewController {
         presenter.didSelectFilterButton()
     }
     
+    // Menu Buttons
     var sideButtonsView: MenuSideButtons!
     var menuButtons : [MenuButtonView]!
+    
+    // Searchbar
+    var resultSearchController: UISearchController?
+    var locationSearchWireframe: LocationSearchWireframe!
+
     
     // MARK: - Lifecycle -
 
@@ -54,18 +62,20 @@ final class ColorMapViewController: UIViewController {
         super.viewDidLoad()
         mapView.delegate = self
         mapView.automaticallyAdjustsContentInset = true
-        mapView.locationManager.delegate = self
 
         mapView.attributionButtonPosition = .topLeft
 
         addMenuButton()
         showMapLayer(layerType: .defaultmap)
+        
+        setUpSearchBar()
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
         log.debug("")
         sideButtonsView.reloadButtons()
+
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -85,20 +95,25 @@ extension ColorMapViewController: ColorMapViewInterface {
         heatMapLayer = nil
         clusterMapLayer?.removeAllLayers(mapView: mapView)
         clusterMapLayer = nil
+        willRemoveOverlay()
         
         if annotations != nil {
             mapView.addAnnotations(annotations!)
         } else {
+            if mapView.annotations != nil {
+                mapView.removeAnnotations(mapView.annotations!)
+            }
             let allAnnotations = DataManager.shared.dataManager(willRetrieveWith: .local)
             if mapView.annotations?.count != allAnnotations.count {
                 mapView.addAnnotations(allAnnotations)
             }
         }
+        updateColorsLabel(count: mapView.annotations?.count ?? 0)
         
         switch layerType {
             
         case .defaultmap:
-            showScale()
+            showScale(true)
             
         case .heatmap:
             hideScale(true)
@@ -212,8 +227,12 @@ extension ColorMapViewController: ColorMapViewInterface {
         })
     }
     
-    private func updateColorsLabel(count: Int) {
-        countColorsLabel.text = "\(AppData.selectedFilterName) : \(count)"
+    private func updateColorsLabel(count: Int, name: String = "") {
+        if name.isEmpty {
+            countColorsLabel.text = "\(AppData.selectedFilterName) : \(count)"
+        } else {
+            countColorsLabel.text = "\(name) : \(count)"
+        }
     }
     
 }
@@ -223,8 +242,8 @@ extension ColorMapViewController: ColorMapViewInterface {
 extension ColorMapViewController : MGLMapViewDelegate {
     
     func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
-        let reuseIdentifier = "pin"
         let cmAnnotation = annotation as? CMAnnotation
+        let reuseIdentifier = String(describing: cmAnnotation?.color!.rawValue)
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier) as? CMAnnotationView
         
         if annotationView == nil {
@@ -253,7 +272,7 @@ extension ColorMapViewController : MGLMapViewDelegate {
     }
     
     func mapViewDidFinishRenderingMap(_ mapView: MGLMapView, fullyRendered: Bool) {
-        updateScale()
+        showScale()
     }
     
     func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
@@ -275,30 +294,19 @@ extension ColorMapViewController : MGLMapViewDelegate {
     func mapView(_ mapView: MGLMapView, didChange mode: MGLUserTrackingMode, animated: Bool) {
     }
     
+    func mapView(_ mapView: MGLMapView, lineWidthForPolylineAnnotation annotation: MGLPolyline) -> CGFloat {
+        return 2
+    }
+    
+    func mapView(_ mapView: MGLMapView, strokeColorForShapeAnnotation annotation: MGLShape) -> UIColor {
+        return .cmPolylineStroke
+    }
+    
+    func mapView(_ mapView: MGLMapView, fillColorForPolygonAnnotation annotation: MGLPolygon) -> UIColor {
+        return .cmPolylineFill
+    }
 }
 
-
-// MARK: - MGLLocationManagerDelegate
-
-extension ColorMapViewController : MGLLocationManagerDelegate {
-    
-    func locationManager(_ manager: MGLLocationManager, didUpdate locations: [CLLocation]) {
-        
-    }
-    
-    func locationManager(_ manager: MGLLocationManager, didUpdate newHeading: CLHeading) {
-        
-    }
-    
-    func locationManagerShouldDisplayHeadingCalibration(_ manager: MGLLocationManager) -> Bool {
-        return true
-    }
-    
-    func locationManager(_ manager: MGLLocationManager, didFailWithError error: Error) {
-        
-    }
-    
-}
 
 // MARK: - PopOverPresentationDelegate
 
@@ -346,6 +354,60 @@ extension ColorMapViewController : PickerDialogDelegate {
     
     func pickerDialogDidClose() {
         showScale()
+    }
+    
+}
+
+extension ColorMapViewController : UISearchBarDelegate {
+    
+    private func setUpSearchBar() {
+        locationSearchWireframe = LocationSearchWireframe()
+        locationSearchWireframe.delegate = self
+        let locationSearchTable = locationSearchWireframe.viewController as! LocationSearchViewController
+        resultSearchController = UISearchController(searchResultsController: locationSearchTable)
+        resultSearchController?.searchResultsUpdater = locationSearchTable as UISearchResultsUpdating
+        
+        resultSearchController?.searchBar.sizeToFit()
+        resultSearchController?.searchBar.barTintColor = .green
+        resultSearchController?.searchBar.searchBarStyle = .prominent
+        resultSearchController?.searchBar.autocorrectionType = .default
+        resultSearchController?.searchBar.textContentType = .addressCityAndState
+        resultSearchController?.searchBar.placeholder = "Find places"
+
+        
+        navigationItem.titleView = resultSearchController?.searchBar
+        resultSearchController?.hidesNavigationBarDuringPresentation = false
+        definesPresentationContext = true
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        willRemoveOverlay()
+        
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        willRemoveOverlay()
+    }
+    
+
+}
+
+extension ColorMapViewController : LocationSearchDelegate {
+    
+    func didRetrieveCoordinates(coordinates: [CLLocationCoordinate2D], placemark: GeocodedPlacemark) {
+        log.debug("")
+        AppData.selectedFilterIndex = 0
+        showMapLayer(layerType: .defaultmap)
+        resultSearchController?.searchBar.text = placemark.qualifiedName
+        searchResultsOverlay = CMOverlayLayer(mapView: self.mapView, coordinates: coordinates)
+        updateColorsLabel(count: mapView.annotations?.count ?? 0, name: placemark.name)
+        showScale(true)
+    }
+    
+    func willRemoveOverlay() {
+        resultSearchController?.searchBar.text = ""
+        searchResultsOverlay?.removePolygon(mapView: mapView)
+        searchResultsOverlay = nil
     }
     
 }
