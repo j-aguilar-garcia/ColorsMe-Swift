@@ -16,6 +16,7 @@ final class ColorMapViewController: UIViewController {
     // MARK: - Public properties -
 
     var presenter: ColorMapPresenterInterface!
+    var annotation: CMAnnotation!
     
     var heatMapLayer: CMHeatMapLayer?
     var clusterMapLayer: CMClusterMapLayer?
@@ -66,9 +67,9 @@ final class ColorMapViewController: UIViewController {
         mapView.attributionButtonPosition = .topLeft
 
         addMenuButton()
-        showMapLayer(layerType: .defaultmap)
         
         setUpSearchBar()
+        showMapLayer(layerType: .defaultmap)
     }
     
     
@@ -88,6 +89,16 @@ final class ColorMapViewController: UIViewController {
 // MARK: - Extensions -
 
 extension ColorMapViewController: ColorMapViewInterface {
+    
+    func zoomToAnnotation(annotation: CMAnnotation) {
+        mapView.addAnnotation(annotation)
+        mapView.selectAnnotation(annotation, animated: true, completionHandler: {
+            self.mapView.setCenter(annotation.coordinate, zoomLevel: 8, animated: true)
+            let camera = MGLMapCamera(lookingAtCenter: annotation.coordinate, altitude: 2500, pitch: 50, heading: 180)
+            self.mapView.setCamera(camera, withDuration: 3.5, animationTimingFunction: CAMediaTimingFunction(name: .easeInEaseOut))
+        })
+    }
+    
     
     func showMapLayer(layerType: ColorMapLayerType, annotations: [CMAnnotation]? = nil) {
         log.debug("")
@@ -271,6 +282,7 @@ extension ColorMapViewController : MGLMapViewDelegate {
     }
     
     func mapView(_ mapView: MGLMapView, didFinishLoading style: MGLStyle) {
+        presenter.viewDidLoad()
         //clusterMapLayer = CMClusterMapLayer(mapView: mapView, view: view)
     }
     

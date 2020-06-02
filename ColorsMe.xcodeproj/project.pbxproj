@@ -22,9 +22,12 @@
 		073E3B14247BD92E00540BF0 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073E3B13247BD92E00540BF0 /* AppData.swift */; };
 		074C7CCB247EBEFC00C8EAC5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 074C7CCA247EBEFC00C8EAC5 /* GoogleService-Info.plist */; };
 		077325F524855401009DDB57 /* CMOverlayLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077325F424855401009DDB57 /* CMOverlayLayer.swift */; };
+		077325FB2486900F009DDB57 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077325FA2486900F009DDB57 /* CloudKit.framework */; };
+		077325FD24869BB5009DDB57 /* AnnotationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077325FC24869BB5009DDB57 /* AnnotationService.swift */; };
 		079840F5247BC5310054024B /* LocalDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079840F4247BC5310054024B /* LocalDataManager.swift */; };
 		07B2BA0E247C2AFD00ED5BE7 /* CMAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B2BA0D247C2AFD00ED5BE7 /* CMAnnotationView.swift */; };
 		07B2BA10247C558300ED5BE7 /* DataManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B2BA0F247C558300ED5BE7 /* DataManagerProtocol.swift */; };
+		07C5B7A82486A6BB00E36E91 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07C5B7A72486A6BB00E36E91 /* NetworkExtension.framework */; };
 		07E06B5E247A7AFD007139E2 /* PickerDialog.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07E06B58247A7AFD007139E2 /* PickerDialog.storyboard */; };
 		07E06B5F247A7AFD007139E2 /* PickerDialogInterfaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B59247A7AFD007139E2 /* PickerDialogInterfaces.swift */; };
 		07E06B60247A7AFD007139E2 /* PickerDialogPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B5A247A7AFD007139E2 /* PickerDialogPresenter.swift */; };
@@ -120,9 +123,13 @@
 		073E3B13247BD92E00540BF0 /* AppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
 		074C7CCA247EBEFC00C8EAC5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		077325F424855401009DDB57 /* CMOverlayLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMOverlayLayer.swift; sourceTree = "<group>"; };
+		077325F92486900D009DDB57 /* ColorsMe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ColorsMe.entitlements; sourceTree = "<group>"; };
+		077325FA2486900F009DDB57 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		077325FC24869BB5009DDB57 /* AnnotationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationService.swift; sourceTree = "<group>"; };
 		079840F4247BC5310054024B /* LocalDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataManager.swift; sourceTree = "<group>"; };
 		07B2BA0D247C2AFD00ED5BE7 /* CMAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMAnnotationView.swift; sourceTree = "<group>"; };
 		07B2BA0F247C558300ED5BE7 /* DataManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagerProtocol.swift; sourceTree = "<group>"; };
+		07C5B7A72486A6BB00E36E91 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		07E06B58247A7AFD007139E2 /* PickerDialog.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PickerDialog.storyboard; sourceTree = "<group>"; };
 		07E06B59247A7AFD007139E2 /* PickerDialogInterfaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerDialogInterfaces.swift; sourceTree = "<group>"; };
 		07E06B5A247A7AFD007139E2 /* PickerDialogPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerDialogPresenter.swift; sourceTree = "<group>"; };
@@ -202,6 +209,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				077325FB2486900F009DDB57 /* CloudKit.framework in Frameworks */,
+				07C5B7A82486A6BB00E36E91 /* NetworkExtension.framework in Frameworks */,
 				07E2BA47247ED1DF00465688 /* MapKit.framework in Frameworks */,
 				5CFCF9B2C97F7E1198EBD59B /* Pods_ColorsMe.framework in Frameworks */,
 			);
@@ -229,6 +238,8 @@
 		01903B64009F56808E460FCC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				07C5B7A72486A6BB00E36E91 /* NetworkExtension.framework */,
+				077325FA2486900F009DDB57 /* CloudKit.framework */,
 				07E2BA46247ED1DE00465688 /* MapKit.framework */,
 				4843E0A33CA60452C7772E53 /* Pods_ColorsMe.framework */,
 				CE899B237EC7777F01FF7D36 /* Pods_ColorsMe_ColorsMeUITests.framework */,
@@ -363,6 +374,7 @@
 			isa = PBXGroup;
 			children = (
 				074C7CCA247EBEFC00C8EAC5 /* GoogleService-Info.plist */,
+				875D6E0F247431B100C6DF31 /* ColorsMe.xcdatamodeld */,
 				87CEC7B12477FF4300206255 /* Assets.xcassets */,
 				0737FA88247D7C600015A8F7 /* AppProperties.plist */,
 			);
@@ -397,6 +409,7 @@
 			isa = PBXGroup;
 			children = (
 				07E2BA5624851B3D00465688 /* LocationService.swift */,
+				077325FC24869BB5009DDB57 /* AnnotationService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -473,6 +486,7 @@
 		875D6E05247431B100C6DF31 /* ColorsMe */ = {
 			isa = PBXGroup;
 			children = (
+				077325F92486900D009DDB57 /* ColorsMe.entitlements */,
 				0737FA94247D97270015A8F7 /* Resources */,
 				0737FA8C247D96080015A8F7 /* Common */,
 				873AC7312477D82300261CD5 /* Modules */,
@@ -480,7 +494,6 @@
 				875D6E08247431B100C6DF31 /* SceneDelegate.swift */,
 				875D6E14247431B600C6DF31 /* LaunchScreen.storyboard */,
 				875D6E17247431B600C6DF31 /* Info.plist */,
-				875D6E0F247431B100C6DF31 /* ColorsMe.xcdatamodeld */,
 			);
 			path = ColorsMe;
 			sourceTree = "<group>";
@@ -850,6 +863,7 @@
 				07E2BA632485232900465688 /* LocationSearchInteractor.swift in Sources */,
 				87CEC7AD2477FCE300206255 /* InteractorInterface.swift in Sources */,
 				07E06B61247A7AFD007139E2 /* PickerDialogViewController.swift in Sources */,
+				077325FD24869BB5009DDB57 /* AnnotationService.swift in Sources */,
 				873AC7122477C8DC00261CD5 /* TabBarViewProtocol.swift in Sources */,
 				07E06B6E247AAC7A007139E2 /* Annotation.swift in Sources */,
 				07E2BA642485232900465688 /* LocationSearchWireframe.swift in Sources */,
@@ -1048,6 +1062,7 @@
 			baseConfigurationReference = A9FC000EFEB6C462BFF86E19 /* Pods-ColorsMe.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ColorsMe/ColorsMe.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = MPA25UYNXL;
@@ -1070,6 +1085,7 @@
 			baseConfigurationReference = BD375A421E8BA2D3309FE03B /* Pods-ColorsMe.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ColorsMe/ColorsMe.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = MPA25UYNXL;

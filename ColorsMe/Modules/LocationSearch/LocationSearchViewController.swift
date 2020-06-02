@@ -42,7 +42,6 @@ final class LocationSearchViewController : UITableViewController {
         
         return cell
     }
-    
 
 }
 
@@ -56,15 +55,13 @@ extension LocationSearchViewController : LocationSearchViewInterface {
     
 }
 
+
 extension LocationSearchViewController : UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
         if searchController.searchBar.text!.count > 1 {
             presenter.search(text: searchController.searchBar.text!)
         }
-        
     }
-    
-    
     
 }

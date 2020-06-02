@@ -11,6 +11,7 @@ import CoreData
 import Unrealm
 import Firebase
 import Sentry
+import CloudCore
 import SwiftyBeaver
 let log = SwiftyBeaver.self
 
@@ -18,6 +19,7 @@ let log = SwiftyBeaver.self
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        application.registerForRemoteNotifications()
         
         // Init SwiftyBeaver
         let console = ConsoleDestination()  // log to Xcode Console
@@ -35,6 +37,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ = DataManager.shared.dataManager(willRetrieveWith: .remote)
         
         SentrySDK.start(options: [ "dsn": AppConfiguration.default.sentryDsn!, "debug": false ])
+        
+        CloudCore.enable(persistentContainer: persistentContainer)
         
         FirebaseApp.configure()
         /*
@@ -61,6 +65,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the user discards a scene session.
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+            // Check if it CloudKit's and CloudCore notification
+        if CloudCore.isCloudCoreNotification(withUserInfo: userInfo) {
+            // Fetch changed data from iCloud
+            CloudCore.pull(using: userInfo, to: persistentContainer, error: nil, completion: { (fetchResult) in
+                completionHandler(fetchResult.uiBackgroundFetchResult)
+            })
+        }
     }
 
     // MARK: - Core Data stack

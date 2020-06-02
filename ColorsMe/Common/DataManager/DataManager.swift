@@ -19,7 +19,7 @@ class DataManager : DataManagerInputProtocol {
         return RemoteDataManager()
     }()
     
-    private lazy var localDataManager : LocalDataManager = {
+    lazy var localDataManager : LocalDataManager = {
         return LocalDataManager()
     }()
     
@@ -32,14 +32,15 @@ class DataManager : DataManagerInputProtocol {
         switch type {
         case .remote:
             remoteDataManager.saveToBackendless(annotation: annotation) { (annotation) in
-                
+                //completion(success)
             }
             break
         case .local:
+            localDataManager.saveLocal(annotation: RealmAnnotation(annotation: annotation))
             break
         case .both:
             remoteDataManager.saveToBackendless(annotation: annotation) { (annotation) in
-                
+                self.localDataManager.saveLocal(annotation: RealmAnnotation(annotation: annotation))
             }
             break
         }

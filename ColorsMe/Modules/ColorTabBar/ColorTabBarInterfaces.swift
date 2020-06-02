@@ -9,7 +9,8 @@
 import UIKit
 
 protocol ColorTabBarWireframeInterface: WireframeInterface {
-    func installTabBar(with color: EmotionalColor?)
+    func installTabBar(with color: EmotionalColor)
+    func installTabBar()
 }
 
 protocol ColorTabBarViewInterface: ViewInterface {

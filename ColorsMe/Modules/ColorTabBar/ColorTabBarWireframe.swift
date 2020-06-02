@@ -30,8 +30,39 @@ final class ColorTabBarWireframe: BaseWireframe {
 
 extension ColorTabBarWireframe: ColorTabBarWireframeInterface {
     
-    func installTabBar(with color: EmotionalColor? = nil) {
+    func installTabBar(with color: EmotionalColor) {
         log.verbose(#function)
+        AnnotationService.default.addAnnotation(color: color, completion: { annotation in
+            
+            let colorMapWireframe = ColorMapWireframe(annotation: annotation)
+            let wireframes = [colorMapWireframe] //, emotionalDiaryWireframe, settingsWireframe]
+            
+            var viewControllers = [UIViewController]()
+            
+            //var emotionalDiaryWireframe = EmotionalDiaryWireFrame()
+            //var settingsWireframe = SettingsWireFrame()
+            
+            for wireFrame in wireframes {
+                let tabBarItem = UITabBarItem()
+                tabBarItem.image = wireFrame.tabIcon
+                tabBarItem.title = wireFrame.tabTitle
+                
+                let navigationController = UINavigationController()
+                navigationController.setRootWireframe(wireFrame)
+                navigationController.tabBarItem = tabBarItem
+
+                viewControllers.append(navigationController)
+            }
+            
+            if let controller = self.viewController as? ColorTabBarViewController {
+                controller.viewControllers = viewControllers
+            }
+        })
+    }
+    
+    func installTabBar() {
+        log.verbose(#function)
+        
         let colorMapWireframe = ColorMapWireframe()
         //var emotionalDiaryWireframe = EmotionalDiaryWireFrame()
         //var settingsWireframe = SettingsWireFrame()

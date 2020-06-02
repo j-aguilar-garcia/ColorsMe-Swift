@@ -28,6 +28,7 @@ protocol ColorMapViewInterface: ViewInterface {
     func hideScale(_ animated: Bool)
     func switchAppearanceFor(mapView: MGLMapView)
     func addMenuButton()
+    func zoomToAnnotation(annotation: CMAnnotation)
     
     func showMapLayer(layerType: ColorMapLayerType, annotations: [CMAnnotation]?)
 }

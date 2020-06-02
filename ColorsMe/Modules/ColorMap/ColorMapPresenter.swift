@@ -16,19 +16,29 @@ final class ColorMapPresenter {
     private unowned let view: ColorMapViewInterface
     private let interactor: ColorMapInteractorInterface
     private let wireframe: ColorMapWireframeInterface
+    private var annotation: CMAnnotation? = nil
+    
 
     // MARK: - Lifecycle -
 
-    init(view: ColorMapViewInterface, interactor: ColorMapInteractorInterface, wireframe: ColorMapWireframeInterface) {
+    init(view: ColorMapViewInterface, interactor: ColorMapInteractorInterface, wireframe: ColorMapWireframeInterface, annotation: CMAnnotation? = nil) {
         self.view = view
         self.interactor = interactor
         self.wireframe = wireframe
+        self.annotation = annotation
     }
 }
 
 // MARK: - Extensions -
 
 extension ColorMapPresenter: ColorMapPresenterInterface {
+    
+    func viewDidLoad() {
+        guard let annotation = annotation else {
+            return
+        }
+        view.zoomToAnnotation(annotation: annotation)
+    }
     
     func didSelectMenuButton(at index: Int) {
         guard let mapLayer = ColorMapLayerType(rawValue: index) else { return }

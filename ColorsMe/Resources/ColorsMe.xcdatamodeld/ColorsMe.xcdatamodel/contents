@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19E287" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
+    <entity name="UserAnnotation" representedClassName="UserAnnotation" syncable="YES" codeGenerationType="class">
+        <attribute name="beObjectId" optional="YES" attributeType="String"/>
+        <attribute name="city" optional="YES" attributeType="String"/>
+        <attribute name="color" optional="YES" attributeType="String"/>
+        <attribute name="country" optional="YES" attributeType="String"/>
+        <attribute name="countryIsoCode" optional="YES" attributeType="String"/>
+        <attribute name="created" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="guid" optional="YES" attributeType="String"/>
+        <attribute name="isMyColor" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="recordData" optional="YES" attributeType="Binary">
+            <userInfo>
+                <entry key="CloudCoreType" value="recordData"/>
+            </userInfo>
+        </attribute>
+        <attribute name="recordID" optional="YES" attributeType="String" spotlightIndexingEnabled="YES">
+            <userInfo>
+                <entry key="CloudCoreType" value="recordID"/>
+            </userInfo>
+        </attribute>
+        <attribute name="street" optional="YES" attributeType="String"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+    </entity>
+    <elements>
+        <element name="UserAnnotation" positionX="-63" positionY="-18" width="128" height="253"/>
+    </elements>
+</model>
