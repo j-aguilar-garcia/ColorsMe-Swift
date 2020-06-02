@@ -195,8 +195,9 @@ extension ColorMapViewController: ColorMapViewInterface {
         if animated {
             UIView.animate(withDuration: 0.5, delay: 0.2, animations: {
                 self.scaleView.frame = showScaleViewFrame
-            })
-            presenter.shouldUpdateScale(mapView, slider.value)
+            }) { finish in
+                self.presenter.shouldUpdateScale(self.mapView, self.slider.value)
+            }
             return
         }
         self.scaleView.frame = showScaleViewFrame

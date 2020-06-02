@@ -8,6 +8,7 @@
 
 import Foundation
 import Mapbox
+import MapKit
 import UIKit
 
 class CMOverlayLayer : CMLayer {
@@ -24,16 +25,22 @@ class CMOverlayLayer : CMLayer {
         DispatchQueue.main.async {
             mapView.add(self.polygon)
         }
-        let bounds = polygon.overlayBounds
+
         var annotationsInBounds = [CMAnnotation]()
 
         let allAnnotations = DataManager.shared.dataManager(willRetrieveWith: .local)
-        for a in allAnnotations {
-            if MGLCoordinateInCoordinateBounds(CLLocationCoordinate2D(latitude: a.latitude, longitude: a.longitude), bounds) {
-                annotationsInBounds.append(a)
+        
+        for anno in allAnnotations {
+            let polygon = MKPolygon(coordinates: coordinates, count: coordinates.count)
+            let polygonRenderer = MKPolygonRenderer(polygon: polygon)
+            let mapPoint: MKMapPoint = MKMapPoint(anno.coordinate)
+            let polygonViewPoint: CGPoint = polygonRenderer.point(for: mapPoint)
+
+            if polygonRenderer.path.contains(polygonViewPoint) {
+                annotationsInBounds.append(anno)
             }
         }
-        
+
         if mapView.annotations != nil {
             mapView.removeAnnotations(mapView.annotations!)
         }
