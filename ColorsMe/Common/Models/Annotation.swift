@@ -29,6 +29,17 @@ import Realm
     dynamic var guid : String?
     
     
+    override var description: String {
+        var description = "##### Annotation #####\n"
+        let mirror = Mirror(reflecting: self)
+        for child in mirror.children {
+            if let name = child.label {
+                description += "\(name): \(child.value)\n"
+            }
+        }
+        return description
+    }
+    
 }
 
 class RealmAnnotation: Realmable {
