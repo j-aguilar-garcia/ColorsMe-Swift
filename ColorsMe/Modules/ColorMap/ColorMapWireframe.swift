@@ -11,16 +11,7 @@ import UIKit
 final class ColorMapWireframe: BaseWireframe, TabBarViewProtocol {
     
     var tabIcon: UIImage = UIImage(named: "MapMarker")!
-    var tabTitle: String = "ColorMap"
-    
-    func configuredViewController() -> UIViewController {
-        let moduleViewController = storyboard.instantiateViewController(ofType: ColorMapViewController.self)
-        
-        let interactor = ColorMapInteractor()
-        let presenter = ColorMapPresenter(view: moduleViewController, interactor: interactor, wireframe: self)
-        moduleViewController.presenter = presenter
-        return moduleViewController
-    }
+    var tabTitle: String = "Colors Map"
     
 
     // MARK: - Private properties -

@@ -263,6 +263,7 @@ extension ColorMapViewController : MGLMapViewDelegate {
         presenter.shouldUpdateScale(mapView, slider.value)
 
         log.debug(mapView.zoomLevel)
+        log.debug("mapView camera altitude: \(mapView.camera.altitude)")
     }
     
     func mapViewDidFinishRenderingMap(_ mapView: MGLMapView, fullyRendered: Bool) {

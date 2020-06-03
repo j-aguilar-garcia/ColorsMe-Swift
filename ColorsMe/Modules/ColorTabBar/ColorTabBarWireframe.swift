@@ -35,11 +35,12 @@ extension ColorTabBarWireframe: ColorTabBarWireframeInterface {
         AnnotationService.default.addAnnotation(color: color, completion: { annotation in
             
             let colorMapWireframe = ColorMapWireframe(annotation: annotation)
-            let wireframes = [colorMapWireframe] //, emotionalDiaryWireframe, settingsWireframe]
+            let emotionalDiaryWireframe = EmotionalDiaryWireframe()
+
+            let wireframes : [BaseWireframe & TabBarViewProtocol] = [colorMapWireframe, emotionalDiaryWireframe] //, emotionalDiaryWireframe, settingsWireframe]
             
             var viewControllers = [UIViewController]()
             
-            //var emotionalDiaryWireframe = EmotionalDiaryWireFrame()
             //var settingsWireframe = SettingsWireFrame()
             
             for wireFrame in wireframes {
@@ -64,10 +65,10 @@ extension ColorTabBarWireframe: ColorTabBarWireframeInterface {
         log.verbose(#function)
         
         let colorMapWireframe = ColorMapWireframe()
-        //var emotionalDiaryWireframe = EmotionalDiaryWireFrame()
+        let emotionalDiaryWireframe = EmotionalDiaryWireframe()
         //var settingsWireframe = SettingsWireFrame()
         
-        let wireframes = [colorMapWireframe] //, emotionalDiaryWireframe, settingsWireframe]
+        let wireframes : [BaseWireframe & TabBarViewProtocol] = [colorMapWireframe, emotionalDiaryWireframe] //, emotionalDiaryWireframe, settingsWireframe]
         
         var viewControllers = [UIViewController]()
         

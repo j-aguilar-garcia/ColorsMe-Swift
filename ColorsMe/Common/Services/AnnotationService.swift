@@ -8,7 +8,7 @@
 
 import Foundation
 import CoreData
-import CloudKit
+import CloudCore
 import Mapbox
 import MapboxGeocoder
 
@@ -40,18 +40,23 @@ class AnnotationService {
     }
     
     private func saveAnnotationToiCloud(annotation: CMAnnotation) {
-        let userAnnotation = UserAnnotation(context: self.delegate.persistentContainer.viewContext)
-        userAnnotation.beObjectId = annotation.objectId
-        userAnnotation.city = annotation.city
-        userAnnotation.color = annotation.color.rawValue
-        userAnnotation.isMyColor = true
-        userAnnotation.country = annotation.country
-        userAnnotation.countryIsoCode = annotation.isocountrycode
-        userAnnotation.created = annotation.created
-        userAnnotation.guid = annotation.guid
-        userAnnotation.latitude = annotation.latitude
-        userAnnotation.longitude = annotation.longitude
-        userAnnotation.title = annotation.title
+        delegate.persistentContainer.performBackgroundTask { (context) in
+            context.name = CloudCore.config.pushContextName
+            let userAnnotation = UserAnnotation(context: context)
+            userAnnotation.beObjectId = annotation.objectId
+            userAnnotation.city = annotation.city
+            userAnnotation.color = annotation.color.rawValue
+            userAnnotation.isMyColor = true
+            userAnnotation.country = annotation.country
+            userAnnotation.countryIsoCode = annotation.isocountrycode
+            userAnnotation.created = annotation.created
+            userAnnotation.guid = annotation.guid
+            userAnnotation.latitude = annotation.latitude
+            userAnnotation.longitude = annotation.longitude
+            userAnnotation.title = annotation.title
+            try! context.save()
+        }
+
     }
     
     private func createAnnotation(with color: EmotionalColor, completion: @escaping (Annotation) -> ()) {
@@ -88,7 +93,9 @@ class AnnotationService {
                 }
                 completion(placemark)
             }
-        
     }
+    
+    
+    
     
 }

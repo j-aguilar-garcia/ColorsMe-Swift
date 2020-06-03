@@ -17,6 +17,7 @@ target 'ColorsMe' do
     pod 'Unrealm'
     pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git', :tag => '5.1.0'
     pod 'Turf', '~> 0.3'
+    pod 'EmptyDataSet-Swift', '~> 5.0.0'
   # Pods for ColorsMe
 
   target 'ColorsMeTests' do
