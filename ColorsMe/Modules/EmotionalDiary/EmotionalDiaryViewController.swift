@@ -10,6 +10,7 @@ import UIKit
 import MGSwipeTableCell
 import CoreData
 import CloudKit
+import EmptyDataSet_Swift
 
 final class EmotionalDiaryViewController: UIViewController {
 
@@ -60,6 +61,8 @@ final class EmotionalDiaryViewController: UIViewController {
         tableDataSource = FRCTableViewDataSource(fetchRequest: fetchRequest, context: appDelegate.persistentContainer.viewContext, sectionNameKeyPath: nil, delegate: self, tableView: tableView)
         tableView.dataSource = tableDataSource
         tableView.delegate = tableDataSource
+        tableView.emptyDataSetSource = self
+        tableView.emptyDataSetDelegate = self
         try! tableDataSource.performFetch()
 
         self.navigationController?.navigationBar.isHidden = true
@@ -210,5 +213,39 @@ extension EmotionalDiaryViewController : FRCTableViewDelegate {
         }
         cell.showSwipe(.rightToLeft, animated: true)
     }
+}
+
+extension EmotionalDiaryViewController : EmptyDataSetDelegate , EmptyDataSetSource {
     
+    func image(forEmptyDataSet scrollView: UIScrollView) -> UIImage? {
+        return UIImage(named: "emptyColorsDataSet")
+    }
+    
+    func title(forEmptyDataSet scrollView: UIScrollView) -> NSAttributedString? {
+        let title = "There are no Colors in your Emotional Diary."
+        let font = [ NSAttributedString.Key.font: UIFont.light(ofSize: 16) ]
+        let attributedString = NSAttributedString(string: title, attributes: font)
+
+        return attributedString
+    }
+    /*
+    func customView(forEmptyDataSet scrollView: UIScrollView) -> UIView? {
+        let width = tableView.frame.width
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: width, height: 262))
+
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: 40))
+        label.text = "There are no Colors in your Emotional Diary."
+        label.textAlignment = .center
+        label.contentMode = .center
+        label.font = .light(ofSize: 14)
+        view.addSubview(label)
+
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: width, height: 200))
+        imageView.contentMode = .scaleAspectFit
+        imageView.image = UIImage(named: "emptyColorsDataSet")
+        view.addSubview(imageView)
+
+        return view
+    }
+    */
 }
