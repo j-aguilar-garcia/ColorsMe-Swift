@@ -33,6 +33,7 @@ extension EmotionalDiaryPresenter: EmotionalDiaryPresenterInterface {
 
     
     func didSelectAddAction(color: EmotionalColor) {
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
         interactor.createAnnotation(color: color)
     }
     

@@ -10,7 +10,7 @@ import UIKit
 
 enum IntroNavigationOption {
     case colormap
-    case colormapwith(EmotionalColor)
+    case colormapwith(CMAnnotation)
 }
 
 protocol IntroWireframeInterface: WireframeInterface {
@@ -21,7 +21,7 @@ protocol IntroViewInterface: ViewInterface {
     func animateSplashScreen()
 }
 
-protocol IntroViewInteractor: InteractorInterface {
+protocol IntroInteractorInterface: InteractorInterface {
     func createAnnotation(with color: EmotionalColor)
 }
 

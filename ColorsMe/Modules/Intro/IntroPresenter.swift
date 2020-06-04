@@ -8,6 +8,7 @@
 
 import Foundation
 import Mapbox
+import UIKit
 
 final class IntroPresenter {
 
@@ -15,11 +16,11 @@ final class IntroPresenter {
 
     private unowned let view: IntroViewInterface
     private let wireframe: IntroWireframeInterface
-    private let interactor: IntroViewInteractor
+    private let interactor: IntroInteractorInterface
 
     // MARK: - Lifecycle -
 
-    init(view: IntroViewInterface, wireframe: IntroWireframeInterface, interactor: IntroViewInteractor) {
+    init(view: IntroViewInterface, wireframe: IntroWireframeInterface, interactor: IntroInteractorInterface) {
         self.view = view
         self.wireframe = wireframe
         self.interactor = interactor
@@ -29,8 +30,9 @@ final class IntroPresenter {
 // MARK: - Extensions -
 
 extension IntroPresenter: IntroPresenterInterface {
+    
     func didCreateAnnotation(annotation: CMAnnotation) {
-        #warning("navigate with annotation")
+        wireframe.navigate(to: .colormapwith(annotation))
     }
     
     
@@ -45,7 +47,8 @@ extension IntroPresenter: IntroPresenterInterface {
     
     func didSelectAddAction(color: EmotionalColor) {
         log.verbose(#function)
-        wireframe.navigate(to: .colormapwith(color))
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        interactor.createAnnotation(with: color)
     }
     
 }

@@ -20,8 +20,10 @@ final class IntroWireframe: BaseWireframe {
         let moduleViewController = storyboard.instantiateViewController(ofType: IntroViewController.self)
         super.init(viewController: moduleViewController)
         log.verbose("")
-        let presenter = IntroPresenter(view: moduleViewController, wireframe: self)
+        let interactor = IntroInteractor()
+        let presenter = IntroPresenter(view: moduleViewController, wireframe: self, interactor: interactor)
         moduleViewController.presenter = presenter
+        interactor.presenter = presenter
     }
 
 }
@@ -35,8 +37,8 @@ extension IntroWireframe: IntroWireframeInterface {
         case .colormap:
             openColorMap()
             break
-        case .colormapwith(let color):
-            openColorMap(with: color)
+        case .colormapwith(let annotation):
+            openColorMap(with: annotation)
             break
         }
     }
@@ -48,13 +50,12 @@ extension IntroWireframe: IntroWireframeInterface {
         switchRootWireframe(rootWireframe: tabBarWireframe, animated: true, completion: nil)
     }
     
-    private func openColorMap(with color: EmotionalColor) {
+    private func openColorMap(with annotation: CMAnnotation) {
         log.verbose(#function)
         let tabBarWireframe = ColorTabBarWireframe()
-        tabBarWireframe.installTabBar(with: color)
-        DispatchQueue.main.async {
-            self.switchRootWireframe(rootWireframe: tabBarWireframe, animated: true, completion: nil)
-        }
+        tabBarWireframe.installTabBar(with: annotation)
+        self.switchRootWireframe(rootWireframe: tabBarWireframe, animated: true, completion: nil)
+        
     }
     
 }

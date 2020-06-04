@@ -100,7 +100,7 @@ class CMAnnotation : MGLPointAnnotation {
         self.color = EmotionalColor(rawValue: annotation.color!)
         self.longitude = annotation.longitude?.doubleValue
         self.latitude = annotation.latitude?.doubleValue
-        self.objectId = annotation.objectId!
+        //self.objectId = annotation.objectId!
         self.guid = annotation.guid!
         self.created = annotation.created
         coordinate = CLLocationCoordinate2D(latitude: annotation.latitude!.doubleValue, longitude: annotation.longitude!.doubleValue)

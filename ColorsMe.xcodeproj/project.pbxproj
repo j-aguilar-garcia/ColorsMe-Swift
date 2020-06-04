@@ -22,6 +22,7 @@
 		073E3B14247BD92E00540BF0 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073E3B13247BD92E00540BF0 /* AppData.swift */; };
 		074C7CCB247EBEFC00C8EAC5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 074C7CCA247EBEFC00C8EAC5 /* GoogleService-Info.plist */; };
 		0768804E2488EA7A001E0F39 /* iCloudDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0768804D2488EA7A001E0F39 /* iCloudDelegate.swift */; };
+		076880502489250E001E0F39 /* IntroInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0768804F2489250E001E0F39 /* IntroInteractor.swift */; };
 		077325F524855401009DDB57 /* CMOverlayLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077325F424855401009DDB57 /* CMOverlayLayer.swift */; };
 		077325FB2486900F009DDB57 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077325FA2486900F009DDB57 /* CloudKit.framework */; };
 		077325FD24869BB5009DDB57 /* AnnotationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077325FC24869BB5009DDB57 /* AnnotationService.swift */; };
@@ -136,6 +137,7 @@
 		073E3B13247BD92E00540BF0 /* AppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
 		074C7CCA247EBEFC00C8EAC5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0768804D2488EA7A001E0F39 /* iCloudDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iCloudDelegate.swift; sourceTree = "<group>"; };
+		0768804F2489250E001E0F39 /* IntroInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroInteractor.swift; sourceTree = "<group>"; };
 		077325F424855401009DDB57 /* CMOverlayLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMOverlayLayer.swift; sourceTree = "<group>"; };
 		077325F92486900D009DDB57 /* ColorsMe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ColorsMe.entitlements; sourceTree = "<group>"; };
 		077325FA2486900F009DDB57 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
@@ -299,6 +301,7 @@
 			children = (
 				07342E09247956E800A77BF7 /* Intro.storyboard */,
 				07342E0A247956E800A77BF7 /* IntroInterfaces.swift */,
+				0768804F2489250E001E0F39 /* IntroInteractor.swift */,
 				07342E0B247956E800A77BF7 /* IntroPresenter.swift */,
 				07342E0C247956E800A77BF7 /* IntroViewController.swift */,
 				07342E0D247956E800A77BF7 /* IntroWireframe.swift */,
@@ -923,6 +926,7 @@
 				07E2BA632485232900465688 /* LocationSearchInteractor.swift in Sources */,
 				87CEC7AD2477FCE300206255 /* InteractorInterface.swift in Sources */,
 				07E06B61247A7AFD007139E2 /* PickerDialogViewController.swift in Sources */,
+				076880502489250E001E0F39 /* IntroInteractor.swift in Sources */,
 				077325FD24869BB5009DDB57 /* AnnotationService.swift in Sources */,
 				873AC7122477C8DC00261CD5 /* TabBarViewProtocol.swift in Sources */,
 				07E06B6E247AAC7A007139E2 /* Annotation.swift in Sources */,

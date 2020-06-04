@@ -147,6 +147,7 @@ extension EmotionalDiaryViewController : MGSwipeTableCellDelegate {
     
     
     private func onShareSwipe(_ indexPath: IndexPath) {
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
         var components = URLComponents()
             components.scheme = "https"
             components.host = "colorsme.bit-design.org"
@@ -178,6 +179,7 @@ extension EmotionalDiaryViewController : MGSwipeTableCellDelegate {
     
     
     private func onShowSwipe(_ indexPath: IndexPath) {
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
         self.tabBarController?.selectedIndex = 0
         let annotation = tableDataSource.object(at: indexPath)
         let colorAnnotation = DataManager.shared.localDataManager.filterLocalBy(objectId: annotation.beObjectId!)
