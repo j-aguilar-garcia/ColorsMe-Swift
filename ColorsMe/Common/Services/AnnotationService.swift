@@ -24,17 +24,23 @@ class AnnotationService {
     
     open func addAnnotation(color: EmotionalColor, completion: @escaping (CMAnnotation) -> ()) {
         createAnnotation(with: color, completion: { annotation in
-            DataManager.shared.remoteDataManager.saveToBackendless(annotation: annotation, completion: { annotation in
-                log.debug("saved Backendless Annotation: \(annotation.debugDescription)")
-                let realmAnnotation = RealmAnnotation(annotation: annotation)
-                log.debug("saved: realmAnnotation: objectid = \(realmAnnotation.objectId!) & guid = \(realmAnnotation.guid!)")
-                DataManager.shared.localDataManager.saveLocal(annotation: realmAnnotation)
-                let cmAnnotation = CMAnnotation(annotation: annotation)
-                
-                self.saveAnnotationToiCloud(annotation: cmAnnotation)
-                
-                completion(cmAnnotation)
-            })
+            let cmAnnotation = CMAnnotation(annotation: annotation)
+            completion(cmAnnotation)
+            
+            DispatchQueue.global(qos: .background).async {
+                DataManager.shared.remoteDataManager.saveToBackendless(annotation: annotation, completion: { savedAnnotation in
+                    log.debug("saved Backendless Annotation: \(savedAnnotation.debugDescription)")
+
+                    DispatchQueue.main.async {
+                        let realmAnnotation = RealmAnnotation(annotation: savedAnnotation)
+                        log.debug("saved: realmAnnotation: objectid = \(realmAnnotation.objectId!) & guid = \(realmAnnotation.guid!)")
+                        let cmAnnotation = CMAnnotation(annotation: savedAnnotation)
+                        self.saveAnnotationToiCloud(annotation: cmAnnotation)
+                        DataManager.shared.localDataManager.saveLocal(annotation: realmAnnotation)
+                    }
+                })
+            }
+            
         })
     }
     

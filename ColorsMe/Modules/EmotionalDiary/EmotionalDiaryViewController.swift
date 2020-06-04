@@ -82,7 +82,7 @@ final class EmotionalDiaryViewController: UIViewController {
             tableView.deselectRow(at: indexPath, animated: true)
         }
         updateConstraints()
-        //try! tableDataSource.performFetch()
+        try? tableDataSource.performFetch()
         //tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .automatic)
     }
     
