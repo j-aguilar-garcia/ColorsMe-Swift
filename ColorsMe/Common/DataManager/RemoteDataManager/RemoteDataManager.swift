@@ -54,6 +54,14 @@ class RemoteDataManager : RemoteDataManagerInputProtocol {
         })
     }
     
+    func deleteFromBackendless(by id: String) {
+        let dataStore = Backendless.shared.data.of(Annotation.self)
+        dataStore.removeById(objectId: id, responseHandler: { removed in
+            log.debug("ColorAnnotation has been deleted \(String(describing: removed))")
+        }, errorHandler: { fault in
+            log.error("Error: \(fault)")
+        })
+    }
     
     func retrieveData(localDataManager: LocalDataManager) {
         queryBuilder.setPageSize(pageSize: 100)

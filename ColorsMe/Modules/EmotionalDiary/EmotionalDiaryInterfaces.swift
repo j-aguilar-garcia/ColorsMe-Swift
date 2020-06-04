@@ -8,8 +8,12 @@
 
 import UIKit
 
+protocol EmotionalDiaryDelegate {
+    func zoomToAnnotation(annotation: CMAnnotation)
+}
+
 protocol EmotionalDiaryWireframeInterface: WireframeInterface {
-    
+    func navigateAndZoomToAnnotation(annotation: CMAnnotation)
 }
 
 protocol EmotionalDiaryViewInterface: ViewInterface {
@@ -17,11 +21,12 @@ protocol EmotionalDiaryViewInterface: ViewInterface {
 }
 
 protocol EmotionalDiaryPresenterInterface: PresenterInterface {
-    var sections : [Section<MyColorsItem>] { get }
+    func zoomToAnnotation(annotation: CMAnnotation)
+    func didSelectAddAction(color: EmotionalColor)
 }
 
 protocol EmotionalDiaryInteractorInterface: InteractorInterface {
-    
+    func createAnnotation(color: EmotionalColor)
 }
 
 enum MyColorsItem {

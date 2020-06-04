@@ -18,11 +18,6 @@ final class EmotionalDiaryPresenter {
     private let interactor: EmotionalDiaryInteractorInterface
     private let wireframe: EmotionalDiaryWireframeInterface
 
-    var sections: [Section<MyColorsItem>] = [] {
-        didSet {
-            view.reloadTableView()
-        }
-    }
     // MARK: - Lifecycle -
 
     init(view: EmotionalDiaryViewInterface, interactor: EmotionalDiaryInteractorInterface, wireframe: EmotionalDiaryWireframeInterface) {
@@ -35,13 +30,19 @@ final class EmotionalDiaryPresenter {
 // MARK: - Extensions -
 
 extension EmotionalDiaryPresenter: EmotionalDiaryPresenterInterface {
+
     
-    private var myColorsSection: Section<MyColorsItem> {
-        //let items = interactor.fetchAnnotations()
-        return Section(items: [
-            
-        ])
+    func didSelectAddAction(color: EmotionalColor) {
+        interactor.createAnnotation(color: color)
     }
+    
+    
+    func zoomToAnnotation(annotation: CMAnnotation) {
+        //view.reloadTableView()
+        wireframe.navigateAndZoomToAnnotation(annotation: annotation)
+    }
+    
+    
     
     func viewDidLoad() {
         

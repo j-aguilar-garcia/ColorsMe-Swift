@@ -34,6 +34,17 @@ class LocalDataManager : LocalDataManagerInputProtocol {
         }
     }
     
+    func deleteLocal(by id: String) {
+        try! realm.write {
+            let objectToDelete = realm.object(ofType: RealmAnnotation.self, forPrimaryKey: id)
+            guard let object = objectToDelete else {
+                log.error("Can not deleteLocal by Id")
+                return
+            }
+            realm.delete(object)
+        }
+    }
+    
     func getAllLocal() -> [CMAnnotation] {
         let annotationType = RealmAnnotation.self
         let rlmResult = realm.objects(annotationType)
@@ -153,6 +164,14 @@ class LocalDataManager : LocalDataManagerInputProtocol {
         }
         
         return annotations
+    }
+    
+    
+    func filterLocalBy(objectId: String) -> CMAnnotation {
+        let annotationType = RealmAnnotation.self
+        let rlmResult = realm.object(ofType: annotationType, forPrimaryKey: objectId)!
+        
+        return CMAnnotation(annotation: rlmResult)
     }
     
 }

@@ -30,15 +30,15 @@ final class EmotionalDiaryViewController: UIViewController {
     @IBOutlet weak var hintColorLabel: UILabel!
     
     @IBAction func onGreenButton(_ sender: Any) {
-        //presenter.addAnnotation(color: .Green)
+        presenter.didSelectAddAction(color: .Green)
     }
     
     @IBAction func onYellowButton(_ sender: Any) {
-        //presenter.addAnnotation(color: .Yellow)
+        presenter.didSelectAddAction(color: .Yellow)
     }
     
     @IBAction func onRedButton(_ sender: Any) {
-        //presenter.
+        presenter.didSelectAddAction(color: .Red)
     }
     
     @IBOutlet weak var buttonViewBottomToTableViewTopConstraint: NSLayoutConstraint!
@@ -55,7 +55,7 @@ final class EmotionalDiaryViewController: UIViewController {
         questionView.dropShadow()
         
         let fetchRequest : NSFetchRequest<UserAnnotation> = UserAnnotation.fetchRequest()
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "created", ascending: true)]
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "created", ascending: false)]
     
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         tableDataSource = FRCTableViewDataSource(fetchRequest: fetchRequest, context: appDelegate.persistentContainer.viewContext, sectionNameKeyPath: nil, delegate: self, tableView: tableView)
@@ -63,7 +63,6 @@ final class EmotionalDiaryViewController: UIViewController {
         tableView.delegate = tableDataSource
         tableView.emptyDataSetSource = self
         tableView.emptyDataSetDelegate = self
-        try! tableDataSource.performFetch()
 
         self.navigationController?.navigationBar.isHidden = true
         
@@ -73,11 +72,18 @@ final class EmotionalDiaryViewController: UIViewController {
         if UIDevice.current.userInterfaceIdiom == .pad {
             self.tableView.setCorner()
         }
+        
+        try! tableDataSource.performFetch()
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let indexPath = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
         updateConstraints()
-        tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .automatic)
+        //try! tableDataSource.performFetch()
+        //tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .automatic)
     }
     
     override func viewWillLayoutSubviews() {
@@ -98,6 +104,7 @@ final class EmotionalDiaryViewController: UIViewController {
 extension EmotionalDiaryViewController: EmotionalDiaryViewInterface {
     
     func reloadTableView() {
+        //try? tableDataSource.performFetch()
         tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
     }
     
@@ -173,18 +180,14 @@ extension EmotionalDiaryViewController : MGSwipeTableCellDelegate {
     private func onShowSwipe(_ indexPath: IndexPath) {
         self.tabBarController?.selectedIndex = 0
         let annotation = tableDataSource.object(at: indexPath)
-        #warning("zoom to annotation")
+        let colorAnnotation = DataManager.shared.localDataManager.filterLocalBy(objectId: annotation.beObjectId!)
+        presenter.zoomToAnnotation(annotation: colorAnnotation)
     }
     
     
     private func onDeleteSwipe(_ indexPath: IndexPath) {
         let annotationToDelete = tableDataSource.object(at: indexPath)
-        let info = ["guid" : annotationToDelete.guid!]
-        tableView.beginUpdates()
-        #warning("Delete Annotation")
-        //AnnotationManager.shared.annotations.remove(at: indexPath.row)
-        tableView.deleteRows(at: [indexPath], with: .automatic)
-        tableView.endUpdates()
+        AnnotationService.default.deleteAnnotation(id: annotationToDelete.beObjectId!, objectId: annotationToDelete.objectID)
         ImageCache().clear(key: annotationToDelete.guid!)
         
         if AppData.iCloudDataSyncIsEnabled {
@@ -207,7 +210,7 @@ extension EmotionalDiaryViewController : FRCTableViewDelegate {
     }
     
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func frcTableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) as? EmotionalDiaryTableViewCell else {
             return
         }
@@ -228,24 +231,4 @@ extension EmotionalDiaryViewController : EmptyDataSetDelegate , EmptyDataSetSour
 
         return attributedString
     }
-    /*
-    func customView(forEmptyDataSet scrollView: UIScrollView) -> UIView? {
-        let width = tableView.frame.width
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: width, height: 262))
-
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: 40))
-        label.text = "There are no Colors in your Emotional Diary."
-        label.textAlignment = .center
-        label.contentMode = .center
-        label.font = .light(ofSize: 14)
-        view.addSubview(label)
-
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: width, height: 200))
-        imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(named: "emptyColorsDataSet")
-        view.addSubview(imageView)
-
-        return view
-    }
-    */
 }

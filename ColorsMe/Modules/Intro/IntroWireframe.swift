@@ -52,7 +52,9 @@ extension IntroWireframe: IntroWireframeInterface {
         log.verbose(#function)
         let tabBarWireframe = ColorTabBarWireframe()
         tabBarWireframe.installTabBar(with: color)
-        switchRootWireframe(rootWireframe: tabBarWireframe, animated: true, completion: nil)
+        DispatchQueue.main.async {
+            self.switchRootWireframe(rootWireframe: tabBarWireframe, animated: true, completion: nil)
+        }
     }
     
 }

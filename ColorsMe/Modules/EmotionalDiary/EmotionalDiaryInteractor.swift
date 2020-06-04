@@ -10,15 +10,17 @@ import Foundation
 import CoreData
 
 final class EmotionalDiaryInteractor {
+    
+    var presenter: EmotionalDiaryPresenterInterface!
 }
 
 // MARK: - Extensions -
 
 extension EmotionalDiaryInteractor: EmotionalDiaryInteractorInterface {
     
-    /*func fetchAnnotations() -> [CMAnnotation] {
-        let fetchRequest : NSFetchRequest<UserAnnotation> = UserAnnotation.fetchRequest()
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "created", ascending: true)]
-        
-    }*/
+    func createAnnotation(color: EmotionalColor) {
+        AnnotationService.default.addAnnotation(color: color, completion: { annotation in
+            self.presenter.zoomToAnnotation(annotation: annotation)
+        })
+    }
 }

@@ -21,6 +21,7 @@
 		0737FA8B247D7E430015A8F7 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0737FA8A247D7E430015A8F7 /* AppConfiguration.swift */; };
 		073E3B14247BD92E00540BF0 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073E3B13247BD92E00540BF0 /* AppData.swift */; };
 		074C7CCB247EBEFC00C8EAC5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 074C7CCA247EBEFC00C8EAC5 /* GoogleService-Info.plist */; };
+		0768804E2488EA7A001E0F39 /* iCloudDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0768804D2488EA7A001E0F39 /* iCloudDelegate.swift */; };
 		077325F524855401009DDB57 /* CMOverlayLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077325F424855401009DDB57 /* CMOverlayLayer.swift */; };
 		077325FB2486900F009DDB57 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077325FA2486900F009DDB57 /* CloudKit.framework */; };
 		077325FD24869BB5009DDB57 /* AnnotationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077325FC24869BB5009DDB57 /* AnnotationService.swift */; };
@@ -134,6 +135,7 @@
 		0737FA8A247D7E430015A8F7 /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		073E3B13247BD92E00540BF0 /* AppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
 		074C7CCA247EBEFC00C8EAC5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
+		0768804D2488EA7A001E0F39 /* iCloudDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iCloudDelegate.swift; sourceTree = "<group>"; };
 		077325F424855401009DDB57 /* CMOverlayLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMOverlayLayer.swift; sourceTree = "<group>"; };
 		077325F92486900D009DDB57 /* ColorsMe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ColorsMe.entitlements; sourceTree = "<group>"; };
 		077325FA2486900F009DDB57 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
@@ -329,6 +331,7 @@
 				0737FA8E247D96240015A8F7 /* LocalDataManager */,
 				07E06B79247AF680007139E2 /* DataManager.swift */,
 				07B2BA0F247C558300ED5BE7 /* DataManagerProtocol.swift */,
+				0768804D2488EA7A001E0F39 /* iCloudDelegate.swift */,
 			);
 			path = DataManager;
 			sourceTree = "<group>";
@@ -434,6 +437,7 @@
 		07C4BFCF2486F7EB00552BC9 /* TableView */ = {
 			isa = PBXGroup;
 			children = (
+				07C4BFD6248703A700552BC9 /* FRCTableViewDataSource.swift */,
 				07C4BFD02486F7FF00552BC9 /* EmotionalDiaryTableViewCell.swift */,
 			);
 			path = TableView;
@@ -468,7 +472,6 @@
 			children = (
 				07E2BA5624851B3D00465688 /* LocationService.swift */,
 				077325FC24869BB5009DDB57 /* AnnotationService.swift */,
-				07C4BFD6248703A700552BC9 /* FRCTableViewDataSource.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -916,6 +919,7 @@
 				87CEC7BC2478265400206255 /* ColorTabBarInterfaces.swift in Sources */,
 				07E2BA612485232900465688 /* LocationSearchPresenter.swift in Sources */,
 				077325F524855401009DDB57 /* CMOverlayLayer.swift in Sources */,
+				0768804E2488EA7A001E0F39 /* iCloudDelegate.swift in Sources */,
 				07E2BA632485232900465688 /* LocationSearchInteractor.swift in Sources */,
 				87CEC7AD2477FCE300206255 /* InteractorInterface.swift in Sources */,
 				07E06B61247A7AFD007139E2 /* PickerDialogViewController.swift in Sources */,

@@ -15,18 +15,24 @@ final class IntroPresenter {
 
     private unowned let view: IntroViewInterface
     private let wireframe: IntroWireframeInterface
+    private let interactor: IntroViewInteractor
 
     // MARK: - Lifecycle -
 
-    init(view: IntroViewInterface, wireframe: IntroWireframeInterface) {
+    init(view: IntroViewInterface, wireframe: IntroWireframeInterface, interactor: IntroViewInteractor) {
         self.view = view
         self.wireframe = wireframe
+        self.interactor = interactor
     }
 }
 
 // MARK: - Extensions -
 
 extension IntroPresenter: IntroPresenterInterface {
+    func didCreateAnnotation(annotation: CMAnnotation) {
+        #warning("navigate with annotation")
+    }
+    
     
     func viewDidLoad() {
         view.animateSplashScreen()        

@@ -29,7 +29,7 @@ extension LocationSearchInteractor: LocationSearchInteractorInterface {
             longitude: LocationService.default.currentLocation().longitude)
         
         options.maximumResultCount = 10
-        options.allowedScopes = [.locality, .country, .place, .region]
+        options.allowedScopes = [.locality, .place, .region]
         
         _ = geocoder.geocode(options) { (placemarks, attribution, error) in
             guard error == nil else {

@@ -13,6 +13,7 @@ final class EmotionalDiaryWireframe: BaseWireframe, TabBarViewProtocol {
     var tabIcon: UIImage = UIImage(named: "ColorMe")!
     var tabTitle: String = "Emotional Diary"
     
+    var delegate: EmotionalDiaryDelegate?
     // MARK: - Private properties -
 
     private let storyboard = UIStoryboard(name: "EmotionalDiary", bundle: nil)
@@ -26,6 +27,7 @@ final class EmotionalDiaryWireframe: BaseWireframe, TabBarViewProtocol {
         let interactor = EmotionalDiaryInteractor()
         let presenter = EmotionalDiaryPresenter(view: moduleViewController, interactor: interactor, wireframe: self)
         moduleViewController.presenter = presenter
+        interactor.presenter = presenter
     }
 
 }
@@ -33,4 +35,10 @@ final class EmotionalDiaryWireframe: BaseWireframe, TabBarViewProtocol {
 // MARK: - Extensions -
 
 extension EmotionalDiaryWireframe: EmotionalDiaryWireframeInterface {
+    
+    func navigateAndZoomToAnnotation(annotation: CMAnnotation) {
+        self.viewController.tabBarController?.selectedIndex = 0
+        delegate?.zoomToAnnotation(annotation: annotation)
+    }
+    
 }

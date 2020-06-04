@@ -23,12 +23,11 @@ class AnnotationService {
     }
     
     open func addAnnotation(color: EmotionalColor, completion: @escaping (CMAnnotation) -> ()) {
-       
         createAnnotation(with: color, completion: { annotation in
             DataManager.shared.remoteDataManager.saveToBackendless(annotation: annotation, completion: { annotation in
                 log.debug("saved Backendless Annotation: \(annotation.debugDescription)")
                 let realmAnnotation = RealmAnnotation(annotation: annotation)
-                
+                log.debug("saved: realmAnnotation: objectid = \(realmAnnotation.objectId!) & guid = \(realmAnnotation.guid!)")
                 DataManager.shared.localDataManager.saveLocal(annotation: realmAnnotation)
                 let cmAnnotation = CMAnnotation(annotation: annotation)
                 
@@ -39,9 +38,22 @@ class AnnotationService {
         })
     }
     
+    open func deleteAnnotation(id: String, objectId: NSManagedObjectID) {
+        DataManager.shared.dataManager(id: id, willDeltewith: .both)
+        delegate.persistentContainer.performBackgroundTask { (context) in
+            context.name = CloudCore.config.pushContextName
+            if let objectToDelete = try? context.existingObject(with: objectId) {
+                log.debug("delete iCloud Annotation: \(objectToDelete)")
+                context.delete(objectToDelete)
+                try? context.save()
+            }
+        }
+    }
+    
     private func saveAnnotationToiCloud(annotation: CMAnnotation) {
         delegate.persistentContainer.performBackgroundTask { (context) in
             context.name = CloudCore.config.pushContextName
+            
             let userAnnotation = UserAnnotation(context: context)
             userAnnotation.beObjectId = annotation.objectId
             userAnnotation.city = annotation.city
@@ -54,7 +66,8 @@ class AnnotationService {
             userAnnotation.latitude = annotation.latitude
             userAnnotation.longitude = annotation.longitude
             userAnnotation.title = annotation.title
-            try! context.save()
+            
+            try? context.save()
         }
 
     }

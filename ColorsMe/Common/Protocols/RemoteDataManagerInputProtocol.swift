@@ -20,5 +20,5 @@ protocol RemoteDataManagerInputProtocol {
     
     func deleteFromBackendless(annotation: Annotation)
     
-    
+    func deleteFromBackendless(by id: String)
 }

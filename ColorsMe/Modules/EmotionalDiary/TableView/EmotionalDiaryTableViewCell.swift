@@ -20,13 +20,14 @@ class EmotionalDiaryTableViewCell : MGSwipeTableCell {
     @IBOutlet weak var coordinatesLabel: UILabel!
     
     @IBOutlet weak var indicator: UIActivityIndicatorView!
-    
+
+    let imageCache = ImageCache()
+
     override func draw(_ rect: CGRect) {
         dateLabel.textColor = UIColor.darkGray
     }
     
     func configure(annotation: UserAnnotation) {
-        let imageCache = ImageCache()
         let calendar = Calendar.current
         let formatter = DateFormatter.yyyyMMddHHmmss
         let dateTitle = formatter.string(from: annotation.created!)
@@ -54,7 +55,7 @@ class EmotionalDiaryTableViewCell : MGSwipeTableCell {
                 takeSnapshot(coords: CLLocationCoordinate2D(latitude: annotation.latitude, longitude: annotation.longitude), color: EmotionalColor(rawValue: annotation.color!)!) { (image) in
                     self.indicator.stopAnimating()
                     self.colorImage.image = image
-                    imageCache.setImage(image: image, for: annotation.guid!)
+                    self.imageCache.setImage(image: image, for: annotation.guid!)
                 }
             }
             colorImage.layer.cornerRadius = 8
@@ -94,39 +95,6 @@ class EmotionalDiaryTableViewCell : MGSwipeTableCell {
     
     
     private func takeSnapshot(coords: CLLocationCoordinate2D, color: EmotionalColor, completion: @escaping (_ image: UIImage) -> Void) {
-        /*let mapView = MGLMapView()
-        mapView.logoView.isHidden = true
-        if traitCollection.userInterfaceStyle == .dark {
-            mapView.styleURL = URL(string: "mapbox://styles/spagnolo/ck0t58kmm0u0q1clfch1oum2e")
-        } else {
-            mapView.styleURL = URL(string: "mapbox://styles/spagnolo/ck0t583631r121cnuxtknci3z")
-        }
-        let camera = MGLMapCamera(lookingAtCenter: coords, altitude: 12500, pitch: 15, heading: 0)
-        let size = CGSize(width: 30, height: 30)
-        let options = MGLMapSnapshotOptions(styleURL: mapView.styleURL, camera: camera, size: size)
-        options.zoomLevel = 11
-        
-        var snapshotter: MGLMapSnapshotter? = MGLMapSnapshotter(options: options)
-        snapshotter?.start { (snapshot, error) in
-            if error != nil {
-                log.error("Unable to create a map snapshot. \(String(describing: error?.localizedDescription))")
-            } else if let snapShotImage = snapshot?.image,
-                let coordinatePoint = snapshot?.point(for: coords),
-                let pinImage = UIImage(named: String(describing: color.rawValue)) {
-                UIGraphicsBeginImageContextWithOptions(options.size, true, snapShotImage.scale)
-                snapShotImage.draw(at: CGPoint.zero)
-                
-                let fixedPinPoint = CGPoint(x: coordinatePoint.x - pinImage.size.width / 2, y: coordinatePoint.y - pinImage.size.height)
-                pinImage.draw(at: fixedPinPoint)
-                let mapImage = UIGraphicsGetImageFromCurrentImageContext()
-                DispatchQueue.main.async {
-                    completion(mapImage!)
-                }
-                UIGraphicsEndImageContext()
-            }
-            
-            snapshotter = nil
-        }*/
         let backgroundQueue = DispatchQueue.global(qos: .background)
         let options = MKMapSnapshotter.Options.init()
         options.mapType = .mutedStandard

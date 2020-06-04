@@ -17,9 +17,13 @@ protocol LocalDataManagerInputProtocol {
     
     func deleteLocal(annotation: RealmAnnotation)
     
+    func deleteLocal(by id: String)
+    
     func getAllLocal() -> [CMAnnotation] 
  
     func filterLocal(by option: PickerDialogFilterOption) -> [CMAnnotation]
     
     func filterLocal(with predicate: NSPredicate) -> [CMAnnotation]
+    
+    func filterLocalBy(objectId: String) -> CMAnnotation
 }

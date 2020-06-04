@@ -21,7 +21,12 @@ protocol IntroViewInterface: ViewInterface {
     func animateSplashScreen()
 }
 
+protocol IntroViewInteractor: InteractorInterface {
+    func createAnnotation(with color: EmotionalColor)
+}
+
 protocol IntroPresenterInterface: PresenterInterface {
     func didSelectSkipAction()
     func didSelectAddAction(color: EmotionalColor)
+    func didCreateAnnotation(annotation: CMAnnotation)
 }

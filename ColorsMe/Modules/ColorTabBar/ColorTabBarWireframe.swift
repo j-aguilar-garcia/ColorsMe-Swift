@@ -32,17 +32,21 @@ extension ColorTabBarWireframe: ColorTabBarWireframeInterface {
     
     func installTabBar(with color: EmotionalColor) {
         log.verbose(#function)
+        
         AnnotationService.default.addAnnotation(color: color, completion: { annotation in
-            
+            log.debug("installTabBar annotation saved: \(annotation.objectId) && guid \(annotation.guid)")
             let colorMapWireframe = ColorMapWireframe(annotation: annotation)
             let emotionalDiaryWireframe = EmotionalDiaryWireframe()
+            //var settingsWireframe = SettingsWireFrame()
 
-            let wireframes : [BaseWireframe & TabBarViewProtocol] = [colorMapWireframe, emotionalDiaryWireframe] //, emotionalDiaryWireframe, settingsWireframe]
+            // Setup delegate
+            emotionalDiaryWireframe.delegate = colorMapWireframe.viewController as? EmotionalDiaryDelegate
+            
+            let wireframes : [BaseWireframe & TabBarViewProtocol] =
+                [colorMapWireframe, emotionalDiaryWireframe] //, emotionalDiaryWireframe, settingsWireframe]
             
             var viewControllers = [UIViewController]()
-            
-            //var settingsWireframe = SettingsWireFrame()
-            
+                        
             for wireFrame in wireframes {
                 let tabBarItem = UITabBarItem()
                 tabBarItem.image = wireFrame.tabIcon
@@ -68,7 +72,11 @@ extension ColorTabBarWireframe: ColorTabBarWireframeInterface {
         let emotionalDiaryWireframe = EmotionalDiaryWireframe()
         //var settingsWireframe = SettingsWireFrame()
         
-        let wireframes : [BaseWireframe & TabBarViewProtocol] = [colorMapWireframe, emotionalDiaryWireframe] //, emotionalDiaryWireframe, settingsWireframe]
+        // Setup delegate
+        emotionalDiaryWireframe.delegate = colorMapWireframe.viewController as? EmotionalDiaryDelegate
+        
+        let wireframes : [BaseWireframe & TabBarViewProtocol] =
+            [colorMapWireframe, emotionalDiaryWireframe] //, emotionalDiaryWireframe, settingsWireframe]
         
         var viewControllers = [UIViewController]()
         

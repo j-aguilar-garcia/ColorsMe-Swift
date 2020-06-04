@@ -88,7 +88,7 @@ final class ColorMapViewController: UIViewController {
 
 // MARK: - Extensions -
 
-extension ColorMapViewController: ColorMapViewInterface {
+extension ColorMapViewController: ColorMapViewInterface, EmotionalDiaryDelegate {
     
     func zoomToAnnotation(annotation: CMAnnotation) {
         mapView.addAnnotation(annotation)
@@ -407,3 +407,6 @@ extension ColorMapViewController : LocationSearchDelegate {
     }
     
 }
+
+
+
