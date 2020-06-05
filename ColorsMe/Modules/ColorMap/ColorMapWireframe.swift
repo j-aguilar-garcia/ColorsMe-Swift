@@ -28,6 +28,7 @@ final class ColorMapWireframe: BaseWireframe, TabBarViewProtocol {
         let presenter = ColorMapPresenter(view: moduleViewController, interactor: interactor, wireframe: self, annotation: annotation)
         moduleViewController.presenter = presenter
         interactor.presenter = presenter
+        interactor.startObserverSubscriptions()
     }
     
 }

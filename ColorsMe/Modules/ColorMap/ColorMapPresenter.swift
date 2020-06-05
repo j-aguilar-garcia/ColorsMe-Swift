@@ -33,11 +33,24 @@ final class ColorMapPresenter {
 
 extension ColorMapPresenter: ColorMapPresenterInterface {
     
+    func willAddAnnotation(_ annotation: CMAnnotation) {
+        view.addAnnotation(annotation)
+    }
+    
+    func willRemoveAnnotation(_ annotation: CMAnnotation) {
+        view.removeAnnotation(annotation)
+    }
+    
+    
     func viewDidLoad() {
         guard let annotation = annotation else {
             return
         }
         view.zoomToAnnotation(annotation: annotation)
+    }
+    
+    func viewWillAppear(animated: Bool) {
+        view.showScale(true)
     }
     
     func didSelectMenuButton(at index: Int) {

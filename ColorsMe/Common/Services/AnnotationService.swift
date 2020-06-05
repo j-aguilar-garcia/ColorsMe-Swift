@@ -35,6 +35,7 @@ class AnnotationService {
                         let realmAnnotation = RealmAnnotation(annotation: savedAnnotation)
                         log.debug("saved: realmAnnotation: objectid = \(realmAnnotation.objectId!) & guid = \(realmAnnotation.guid!)")
                         let cmAnnotation = CMAnnotation(annotation: savedAnnotation)
+                        log.debug("saved: cmAnnotation: objectId = \(cmAnnotation.objectId)")
                         self.saveAnnotationToiCloud(annotation: cmAnnotation)
                         DataManager.shared.localDataManager.saveLocal(annotation: realmAnnotation)
                     }
@@ -72,7 +73,7 @@ class AnnotationService {
             userAnnotation.latitude = annotation.latitude
             userAnnotation.longitude = annotation.longitude
             userAnnotation.title = annotation.title
-            
+            log.debug("Annotation saved to iCloud with objectId \(String(describing: annotation.objectId))")
             try? context.save()
         }
 

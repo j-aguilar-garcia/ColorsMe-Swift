@@ -11,7 +11,7 @@ import Backendless
 import CoreLocation
 
 class RemoteDataManager : RemoteDataManagerInputProtocol {
-        
+    
     init() { }
     
     var annotations: [CMAnnotation] = []
@@ -19,7 +19,7 @@ class RemoteDataManager : RemoteDataManagerInputProtocol {
     private var offset = 0
     private var queryBuilder = DataQueryBuilder()
     private var backendlessDataRetrieved = false
-
+    
     func initBackendless() {
         Backendless.shared.hostUrl = AppConfiguration.default.backendlessServerUrl
         Backendless.shared.initApp(applicationId: AppConfiguration.default.backendlessAppKey, apiKey: AppConfiguration.default.backendlessApiKey)
@@ -31,8 +31,8 @@ class RemoteDataManager : RemoteDataManagerInputProtocol {
             if let savedAnnotation = savedObject as? Annotation, self != nil {
                 completion(savedAnnotation)
             }
-        }, errorHandler: { fault in
-            log.error("Error saving remote annotation \(fault.message ?? "")")
+            }, errorHandler: { fault in
+                log.error("Error saving remote annotation \(fault.message ?? "")")
         })
     }
     
@@ -63,6 +63,10 @@ class RemoteDataManager : RemoteDataManagerInputProtocol {
         })
     }
     
+    /**
+     Downloads all data from the server that has been created since the last check.
+     Here the server-side timestamp is used as a global timestamp.
+     */
     func retrieveData(localDataManager: LocalDataManager) {
         queryBuilder.setPageSize(pageSize: 100)
         queryBuilder.setOffset(offset: self.offset)
@@ -77,35 +81,28 @@ class RemoteDataManager : RemoteDataManagerInputProtocol {
         var remoteAnnotations = [Annotation]()
         let startTime = Date()
         let dataStore = Backendless.shared.data.of(Annotation.self)
-            dataStore.find(queryBuilder: self.queryBuilder, responseHandler: { foundObjects in
+        dataStore.find(queryBuilder: self.queryBuilder, responseHandler: { foundObjects in
             dataStore.getObjectCount(responseHandler: { allColors in
                 let size = foundObjects.count
                 log.debug("CountSize \(allColors)")
-                if remoteAnnotations.count == allColors {
+                if remoteAnnotations.count == allColors || size == 0 {
                     log.debug("remoteAnnotations.count == allColors \(remoteAnnotations.count == allColors)")
                     log.debug("Retrieved data in (ms) - \(Int(Date().timeIntervalSince(startTime) * 1000)) in secs \(Int(Date().timeIntervalSince(startTime)))")
-                    return
-                }
-                if localDataManager.getAllLocal().count == allColors {
-                    return
-                }
-                if size == 0 {
-                    self.backendlessDataRetrieved = true
-                    log.debug("Retrieved data in (ms) - \(Int(Date().timeIntervalSince(startTime) * 1000)) in secs \(Int(Date().timeIntervalSince(startTime)))")
+                    self.offset = 0
+                    self.checkForDeletedData(localDataManager: localDataManager, date: dateNow)
                     return
                 } else {
-                    for object in foundObjects {
-                        if let annotation = object as? Annotation {
-                            remoteAnnotations.append(annotation)
-                            localDataManager.saveLocal(annotation: RealmAnnotation(annotation: annotation))
-                            self.annotations.append(CMAnnotation(annotation: annotation))
-                        }
+                    guard let annotations = foundObjects as? [Annotation] else { return }
+                    for annotation in annotations {
+                        remoteAnnotations.append(annotation)
+                        localDataManager.saveLocal(annotation: RealmAnnotation(annotation: annotation))
+                        self.annotations.append(CMAnnotation(annotation: annotation))
                     }
                     self.offset += size
                     self.queryBuilder.setOffset(offset: self.offset)
                 }
                 if self.queryBuilder.getOffset() < allColors {
-                    log.debug("\(#function) queryBuilder.getOffset() \(self.queryBuilder.getOffset())")
+                    log.debug("queryBuilder.getOffset() = \(self.queryBuilder.getOffset())")
                     self.retrieveData(localDataManager: localDataManager)
                 } else {
                     AppData.backendlessSyncTimeStamp = dateNow
@@ -120,8 +117,55 @@ class RemoteDataManager : RemoteDataManagerInputProtocol {
         })
     }
     
-
     
+    /**
+     Determines all delted Annotations while the app was closed.
+     All annotations that no longer exist on the server are deleted locally.
+    */
+    private func checkForDeletedData(localDataManager: LocalDataManager, date: Date) {
+        let localAnnotations = localDataManager.getAllLocal()
+        
+        queryBuilder.setPageSize(pageSize: 100)
+        queryBuilder.setOffset(offset: self.offset)
+        queryBuilder.setGroupBy(groupBy: ["objectId"])
+        
+        let dateFormatter = DateFormatter.MMMddyyyyHHmmss
+        let dateString = dateFormatter.string(from: date)
+        queryBuilder.setWhereClause(whereClause: String(format: "created < '%@'", dateString))
+        
+        
+        let dataStore = Backendless.shared.data.of(Annotation.self)
+        dataStore.find(queryBuilder: queryBuilder, responseHandler: { (foundObjects) in
+            dataStore.getObjectCount(responseHandler: { allColors in
+                
+                let size = foundObjects.count
+                
+                if size == 0 || localAnnotations.count == foundObjects.count{
+                    return
+                } else {
+                    guard let remoteAnnotations = foundObjects as? [Annotation] else { return }
+                    for annotation in localAnnotations {
+                        if !remoteAnnotations.contains(where: { $0.objectId == annotation.objectId }) {
+                            DispatchQueue.main.async {
+                                localDataManager.deleteLocal(by: annotation.objectId!)
+                            }
+                        }
+                    }
+                    self.offset += size
+                    self.queryBuilder.setOffset(offset: self.offset)
+                }
+                if self.queryBuilder.getOffset() < allColors {
+                    log.debug("queryBuilder.getOffset() = \(self.queryBuilder.getOffset())")
+                    self.checkForDeletedData(localDataManager: localDataManager, date: date)
+                }
+            }, errorHandler: { fault in
+                log.error("Fault = \(fault)")
+            })
+        }, errorHandler: { fault in
+            log.error("Fault \(fault)")
+            log.error("Error get all Annotations: \(fault.message ?? "Error while retrieving all to delete)")")
+        })
+    }
     
     
     

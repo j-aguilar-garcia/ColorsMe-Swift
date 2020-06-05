@@ -8,6 +8,7 @@
 
 import Foundation
 import Mapbox
+import Backendless
 
 final class ColorMapInteractor {
     var presenter: ColorMapPresenterInterface!
@@ -39,4 +40,38 @@ extension ColorMapInteractor: ColorMapInteractorInterface {
         duration = differenceBetweenValues <= 0.33 ? 1 : differenceBetweenValues > 0.33 && differenceBetweenValues <= 0.66 ? 0.8 : 0.4
         presenter.willUpdateScale(value: result, duration: duration)
     }
+    
+    
+    func startObserverSubscriptions() {
+        let eventHandler = Backendless.shared.data.of(Annotation.self).rt
+        
+        _ = eventHandler?.addCreateListener(responseHandler: { createdObject in
+            guard let annotation = createdObject as? Annotation else { return }
+            
+            let realmAnnotation = RealmAnnotation(annotation: annotation)
+            DataManager.shared.localDataManager.saveLocal(annotation: realmAnnotation)
+            
+            let cmAnnotation = CMAnnotation(annotation: annotation)
+            self.presenter.willAddAnnotation(cmAnnotation)
+            
+            log.verbose("annotation has been created via createListener: \(annotation)")
+        }, errorHandler: { fault in
+            log.error("Error: \(fault.message ?? "")")
+        })
+        
+        
+        _ = eventHandler?.addDeleteListener(responseHandler: { deletedObject in
+            guard let annotation = deletedObject as? Annotation else { return }
+            
+            let cmAnnotation = DataManager.shared.localDataManager.filterLocalBy(objectId: annotation.objectId!)
+            self.presenter.willRemoveAnnotation(cmAnnotation)
+            
+            DataManager.shared.localDataManager.deleteLocal(by: annotation.objectId!)
+            
+            log.verbose("annotation has been deleted via deleteListener: \(cmAnnotation)")
+        }, errorHandler: { fault in
+            log.error("Error: \(fault.message ?? "")")
+        })
+    }
+    
 }

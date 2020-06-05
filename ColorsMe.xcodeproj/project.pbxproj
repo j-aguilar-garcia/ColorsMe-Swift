@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		071429BD248AAEAC00CC49CF /* MGLMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071429BC248AAEAC00CC49CF /* MGLMapView.swift */; };
 		072D9D00247E3FCC00390186 /* MenuButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072D9CFF247E3FCC00390186 /* MenuButtons.swift */; };
 		072D9D03247E402B00390186 /* MenuButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072D9D02247E402B00390186 /* MenuButtonView.swift */; };
 		072D9D05247E406000390186 /* MenuButtonViewConfigProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072D9D04247E406000390186 /* MenuButtonViewConfigProtocol.swift */; };
@@ -122,6 +123,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		071429BC248AAEAC00CC49CF /* MGLMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MGLMapView.swift; sourceTree = "<group>"; };
 		072D9CFF247E3FCC00390186 /* MenuButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButtons.swift; sourceTree = "<group>"; };
 		072D9D02247E402B00390186 /* MenuButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButtonView.swift; sourceTree = "<group>"; };
 		072D9D04247E406000390186 /* MenuButtonViewConfigProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButtonViewConfigProtocol.swift; sourceTree = "<group>"; };
@@ -383,6 +385,7 @@
 				07E2BA4F2481274C00465688 /* Font.swift */,
 				07C4BFCD2486F6DA00552BC9 /* View.swift */,
 				07C4BFD22486FB6D00552BC9 /* TableView.swift */,
+				071429BC248AAEAC00CC49CF /* MGLMapView.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -600,10 +603,10 @@
 				072D9D01247E401700390186 /* MenuButton */,
 				072D5459247981CA00551637 /* AnnotationView */,
 				87CEC7C024782A7400206255 /* ColorMap.storyboard */,
-				87CEC7C124782A7400206255 /* ColorMapInterfaces.swift */,
 				87CEC7C224782A7400206255 /* ColorMapPresenter.swift */,
 				87CEC7C324782A7400206255 /* ColorMapViewController.swift */,
 				87CEC7C424782A7400206255 /* ColorMapInteractor.swift */,
+				87CEC7C124782A7400206255 /* ColorMapInterfaces.swift */,
 				87CEC7C524782A7400206255 /* ColorMapWireframe.swift */,
 			);
 			path = ColorMap;
@@ -947,6 +950,7 @@
 				07E2BA522481389C00465688 /* CMLayer.swift in Sources */,
 				87CEC7BE2478265400206255 /* ColorTabBarViewController.swift in Sources */,
 				07C4BFC62486F59D00552BC9 /* EmotionalDiaryPresenter.swift in Sources */,
+				071429BD248AAEAC00CC49CF /* MGLMapView.swift in Sources */,
 				87CEC7AE2477FCE300206255 /* ViewInterface.swift in Sources */,
 				07C4BFD7248703A700552BC9 /* FRCTableViewDataSource.swift in Sources */,
 				87CEC7AB2477FCE300206255 /* PresenterInterface.swift in Sources */,

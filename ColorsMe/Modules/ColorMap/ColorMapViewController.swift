@@ -65,7 +65,7 @@ final class ColorMapViewController: UIViewController {
         mapView.automaticallyAdjustsContentInset = true
 
         mapView.attributionButtonPosition = .topLeft
-
+        mapView.setCenter(LocationService.default.currentLocation(), animated: false)
         addMenuButton()
         
         setUpSearchBar()
@@ -76,7 +76,8 @@ final class ColorMapViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         log.debug("")
         sideButtonsView.reloadButtons()
-
+        presenter.shouldUpdateScale(mapView, slider.value)
+        presenter.viewWillAppear(animated: animated)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -89,6 +90,24 @@ final class ColorMapViewController: UIViewController {
 // MARK: - Extensions -
 
 extension ColorMapViewController: ColorMapViewInterface, EmotionalDiaryDelegate {
+    
+    func removeAnnotation(_ annotation: CMAnnotation) {
+        if mapView.containsAnnotation(annotation) {
+            log.debug("mapView.containsAnnotation")
+            self.mapView.removeAnnotation(annotation)
+        }
+        presenter.shouldUpdateScale(mapView, slider.value)
+        updateColorsLabel(count: mapView!.annotations?.count ?? DataManager.shared.localDataManager.getAllLocal().count)
+        showScale()
+    }
+    
+    func addAnnotation(_ annotation: CMAnnotation) {
+        mapView.addAnnotation(annotation)
+        presenter.shouldUpdateScale(mapView, slider.value)
+        updateColorsLabel(count: mapView!.annotations?.count ?? DataManager.shared.localDataManager.getAllLocal().count)
+        showScale()
+    }
+    
     
     func zoomToAnnotation(annotation: CMAnnotation) {
         mapView.addAnnotation(annotation)

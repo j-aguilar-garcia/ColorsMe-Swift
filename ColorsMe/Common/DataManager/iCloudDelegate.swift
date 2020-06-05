@@ -12,19 +12,19 @@ import CloudCore
 class iCloudDelegate : CloudCoreDelegate {
     
     func willSyncFromCloud() {
-        log.debug("🔁 Started fetching from iCloud")
+        log.verbose("🔁 Started fetching from iCloud")
     }
     
     func didSyncFromCloud() {
-        log.debug("✅ Finishing fetching from iCloud")
+        log.verbose("✅ Finishing fetching from iCloud")
     }
     
     func willSyncToCloud() {
-        log.debug("💾 Started saving to iCloud")
+        log.verbose("💾 Started saving to iCloud")
     }
 
     func didSyncToCloud() {
-        log.debug("✅ Finished saving to iCloud")
+        log.verbose("✅ Finished saving to iCloud")
     }
     
     func error(error: Error, module: Module?) {

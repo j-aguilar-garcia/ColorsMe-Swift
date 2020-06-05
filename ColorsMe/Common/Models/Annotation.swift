@@ -77,6 +77,17 @@ class RealmAnnotation: Realmable {
     static func primaryKey() -> String? {
         return "objectId"
     }
+    
+    var description: String {
+        var description = "##### RealmAnnotation #####\n"
+        let mirror = Mirror(reflecting: self)
+        for child in mirror.children {
+            if let name = child.label {
+                description += "\(name): \(child.value)\n"
+            }
+        }
+        return description
+    }
 }
 
 class CMAnnotation : MGLPointAnnotation {
@@ -87,7 +98,7 @@ class CMAnnotation : MGLPointAnnotation {
     var isocountrycode : String!
     var color : EmotionalColor!
     var longitude : Double!
-    var objectId : String!
+    var objectId : String?
     var latitude : Double!
     var guid : String!
     var created: Date!
@@ -100,7 +111,7 @@ class CMAnnotation : MGLPointAnnotation {
         self.color = EmotionalColor(rawValue: annotation.color!)
         self.longitude = annotation.longitude?.doubleValue
         self.latitude = annotation.latitude?.doubleValue
-        //self.objectId = annotation.objectId!
+        self.objectId = annotation.objectId
         self.guid = annotation.guid!
         self.created = annotation.created
         coordinate = CLLocationCoordinate2D(latitude: annotation.latitude!.doubleValue, longitude: annotation.longitude!.doubleValue)
@@ -128,6 +139,17 @@ class CMAnnotation : MGLPointAnnotation {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override var description: String {
+        var description = "##### ColorAnnotation #####\n"
+        let mirror = Mirror(reflecting: self)
+        for child in mirror.children {
+            if let name = child.label {
+                description += "\(name): \(child.value)\n"
+            }
+        }
+        return description
     }
     
 }

@@ -31,6 +31,8 @@ protocol ColorMapViewInterface: ViewInterface {
     func zoomToAnnotation(annotation: CMAnnotation)
     
     func showMapLayer(layerType: ColorMapLayerType, annotations: [CMAnnotation]?)
+    func removeAnnotation(_ annotation: CMAnnotation)
+    func addAnnotation(_ annotation: CMAnnotation)
 }
 
 protocol ColorMapPresenterInterface: PresenterInterface {
@@ -38,10 +40,14 @@ protocol ColorMapPresenterInterface: PresenterInterface {
     func didSelectMenuButton(at index: Int)
     func shouldUpdateScale(_ mapView: MGLMapView, _ oldValue: Float)
     func willUpdateScale(value: Float, duration: Double)
+    
+    func willAddAnnotation(_ annotation: CMAnnotation)
+    func willRemoveAnnotation(_ annotation: CMAnnotation)
 }
 
 protocol ColorMapInteractorInterface: InteractorInterface {
     func shouldUpdateScale(mapView: MGLMapView, oldValue: Float)
+    func startObserverSubscriptions()
 }
 
 // MARK: - Menubutton
