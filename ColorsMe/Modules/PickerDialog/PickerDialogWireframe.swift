@@ -40,7 +40,8 @@ extension PickerDialogWireframe: PickerDialogWireframeInterface {
     }
     
     func navigate() {
-        // TODO: 
+        delegate?.pickerDialogDidClose()
+        self.dismiss(animated: true)
     }
     
 }

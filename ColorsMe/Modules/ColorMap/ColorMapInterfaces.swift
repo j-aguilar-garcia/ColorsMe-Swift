@@ -22,7 +22,7 @@ protocol ColorMapWireframeInterface: WireframeInterface {
     func navigate(to option: ColorMapNavigationOption)
 }
 
-protocol ColorMapViewInterface: ViewInterface {    
+protocol ColorMapViewInterface: ViewInterface {
     func updateScale(value: Float, duration: Double)
     func showScale(_ animated: Bool)
     func hideScale(_ animated: Bool)
@@ -33,11 +33,14 @@ protocol ColorMapViewInterface: ViewInterface {
     func showMapLayer(layerType: ColorMapLayerType, annotations: [CMAnnotation]?)
     func removeAnnotation(_ annotation: CMAnnotation)
     func addAnnotation(_ annotation: CMAnnotation)
+    func showAnnotations(_ annotations: [CMAnnotation], animated: Bool)
 }
 
 protocol ColorMapPresenterInterface: PresenterInterface {
+    var filteredAnnotations: [CMAnnotation]? { get }
+    func filteredAnnotationsDidChange(_ annotations: [CMAnnotation])
     func didSelectFilterButton()
-    func didSelectMenuButton(at index: Int)
+    func didSelectMenuButton(at index: Int, mapView: MGLMapView)
     func shouldUpdateScale(_ mapView: MGLMapView, _ oldValue: Float)
     func willUpdateScale(value: Float, duration: Double)
     

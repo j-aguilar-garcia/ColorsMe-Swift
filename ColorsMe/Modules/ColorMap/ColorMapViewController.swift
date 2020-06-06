@@ -17,7 +17,8 @@ final class ColorMapViewController: UIViewController {
 
     var presenter: ColorMapPresenterInterface!
     var annotation: CMAnnotation!
-    
+    //var filteredAnnotations: [CMAnnotation]?
+
     var heatMapLayer: CMHeatMapLayer?
     var clusterMapLayer: CMClusterMapLayer?
     var searchResultsOverlay: CMOverlayLayer?
@@ -91,9 +92,16 @@ final class ColorMapViewController: UIViewController {
 
 extension ColorMapViewController: ColorMapViewInterface, EmotionalDiaryDelegate {
     
+    func showAnnotations(_ annotations: [CMAnnotation], animated: Bool) {
+        //mapView.showAnnotations(annotations, animated: animated)
+        var coordinates = [CLLocationCoordinate2D]()
+        annotations.forEach({ coordinates.append($0.coordinate) })
+        mapView.setVisibleCoordinates(coordinates, count: UInt(coordinates.count), edgePadding: UIEdgeInsets(top: 30, left: 60, bottom: 30, right: 30), animated: animated)
+    }
+    
     func removeAnnotation(_ annotation: CMAnnotation) {
         if mapView.containsAnnotation(annotation) {
-            mapView.removeAnnotation(annotation)
+            mapView.removeAnnotations([annotation])
         }
         presenter.shouldUpdateScale(mapView, slider.value)
         updateColorsLabel(count: DataManager.shared.localDataManager.getAllLocal().count)
@@ -147,12 +155,16 @@ extension ColorMapViewController: ColorMapViewInterface, EmotionalDiaryDelegate 
         case .heatmap:
             hideScale(true)
             heatMapLayer = CMHeatMapLayer(mapView: mapView)
-            mapView.removeAnnotations(mapView!.annotations!)
+            if mapView.annotations != nil, !mapView.annotations!.isEmpty {
+                mapView.removeAnnotations(mapView!.annotations!)
+            }
             
         case .clustermap:
             hideScale(true)
             clusterMapLayer = CMClusterMapLayer(mapView: mapView, view: view)
-            mapView.removeAnnotations(mapView!.annotations!)
+            if mapView.annotations != nil, !mapView.annotations!.isEmpty {
+                mapView.removeAnnotations(mapView!.annotations!)
+            }
         }
     }
     
@@ -283,7 +295,7 @@ extension ColorMapViewController : MGLMapViewDelegate {
     }
     
     func mapViewDidFinishRenderingMap(_ mapView: MGLMapView, fullyRendered: Bool) {
-        showScale()
+        //showScale()
     }
     
     func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
@@ -334,7 +346,7 @@ extension ColorMapViewController : UIPopoverPresentationControllerDelegate {
 extension ColorMapViewController : MenuSideButtonsDelegate, MenuSideButtonsDataSource {
     
     func sideButtons(_ sideButtons: MenuSideButtons, didSelectButtonAtIndex index: Int) {
-        presenter.didSelectMenuButton(at: index)
+        presenter.didSelectMenuButton(at: index, mapView: mapView)
         log.verbose("didSelectButtonAtIndx")
     }
     
@@ -357,15 +369,16 @@ extension ColorMapViewController : PickerDialogDelegate {
     
     func pickerDialogDidChange(with option: PickerDialogFilterOption, annotations: [CMAnnotation]) {
         log.debug("Filtered Annotations: \(annotations.count)")
-        if let currentAnnotations = self.mapView.annotations {
-            self.mapView.removeAnnotations(currentAnnotations)
+        if self.mapView.annotations != nil {
+            self.mapView.removeAnnotations(self.mapView.annotations!)
         }
+        presenter.filteredAnnotationsDidChange(annotations)
+        hideScale()
         showMapLayer(layerType: ColorMapLayerType(rawValue: AppData.colorMapLayerItem)!, annotations: annotations)
-        updateColorsLabel(count: annotations.count)
     }
     
     func pickerDialogDidClose() {
-        showScale()
+        //showScale()
     }
     
 }
@@ -385,7 +398,6 @@ extension ColorMapViewController : UISearchBarDelegate {
         resultSearchController?.searchBar.autocorrectionType = .default
         resultSearchController?.searchBar.textContentType = .addressCityAndState
         resultSearchController?.searchBar.placeholder = "Find places"
-
         
         navigationItem.titleView = resultSearchController?.searchBar
         resultSearchController?.hidesNavigationBarDuringPresentation = false
@@ -400,7 +412,6 @@ extension ColorMapViewController : UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         willRemoveOverlay()
     }
-    
 
 }
 

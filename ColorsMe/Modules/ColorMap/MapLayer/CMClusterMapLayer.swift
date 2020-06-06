@@ -70,7 +70,7 @@ class CMClusterMapLayer : CMLayer {
     
     
     private func createClusterMap(_ style: MGLStyle) {
-        let annotations = DataManager.shared.dataManager(willRetrieveWith: .local)
+        guard let annotations = mapView.annotations as? [CMAnnotation] else { return }
         var coordinates = [CLLocationCoordinate2D]()
         annotations.forEach({ coordinates.append(CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude)) })
         var features = [MGLPointFeature]()

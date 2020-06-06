@@ -27,6 +27,9 @@ final class ColorMapPresenter {
         self.wireframe = wireframe
         self.annotation = annotation
     }
+    
+    var filteredAnnotations: [CMAnnotation]?
+    
 }
 
 // MARK: - Extensions -
@@ -50,13 +53,19 @@ extension ColorMapPresenter: ColorMapPresenterInterface {
     }
     
     func viewWillAppear(animated: Bool) {
-        view.hideScale(false)
-        view.showScale(true)
     }
     
-    func didSelectMenuButton(at index: Int) {
+    func filteredAnnotationsDidChange(_ annotations: [CMAnnotation]) {
+        filteredAnnotations = annotations
+        view.showAnnotations(annotations, animated: true)
+    }
+    
+    func didSelectMenuButton(at index: Int, mapView: MGLMapView) {
         guard let mapLayer = ColorMapLayerType(rawValue: index) else { return }
-        view.showMapLayer(layerType: mapLayer, annotations: nil)
+        if mapView.annotations != nil {
+            filteredAnnotations = mapView.annotations as? [CMAnnotation]
+        }
+        view.showMapLayer(layerType: mapLayer, annotations: filteredAnnotations)
     }
     
     func didSelectFilterButton() {

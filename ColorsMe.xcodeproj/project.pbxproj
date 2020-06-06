@@ -603,10 +603,10 @@
 				072D9D01247E401700390186 /* MenuButton */,
 				072D5459247981CA00551637 /* AnnotationView */,
 				87CEC7C024782A7400206255 /* ColorMap.storyboard */,
+				87CEC7C124782A7400206255 /* ColorMapInterfaces.swift */,
 				87CEC7C224782A7400206255 /* ColorMapPresenter.swift */,
 				87CEC7C324782A7400206255 /* ColorMapViewController.swift */,
 				87CEC7C424782A7400206255 /* ColorMapInteractor.swift */,
-				87CEC7C124782A7400206255 /* ColorMapInterfaces.swift */,
 				87CEC7C524782A7400206255 /* ColorMapWireframe.swift */,
 			);
 			path = ColorMap;

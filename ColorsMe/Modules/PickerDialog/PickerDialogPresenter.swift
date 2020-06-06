@@ -62,8 +62,7 @@ extension PickerDialogPresenter: PickerDialogPresenterInterface {
     }
     
     func didSelectCancelButton() {
-        wireframe.dismiss(animated: true)
-        delegate?.pickerDialogDidClose()
+        wireframe.navigate()
     }
     
 }
