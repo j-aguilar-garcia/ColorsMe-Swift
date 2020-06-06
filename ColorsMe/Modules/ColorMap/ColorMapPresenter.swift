@@ -50,6 +50,7 @@ extension ColorMapPresenter: ColorMapPresenterInterface {
     }
     
     func viewWillAppear(animated: Bool) {
+        view.hideScale(false)
         view.showScale(true)
     }
     

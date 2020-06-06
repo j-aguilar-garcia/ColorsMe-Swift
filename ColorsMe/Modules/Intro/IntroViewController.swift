@@ -41,6 +41,7 @@ final class IntroViewController: UIViewController {
     @IBOutlet weak var yellowDotButton: UIButton!
     @IBOutlet weak var redDotButton: UIButton!
     @IBOutlet weak var splashScreenImageView: UIImageView!
+    @IBOutlet weak var skipButton: UIButton!
     
     // Actions
     
@@ -117,7 +118,10 @@ extension IntroViewController: IntroViewInterface {
                         button?.layoutIfNeeded()
                     }) { finish in
                         if button == colorButtons.last {
-                            LocationService.default.startLocationRequest()
+                            UIView.animate(withDuration: 0.4, delay: delay, animations: {
+                                self.skipButton.alpha = 1.0
+                                LocationService.default.startLocationRequest()
+                            })
                         }
                     }
                 }

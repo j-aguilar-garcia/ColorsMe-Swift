@@ -44,10 +44,10 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xDi-7F-XAk">
-                                <rect key="frame" x="-32" y="275" width="30" height="400"/>
+                                <rect key="frame" x="1" y="275" width="30" height="400"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Scala" translatesAutoresizingMaskIntoConstraints="NO" id="qBu-4p-1OQ">
-                                        <rect key="frame" x="-1.6666666666666643" y="0.0" width="33" height="400"/>
+                                        <rect key="frame" x="-1.6666666666666661" y="0.0" width="33.333333333333336" height="400"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="33" id="CSs-Zi-fvh"/>
@@ -155,7 +155,7 @@
                             <constraint firstItem="0jB-FR-tnl" firstAttribute="top" secondItem="S9n-Vg-RQ5" secondAttribute="top" id="m0m-An-Nia"/>
                             <constraint firstItem="xDi-7F-XAk" firstAttribute="centerY" secondItem="8b5-2i-HSf" secondAttribute="centerY" id="pXX-GP-WSI"/>
                             <constraint firstItem="Ddn-hA-xal" firstAttribute="trailing" secondItem="8b5-2i-HSf" secondAttribute="trailing" id="qfN-Zk-bpI"/>
-                            <constraint firstItem="8b5-2i-HSf" firstAttribute="leading" secondItem="xDi-7F-XAk" secondAttribute="leading" constant="32" id="xnO-sx-c6d"/>
+                            <constraint firstItem="8b5-2i-HSf" firstAttribute="leading" secondItem="xDi-7F-XAk" secondAttribute="leading" constant="-1" id="xnO-sx-c6d"/>
                             <constraint firstItem="0jB-FR-tnl" firstAttribute="leading" secondItem="8b5-2i-HSf" secondAttribute="leading" id="z8U-Qq-mxc"/>
                             <constraint firstItem="8b5-2i-HSf" firstAttribute="trailing" secondItem="Slh-es-dKu" secondAttribute="trailing" constant="16" id="zfU-1l-Whg"/>
                         </constraints>

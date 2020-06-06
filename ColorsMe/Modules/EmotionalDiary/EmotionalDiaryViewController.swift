@@ -44,6 +44,7 @@ final class EmotionalDiaryViewController: UIViewController {
     @IBOutlet weak var buttonViewBottomToTableViewTopConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var tableViewBottomToTabBarTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var tableViewContainerWidthConstraint: NSLayoutConstraint!
     
     
     
@@ -68,9 +69,7 @@ final class EmotionalDiaryViewController: UIViewController {
         
         if UIDevice.current.userInterfaceIdiom == .phone {
             self.tableView.contentInset = UIEdgeInsets(top: -24, left: 0, bottom: 0, right: 0)
-        }
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            self.tableView.setCorner()
+            tableViewContainerWidthConstraint.constant = UIScreen.main.bounds.width
         }
         
         try! tableDataSource.performFetch()

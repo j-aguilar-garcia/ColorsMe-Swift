@@ -38,7 +38,7 @@
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="21"/>
                                             </variation>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ud7-Pv-ROj">
+                                        <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ud7-Pv-ROj">
                                             <rect key="frame" x="177" y="819" width="60" height="45"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="45" id="hKP-cM-eDT"/>
@@ -151,6 +151,7 @@
                         <outlet property="redCenterX" destination="KjZ-cC-PQt" id="IwC-5v-PDX"/>
                         <outlet property="redCenterY" destination="qJG-l4-TX4" id="yTs-8F-fZZ"/>
                         <outlet property="redDotButton" destination="Fs9-0E-NV8" id="WJ3-sr-zBX"/>
+                        <outlet property="skipButton" destination="ud7-Pv-ROj" id="abC-oz-Lny"/>
                         <outlet property="splashScreenImageView" destination="zQ7-Ky-FEI" id="sGV-Y0-RBE"/>
                         <outlet property="yellowDotBottomToRedDotTopConstraint" destination="yPw-5e-aW0" id="cy5-1G-LQc"/>
                         <outlet property="yellowDotButton" destination="PxM-uM-FBA" id="fxW-Vd-ABt"/>

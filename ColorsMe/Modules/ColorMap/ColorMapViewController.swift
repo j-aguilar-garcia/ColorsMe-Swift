@@ -93,19 +93,16 @@ extension ColorMapViewController: ColorMapViewInterface, EmotionalDiaryDelegate 
     
     func removeAnnotation(_ annotation: CMAnnotation) {
         if mapView.containsAnnotation(annotation) {
-            log.debug("mapView.containsAnnotation")
-            self.mapView.removeAnnotation(annotation)
+            mapView.removeAnnotation(annotation)
         }
         presenter.shouldUpdateScale(mapView, slider.value)
-        updateColorsLabel(count: mapView!.annotations?.count ?? DataManager.shared.localDataManager.getAllLocal().count)
-        showScale()
+        updateColorsLabel(count: DataManager.shared.localDataManager.getAllLocal().count)
     }
     
     func addAnnotation(_ annotation: CMAnnotation) {
         mapView.addAnnotation(annotation)
         presenter.shouldUpdateScale(mapView, slider.value)
         updateColorsLabel(count: mapView!.annotations?.count ?? DataManager.shared.localDataManager.getAllLocal().count)
-        showScale()
     }
     
     
