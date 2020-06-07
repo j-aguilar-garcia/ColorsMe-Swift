@@ -36,13 +36,13 @@ extension ColorTabBarWireframe: ColorTabBarWireframeInterface {
             //log.debug("installTabBar annotation saved: \(annotation.objectId) && guid \(annotation.guid)")
             let colorMapWireframe = ColorMapWireframe(annotation: annotation)
             let emotionalDiaryWireframe = EmotionalDiaryWireframe()
-            //var settingsWireframe = SettingsWireFrame()
+            var settingsWireframe = SettingsWireframe()
 
             // Setup delegate
             emotionalDiaryWireframe.delegate = colorMapWireframe.viewController as? EmotionalDiaryDelegate
             
             let wireframes : [BaseWireframe & TabBarViewProtocol] =
-                [colorMapWireframe, emotionalDiaryWireframe] //, emotionalDiaryWireframe, settingsWireframe]
+                [colorMapWireframe, emotionalDiaryWireframe, settingsWireframe]
             
             var viewControllers = [UIViewController]()
                         
@@ -69,13 +69,13 @@ extension ColorTabBarWireframe: ColorTabBarWireframeInterface {
         
         let colorMapWireframe = ColorMapWireframe()
         let emotionalDiaryWireframe = EmotionalDiaryWireframe()
-        //var settingsWireframe = SettingsWireFrame()
+        var settingsWireframe = SettingsWireframe()
         
         // Setup delegate
         emotionalDiaryWireframe.delegate = colorMapWireframe.viewController as? EmotionalDiaryDelegate
         
         let wireframes : [BaseWireframe & TabBarViewProtocol] =
-            [colorMapWireframe, emotionalDiaryWireframe] //, emotionalDiaryWireframe, settingsWireframe]
+            [colorMapWireframe, emotionalDiaryWireframe, settingsWireframe]
         
         var viewControllers = [UIViewController]()
         

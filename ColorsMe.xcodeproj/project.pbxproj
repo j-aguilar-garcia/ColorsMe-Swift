@@ -8,6 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		071429BD248AAEAC00CC49CF /* MGLMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071429BC248AAEAC00CC49CF /* MGLMapView.swift */; };
+		071DA9E5248D2D2500ADBB5F /* SettingsSnapshotTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071DA9E4248D2D2500ADBB5F /* SettingsSnapshotTableViewCell.swift */; };
+		071DA9E7248D2DD600ADBB5F /* SettingsVersionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071DA9E6248D2DD600ADBB5F /* SettingsVersionTableViewCell.swift */; };
+		071DA9E9248D2FDA00ADBB5F /* SettingsAboutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071DA9E8248D2FDA00ADBB5F /* SettingsAboutTableViewCell.swift */; };
+		071DA9EB248D31B700ADBB5F /* SettingsCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071DA9EA248D31B700ADBB5F /* SettingsCells.swift */; };
+		071DA9ED248D3DF800ADBB5F /* TextViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071DA9EC248D3DF800ADBB5F /* TextViewViewController.swift */; };
+		071DA9EF248D446D00ADBB5F /* FirebaseConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071DA9EE248D446D00ADBB5F /* FirebaseConfig.swift */; };
+		071DA9F1248D4A6400ADBB5F /* EmotionalDiaryPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 071DA9F0248D4A6400ADBB5F /* EmotionalDiaryPad.storyboard */; };
 		072D9D00247E3FCC00390186 /* MenuButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072D9CFF247E3FCC00390186 /* MenuButtons.swift */; };
 		072D9D03247E402B00390186 /* MenuButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072D9D02247E402B00390186 /* MenuButtonView.swift */; };
 		072D9D05247E406000390186 /* MenuButtonViewConfigProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072D9D04247E406000390186 /* MenuButtonViewConfigProtocol.swift */; };
@@ -46,6 +53,13 @@
 		07C8FA0C248D036700612C93 /* ReachabilityObserverProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C8FA0B248D036700612C93 /* ReachabilityObserverProtocol.swift */; };
 		07C8FA0E248D042400612C93 /* ReachabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C8FA0D248D042400612C93 /* ReachabilityService.swift */; };
 		07C8FA10248D0A5A00612C93 /* NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C8FA0F248D0A5A00612C93 /* NotificationName.swift */; };
+		07C8FA17248D20A300612C93 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07C8FA12248D20A300612C93 /* Settings.storyboard */; };
+		07C8FA18248D20A300612C93 /* SettingsInterfaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C8FA13248D20A300612C93 /* SettingsInterfaces.swift */; };
+		07C8FA19248D20A300612C93 /* SettingsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C8FA14248D20A300612C93 /* SettingsPresenter.swift */; };
+		07C8FA1A248D20A300612C93 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C8FA15248D20A300612C93 /* SettingsViewController.swift */; };
+		07C8FA1B248D20A300612C93 /* SettingsWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C8FA16248D20A300612C93 /* SettingsWireframe.swift */; };
+		07C8FA1E248D282B00612C93 /* SettingsDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C8FA1D248D282B00612C93 /* SettingsDetailsTableViewCell.swift */; };
+		07C8FA20248D2BCA00612C93 /* SettingsCloudTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C8FA1F248D2BCA00612C93 /* SettingsCloudTableViewCell.swift */; };
 		07E06B5E247A7AFD007139E2 /* PickerDialog.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07E06B58247A7AFD007139E2 /* PickerDialog.storyboard */; };
 		07E06B5F247A7AFD007139E2 /* PickerDialogInterfaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B59247A7AFD007139E2 /* PickerDialogInterfaces.swift */; };
 		07E06B60247A7AFD007139E2 /* PickerDialogPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B5A247A7AFD007139E2 /* PickerDialogPresenter.swift */; };
@@ -127,6 +141,13 @@
 
 /* Begin PBXFileReference section */
 		071429BC248AAEAC00CC49CF /* MGLMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MGLMapView.swift; sourceTree = "<group>"; };
+		071DA9E4248D2D2500ADBB5F /* SettingsSnapshotTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSnapshotTableViewCell.swift; sourceTree = "<group>"; };
+		071DA9E6248D2DD600ADBB5F /* SettingsVersionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVersionTableViewCell.swift; sourceTree = "<group>"; };
+		071DA9E8248D2FDA00ADBB5F /* SettingsAboutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAboutTableViewCell.swift; sourceTree = "<group>"; };
+		071DA9EA248D31B700ADBB5F /* SettingsCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCells.swift; sourceTree = "<group>"; };
+		071DA9EC248D3DF800ADBB5F /* TextViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewViewController.swift; sourceTree = "<group>"; };
+		071DA9EE248D446D00ADBB5F /* FirebaseConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConfig.swift; sourceTree = "<group>"; };
+		071DA9F0248D4A6400ADBB5F /* EmotionalDiaryPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = EmotionalDiaryPad.storyboard; path = ColorsMe/Modules/EmotionalDiary/EmotionalDiaryPad.storyboard; sourceTree = SOURCE_ROOT; };
 		072D9CFF247E3FCC00390186 /* MenuButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButtons.swift; sourceTree = "<group>"; };
 		072D9D02247E402B00390186 /* MenuButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButtonView.swift; sourceTree = "<group>"; };
 		072D9D04247E406000390186 /* MenuButtonViewConfigProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButtonViewConfigProtocol.swift; sourceTree = "<group>"; };
@@ -166,6 +187,13 @@
 		07C8FA0B248D036700612C93 /* ReachabilityObserverProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityObserverProtocol.swift; sourceTree = "<group>"; };
 		07C8FA0D248D042400612C93 /* ReachabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityService.swift; sourceTree = "<group>"; };
 		07C8FA0F248D0A5A00612C93 /* NotificationName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationName.swift; sourceTree = "<group>"; };
+		07C8FA12248D20A300612C93 /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
+		07C8FA13248D20A300612C93 /* SettingsInterfaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsInterfaces.swift; sourceTree = "<group>"; };
+		07C8FA14248D20A300612C93 /* SettingsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPresenter.swift; sourceTree = "<group>"; };
+		07C8FA15248D20A300612C93 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		07C8FA16248D20A300612C93 /* SettingsWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsWireframe.swift; sourceTree = "<group>"; };
+		07C8FA1D248D282B00612C93 /* SettingsDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDetailsTableViewCell.swift; sourceTree = "<group>"; };
+		07C8FA1F248D2BCA00612C93 /* SettingsCloudTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCloudTableViewCell.swift; sourceTree = "<group>"; };
 		07E06B58247A7AFD007139E2 /* PickerDialog.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PickerDialog.storyboard; sourceTree = "<group>"; };
 		07E06B59247A7AFD007139E2 /* PickerDialogInterfaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerDialogInterfaces.swift; sourceTree = "<group>"; };
 		07E06B5A247A7AFD007139E2 /* PickerDialogPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerDialogPresenter.swift; sourceTree = "<group>"; };
@@ -430,6 +458,7 @@
 			isa = PBXGroup;
 			children = (
 				07C4BFCF2486F7EB00552BC9 /* TableView */,
+				071DA9F0248D4A6400ADBB5F /* EmotionalDiaryPad.storyboard */,
 				07C4BFBE2486F59D00552BC9 /* EmotionalDiary.storyboard */,
 				07C4BFBF2486F59D00552BC9 /* EmotionalDiaryInterfaces.swift */,
 				07C4BFC02486F59D00552BC9 /* EmotionalDiaryPresenter.swift */,
@@ -455,6 +484,33 @@
 				07C4BFD02486F7FF00552BC9 /* EmotionalDiaryTableViewCell.swift */,
 			);
 			path = TableView;
+			sourceTree = "<group>";
+		};
+		07C8FA11248D209000612C93 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				07C8FA1C248D27C300612C93 /* Cells */,
+				07C8FA12248D20A300612C93 /* Settings.storyboard */,
+				07C8FA13248D20A300612C93 /* SettingsInterfaces.swift */,
+				07C8FA14248D20A300612C93 /* SettingsPresenter.swift */,
+				07C8FA15248D20A300612C93 /* SettingsViewController.swift */,
+				07C8FA16248D20A300612C93 /* SettingsWireframe.swift */,
+				071DA9EC248D3DF800ADBB5F /* TextViewViewController.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		07C8FA1C248D27C300612C93 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				07C8FA1D248D282B00612C93 /* SettingsDetailsTableViewCell.swift */,
+				07C8FA1F248D2BCA00612C93 /* SettingsCloudTableViewCell.swift */,
+				071DA9E4248D2D2500ADBB5F /* SettingsSnapshotTableViewCell.swift */,
+				071DA9E8248D2FDA00ADBB5F /* SettingsAboutTableViewCell.swift */,
+				071DA9E6248D2DD600ADBB5F /* SettingsVersionTableViewCell.swift */,
+				071DA9EA248D31B700ADBB5F /* SettingsCells.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		07E06B57247A7ADA007139E2 /* PickerDialog */ = {
@@ -487,6 +543,7 @@
 				07E2BA5624851B3D00465688 /* LocationService.swift */,
 				077325FC24869BB5009DDB57 /* AnnotationService.swift */,
 				07C8FA0D248D042400612C93 /* ReachabilityService.swift */,
+				071DA9EE248D446D00ADBB5F /* FirebaseConfig.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -517,22 +574,15 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		873AC70E2477C39E00261CD5 /* Settings */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Settings;
-			sourceTree = "<group>";
-		};
 		873AC7312477D82300261CD5 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				07C8FA11248D209000612C93 /* Settings */,
 				07C4BFBD2486F59000552BC9 /* EmotionalDiary */,
 				07E2BA582485230800465688 /* LocationSearch */,
 				07342E08247956DA00A77BF7 /* Intro */,
 				877F837E247502C8009BA6BE /* ColorMap */,
 				8767E4C92476C56100A8CA55 /* ColorTabBar */,
-				873AC70E2477C39E00261CD5 /* Settings */,
 				07E06B57247A7ADA007139E2 /* PickerDialog */,
 			);
 			path = Modules;
@@ -734,12 +784,14 @@
 			files = (
 				87CEC7BB2478265400206255 /* ColorTabBar.storyboard in Resources */,
 				074C7CCB247EBEFC00C8EAC5 /* GoogleService-Info.plist in Resources */,
+				07C8FA17248D20A300612C93 /* Settings.storyboard in Resources */,
 				07E2BA5F2485232900465688 /* LocationSearch.storyboard in Resources */,
 				0737FA89247D7C600015A8F7 /* AppProperties.plist in Resources */,
 				87CEC7C624782A7400206255 /* ColorMap.storyboard in Resources */,
 				07C4BFC42486F59D00552BC9 /* EmotionalDiary.storyboard in Resources */,
 				87CEC7B22477FF4300206255 /* Assets.xcassets in Resources */,
 				875D6E16247431B600C6DF31 /* LaunchScreen.storyboard in Resources */,
+				071DA9F1248D4A6400ADBB5F /* EmotionalDiaryPad.storyboard in Resources */,
 				07E06B5E247A7AFD007139E2 /* PickerDialog.storyboard in Resources */,
 				07342E0E247956E800A77BF7 /* Intro.storyboard in Resources */,
 			);
@@ -923,10 +975,15 @@
 				07C8FA0C248D036700612C93 /* ReachabilityObserverProtocol.swift in Sources */,
 				07E2BA502481274C00465688 /* Font.swift in Sources */,
 				07E06B62247A7AFD007139E2 /* PickerDialogInteractor.swift in Sources */,
+				071DA9EB248D31B700ADBB5F /* SettingsCells.swift in Sources */,
 				87CEC7BF2478265400206255 /* ColorTabBarWireframe.swift in Sources */,
+				071DA9E9248D2FDA00ADBB5F /* SettingsAboutTableViewCell.swift in Sources */,
+				071DA9ED248D3DF800ADBB5F /* TextViewViewController.swift in Sources */,
 				072D9D00247E3FCC00390186 /* MenuButtons.swift in Sources */,
+				071DA9EF248D446D00ADBB5F /* FirebaseConfig.swift in Sources */,
 				07C4BFC72486F59D00552BC9 /* EmotionalDiaryViewController.swift in Sources */,
 				87CEC7C924782A7400206255 /* ColorMapViewController.swift in Sources */,
+				07C8FA1A248D20A300612C93 /* SettingsViewController.swift in Sources */,
 				07E06B69247A8266007139E2 /* String.swift in Sources */,
 				07E2BA4E247FCF4C00465688 /* Color.swift in Sources */,
 				072D9D09247E40D900390186 /* TriggerMenuButtonView.swift in Sources */,
@@ -944,10 +1001,12 @@
 				077325FD24869BB5009DDB57 /* AnnotationService.swift in Sources */,
 				873AC7122477C8DC00261CD5 /* TabBarViewProtocol.swift in Sources */,
 				07E06B6E247AAC7A007139E2 /* Annotation.swift in Sources */,
+				07C8FA18248D20A300612C93 /* SettingsInterfaces.swift in Sources */,
 				07C4BFCE2486F6DA00552BC9 /* View.swift in Sources */,
 				07E2BA642485232900465688 /* LocationSearchWireframe.swift in Sources */,
 				07E06B60247A7AFD007139E2 /* PickerDialogPresenter.swift in Sources */,
 				07E06B67247A8234007139E2 /* DateFormatter.swift in Sources */,
+				071DA9E7248D2DD600ADBB5F /* SettingsVersionTableViewCell.swift in Sources */,
 				07342E0F247956E800A77BF7 /* IntroInterfaces.swift in Sources */,
 				072D9D03247E402B00390186 /* MenuButtonView.swift in Sources */,
 				87CEC7BD2478265400206255 /* ColorTabBarPresenter.swift in Sources */,
@@ -969,17 +1028,22 @@
 				072D9D05247E406000390186 /* MenuButtonViewConfigProtocol.swift in Sources */,
 				07E06B78247AF385007139E2 /* DataManagerInputProtocol.swift in Sources */,
 				07E2BA4C247EE4A400465688 /* CMClusterMapLayer.swift in Sources */,
+				07C8FA19248D20A300612C93 /* SettingsPresenter.swift in Sources */,
 				07E2BA602485232900465688 /* LocationSearchInterfaces.swift in Sources */,
 				07E06B70247AF1EF007139E2 /* RemoteDataManagerInputProtocol.swift in Sources */,
 				875D6E09247431B100C6DF31 /* SceneDelegate.swift in Sources */,
 				87CEC7CB24782A7400206255 /* ColorMapWireframe.swift in Sources */,
+				07C8FA1B248D20A300612C93 /* SettingsWireframe.swift in Sources */,
 				0737FA8B247D7E430015A8F7 /* AppConfiguration.swift in Sources */,
 				07C4BFD32486FB6D00552BC9 /* TableView.swift in Sources */,
 				07C8FA0E248D042400612C93 /* ReachabilityService.swift in Sources */,
 				07E2BA4A247EE07E00465688 /* CMHeatMapLayer.swift in Sources */,
+				07C8FA20248D2BCA00612C93 /* SettingsCloudTableViewCell.swift in Sources */,
 				07E06B7A247AF680007139E2 /* DataManager.swift in Sources */,
 				07B2BA0E247C2AFD00ED5BE7 /* CMAnnotationView.swift in Sources */,
+				07C8FA1E248D282B00612C93 /* SettingsDetailsTableViewCell.swift in Sources */,
 				07E06B76247AF218007139E2 /* LocalDataManagerOutputProtocol.swift in Sources */,
+				071DA9E5248D2D2500ADBB5F /* SettingsSnapshotTableViewCell.swift in Sources */,
 				07E06B5F247A7AFD007139E2 /* PickerDialogInterfaces.swift in Sources */,
 				07E2BA5724851B3D00465688 /* LocationService.swift in Sources */,
 				07342E10247956E800A77BF7 /* IntroPresenter.swift in Sources */,

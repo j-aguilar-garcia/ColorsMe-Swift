@@ -67,10 +67,6 @@ final class EmotionalDiaryViewController: UIViewController {
 
         self.navigationController?.navigationBar.isHidden = true
         
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            self.tableView.contentInset = UIEdgeInsets(top: -24, left: 0, bottom: 0, right: 0)
-            tableViewContainerWidthConstraint.constant = UIScreen.main.bounds.width
-        }
         
         try! tableDataSource.performFetch()
     }
@@ -82,7 +78,11 @@ final class EmotionalDiaryViewController: UIViewController {
         }
         updateConstraints()
         try? tableDataSource.performFetch()
-        //tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .automatic)
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            self.tableView.contentInset = UIEdgeInsets(top: -24, left: 0, bottom: 0, right: 0)
+            tableViewContainerWidthConstraint.constant = UIScreen.main.bounds.width
+        }
+        tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .automatic)
     }
     
     override func viewWillLayoutSubviews() {

@@ -16,11 +16,14 @@ final class EmotionalDiaryWireframe: BaseWireframe, TabBarViewProtocol {
     var delegate: EmotionalDiaryDelegate?
     // MARK: - Private properties -
 
-    private let storyboard = UIStoryboard(name: "EmotionalDiary", bundle: nil)
+    private var storyboard = UIStoryboard(name: "EmotionalDiary", bundle: nil)
 
     // MARK: - Module setup -
 
     init() {
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            storyboard = UIStoryboard(name: "EmotionalDiaryPad", bundle: nil)
+        }
         let moduleViewController = storyboard.instantiateViewController(ofType: EmotionalDiaryViewController.self)
         super.init(viewController: moduleViewController)
 
