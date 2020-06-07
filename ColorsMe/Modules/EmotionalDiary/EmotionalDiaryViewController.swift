@@ -46,6 +46,8 @@ final class EmotionalDiaryViewController: UIViewController {
     @IBOutlet weak var tableViewBottomToTabBarTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var tableViewContainerWidthConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var tableViewContainerLeading: NSLayoutConstraint!
+    @IBOutlet weak var tableViewContainerTrailing: NSLayoutConstraint!
     
     
     // MARK: - Lifecycle -
@@ -67,6 +69,16 @@ final class EmotionalDiaryViewController: UIViewController {
 
         self.navigationController?.navigationBar.isHidden = true
         
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            tableViewContainerLeading.priority = .defaultLow
+            tableViewContainerTrailing.priority = .defaultLow
+            tableViewContainerWidthConstraint.priority = .defaultHigh
+        } else if UIDevice.current.userInterfaceIdiom == .phone {
+            tableViewContainerLeading.priority = .defaultHigh
+            tableViewContainerTrailing.priority = .defaultHigh
+            tableViewContainerWidthConstraint.priority = .defaultLow
+            
+        }
         
         try! tableDataSource.performFetch()
     }
@@ -76,13 +88,10 @@ final class EmotionalDiaryViewController: UIViewController {
         if let indexPath = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: indexPath, animated: true)
         }
-        updateConstraints()
         try? tableDataSource.performFetch()
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            self.tableView.contentInset = UIEdgeInsets(top: -24, left: 0, bottom: 0, right: 0)
-            tableViewContainerWidthConstraint.constant = UIScreen.main.bounds.width
-        }
+
         tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .automatic)
+        updateConstraints()
     }
     
     override func viewWillLayoutSubviews() {
@@ -109,6 +118,10 @@ extension EmotionalDiaryViewController: EmotionalDiaryViewInterface {
     
     
     private func updateConstraints() {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            self.tableView.contentInset = UIEdgeInsets(top: -24, left: 0, bottom: 0, right: 0)
+            tableViewContainerWidthConstraint.constant = UIScreen.main.bounds.width
+        }
         if UIDevice.current.orientation.isLandscape && UIDevice.current.userInterfaceIdiom == .pad {
             if buttonViewBottomToTableViewTopConstraint != nil && tableViewBottomToTabBarTopConstraint != nil {
                 buttonViewBottomToTableViewTopConstraint.constant = 16

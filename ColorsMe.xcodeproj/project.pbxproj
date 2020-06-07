@@ -14,7 +14,6 @@
 		071DA9EB248D31B700ADBB5F /* SettingsCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071DA9EA248D31B700ADBB5F /* SettingsCells.swift */; };
 		071DA9ED248D3DF800ADBB5F /* TextViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071DA9EC248D3DF800ADBB5F /* TextViewViewController.swift */; };
 		071DA9EF248D446D00ADBB5F /* FirebaseConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071DA9EE248D446D00ADBB5F /* FirebaseConfig.swift */; };
-		071DA9F1248D4A6400ADBB5F /* EmotionalDiaryPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 071DA9F0248D4A6400ADBB5F /* EmotionalDiaryPad.storyboard */; };
 		072D9D00247E3FCC00390186 /* MenuButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072D9CFF247E3FCC00390186 /* MenuButtons.swift */; };
 		072D9D03247E402B00390186 /* MenuButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072D9D02247E402B00390186 /* MenuButtonView.swift */; };
 		072D9D05247E406000390186 /* MenuButtonViewConfigProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072D9D04247E406000390186 /* MenuButtonViewConfigProtocol.swift */; };
@@ -147,7 +146,6 @@
 		071DA9EA248D31B700ADBB5F /* SettingsCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCells.swift; sourceTree = "<group>"; };
 		071DA9EC248D3DF800ADBB5F /* TextViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewViewController.swift; sourceTree = "<group>"; };
 		071DA9EE248D446D00ADBB5F /* FirebaseConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConfig.swift; sourceTree = "<group>"; };
-		071DA9F0248D4A6400ADBB5F /* EmotionalDiaryPad.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = EmotionalDiaryPad.storyboard; path = ColorsMe/Modules/EmotionalDiary/EmotionalDiaryPad.storyboard; sourceTree = SOURCE_ROOT; };
 		072D9CFF247E3FCC00390186 /* MenuButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButtons.swift; sourceTree = "<group>"; };
 		072D9D02247E402B00390186 /* MenuButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButtonView.swift; sourceTree = "<group>"; };
 		072D9D04247E406000390186 /* MenuButtonViewConfigProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButtonViewConfigProtocol.swift; sourceTree = "<group>"; };
@@ -458,7 +456,6 @@
 			isa = PBXGroup;
 			children = (
 				07C4BFCF2486F7EB00552BC9 /* TableView */,
-				071DA9F0248D4A6400ADBB5F /* EmotionalDiaryPad.storyboard */,
 				07C4BFBE2486F59D00552BC9 /* EmotionalDiary.storyboard */,
 				07C4BFBF2486F59D00552BC9 /* EmotionalDiaryInterfaces.swift */,
 				07C4BFC02486F59D00552BC9 /* EmotionalDiaryPresenter.swift */,
@@ -791,7 +788,6 @@
 				07C4BFC42486F59D00552BC9 /* EmotionalDiary.storyboard in Resources */,
 				87CEC7B22477FF4300206255 /* Assets.xcassets in Resources */,
 				875D6E16247431B600C6DF31 /* LaunchScreen.storyboard in Resources */,
-				071DA9F1248D4A6400ADBB5F /* EmotionalDiaryPad.storyboard in Resources */,
 				07E06B5E247A7AFD007139E2 /* PickerDialog.storyboard in Resources */,
 				07342E0E247956E800A77BF7 /* Intro.storyboard in Resources */,
 			);
