@@ -59,7 +59,9 @@ extension LocationSearchViewController : LocationSearchViewInterface {
 extension LocationSearchViewController : UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
-        if searchController.searchBar.text!.count > 1 {
+        if searchController.searchBar.text!.isEmpty {
+            presenter.clearSearch()
+        } else {
             presenter.search(text: searchController.searchBar.text!)
         }
     }

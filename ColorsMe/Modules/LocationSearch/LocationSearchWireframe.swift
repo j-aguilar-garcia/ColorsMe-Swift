@@ -43,13 +43,14 @@ extension LocationSearchWireframe: LocationSearchWireframeInterface {
             
         case .showSearchResults(let coordinates, let placemark):
             delegate?.didRetrieveCoordinates(coordinates: coordinates, placemark: placemark)
+            DispatchQueue.main.async {
+                self.dismiss(animated: true)
+            }
             break
             
         }
         log.debug("")
-        DispatchQueue.main.async {
-            self.dismiss(animated: true)
-        }
+
     }
     
     

@@ -32,6 +32,10 @@ final class LocationSearchPresenter {
 
 extension LocationSearchPresenter: LocationSearchPresenterInterface {    
     
+    func clearSearch() {
+        wireframe.navigate(option: .removeOverlay)
+    }
+    
     func showResults(_ results: [GeocodedPlacemark]) {
         searchResults = results
         view.reloadData()

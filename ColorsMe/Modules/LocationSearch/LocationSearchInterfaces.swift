@@ -30,6 +30,7 @@ protocol LocationSearchViewInterface: ViewInterface {
 
 protocol LocationSearchPresenterInterface: PresenterInterface {
     var searchResults: [GeocodedPlacemark] { get }
+    func clearSearch()
     func search(text: String)
     func showResults(_ results: [GeocodedPlacemark])
     func didSelectRowAt(index: Int)

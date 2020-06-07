@@ -153,6 +153,7 @@ extension ColorMapViewController: ColorMapViewInterface, EmotionalDiaryDelegate 
             
         case .defaultmap:
             showScale(true)
+            break
             
         case .heatmap:
             hideScale(true)
@@ -160,6 +161,7 @@ extension ColorMapViewController: ColorMapViewInterface, EmotionalDiaryDelegate 
             if mapView.annotations != nil, !mapView.annotations!.isEmpty {
                 mapView.removeAnnotations(mapView!.annotations!)
             }
+            break
             
         case .clustermap:
             hideScale(true)
@@ -167,6 +169,7 @@ extension ColorMapViewController: ColorMapViewInterface, EmotionalDiaryDelegate 
             if mapView.annotations != nil, !mapView.annotations!.isEmpty {
                 mapView.removeAnnotations(mapView!.annotations!)
             }
+            break
         }
     }
     
@@ -423,13 +426,14 @@ extension ColorMapViewController : LocationSearchDelegate {
         resultSearchController?.searchBar.text = placemark.qualifiedName
         searchResultsOverlay = CMOverlayLayer(mapView: self.mapView, coordinates: coordinates)
         updateColorsLabel(count: mapView.annotations?.count ?? 0, name: placemark.name)
-        showScale(true)
     }
     
     func willRemoveOverlay() {
-        resultSearchController?.searchBar.text = ""
-        searchResultsOverlay?.removePolygon(mapView: mapView)
-        searchResultsOverlay = nil
+        if searchResultsOverlay != nil {
+            searchResultsOverlay?.removePolygon(mapView: mapView)
+            searchResultsOverlay = nil
+            showMapLayer(layerType: .defaultmap)
+        }
     }
     
 }
