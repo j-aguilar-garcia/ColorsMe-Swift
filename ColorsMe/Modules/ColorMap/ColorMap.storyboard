@@ -180,6 +180,7 @@
                         <outlet property="mapView" destination="0jB-FR-tnl" id="gRk-bo-Oec"/>
                         <outlet property="navigationFilterButton" destination="47r-lo-6av" id="Ffv-Xo-wUg"/>
                         <outlet property="noNetworkConnectionView" destination="L72-IQ-GN1" id="dlO-s2-snz"/>
+                        <outlet property="retryConnectionButton" destination="9zU-xV-2nH" id="knv-Ek-3Gj"/>
                         <outlet property="scaleView" destination="xDi-7F-XAk" id="Y0N-rZ-Iej"/>
                         <outlet property="slider" destination="Dvc-bU-MaE" id="Rxb-iN-9Q2"/>
                     </connections>

@@ -41,6 +41,7 @@ class CMHeatMapLayer : CMLayer {
         mapView.style?.addSource(source)
         layerSources.append(source)
 
+        #warning("Change Colors?")
         let heatmapLayer = MGLHeatmapStyleLayer(identifier: "heatmaplayer", source: source)
         let colorDictionary: [NSNumber: UIColor] = [
         0.0: .clear,
@@ -77,8 +78,8 @@ class CMHeatMapLayer : CMLayer {
         //createCircleLayer(mapView: mapView, source: source)
     }
     
+    /// Add a circle layer to represent the earthquakes at higher zoom levels. (Zoomlevel > 18)
     private func createCircleLayer(mapView: MGLMapView, source: MGLSource) {
-        // Add a circle layer to represent the earthquakes at higher zoom levels.
         let circleLayer = MGLCircleStyleLayer(identifier: "circle-layer", source: source)
          
         let magnitudeDictionary: [NSNumber: UIColor] = [

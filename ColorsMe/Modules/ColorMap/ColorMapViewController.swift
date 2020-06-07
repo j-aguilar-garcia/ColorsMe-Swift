@@ -40,6 +40,7 @@ final class ColorMapViewController: UIViewController {
     @IBAction func onRetryConnectionButton(_ sender: Any) {
         //NotificationCenter.default.post(name: .networkUnreachable, object: nil)
     }
+    @IBOutlet weak var retryConnectionButton: UIButton!
     
     @IBOutlet weak var noNetworkConnectionView: UIView!
         
@@ -62,6 +63,7 @@ final class ColorMapViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        addReachabilityObserver()
         mapView.delegate = self
         mapView.automaticallyAdjustsContentInset = true
 
@@ -289,9 +291,6 @@ extension ColorMapViewController : MGLMapViewDelegate {
     
     func mapView(_ mapView: MGLMapView, regionDidChangeWith reason: MGLCameraChangeReason, animated: Bool) {
         presenter.shouldUpdateScale(mapView, slider.value)
-
-        log.debug(mapView.zoomLevel)
-        log.debug("mapView camera altitude: \(mapView.camera.altitude)")
     }
     
     func mapViewDidFinishRenderingMap(_ mapView: MGLMapView, fullyRendered: Bool) {
@@ -437,3 +436,17 @@ extension ColorMapViewController : LocationSearchDelegate {
 
 
 
+extension ColorMapViewController: ReachabilityObserverProtocol {
+    
+    func reachabilityChanged(_ isReachable: Bool) {
+        if !isReachable {
+            self.noNetworkConnectionView.isHidden = false
+            self.retryConnectionButton.isEnabled = false
+        } else {
+            self.noNetworkConnectionView.isHidden = true
+            self.retryConnectionButton.isEnabled = true
+            DataManager.shared.fetchData()
+        }
+    }
+    
+}

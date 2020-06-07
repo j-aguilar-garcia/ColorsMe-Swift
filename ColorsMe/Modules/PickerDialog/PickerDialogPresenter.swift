@@ -15,7 +15,6 @@ final class PickerDialogPresenter {
     private unowned let view: PickerDialogViewInterface
     private let interactor: PickerDialogInteractorInterface
     private let wireframe: PickerDialogWireframeInterface
-    var delegate: PickerDialogDelegate?
     
     var pickerData = [
         PickerData.init(value: "All Colors", index: 0),

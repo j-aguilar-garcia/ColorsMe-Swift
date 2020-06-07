@@ -18,10 +18,10 @@ enum DataManagerType {
 protocol DataManagerInputProtocol {
     
     /// parse and save annotation to local or remote database
-    func dataManager(annotation: Annotation, willSaveWith type: DataManagerType, completion: @escaping (_ success: Bool) -> Void)
+    func willSave(annotation: Annotation, with type: DataManagerType, completion: @escaping (_ success: Bool) -> Void)
     
     /// parse and delte annotation to local or remote database
-    func dataManager(annotation: Annotation, willDeleteWith type: DataManagerType, completion: @escaping (_ success: Bool) -> Void)
+    func willDelete(annotation: Annotation, with type: DataManagerType, completion: @escaping (_ success: Bool) -> Void)
     
     /// fetches data from remote database or calls all local objects
     func dataManager(willRetrieveWith type: DataManagerType, completion: (() -> Void)?) -> [CMAnnotation]
@@ -29,5 +29,6 @@ protocol DataManagerInputProtocol {
     /// filters annotation by PickerDialogFilterOption
     func dataManager(filterBy: PickerDialogFilterOption, with type: DataManagerType, completion: (() -> Void)?) -> [CMAnnotation]
     
-
+    /// Gets all data when the app starts and compares them. Also checks the Internet connection
+    func fetchData()
 }

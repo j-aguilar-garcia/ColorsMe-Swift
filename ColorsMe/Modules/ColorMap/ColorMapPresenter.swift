@@ -79,4 +79,8 @@ extension ColorMapPresenter: ColorMapPresenterInterface {
     func shouldUpdateScale(_ mapView: MGLMapView, _ oldValue: Float) {
         interactor.shouldUpdateScale(mapView: mapView, oldValue: oldValue)
     }
+    
+    func reachabilityChanged(_ isReachable: Bool) {
+        view.reachabilityChanged(isReachable)
+    }
 }

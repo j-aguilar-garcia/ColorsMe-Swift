@@ -34,6 +34,7 @@ protocol ColorMapViewInterface: ViewInterface {
     func removeAnnotation(_ annotation: CMAnnotation)
     func addAnnotation(_ annotation: CMAnnotation)
     func showAnnotations(_ annotations: [CMAnnotation], animated: Bool)
+    func reachabilityChanged(_ isReachable: Bool)
 }
 
 protocol ColorMapPresenterInterface: PresenterInterface {
@@ -46,11 +47,14 @@ protocol ColorMapPresenterInterface: PresenterInterface {
     
     func willAddAnnotation(_ annotation: CMAnnotation)
     func willRemoveAnnotation(_ annotation: CMAnnotation)
+    
+    func reachabilityChanged(_ isReachable: Bool)
 }
 
 protocol ColorMapInteractorInterface: InteractorInterface {
     func shouldUpdateScale(mapView: MGLMapView, oldValue: Float)
-    func startObserverSubscriptions()
+    func addSubscriptionsObserver()
+    func addNetworkReachabilityObserver()
 }
 
 // MARK: - Menubutton

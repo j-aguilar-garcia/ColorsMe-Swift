@@ -9,6 +9,7 @@
 import Foundation
 import Mapbox
 import Backendless
+import Reachability
 
 final class ColorMapInteractor {
     var presenter: ColorMapPresenterInterface!
@@ -42,7 +43,7 @@ extension ColorMapInteractor: ColorMapInteractorInterface {
     }
     
     
-    func startObserverSubscriptions() {
+    func addSubscriptionsObserver() {
         let eventHandler = Backendless.shared.data.of(Annotation.self).rt
         
         _ = eventHandler?.addCreateListener(responseHandler: { createdObject in
@@ -72,6 +73,19 @@ extension ColorMapInteractor: ColorMapInteractorInterface {
         }, errorHandler: { fault in
             log.error("Error: \(fault.message ?? "")")
         })
+    }
+    
+    
+    func addNetworkReachabilityObserver() {
+        NotificationCenter.default.addObserver(forName: .networkReachability, object: nil, queue: nil) { (notification) in
+            let reachability = try! Reachability()
+            if reachability.connection == .unavailable {
+                self.presenter.reachabilityChanged(false)
+            }
+            if reachability.connection != .unavailable {
+                self.presenter.reachabilityChanged(true)
+            }
+        }
     }
     
 }

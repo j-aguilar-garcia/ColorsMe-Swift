@@ -18,7 +18,7 @@ class RemoteDataManager : RemoteDataManagerInputProtocol {
     private let dataStore = Backendless.shared.data.of(Annotation.self)
     private var offset = 0
     private var queryBuilder = DataQueryBuilder()
-    private var backendlessDataRetrieved = false
+    public var hasDataFetched = false
     
     func initBackendless() {
         Backendless.shared.hostUrl = AppConfiguration.default.backendlessServerUrl
@@ -140,7 +140,8 @@ class RemoteDataManager : RemoteDataManagerInputProtocol {
                 
                 let size = foundObjects.count
                 
-                if size == 0 || localAnnotations.count == foundObjects.count{
+                if size == 0 || localAnnotations.count == foundObjects.count {
+                    self.hasDataFetched = true
                     return
                 } else {
                     guard let remoteAnnotations = foundObjects as? [Annotation] else { return }

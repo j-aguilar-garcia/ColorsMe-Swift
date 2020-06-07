@@ -43,6 +43,9 @@
 		07C4BFD52486FFBC00552BC9 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C4BFD42486FFBC00552BC9 /* ImageCache.swift */; };
 		07C4BFD7248703A700552BC9 /* FRCTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C4BFD6248703A700552BC9 /* FRCTableViewDataSource.swift */; };
 		07C5B7A82486A6BB00E36E91 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07C5B7A72486A6BB00E36E91 /* NetworkExtension.framework */; };
+		07C8FA0C248D036700612C93 /* ReachabilityObserverProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C8FA0B248D036700612C93 /* ReachabilityObserverProtocol.swift */; };
+		07C8FA0E248D042400612C93 /* ReachabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C8FA0D248D042400612C93 /* ReachabilityService.swift */; };
+		07C8FA10248D0A5A00612C93 /* NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C8FA0F248D0A5A00612C93 /* NotificationName.swift */; };
 		07E06B5E247A7AFD007139E2 /* PickerDialog.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07E06B58247A7AFD007139E2 /* PickerDialog.storyboard */; };
 		07E06B5F247A7AFD007139E2 /* PickerDialogInterfaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B59247A7AFD007139E2 /* PickerDialogInterfaces.swift */; };
 		07E06B60247A7AFD007139E2 /* PickerDialogPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B5A247A7AFD007139E2 /* PickerDialogPresenter.swift */; };
@@ -160,6 +163,9 @@
 		07C4BFD42486FFBC00552BC9 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		07C4BFD6248703A700552BC9 /* FRCTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FRCTableViewDataSource.swift; sourceTree = "<group>"; };
 		07C5B7A72486A6BB00E36E91 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
+		07C8FA0B248D036700612C93 /* ReachabilityObserverProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityObserverProtocol.swift; sourceTree = "<group>"; };
+		07C8FA0D248D042400612C93 /* ReachabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityService.swift; sourceTree = "<group>"; };
+		07C8FA0F248D0A5A00612C93 /* NotificationName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationName.swift; sourceTree = "<group>"; };
 		07E06B58247A7AFD007139E2 /* PickerDialog.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PickerDialog.storyboard; sourceTree = "<group>"; };
 		07E06B59247A7AFD007139E2 /* PickerDialogInterfaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerDialogInterfaces.swift; sourceTree = "<group>"; };
 		07E06B5A247A7AFD007139E2 /* PickerDialogPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerDialogPresenter.swift; sourceTree = "<group>"; };
@@ -386,6 +392,7 @@
 				07C4BFCD2486F6DA00552BC9 /* View.swift */,
 				07C4BFD22486FB6D00552BC9 /* TableView.swift */,
 				071429BC248AAEAC00CC49CF /* MGLMapView.swift */,
+				07C8FA0F248D0A5A00612C93 /* NotificationName.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -403,6 +410,7 @@
 				07E06B73247AF20B007139E2 /* LocalDataManagerInputProtocol.swift */,
 				07E06B75247AF218007139E2 /* LocalDataManagerOutputProtocol.swift */,
 				07E06B77247AF384007139E2 /* DataManagerInputProtocol.swift */,
+				07C8FA0B248D036700612C93 /* ReachabilityObserverProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -478,6 +486,7 @@
 			children = (
 				07E2BA5624851B3D00465688 /* LocationService.swift */,
 				077325FC24869BB5009DDB57 /* AnnotationService.swift */,
+				07C8FA0D248D042400612C93 /* ReachabilityService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -902,6 +911,7 @@
 				07342E12247956E800A77BF7 /* IntroWireframe.swift in Sources */,
 				07E06B72247AF1FC007139E2 /* RemoteDataManagerOutputProtocol.swift in Sources */,
 				07E06B65247A7EA4007139E2 /* PickerData.swift in Sources */,
+				07C8FA10248D0A5A00612C93 /* NotificationName.swift in Sources */,
 				07C4BFC92486F59D00552BC9 /* EmotionalDiaryWireframe.swift in Sources */,
 				07E2BA622485232900465688 /* LocationSearchViewController.swift in Sources */,
 				07E06B63247A7AFD007139E2 /* PickerDialogWireframe.swift in Sources */,
@@ -910,6 +920,7 @@
 				873AC7302477D59100261CD5 /* Storyboard.swift in Sources */,
 				07E06B74247AF20B007139E2 /* LocalDataManagerInputProtocol.swift in Sources */,
 				875D6E11247431B100C6DF31 /* ColorsMe.xcdatamodeld in Sources */,
+				07C8FA0C248D036700612C93 /* ReachabilityObserverProtocol.swift in Sources */,
 				07E2BA502481274C00465688 /* Font.swift in Sources */,
 				07E06B62247A7AFD007139E2 /* PickerDialogInteractor.swift in Sources */,
 				87CEC7BF2478265400206255 /* ColorTabBarWireframe.swift in Sources */,
@@ -964,6 +975,7 @@
 				87CEC7CB24782A7400206255 /* ColorMapWireframe.swift in Sources */,
 				0737FA8B247D7E430015A8F7 /* AppConfiguration.swift in Sources */,
 				07C4BFD32486FB6D00552BC9 /* TableView.swift in Sources */,
+				07C8FA0E248D042400612C93 /* ReachabilityService.swift in Sources */,
 				07E2BA4A247EE07E00465688 /* CMHeatMapLayer.swift in Sources */,
 				07E06B7A247AF680007139E2 /* DataManager.swift in Sources */,
 				07B2BA0E247C2AFD00ED5BE7 /* CMAnnotationView.swift in Sources */,

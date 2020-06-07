@@ -98,6 +98,7 @@ class CMClusterMapLayer : CMLayer {
         layerStyles.append(ports)
          
         // Color clustered features based on clustered point counts.
+        #warning("Change Colors?")
         let stops = [
         20: UIColor.lightGray,
         50: UIColor.orange,

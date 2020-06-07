@@ -36,7 +36,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Realm.registerRealmables([RealmAnnotation.self])
         
-        _ = DataManager.shared.dataManager(willRetrieveWith: .remote)
+        DataManager.shared.fetchData()
+        //_ = DataManager.shared.dataManager(willRetrieveWith: .remote)
         
         SentrySDK.start(options: [ "dsn": AppConfiguration.default.sentryDsn!, "debug": false ])
         
