@@ -10,6 +10,7 @@ import Foundation
 import Mapbox
 import Backendless
 import Reachability
+import CoreData
 
 final class ColorMapInteractor {
     var presenter: ColorMapPresenterInterface!
@@ -18,6 +19,20 @@ final class ColorMapInteractor {
 // MARK: - Extensions -
 
 extension ColorMapInteractor: ColorMapInteractorInterface {
+    
+    func checkForAnnotationInCoreData(annotation: CMAnnotation) -> Bool {
+        let fetchRequest : NSFetchRequest<UserAnnotation> = UserAnnotation.fetchRequest()
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        let annotations = try? context.fetch(fetchRequest)
+        for anno in annotations! {
+            if anno.beObjectId == annotation.objectId {
+                return true
+            }
+        }
+        return false
+    }
+    
     
     func shouldUpdateScale(mapView: MGLMapView, oldValue: Float) {
         var result: Float!

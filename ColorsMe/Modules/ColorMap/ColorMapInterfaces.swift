@@ -49,12 +49,15 @@ protocol ColorMapPresenterInterface: PresenterInterface {
     func willRemoveAnnotation(_ annotation: CMAnnotation)
     
     func reachabilityChanged(_ isReachable: Bool)
+    func checkForUserAnnotation(annotation: CMAnnotation) -> Bool
 }
 
 protocol ColorMapInteractorInterface: InteractorInterface {
     func shouldUpdateScale(mapView: MGLMapView, oldValue: Float)
     func addSubscriptionsObserver()
     func addNetworkReachabilityObserver()
+    func checkForAnnotationInCoreData(annotation: CMAnnotation) -> Bool
+
 }
 
 // MARK: - Menubutton

@@ -319,21 +319,14 @@ extension ColorMapViewController : MGLMapViewDelegate {
             return UIView()
         }
         
-        let fetchRequest : NSFetchRequest<UserAnnotation> = UserAnnotation.fetchRequest()
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        let annotations = try? context.fetch(fetchRequest)
-        
-        for anno in annotations! {
-            if anno.beObjectId == annotation.objectId {
-                log.verbose("isMyColor")
-                let shareButton = UIButton(type: .custom)
-                let shareButtonImage = UIImage(systemName: "square.and.arrow.up")//?.withRenderingMode(.alwaysTemplate)
-                shareButton.setImage(shareButtonImage, for: .normal)
-                shareButton.imageView?.contentMode = .scaleAspectFit
-                shareButton.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: 20, height: 40))
-                return shareButton
-            }
+        let isUserAnnotation = presenter.checkForUserAnnotation(annotation: annotation)
+        if isUserAnnotation {
+            let shareButton = UIButton(type: .custom)
+            let shareButtonImage = UIImage(systemName: "square.and.arrow.up")
+            shareButton.setImage(shareButtonImage, for: .normal)
+            shareButton.imageView?.contentMode = .scaleAspectFit
+            shareButton.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: 20, height: 40))
+            return shareButton
         }
 
         return UIView()

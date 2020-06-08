@@ -83,4 +83,8 @@ extension ColorMapPresenter: ColorMapPresenterInterface {
     func reachabilityChanged(_ isReachable: Bool) {
         view.reachabilityChanged(isReachable)
     }
+    
+    func checkForUserAnnotation(annotation: CMAnnotation) -> Bool {
+        return interactor.checkForAnnotationInCoreData(annotation: annotation)
+    }
 }
