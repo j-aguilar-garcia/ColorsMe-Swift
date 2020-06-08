@@ -70,6 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if CloudCore.isCloudCoreNotification(withUserInfo: userInfo) {
             // Fetch changed data from iCloud
             CloudCore.pull(using: userInfo, to: persistentContainer, error: nil, completion: { (fetchResult) in
+                AppData.lastCloudSync = Date()
                 completionHandler(fetchResult.uiBackgroundFetchResult)
             })
         }

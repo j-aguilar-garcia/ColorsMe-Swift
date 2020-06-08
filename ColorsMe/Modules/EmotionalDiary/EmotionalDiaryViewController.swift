@@ -90,7 +90,7 @@ final class EmotionalDiaryViewController: UIViewController {
         }
         try? tableDataSource.performFetch()
 
-        tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .automatic)
+        tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .none)
         updateConstraints()
     }
     
@@ -194,7 +194,7 @@ extension EmotionalDiaryViewController : MGSwipeTableCellDelegate {
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
         self.tabBarController?.selectedIndex = 0
         let annotation = tableDataSource.object(at: indexPath)
-        let colorAnnotation = DataManager.shared.localDataManager.filterLocalBy(objectId: annotation.beObjectId!)
+        guard let colorAnnotation = DataManager.shared.localDataManager.filterLocalBy(objectId: annotation.beObjectId!) else { return }
         presenter.zoomToAnnotation(annotation: colorAnnotation)
     }
     

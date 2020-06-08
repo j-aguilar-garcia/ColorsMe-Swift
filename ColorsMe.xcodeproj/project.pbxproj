@@ -33,6 +33,7 @@
 		077325F524855401009DDB57 /* CMOverlayLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077325F424855401009DDB57 /* CMOverlayLayer.swift */; };
 		077325FB2486900F009DDB57 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077325FA2486900F009DDB57 /* CloudKit.framework */; };
 		077325FD24869BB5009DDB57 /* AnnotationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077325FC24869BB5009DDB57 /* AnnotationService.swift */; };
+		0780677D248E59D30054B12D /* SettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0780677C248E59D30054B12D /* SettingsInteractor.swift */; };
 		079840F5247BC5310054024B /* LocalDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079840F4247BC5310054024B /* LocalDataManager.swift */; };
 		07B2BA0E247C2AFD00ED5BE7 /* CMAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B2BA0D247C2AFD00ED5BE7 /* CMAnnotationView.swift */; };
 		07B2BA10247C558300ED5BE7 /* DataManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B2BA0F247C558300ED5BE7 /* DataManagerProtocol.swift */; };
@@ -166,6 +167,7 @@
 		077325F92486900D009DDB57 /* ColorsMe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ColorsMe.entitlements; sourceTree = "<group>"; };
 		077325FA2486900F009DDB57 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		077325FC24869BB5009DDB57 /* AnnotationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationService.swift; sourceTree = "<group>"; };
+		0780677C248E59D30054B12D /* SettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsInteractor.swift; sourceTree = "<group>"; };
 		079840F4247BC5310054024B /* LocalDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataManager.swift; sourceTree = "<group>"; };
 		07B2BA0D247C2AFD00ED5BE7 /* CMAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMAnnotationView.swift; sourceTree = "<group>"; };
 		07B2BA0F247C558300ED5BE7 /* DataManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagerProtocol.swift; sourceTree = "<group>"; };
@@ -489,6 +491,7 @@
 				07C8FA1C248D27C300612C93 /* Cells */,
 				07C8FA12248D20A300612C93 /* Settings.storyboard */,
 				07C8FA13248D20A300612C93 /* SettingsInterfaces.swift */,
+				0780677C248E59D30054B12D /* SettingsInteractor.swift */,
 				07C8FA14248D20A300612C93 /* SettingsPresenter.swift */,
 				07C8FA15248D20A300612C93 /* SettingsViewController.swift */,
 				07C8FA16248D20A300612C93 /* SettingsWireframe.swift */,
@@ -1045,6 +1048,7 @@
 				07342E10247956E800A77BF7 /* IntroPresenter.swift in Sources */,
 				87CEC7AC2477FCE300206255 /* FormatterInterface.swift in Sources */,
 				07B2BA10247C558300ED5BE7 /* DataManagerProtocol.swift in Sources */,
+				0780677D248E59D30054B12D /* SettingsInteractor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

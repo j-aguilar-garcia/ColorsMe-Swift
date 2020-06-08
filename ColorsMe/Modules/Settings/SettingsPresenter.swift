@@ -8,20 +8,22 @@
 
 import Foundation
 import UIKit
+import CloudCore
 
 final class SettingsPresenter {
     
     // MARK: - Private properties -
     
     private unowned let view: SettingsViewInterface
+    private let interactor: SettingsInteractorInterface
     private let wireframe: SettingsWireframeInterface
     
     var sections : [Section<SettingsItem>] = []
-    
     // MARK: - Lifecycle -
     
-    init(view: SettingsViewInterface, wireframe: SettingsWireframeInterface) {
+    init(view: SettingsViewInterface, interactor: SettingsInteractorInterface, wireframe: SettingsWireframeInterface) {
         self.view = view
+        self.interactor = interactor
         self.wireframe = wireframe
     }
 }
@@ -29,6 +31,11 @@ final class SettingsPresenter {
 // MARK: - Extensions -
 
 extension SettingsPresenter: SettingsPresenterInterface {
+    
+    var entriesCount: Int {
+        return interactor.getUserAnnotationsCount()
+    }
+    
     
     private func cloudSectionFooterTitle() -> String {
         if !AppData.iCloudDataSyncIsEnabled {
@@ -54,7 +61,7 @@ extension SettingsPresenter: SettingsPresenterInterface {
     private var infoSection: Section<SettingsItem> {
         return Section(
             items: [SettingsItem.details(
-                SettingsDetailsItem(icon: UIImage(named: "Logo")!, title: "My Emotional Diary", entries: "Entries: tbd")
+                SettingsDetailsItem(icon: UIImage(named: "Logo")!, title: "My Emotional Diary", entries: "Entries: \(String(describing: self.entriesCount))")
                 )]
         )
     }
@@ -108,6 +115,10 @@ extension SettingsPresenter: SettingsPresenterInterface {
     }
     
     func viewDidLoad() {
+
+    }
+    
+    func viewWillAppear(animated: Bool) {
         sections = [
             infoSection,
             cloudSection,
@@ -120,6 +131,11 @@ extension SettingsPresenter: SettingsPresenterInterface {
     
     func handleCloudSyncSwitchState(_ isOn: Bool) {
         AppData.iCloudDataSyncIsEnabled = isOn
+        if isOn {
+            interactor.enableCloudCore()
+        } else {
+            interactor.disableCloudCore()
+        }
         #warning("Handle CloudCore - enable")
     }
     

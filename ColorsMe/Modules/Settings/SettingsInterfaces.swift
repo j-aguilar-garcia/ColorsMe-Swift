@@ -16,12 +16,19 @@ protocol SettingsWireframeInterface: WireframeInterface {
     func navigate(to option: SettingsNavigationOption)
 }
 
+protocol SettingsInteractorInterface: InteractorInterface {
+    func getUserAnnotationsCount() -> Int
+    func enableCloudCore()
+    func disableCloudCore()
+}
+
 protocol SettingsViewInterface: ViewInterface {
     func reloadTableView()
 }
 
 protocol SettingsPresenterInterface: PresenterInterface {
     var sections: [Section<SettingsItem>] { get }
+    var entriesCount: Int { get }
     func handleCloudSyncSwitchState(_ isOn: Bool)
     func handleSnapshotsSwitchState(_ isOn: Bool)
     func presentTextViewController(with: SettingsAboutSelectorItem)

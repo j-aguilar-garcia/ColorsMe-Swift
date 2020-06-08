@@ -167,9 +167,12 @@ class LocalDataManager : LocalDataManagerInputProtocol {
     }
     
     
-    func filterLocalBy(objectId: String) -> CMAnnotation {
+    func filterLocalBy(objectId: String) -> CMAnnotation? {
+        realm.refresh()
         let annotationType = RealmAnnotation.self
-        let rlmResult = realm.object(ofType: annotationType, forPrimaryKey: objectId)!
+        guard let rlmResult = realm.object(ofType: annotationType, forPrimaryKey: objectId) else {
+            return nil
+        }
         
         return CMAnnotation(annotation: rlmResult)
     }

@@ -26,7 +26,8 @@ final class SettingsWireframe: BaseWireframe, TabBarViewProtocol {
         let moduleViewController = storyboard.instantiateViewController(ofType: SettingsViewController.self)
         super.init(viewController: moduleViewController)
 
-        let presenter = SettingsPresenter(view: moduleViewController, wireframe: self)
+        let interactor = SettingsInteractor()
+        let presenter = SettingsPresenter(view: moduleViewController, interactor: interactor, wireframe: self)
         moduleViewController.presenter = presenter
         firebaseConfig = FirebaseConfig.shared
     }

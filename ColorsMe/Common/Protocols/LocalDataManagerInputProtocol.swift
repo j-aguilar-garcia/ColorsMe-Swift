@@ -25,5 +25,5 @@ protocol LocalDataManagerInputProtocol {
     
     func filterLocal(with predicate: NSPredicate) -> [CMAnnotation]
     
-    func filterLocalBy(objectId: String) -> CMAnnotation
+    func filterLocalBy(objectId: String) -> CMAnnotation?
 }

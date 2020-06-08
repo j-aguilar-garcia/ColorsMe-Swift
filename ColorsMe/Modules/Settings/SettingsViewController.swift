@@ -25,6 +25,10 @@ final class SettingsViewController: UITableViewController {
         presenter.viewDidLoad()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        presenter.viewWillAppear(animated: animated)
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let section = presenter.sections[indexPath.section]
         let item = section.items[indexPath.row]
