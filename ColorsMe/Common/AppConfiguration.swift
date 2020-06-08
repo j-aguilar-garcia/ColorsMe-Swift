@@ -24,6 +24,8 @@ class AppConfiguration {
     
     var appStoreUrl: String!
     
+    var appUrlHost: String!
+    
     init() {
         let bundleURL = Bundle.main.url(forResource: "AppProperties", withExtension: "plist")!
         let plist = NSDictionary(contentsOf: bundleURL)!
@@ -36,7 +38,9 @@ class AppConfiguration {
         swiftyBeaverAppSecret = plist["swiftybeaver_app_secret"] as? String
         swiftyBeaverEncryptionKey = plist["swiftybeaver_encryption_key"] as? String
         sentryDsn = plist["sentry_dsn"] as? String
+        
         appStoreUrl = plist["app_store_url"] as? String
+        appUrlHost = plist["app_url_host"] as? String
     }
     
 }

@@ -91,9 +91,7 @@ final class SettingsViewController: UITableViewController {
                 self.presenter.presentTextViewController(with: item)
             }
             if indexPath.row == 2 {
-                let textToShare = "Hey!\nHow do you feel at the moment? \nPost your feeling with a click. Completely Anonymous!\nWith ColorsMe"
-                let items = [URL(string: AppConfiguration.default.appStoreUrl)!, textToShare] as [Any]
-                let share = UIActivityViewController(activityItems: items, applicationActivities: nil)
+                let share = ShareService.default.shareApp()
                 present(share, animated: true, completion: nil)
             } else if indexPath.row == 3 {
                 if let url =

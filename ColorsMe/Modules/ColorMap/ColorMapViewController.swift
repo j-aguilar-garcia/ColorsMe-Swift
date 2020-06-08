@@ -10,6 +10,7 @@ import UIKit
 import Mapbox
 import MapboxGeocoder
 import Reachability
+import CoreData
 
 final class ColorMapViewController: UIViewController {
 
@@ -302,6 +303,40 @@ extension ColorMapViewController : MGLMapViewDelegate {
     
     func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
         return true
+    }
+    
+    func mapView(_ mapView: MGLMapView, annotation: MGLAnnotation, calloutAccessoryControlTapped control: UIControl) {
+        log.verbose("callout tapped")
+        guard let annotation = annotation as? CMAnnotation else { return }
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        let vc = ShareService.default.share(annotation: annotation, for: self.view)
+        self.present(vc, animated: true, completion: nil)
+    }
+    
+    func mapView(_ mapView: MGLMapView, rightCalloutAccessoryViewFor annotation: MGLAnnotation) -> UIView? {
+        log.verbose("rightCalloutAccessoryViewFor")
+        guard let annotation = annotation as? CMAnnotation else {
+            return UIView()
+        }
+        
+        let fetchRequest : NSFetchRequest<UserAnnotation> = UserAnnotation.fetchRequest()
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        let annotations = try? context.fetch(fetchRequest)
+        
+        for anno in annotations! {
+            if anno.beObjectId == annotation.objectId {
+                log.verbose("isMyColor")
+                let shareButton = UIButton(type: .custom)
+                let shareButtonImage = UIImage(systemName: "square.and.arrow.up")//?.withRenderingMode(.alwaysTemplate)
+                shareButton.setImage(shareButtonImage, for: .normal)
+                shareButton.imageView?.contentMode = .scaleAspectFit
+                shareButton.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: 20, height: 40))
+                return shareButton
+            }
+        }
+
+        return UIView()
     }
     
     func mapViewWillStartRenderingMap(_ mapView: MGLMapView) {

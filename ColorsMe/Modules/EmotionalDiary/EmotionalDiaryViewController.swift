@@ -160,32 +160,8 @@ extension EmotionalDiaryViewController : MGSwipeTableCellDelegate {
     
     private func onShareSwipe(_ indexPath: IndexPath) {
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
-        var components = URLComponents()
-            components.scheme = "https"
-            components.host = "colorsme.bit-design.org"
-            components.path = "/"
-            components.queryItems = [
-                URLQueryItem(name: "id", value: "\(tableDataSource.object(at: indexPath).guid!)")
-            ]
-            let urlToShare = components.url?.absoluteString
-            let objectsToShare = [urlToShare!] as [Any]
-            let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
-            
-            //Excluded Activities
-        activityVC.excludedActivityTypes = [
-            UIActivity.ActivityType.airDrop,
-            UIActivity.ActivityType.addToReadingList,
-            UIActivity.ActivityType.openInIBooks,
-            UIActivity.ActivityType.assignToContact,
-            UIActivity.ActivityType.saveToCameraRoll
-        ]
-        
-        if let popover = activityVC.popoverPresentationController {
-            popover.sourceRect = CGRect(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height / 2, width: 0, height: 0)
-            popover.sourceView = self.view
-            popover.permittedArrowDirections = .any
-        }
-            
+        let guid = tableDataSource.object(at: indexPath).guid!
+        let activityVC = ShareService.default.share(guid: guid, view: self.view)
         self.present(activityVC, animated: true, completion: nil)
     }
     
@@ -194,7 +170,7 @@ extension EmotionalDiaryViewController : MGSwipeTableCellDelegate {
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
         self.tabBarController?.selectedIndex = 0
         let annotation = tableDataSource.object(at: indexPath)
-        guard let colorAnnotation = DataManager.shared.localDataManager.filterLocalBy(objectId: annotation.beObjectId!) else { return }
+        guard let colorAnnotation = DataManager.shared.localDataManager.filterLocalBy(objectId: annotation.beObjectId!) else { return }
         presenter.zoomToAnnotation(annotation: colorAnnotation)
     }
     

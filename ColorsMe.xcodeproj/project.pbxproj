@@ -34,6 +34,7 @@
 		077325FB2486900F009DDB57 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077325FA2486900F009DDB57 /* CloudKit.framework */; };
 		077325FD24869BB5009DDB57 /* AnnotationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077325FC24869BB5009DDB57 /* AnnotationService.swift */; };
 		0780677D248E59D30054B12D /* SettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0780677C248E59D30054B12D /* SettingsInteractor.swift */; };
+		0780677F248E680F0054B12D /* ShareService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0780677E248E680F0054B12D /* ShareService.swift */; };
 		079840F5247BC5310054024B /* LocalDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079840F4247BC5310054024B /* LocalDataManager.swift */; };
 		07B2BA0E247C2AFD00ED5BE7 /* CMAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B2BA0D247C2AFD00ED5BE7 /* CMAnnotationView.swift */; };
 		07B2BA10247C558300ED5BE7 /* DataManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B2BA0F247C558300ED5BE7 /* DataManagerProtocol.swift */; };
@@ -168,6 +169,7 @@
 		077325FA2486900F009DDB57 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		077325FC24869BB5009DDB57 /* AnnotationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationService.swift; sourceTree = "<group>"; };
 		0780677C248E59D30054B12D /* SettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsInteractor.swift; sourceTree = "<group>"; };
+		0780677E248E680F0054B12D /* ShareService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareService.swift; sourceTree = "<group>"; };
 		079840F4247BC5310054024B /* LocalDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataManager.swift; sourceTree = "<group>"; };
 		07B2BA0D247C2AFD00ED5BE7 /* CMAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMAnnotationView.swift; sourceTree = "<group>"; };
 		07B2BA0F247C558300ED5BE7 /* DataManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagerProtocol.swift; sourceTree = "<group>"; };
@@ -544,6 +546,7 @@
 				077325FC24869BB5009DDB57 /* AnnotationService.swift */,
 				07C8FA0D248D042400612C93 /* ReachabilityService.swift */,
 				071DA9EE248D446D00ADBB5F /* FirebaseConfig.swift */,
+				0780677E248E680F0054B12D /* ShareService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -986,6 +989,7 @@
 				07E06B69247A8266007139E2 /* String.swift in Sources */,
 				07E2BA4E247FCF4C00465688 /* Color.swift in Sources */,
 				072D9D09247E40D900390186 /* TriggerMenuButtonView.swift in Sources */,
+				0780677F248E680F0054B12D /* ShareService.swift in Sources */,
 				87CEC7B52478216100206255 /* EmotionalColor.swift in Sources */,
 				073E3B14247BD92E00540BF0 /* AppData.swift in Sources */,
 				072D9D07247E407F00390186 /* MenuButtonAnimator.swift in Sources */,
