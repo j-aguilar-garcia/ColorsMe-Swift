@@ -149,9 +149,9 @@ extension EmotionalDiaryViewController : MGSwipeTableCellDelegate {
             onDeleteSwipe(indexPath)
         } else {
             if index == 0 {
-                onShareSwipe(indexPath)
-            } else if index == 1 {
                 onShowSwipe(indexPath)
+            } else if index == 1 {
+                onShareSwipe(indexPath)
             }
         }
         return true
@@ -220,5 +220,9 @@ extension EmotionalDiaryViewController : EmptyDataSetDelegate , EmptyDataSetSour
         let attributedString = NSAttributedString(string: title, attributes: font)
 
         return attributedString
+    }
+    
+    func emptyDataSetShouldAllowScroll(_ scrollView: UIScrollView) -> Bool {
+        return true
     }
 }

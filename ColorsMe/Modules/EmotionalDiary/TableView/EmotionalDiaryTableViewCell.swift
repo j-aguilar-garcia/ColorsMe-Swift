@@ -79,14 +79,14 @@ class EmotionalDiaryTableViewCell : MGSwipeTableCell {
         deleteButton.centerIconOverText(withSpacing: 4)
         
         leftButtons = [deleteButton]
-        rightButtons = [shareButton, showButton]
+        rightButtons = [showButton, shareButton]
 
         leftSwipeSettings.transition = .border
         rightSwipeSettings.transition = .border
         leftSwipeSettings.expandLastButtonBySafeAreaInsets = true
         rightSwipeSettings.expandLastButtonBySafeAreaInsets = true
         
-        rightExpansion.buttonIndex = 1
+        rightExpansion.buttonIndex = 0
         rightExpansion.fillOnTrigger = true
 
         leftExpansion.buttonIndex = 0
