@@ -39,6 +39,10 @@ final class PickerDialogPresenter {
 
 extension PickerDialogPresenter: PickerDialogPresenterInterface {
     
+    func viewDidLoad() {
+        view.addBorders()
+    }
+    
     func didSelectDoneButton(with row: Int) {
         AppData.selectedFilterName = pickerData[row].value
         if row == 0 {
