@@ -44,21 +44,6 @@ import Realm
         
     }
     
-    init(annotation: RealmAnnotation) {
-        self.created = annotation.created
-        self.country = annotation.country
-        self.title = annotation.title
-        self.city = annotation.city
-        self.isocountrycode = annotation.isocountrycode
-        self.color = annotation.color
-        self.street = annotation.street
-        self.longitude = annotation.longitude as NSNumber?
-        self.objectId = annotation.objectId
-        self.ownerId = annotation.ownerId
-        self.latitude = annotation.latitude as NSNumber?
-        self.guid = annotation.guid
-    }
-    
 }
 
 class RealmAnnotation: Realmable {

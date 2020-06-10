@@ -32,13 +32,14 @@ final class EmotionalDiaryPresenter {
 // MARK: - Extensions -
 
 extension EmotionalDiaryPresenter: EmotionalDiaryPresenterInterface {
-    var userAnnotations: [CMAnnotation] {
+    
+    var userAnnotations: [CMAnnotation]? {
+        get {
+            return _userAnnotations
+        }
         set {
             _userAnnotations = interactor.getUserAnnotations()
             view.reloadTableView()
-        }
-        get {
-            return _userAnnotations
         }
     }
     
@@ -55,14 +56,22 @@ extension EmotionalDiaryPresenter: EmotionalDiaryPresenterInterface {
     }
     
     func object(at indexPath: IndexPath) -> CMAnnotation {
-        return userAnnotations[indexPath.row]
+        return userAnnotations![indexPath.row]
     }
     
     func viewDidLoad() {
-        
+    }
+    
+    func viewWillDisappear(animated: Bool) {
+        NotificationCenter.default.removeObserver(self)
     }
     
     func viewWillAppear(animated: Bool) {
+        NotificationCenter.default.addObserver(forName: .didAddRealmAnnotation, object: nil, queue: nil) { (notification) in
+            log.verbose("Notifcation didAddRealmAnnotation received")
+            self.userAnnotations = self.interactor.getUserAnnotations()
+        }
+
         //userAnnotations = interactor.getUserAnnotations()
         view.reloadTableView()
     }

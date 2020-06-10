@@ -36,6 +36,7 @@
 		077325FD24869BB5009DDB57 /* AnnotationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077325FC24869BB5009DDB57 /* AnnotationService.swift */; };
 		0780677D248E59D30054B12D /* SettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0780677C248E59D30054B12D /* SettingsInteractor.swift */; };
 		0780677F248E680F0054B12D /* ShareService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0780677E248E680F0054B12D /* ShareService.swift */; };
+		07823E36249160C500E0AA5F /* iCloudDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07823E35249160C500E0AA5F /* iCloudDelegate.swift */; };
 		079840F5247BC5310054024B /* LocalDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079840F4247BC5310054024B /* LocalDataManager.swift */; };
 		07B2BA0E247C2AFD00ED5BE7 /* CMAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B2BA0D247C2AFD00ED5BE7 /* CMAnnotationView.swift */; };
 		07B2BA10247C558300ED5BE7 /* DataManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B2BA0F247C558300ED5BE7 /* DataManagerProtocol.swift */; };
@@ -169,6 +170,7 @@
 		077325FC24869BB5009DDB57 /* AnnotationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationService.swift; sourceTree = "<group>"; };
 		0780677C248E59D30054B12D /* SettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsInteractor.swift; sourceTree = "<group>"; };
 		0780677E248E680F0054B12D /* ShareService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareService.swift; sourceTree = "<group>"; };
+		07823E35249160C500E0AA5F /* iCloudDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iCloudDelegate.swift; sourceTree = "<group>"; };
 		079840F4247BC5310054024B /* LocalDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataManager.swift; sourceTree = "<group>"; };
 		07B2BA0D247C2AFD00ED5BE7 /* CMAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMAnnotationView.swift; sourceTree = "<group>"; };
 		07B2BA0F247C558300ED5BE7 /* DataManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagerProtocol.swift; sourceTree = "<group>"; };
@@ -377,6 +379,7 @@
 				0737FA8E247D96240015A8F7 /* LocalDataManager */,
 				07E06B79247AF680007139E2 /* DataManager.swift */,
 				07B2BA0F247C558300ED5BE7 /* DataManagerProtocol.swift */,
+				07823E35249160C500E0AA5F /* iCloudDelegate.swift */,
 			);
 			path = DataManager;
 			sourceTree = "<group>";
@@ -1001,6 +1004,7 @@
 				07E2BA632485232900465688 /* LocationSearchInteractor.swift in Sources */,
 				87CEC7AD2477FCE300206255 /* InteractorInterface.swift in Sources */,
 				07E06B61247A7AFD007139E2 /* PickerDialogViewController.swift in Sources */,
+				07823E36249160C500E0AA5F /* iCloudDelegate.swift in Sources */,
 				076880502489250E001E0F39 /* IntroInteractor.swift in Sources */,
 				077325FD24869BB5009DDB57 /* AnnotationService.swift in Sources */,
 				873AC7122477C8DC00261CD5 /* TabBarViewProtocol.swift in Sources */,

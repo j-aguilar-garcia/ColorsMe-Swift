@@ -105,9 +105,9 @@ class RemoteDataManager : RemoteDataManagerProtocol {
                         let realmAnnotation = RealmAnnotation(annotation: annotation, isMyColor: isMyColor)
                         
                         if localDataManager.getAllLocal().contains(where: { $0.objectId?.elementsEqual(annotation.objectId!) ?? false }) {
-                            let rlmAnnotation = localDataManager.getObjectBy(primaryKey: annotation.objectId!)
-                            rlmAnnotation?.isMyColor = true
-                            localDataManager.updateLocal(annotation: rlmAnnotation!)
+                            /*let rlmAnnotation = localDataManager.getObjectBy(primaryKey: annotation.objectId!)
+                            rlmAnnotation?.isMyColor = true*/
+                            localDataManager.updateLocal(annotation: realmAnnotation)
                         } else {
                             localDataManager.saveLocal(annotation: realmAnnotation)
                         }

@@ -19,6 +19,7 @@ class LocalDataManager : LocalDataManagerProtocol {
         try! realm.write {
             log.debug("Realm add")
             realm.add(annotation, update: .all)
+            NotificationCenter.default.post(name: .didAddRealmAnnotation, object: nil)
         }
     }
     
@@ -77,6 +78,7 @@ class LocalDataManager : LocalDataManagerProtocol {
     
     
     func filterLocal(by option: PickerDialogFilterOption) -> [CMAnnotation] {
+        realm.refresh()
         switch option {
             
         case .allcolors:
@@ -92,16 +94,20 @@ class LocalDataManager : LocalDataManagerProtocol {
             let cloudAnnotations = DataManager.shared.cloudDataManager.getAllCloudData(context: context)
             let localAnnotations = getAllLocal()
             //let annotations = getAllLocal().filter({ $0.isMyColor == true })
-            let fetchRequest : NSFetchRequest<UserAnnotation> = UserAnnotation.fetchRequest()
+            //let fetchRequest : NSFetchRequest<UserAnnotation> = UserAnnotation.fetchRequest()
 
             //let annotations = try? context.fetch(fetchRequest)
             for anno in cloudAnnotations! {
                 if localAnnotations.contains(where: { $0.objectId == anno.beObjectId }) {
+                    log.verbose("$0.objectId == anno.beObjectId === true")
                     let local = localAnnotations.first(where: { $0.objectId == anno.beObjectId })
                     annos.append(local!)
                 }
             }
-            return annos
+            log.verbose("annos = \(annos.count)")
+            let annotations = filterLocal(with: NSPredicate(format: "isMyColor == true"))
+            log.verbose("annotations predicate = \(annotations.count)")
+            return annotations
             
             
             //log.debug(annotations.count)

@@ -108,7 +108,7 @@ final class EmotionalDiaryViewController: UIViewController {
 extension EmotionalDiaryViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.userAnnotations.count
+        return presenter.userAnnotations?.count ?? 0
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
