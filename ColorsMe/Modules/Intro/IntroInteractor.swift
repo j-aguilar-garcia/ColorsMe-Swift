@@ -18,7 +18,7 @@ final class IntroInteractor {
 extension IntroInteractor: IntroInteractorInterface {
     
     func createAnnotation(with color: EmotionalColor) {
-        AnnotationService.default.addAnnotation(color: color, completion: { annotation in
+        AnnotationService.default.addAnnotation(color: color, byUser: true, completion: { annotation in
             self.presenter.didCreateAnnotation(annotation: annotation)
         })
     }

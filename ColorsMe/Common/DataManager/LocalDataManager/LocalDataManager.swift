@@ -9,8 +9,9 @@
 import Foundation
 import Unrealm
 import Mapbox
+import CoreData
 
-class LocalDataManager : LocalDataManagerInputProtocol {
+class LocalDataManager : LocalDataManagerProtocol {
     
     let realm = try! Realm()
     
@@ -59,6 +60,13 @@ class LocalDataManager : LocalDataManagerInputProtocol {
         return annotations
     }
     
+    func getAllRealm() -> [RealmAnnotation] {
+        let annotationType = RealmAnnotation.self
+        let rlmResult = realm.objects(annotationType)
+        
+        return rlmResult.reversed()
+    }
+    
     
     func getAllCoordinates() -> [CLLocationCoordinate2D] {
         let annotations = getAllLocal()
@@ -76,23 +84,34 @@ class LocalDataManager : LocalDataManagerInputProtocol {
             
         case .mycolors:
             #warning("Filter my colors!")
-            return getAllLocal()
-            // TODO: - filter my colors
-            //let predicate = NSPredicate(format: "isMyColor == %@", true)
-            //return filterLocal(with: predicate)
+            var annos = [CMAnnotation]()
+            
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let context = appDelegate.persistentContainer.viewContext
+            
+            let cloudAnnotations = DataManager.shared.cloudDataManager.getAllCloudData(context: context)
+            let localAnnotations = getAllLocal()
+            //let annotations = getAllLocal().filter({ $0.isMyColor == true })
+            let fetchRequest : NSFetchRequest<UserAnnotation> = UserAnnotation.fetchRequest()
+
+            //let annotations = try? context.fetch(fetchRequest)
+            for anno in cloudAnnotations! {
+                if localAnnotations.contains(where: { $0.objectId == anno.beObjectId }) {
+                    let local = localAnnotations.first(where: { $0.objectId == anno.beObjectId })
+                    annos.append(local!)
+                }
+            }
+            return annos
+            
+            
+            //log.debug(annotations.count)
+            //return annotations
             
         case .today:
             let calendar = Calendar.current
             let dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: Date())
             let filteredColorAnnotations = getAllLocal().filter { calendar.date(($0.created), matchesComponents: dateComponents) }
             return filteredColorAnnotations
-            /*
-            let today = Date()
-            let interval = Calendar.current.dateInterval(of: .day, for: today)
-            log.debug("interval start \(String(describing: interval?.start)) - end \(String(describing: interval?.end))")
-            let predicate = NSPredicate(format: "created BETWEEN {%@, %@}", interval!.start as NSDate, interval!.end as NSDate)
-            return filterLocal(with: predicate)
-            */
             
         case .yesterday:
             
@@ -101,25 +120,11 @@ class LocalDataManager : LocalDataManagerInputProtocol {
             let dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: yesterday!)
             let filteredColorAnnotations = getAllLocal().filter { calendar.date(($0.created), matchesComponents: dateComponents) }
             return filteredColorAnnotations
-            /*
-            let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())
-            let interval = Calendar.current.dateInterval(of: .day, for: yesterday!)
-            log.debug("interval start \(String(describing: interval?.start)) - end \(String(describing: interval?.end))")
-            let predicate = NSPredicate(format: "created BETWEEN {%@, %@}", interval!.start as NSDate, interval!.end as NSDate)
-            return filterLocal(with: predicate)
-            */
-            
+
         case .lastweek:
             let lastWeek = Calendar.current.date(byAdding: .day, value: -7, to: Date())
             let filteredColorAnnotations = getAllLocal().filter { $0.created > lastWeek! }
             return filteredColorAnnotations
-            /*
-            let lastWeek = Calendar.current.date(byAdding: .day, value: -7, to: Date())
-            let interval = Calendar.current.dateInterval(of: .day, for: lastWeek!)
-            log.debug("interval start \(String(describing: interval?.start)) - end \(String(describing: interval?.end))")
-            let predicate = NSPredicate(format: "created BETWEEN {%@, %@}", interval!.start as NSDate, interval!.end as NSDate)
-            return filterLocal(with: predicate)
-            */
             
         case .year(let date):
             let calendar = Calendar.current
@@ -128,12 +133,6 @@ class LocalDataManager : LocalDataManagerInputProtocol {
             
             let filteredColorAnnotations = getAllLocal().filter { calendar.date(($0.created), matchesComponents: dateComponents) }
             return filteredColorAnnotations
-            /*
-            let interval = Calendar.current.dateInterval(of: .year, for: date)
-            log.debug("interval start \(String(describing: interval?.start)) - end \(String(describing: interval?.end))")
-            let predicate = NSPredicate(format: "created BETWEEN {%@, %@}", interval!.start as NSDate, interval!.end as NSDate)
-            return filterLocal(with: predicate)
-            */
             
         case .month(let date):
             let calendar = Calendar.current
@@ -143,12 +142,6 @@ class LocalDataManager : LocalDataManagerInputProtocol {
             
             let filteredColorAnnotations = getAllLocal().filter { calendar.date(($0.created), matchesComponents: dateComponents) }
             return filteredColorAnnotations
-            /*
-            let interval = Calendar.current.dateInterval(of: .month, for: date)
-            log.debug("interval start \(String(describing: interval?.start)) - end \(String(describing: interval?.end))")
-            let predicate = NSPredicate(format: "created BETWEEN {%@, %@}", interval!.start as NSDate, interval!.end as NSDate)
-            return filterLocal(with: predicate)
-            */
         }
     }
     
@@ -167,14 +160,22 @@ class LocalDataManager : LocalDataManagerInputProtocol {
     }
     
     
-    func filterLocalBy(objectId: String) -> CMAnnotation? {
-        realm.refresh()
+    func getAnnotationBy(primaryKey: String) -> CMAnnotation? {
         let annotationType = RealmAnnotation.self
-        guard let rlmResult = realm.object(ofType: annotationType, forPrimaryKey: objectId) else {
+        guard let rlmResult = realm.object(ofType: annotationType, forPrimaryKey: primaryKey) else {
             return nil
         }
         
         return CMAnnotation(annotation: rlmResult)
+    }
+    
+    
+    func getObjectBy(primaryKey: String) -> RealmAnnotation? {
+        let annotationType = RealmAnnotation.self
+        guard let rlmResult = realm.object(ofType: annotationType, forPrimaryKey: primaryKey) else {
+            return nil
+        }
+        return rlmResult
     }
     
 }

@@ -18,7 +18,6 @@ final class EmotionalDiaryViewController: UIViewController {
 
     var presenter: EmotionalDiaryPresenterInterface!
 
-    var tableDataSource: FRCTableViewDataSource<UserAnnotation>!
     // MARK: - Outlets
         
     @IBOutlet weak var tableView: UITableView!
@@ -56,17 +55,12 @@ final class EmotionalDiaryViewController: UIViewController {
         super.viewDidLoad()
         hintColorLabel.text = "Green means Happy | Red means sick"
         questionView.dropShadow()
-        
-        let fetchRequest : NSFetchRequest<UserAnnotation> = UserAnnotation.fetchRequest()
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "created", ascending: false)]
-    
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        tableDataSource = FRCTableViewDataSource(fetchRequest: fetchRequest, context: appDelegate.persistentContainer.viewContext, sectionNameKeyPath: nil, delegate: self, tableView: tableView)
-        tableView.dataSource = tableDataSource
-        tableView.delegate = tableDataSource
+
+        tableView.dataSource = self
+        tableView.delegate = self
         tableView.emptyDataSetSource = self
         tableView.emptyDataSetDelegate = self
-
+        
         self.navigationController?.navigationBar.isHidden = true
         
         if UIDevice.current.userInterfaceIdiom == .pad {
@@ -80,18 +74,22 @@ final class EmotionalDiaryViewController: UIViewController {
             
         }
         
-        try! tableDataSource.performFetch()
+        //try! tableDataSource.performFetch()
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        super.viewDidAppear(animated)
         if let indexPath = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: indexPath, animated: true)
         }
-        try? tableDataSource.performFetch()
+        //try? tableDataSource.performFetch()
 
-        tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .none)
+        //tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .none)
         updateConstraints()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        presenter.viewWillAppear(animated: animated)
     }
     
     override func viewWillLayoutSubviews() {
@@ -102,9 +100,41 @@ final class EmotionalDiaryViewController: UIViewController {
         super.viewWillTransition(to: size, with: coordinator)
         updateConstraints()
     }
+}
 
+
+// MARK: - UITableView
+
+extension EmotionalDiaryViewController : UITableViewDelegate, UITableViewDataSource {
     
-
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return presenter.userAnnotations.count
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let item = presenter.object(at: indexPath)
+        let cell = tableView.dequeueReusableCell(ofType: EmotionalDiaryTableViewCell.self, for: indexPath)
+        cell.configure(annotation: item)
+        cell.delegate = self
+        cell.configureSwipes()
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? EmotionalDiaryTableViewCell else {
+            return
+        }
+        cell.showSwipe(.rightToLeft, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 70
+    }
+    
 }
 
 // MARK: - Extensions -
@@ -112,8 +142,8 @@ final class EmotionalDiaryViewController: UIViewController {
 extension EmotionalDiaryViewController: EmotionalDiaryViewInterface {
     
     func reloadTableView() {
-        //try? tableDataSource.performFetch()
-        tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+        tableView.reloadData()
+        tableView.reloadEmptyDataSet()
     }
     
     
@@ -160,7 +190,7 @@ extension EmotionalDiaryViewController : MGSwipeTableCellDelegate {
     
     private func onShareSwipe(_ indexPath: IndexPath) {
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
-        let guid = tableDataSource.object(at: indexPath).guid!
+        let guid = presenter.object(at: indexPath).guid!
         let activityVC = ShareService.default.share(guid: guid, view: self.view)
         self.present(activityVC, animated: true, completion: nil)
     }
@@ -169,15 +199,15 @@ extension EmotionalDiaryViewController : MGSwipeTableCellDelegate {
     private func onShowSwipe(_ indexPath: IndexPath) {
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
         self.tabBarController?.selectedIndex = 0
-        let annotation = tableDataSource.object(at: indexPath)
-        guard let colorAnnotation = DataManager.shared.localDataManager.filterLocalBy(objectId: annotation.beObjectId!) else { return }
-        presenter.zoomToAnnotation(annotation: colorAnnotation)
+        let annotation = presenter.object(at: indexPath)
+        presenter.zoomToAnnotation(annotation: annotation)
     }
     
     
     private func onDeleteSwipe(_ indexPath: IndexPath) {
-        let annotationToDelete = tableDataSource.object(at: indexPath)
-        AnnotationService.default.deleteAnnotation(id: annotationToDelete.beObjectId!, objectId: annotationToDelete.objectID)
+        let annotationToDelete = presenter.object(at: indexPath)
+        #warning("Delete annotation and remove from map")
+        //AnnotationService.default.deleteAnnotation(id: annotationToDelete.beObjectId!, objectId: annotationToDelete.objectID)
         ImageCache().clear(key: annotationToDelete.guid!)
         
         if AppData.iCloudDataSyncIsEnabled {
@@ -187,26 +217,6 @@ extension EmotionalDiaryViewController : MGSwipeTableCellDelegate {
     }
 }
 
-
-extension EmotionalDiaryViewController : FRCTableViewDelegate {
-    
-    func frcTableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let item = tableDataSource.object(at: indexPath)
-        let cell = tableView.dequeueReusableCell(ofType: EmotionalDiaryTableViewCell.self, for: indexPath)
-        cell.configure(annotation: item)
-        cell.delegate = self
-        cell.configureSwipes()
-        return cell
-    }
-    
-    
-    func frcTableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let cell = tableView.cellForRow(at: indexPath) as? EmotionalDiaryTableViewCell else {
-            return
-        }
-        cell.showSwipe(.rightToLeft, animated: true)
-    }
-}
 
 extension EmotionalDiaryViewController : EmptyDataSetDelegate , EmptyDataSetSource {
     

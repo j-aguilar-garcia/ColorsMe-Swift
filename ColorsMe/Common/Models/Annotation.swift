@@ -40,6 +40,25 @@ import Realm
         return description
     }
     
+    override init() {
+        
+    }
+    
+    init(annotation: RealmAnnotation) {
+        self.created = annotation.created
+        self.country = annotation.country
+        self.title = annotation.title
+        self.city = annotation.city
+        self.isocountrycode = annotation.isocountrycode
+        self.color = annotation.color
+        self.street = annotation.street
+        self.longitude = annotation.longitude as NSNumber?
+        self.objectId = annotation.objectId
+        self.ownerId = annotation.ownerId
+        self.latitude = annotation.latitude as NSNumber?
+        self.guid = annotation.guid
+    }
+    
 }
 
 class RealmAnnotation: Realmable {
@@ -56,10 +75,11 @@ class RealmAnnotation: Realmable {
     dynamic var ownerId : String?
     dynamic var latitude : Double?
     dynamic var guid : String?
+    dynamic var isMyColor: Bool?
     
     required init() {}
     
-    init(annotation: Annotation) {
+    init(annotation: Annotation, isMyColor: Bool = false) {
         self.country = annotation.country!
         self.city = annotation.city!
         self.isocountrycode = annotation.isocountrycode!
@@ -72,6 +92,7 @@ class RealmAnnotation: Realmable {
         self.ownerId = annotation.ownerId
         self.street = annotation.street
         self.title = annotation.title
+        self.isMyColor = isMyColor
     }
     
     static func primaryKey() -> String? {
@@ -92,7 +113,7 @@ class RealmAnnotation: Realmable {
 
 class CMAnnotation : MGLPointAnnotation {
     
-    var isMyColor: Bool = false
+    var isMyColor: Bool!
     var country : String!
     var city : String!
     var isocountrycode : String!
@@ -103,7 +124,7 @@ class CMAnnotation : MGLPointAnnotation {
     var guid : String!
     var created: Date!
     
-    init(annotation: Annotation) {
+    init(annotation: Annotation, isMyColor: Bool = false) {
         super.init()
         self.country = annotation.country!
         self.city = annotation.city!
@@ -114,6 +135,7 @@ class CMAnnotation : MGLPointAnnotation {
         self.objectId = annotation.objectId
         self.guid = annotation.guid!
         self.created = annotation.created
+        self.isMyColor = isMyColor
         coordinate = CLLocationCoordinate2D(latitude: annotation.latitude!.doubleValue, longitude: annotation.longitude!.doubleValue)
         title = annotation.title?.convertDate()
         subtitle = annotation.title?.convertTime()
@@ -131,6 +153,7 @@ class CMAnnotation : MGLPointAnnotation {
         self.objectId = annotation.objectId!
         self.guid = annotation.guid!
         self.created = annotation.created!
+        self.isMyColor = annotation.isMyColor!
         coordinate = CLLocationCoordinate2D(latitude: annotation.latitude!, longitude: annotation.longitude!)
         title = annotation.title?.convertDate()
         subtitle = annotation.title?.convertTime()

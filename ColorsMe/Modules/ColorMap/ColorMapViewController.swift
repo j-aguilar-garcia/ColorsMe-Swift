@@ -96,7 +96,6 @@ final class ColorMapViewController: UIViewController {
 extension ColorMapViewController: ColorMapViewInterface, EmotionalDiaryDelegate {
     
     func showAnnotations(_ annotations: [CMAnnotation], animated: Bool) {
-        //mapView.showAnnotations(annotations, animated: animated)
         var coordinates = [CLLocationCoordinate2D]()
         annotations.forEach({ coordinates.append($0.coordinate) })
         mapView.setVisibleCoordinates(coordinates, count: UInt(coordinates.count), edgePadding: UIEdgeInsets(top: 30, left: 60, bottom: 30, right: 30), animated: animated)
@@ -111,6 +110,9 @@ extension ColorMapViewController: ColorMapViewInterface, EmotionalDiaryDelegate 
     }
     
     func addAnnotation(_ annotation: CMAnnotation) {
+        if mapView.containsAnnotation(annotation) {
+            return
+        }
         mapView.addAnnotation(annotation)
         presenter.shouldUpdateScale(mapView, slider.value)
         updateColorsLabel(count: mapView!.annotations?.count ?? DataManager.shared.localDataManager.getAllLocal().count)
@@ -320,7 +322,7 @@ extension ColorMapViewController : MGLMapViewDelegate {
         }
         
         let isUserAnnotation = presenter.checkForUserAnnotation(annotation: annotation)
-        if isUserAnnotation {
+        if annotation.isMyColor || isUserAnnotation {
             let shareButton = UIButton(type: .custom)
             let shareButtonImage = UIImage(systemName: "square.and.arrow.up")
             shareButton.setImage(shareButtonImage, for: .normal)

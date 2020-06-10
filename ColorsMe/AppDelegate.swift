@@ -18,7 +18,7 @@ let log = SwiftyBeaver.self
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    let iCloudDelegateHandler = iCloudDelegate()
+    //let iCloudDelegateHandler = iCloudDelegate()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         application.registerForRemoteNotifications()
@@ -41,10 +41,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         SentrySDK.start(options: [ "dsn": AppConfiguration.default.sentryDsn!, "debug": false ])
         
-        CloudCore.delegate = iCloudDelegateHandler
+        //CloudCore.delegate = iCloudDelegateHandler
         CloudCore.enable(persistentContainer: persistentContainer)
         
         FirebaseApp.configure()
+        
+        let all = DataManager.shared.localDataManager.getAllRealm()
+    
+        for anno in all {
+            let annotation = Annotation(annotation: anno)
+            DataManager.shared.remoteDataManager.saveToBackendless(annotation: annotation, completion: {_ in
+                
+            })
+        }
         
         return true
     }

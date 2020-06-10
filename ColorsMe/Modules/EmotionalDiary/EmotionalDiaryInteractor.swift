@@ -19,8 +19,14 @@ final class EmotionalDiaryInteractor {
 extension EmotionalDiaryInteractor: EmotionalDiaryInteractorInterface {
     
     func createAnnotation(color: EmotionalColor) {
-        AnnotationService.default.addAnnotation(color: color, completion: { annotation in
+        AnnotationService.default.addAnnotation(color: color, byUser: true, completion: { annotation in
             self.presenter.zoomToAnnotation(annotation: annotation)
         })
     }
+    
+    func getUserAnnotations() -> [CMAnnotation] {
+        let annotations = DataManager.shared.dataManager(filterBy: .mycolors, with: .local, completion: {})
+        return annotations
+    }
+    
 }

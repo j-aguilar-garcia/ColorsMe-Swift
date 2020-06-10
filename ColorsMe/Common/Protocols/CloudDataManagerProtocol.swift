@@ -7,3 +7,10 @@
 //
 
 import Foundation
+import CoreData
+
+protocol CloudDataManagerProtocol {
+    
+    func getAllCloudData(context: NSManagedObjectContext) -> [UserAnnotation]?
+    
+}

@@ -27,7 +27,7 @@ class EmotionalDiaryTableViewCell : MGSwipeTableCell {
         dateLabel.textColor = UIColor.darkGray
     }
     
-    func configure(annotation: UserAnnotation) {
+    func configure(annotation: CMAnnotation) {
         let calendar = Calendar.current
         let formatter = DateFormatter.yyyyMMddHHmmss
         let dateTitle = formatter.string(from: annotation.created!)
@@ -44,7 +44,7 @@ class EmotionalDiaryTableViewCell : MGSwipeTableCell {
         }
         
         dateLabel.text = "\(title) - \(time)"
-        coordinatesLabel.text = "\(annotation.city!), \(annotation.countryIsoCode!)"
+        coordinatesLabel.text = "\(annotation.city!), \(annotation.isocountrycode!)"
 
         if AppData.shouldDisplaySnapshots {
             if let cachedImage = imageCache.loadImage(for: annotation.guid!) {
@@ -52,7 +52,7 @@ class EmotionalDiaryTableViewCell : MGSwipeTableCell {
                 colorImage.image = cachedImage
             } else {
                 indicator.startAnimating()
-                takeSnapshot(coords: CLLocationCoordinate2D(latitude: annotation.latitude, longitude: annotation.longitude), color: EmotionalColor(rawValue: annotation.color!)!) { (image) in
+                takeSnapshot(coords: CLLocationCoordinate2D(latitude: annotation.latitude, longitude: annotation.longitude), color: annotation.color) { (image) in
                     self.indicator.stopAnimating()
                     self.colorImage.image = image
                     self.imageCache.setImage(image: image, for: annotation.guid!)

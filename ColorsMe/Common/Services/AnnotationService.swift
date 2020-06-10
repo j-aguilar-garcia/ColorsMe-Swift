@@ -22,9 +22,9 @@ class AnnotationService {
         delegate = UIApplication.shared.delegate as! AppDelegate
     }
     
-    open func addAnnotation(color: EmotionalColor, completion: @escaping (CMAnnotation) -> ()) {
+    open func addAnnotation(color: EmotionalColor, byUser: Bool = false, completion: @escaping (CMAnnotation) -> ()) {
         createAnnotation(with: color, completion: { annotation in
-            let cmAnnotation = CMAnnotation(annotation: annotation)
+            let cmAnnotation = CMAnnotation(annotation: annotation, isMyColor: byUser)
             completion(cmAnnotation)
             
             DispatchQueue.global(qos: .background).async {
@@ -32,10 +32,12 @@ class AnnotationService {
                     log.debug("saved Backendless Annotation: \(savedAnnotation.debugDescription)")
 
                     DispatchQueue.main.async {
-                        let realmAnnotation = RealmAnnotation(annotation: savedAnnotation)
+
+                        let realmAnnotation = RealmAnnotation(annotation: savedAnnotation, isMyColor: byUser)
                         log.debug("saved: realmAnnotation: objectid = \(realmAnnotation.objectId!) & guid = \(realmAnnotation.guid!)")
-                        let cmAnnotation = CMAnnotation(annotation: savedAnnotation)
-                        log.debug("saved: cmAnnotation: objectId = \(cmAnnotation.objectId)")
+
+                        let cmAnnotation = CMAnnotation(annotation: savedAnnotation, isMyColor: byUser)
+
                         self.saveAnnotationToiCloud(annotation: cmAnnotation)
                         DataManager.shared.localDataManager.saveLocal(annotation: realmAnnotation)
                     }

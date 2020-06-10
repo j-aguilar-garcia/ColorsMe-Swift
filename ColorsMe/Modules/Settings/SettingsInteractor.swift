@@ -14,11 +14,7 @@ import CloudCore
 class SettingsInteractor : SettingsInteractorInterface {
     
     func getUserAnnotationsCount() -> Int {
-        let fetchRequest : NSFetchRequest<UserAnnotation> = UserAnnotation.fetchRequest()
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        let annotations = try? context.fetch(fetchRequest)
-        return annotations?.count ?? 0
+        return DataManager.shared.dataManager(filterBy: .mycolors, with: .local, completion: {}).count
     }
     
     func enableCloudCore() {

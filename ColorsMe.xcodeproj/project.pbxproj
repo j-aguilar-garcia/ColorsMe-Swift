@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		071429BD248AAEAC00CC49CF /* MGLMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071429BC248AAEAC00CC49CF /* MGLMapView.swift */; };
+		071521B32490E1FE00E61DF4 /* CloudDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071521B22490E1FE00E61DF4 /* CloudDataManager.swift */; };
+		071521B52490E23100E61DF4 /* CloudDataManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071521B42490E23100E61DF4 /* CloudDataManagerProtocol.swift */; };
 		071DA9E5248D2D2500ADBB5F /* SettingsSnapshotTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071DA9E4248D2D2500ADBB5F /* SettingsSnapshotTableViewCell.swift */; };
 		071DA9E7248D2DD600ADBB5F /* SettingsVersionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071DA9E6248D2DD600ADBB5F /* SettingsVersionTableViewCell.swift */; };
 		071DA9E9248D2FDA00ADBB5F /* SettingsAboutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071DA9E8248D2FDA00ADBB5F /* SettingsAboutTableViewCell.swift */; };
@@ -28,7 +30,6 @@
 		0737FA8B247D7E430015A8F7 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0737FA8A247D7E430015A8F7 /* AppConfiguration.swift */; };
 		073E3B14247BD92E00540BF0 /* AppData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 073E3B13247BD92E00540BF0 /* AppData.swift */; };
 		074C7CCB247EBEFC00C8EAC5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 074C7CCA247EBEFC00C8EAC5 /* GoogleService-Info.plist */; };
-		0768804E2488EA7A001E0F39 /* iCloudDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0768804D2488EA7A001E0F39 /* iCloudDelegate.swift */; };
 		076880502489250E001E0F39 /* IntroInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0768804F2489250E001E0F39 /* IntroInteractor.swift */; };
 		077325F524855401009DDB57 /* CMOverlayLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077325F424855401009DDB57 /* CMOverlayLayer.swift */; };
 		077325FB2486900F009DDB57 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077325FA2486900F009DDB57 /* CloudKit.framework */; };
@@ -52,7 +53,6 @@
 		07C4BFD7248703A700552BC9 /* FRCTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C4BFD6248703A700552BC9 /* FRCTableViewDataSource.swift */; };
 		07C5B7A82486A6BB00E36E91 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07C5B7A72486A6BB00E36E91 /* NetworkExtension.framework */; };
 		07C8FA0C248D036700612C93 /* ReachabilityObserverProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C8FA0B248D036700612C93 /* ReachabilityObserverProtocol.swift */; };
-		07C8FA0E248D042400612C93 /* ReachabilityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C8FA0D248D042400612C93 /* ReachabilityService.swift */; };
 		07C8FA10248D0A5A00612C93 /* NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C8FA0F248D0A5A00612C93 /* NotificationName.swift */; };
 		07C8FA17248D20A300612C93 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07C8FA12248D20A300612C93 /* Settings.storyboard */; };
 		07C8FA18248D20A300612C93 /* SettingsInterfaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C8FA13248D20A300612C93 /* SettingsInterfaces.swift */; };
@@ -71,10 +71,8 @@
 		07E06B67247A8234007139E2 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B66247A8234007139E2 /* DateFormatter.swift */; };
 		07E06B69247A8266007139E2 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B68247A8266007139E2 /* String.swift */; };
 		07E06B6E247AAC7A007139E2 /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B6D247AAC7A007139E2 /* Annotation.swift */; };
-		07E06B70247AF1EF007139E2 /* RemoteDataManagerInputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B6F247AF1EE007139E2 /* RemoteDataManagerInputProtocol.swift */; };
-		07E06B72247AF1FC007139E2 /* RemoteDataManagerOutputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B71247AF1FC007139E2 /* RemoteDataManagerOutputProtocol.swift */; };
-		07E06B74247AF20B007139E2 /* LocalDataManagerInputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B73247AF20B007139E2 /* LocalDataManagerInputProtocol.swift */; };
-		07E06B76247AF218007139E2 /* LocalDataManagerOutputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B75247AF218007139E2 /* LocalDataManagerOutputProtocol.swift */; };
+		07E06B70247AF1EF007139E2 /* RemoteDataManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B6F247AF1EE007139E2 /* RemoteDataManagerProtocol.swift */; };
+		07E06B74247AF20B007139E2 /* LocalDataManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B73247AF20B007139E2 /* LocalDataManagerProtocol.swift */; };
 		07E06B78247AF385007139E2 /* DataManagerInputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B77247AF384007139E2 /* DataManagerInputProtocol.swift */; };
 		07E06B7A247AF680007139E2 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B79247AF680007139E2 /* DataManager.swift */; };
 		07E06B7C247AF975007139E2 /* RemoteDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B7B247AF975007139E2 /* RemoteDataManager.swift */; };
@@ -142,6 +140,8 @@
 
 /* Begin PBXFileReference section */
 		071429BC248AAEAC00CC49CF /* MGLMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MGLMapView.swift; sourceTree = "<group>"; };
+		071521B22490E1FE00E61DF4 /* CloudDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudDataManager.swift; sourceTree = "<group>"; };
+		071521B42490E23100E61DF4 /* CloudDataManagerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudDataManagerProtocol.swift; sourceTree = "<group>"; };
 		071DA9E4248D2D2500ADBB5F /* SettingsSnapshotTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSnapshotTableViewCell.swift; sourceTree = "<group>"; };
 		071DA9E6248D2DD600ADBB5F /* SettingsVersionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVersionTableViewCell.swift; sourceTree = "<group>"; };
 		071DA9E8248D2FDA00ADBB5F /* SettingsAboutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAboutTableViewCell.swift; sourceTree = "<group>"; };
@@ -162,7 +162,6 @@
 		0737FA8A247D7E430015A8F7 /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		073E3B13247BD92E00540BF0 /* AppData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppData.swift; sourceTree = "<group>"; };
 		074C7CCA247EBEFC00C8EAC5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../GoogleService-Info.plist"; sourceTree = "<group>"; };
-		0768804D2488EA7A001E0F39 /* iCloudDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iCloudDelegate.swift; sourceTree = "<group>"; };
 		0768804F2489250E001E0F39 /* IntroInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroInteractor.swift; sourceTree = "<group>"; };
 		077325F424855401009DDB57 /* CMOverlayLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMOverlayLayer.swift; sourceTree = "<group>"; };
 		077325F92486900D009DDB57 /* ColorsMe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ColorsMe.entitlements; sourceTree = "<group>"; };
@@ -187,7 +186,6 @@
 		07C4BFD6248703A700552BC9 /* FRCTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FRCTableViewDataSource.swift; sourceTree = "<group>"; };
 		07C5B7A72486A6BB00E36E91 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		07C8FA0B248D036700612C93 /* ReachabilityObserverProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityObserverProtocol.swift; sourceTree = "<group>"; };
-		07C8FA0D248D042400612C93 /* ReachabilityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityService.swift; sourceTree = "<group>"; };
 		07C8FA0F248D0A5A00612C93 /* NotificationName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationName.swift; sourceTree = "<group>"; };
 		07C8FA12248D20A300612C93 /* Settings.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		07C8FA13248D20A300612C93 /* SettingsInterfaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsInterfaces.swift; sourceTree = "<group>"; };
@@ -206,10 +204,8 @@
 		07E06B66247A8234007139E2 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		07E06B68247A8266007139E2 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		07E06B6D247AAC7A007139E2 /* Annotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
-		07E06B6F247AF1EE007139E2 /* RemoteDataManagerInputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteDataManagerInputProtocol.swift; sourceTree = "<group>"; };
-		07E06B71247AF1FC007139E2 /* RemoteDataManagerOutputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteDataManagerOutputProtocol.swift; sourceTree = "<group>"; };
-		07E06B73247AF20B007139E2 /* LocalDataManagerInputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataManagerInputProtocol.swift; sourceTree = "<group>"; };
-		07E06B75247AF218007139E2 /* LocalDataManagerOutputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataManagerOutputProtocol.swift; sourceTree = "<group>"; };
+		07E06B6F247AF1EE007139E2 /* RemoteDataManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteDataManagerProtocol.swift; sourceTree = "<group>"; };
+		07E06B73247AF20B007139E2 /* LocalDataManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataManagerProtocol.swift; sourceTree = "<group>"; };
 		07E06B77247AF384007139E2 /* DataManagerInputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagerInputProtocol.swift; sourceTree = "<group>"; };
 		07E06B79247AF680007139E2 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		07E06B7B247AF975007139E2 /* RemoteDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteDataManager.swift; sourceTree = "<group>"; };
@@ -314,6 +310,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		071521B12490E1FE00E61DF4 /* CloudDataManager */ = {
+			isa = PBXGroup;
+			children = (
+				071521B22490E1FE00E61DF4 /* CloudDataManager.swift */,
+			);
+			path = CloudDataManager;
+			sourceTree = "<group>";
+		};
 		072D5459247981CA00551637 /* AnnotationView */ = {
 			isa = PBXGroup;
 			children = (
@@ -368,11 +372,11 @@
 		0737FA8D247D96170015A8F7 /* DataManager */ = {
 			isa = PBXGroup;
 			children = (
+				071521B12490E1FE00E61DF4 /* CloudDataManager */,
 				0737FA8F247D96350015A8F7 /* RemoteDataManager */,
 				0737FA8E247D96240015A8F7 /* LocalDataManager */,
 				07E06B79247AF680007139E2 /* DataManager.swift */,
 				07B2BA0F247C558300ED5BE7 /* DataManagerProtocol.swift */,
-				0768804D2488EA7A001E0F39 /* iCloudDelegate.swift */,
 			);
 			path = DataManager;
 			sourceTree = "<group>";
@@ -435,10 +439,9 @@
 				87CEC7A72477FCE300206255 /* PresenterInterface.swift */,
 				87CEC7AA2477FCE300206255 /* ViewInterface.swift */,
 				873AC7112477C8DC00261CD5 /* TabBarViewProtocol.swift */,
-				07E06B6F247AF1EE007139E2 /* RemoteDataManagerInputProtocol.swift */,
-				07E06B71247AF1FC007139E2 /* RemoteDataManagerOutputProtocol.swift */,
-				07E06B73247AF20B007139E2 /* LocalDataManagerInputProtocol.swift */,
-				07E06B75247AF218007139E2 /* LocalDataManagerOutputProtocol.swift */,
+				071521B42490E23100E61DF4 /* CloudDataManagerProtocol.swift */,
+				07E06B6F247AF1EE007139E2 /* RemoteDataManagerProtocol.swift */,
+				07E06B73247AF20B007139E2 /* LocalDataManagerProtocol.swift */,
 				07E06B77247AF384007139E2 /* DataManagerInputProtocol.swift */,
 				07C8FA0B248D036700612C93 /* ReachabilityObserverProtocol.swift */,
 			);
@@ -544,7 +547,6 @@
 			children = (
 				07E2BA5624851B3D00465688 /* LocationService.swift */,
 				077325FC24869BB5009DDB57 /* AnnotationService.swift */,
-				07C8FA0D248D042400612C93 /* ReachabilityService.swift */,
 				071DA9EE248D446D00ADBB5F /* FirebaseConfig.swift */,
 				0780677E248E680F0054B12D /* ShareService.swift */,
 			);
@@ -959,11 +961,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				87CEC7C724782A7400206255 /* ColorMapInterfaces.swift in Sources */,
+				071521B52490E23100E61DF4 /* CloudDataManagerProtocol.swift in Sources */,
 				87CEC7922477F9AF00206255 /* ColorsNavigationViewController.swift in Sources */,
 				07E06B7C247AF975007139E2 /* RemoteDataManager.swift in Sources */,
 				873AC71C2477C95400261CD5 /* BaseWireframe.swift in Sources */,
 				07342E12247956E800A77BF7 /* IntroWireframe.swift in Sources */,
-				07E06B72247AF1FC007139E2 /* RemoteDataManagerOutputProtocol.swift in Sources */,
 				07E06B65247A7EA4007139E2 /* PickerData.swift in Sources */,
 				07C8FA10248D0A5A00612C93 /* NotificationName.swift in Sources */,
 				07C4BFC92486F59D00552BC9 /* EmotionalDiaryWireframe.swift in Sources */,
@@ -972,7 +974,7 @@
 				07C4BFD52486FFBC00552BC9 /* ImageCache.swift in Sources */,
 				87CEC7CA24782A7400206255 /* ColorMapInteractor.swift in Sources */,
 				873AC7302477D59100261CD5 /* Storyboard.swift in Sources */,
-				07E06B74247AF20B007139E2 /* LocalDataManagerInputProtocol.swift in Sources */,
+				07E06B74247AF20B007139E2 /* LocalDataManagerProtocol.swift in Sources */,
 				875D6E11247431B100C6DF31 /* ColorsMe.xcdatamodeld in Sources */,
 				07C8FA0C248D036700612C93 /* ReachabilityObserverProtocol.swift in Sources */,
 				07E2BA502481274C00465688 /* Font.swift in Sources */,
@@ -996,7 +998,6 @@
 				87CEC7BC2478265400206255 /* ColorTabBarInterfaces.swift in Sources */,
 				07E2BA612485232900465688 /* LocationSearchPresenter.swift in Sources */,
 				077325F524855401009DDB57 /* CMOverlayLayer.swift in Sources */,
-				0768804E2488EA7A001E0F39 /* iCloudDelegate.swift in Sources */,
 				07E2BA632485232900465688 /* LocationSearchInteractor.swift in Sources */,
 				87CEC7AD2477FCE300206255 /* InteractorInterface.swift in Sources */,
 				07E06B61247A7AFD007139E2 /* PickerDialogViewController.swift in Sources */,
@@ -1030,22 +1031,21 @@
 				07C4BFC52486F59D00552BC9 /* EmotionalDiaryInterfaces.swift in Sources */,
 				072D9D05247E406000390186 /* MenuButtonViewConfigProtocol.swift in Sources */,
 				07E06B78247AF385007139E2 /* DataManagerInputProtocol.swift in Sources */,
+				071521B32490E1FE00E61DF4 /* CloudDataManager.swift in Sources */,
 				07E2BA4C247EE4A400465688 /* CMClusterMapLayer.swift in Sources */,
 				07C8FA19248D20A300612C93 /* SettingsPresenter.swift in Sources */,
 				07E2BA602485232900465688 /* LocationSearchInterfaces.swift in Sources */,
-				07E06B70247AF1EF007139E2 /* RemoteDataManagerInputProtocol.swift in Sources */,
+				07E06B70247AF1EF007139E2 /* RemoteDataManagerProtocol.swift in Sources */,
 				875D6E09247431B100C6DF31 /* SceneDelegate.swift in Sources */,
 				87CEC7CB24782A7400206255 /* ColorMapWireframe.swift in Sources */,
 				07C8FA1B248D20A300612C93 /* SettingsWireframe.swift in Sources */,
 				0737FA8B247D7E430015A8F7 /* AppConfiguration.swift in Sources */,
 				07C4BFD32486FB6D00552BC9 /* TableView.swift in Sources */,
-				07C8FA0E248D042400612C93 /* ReachabilityService.swift in Sources */,
 				07E2BA4A247EE07E00465688 /* CMHeatMapLayer.swift in Sources */,
 				07C8FA20248D2BCA00612C93 /* SettingsCloudTableViewCell.swift in Sources */,
 				07E06B7A247AF680007139E2 /* DataManager.swift in Sources */,
 				07B2BA0E247C2AFD00ED5BE7 /* CMAnnotationView.swift in Sources */,
 				07C8FA1E248D282B00612C93 /* SettingsDetailsTableViewCell.swift in Sources */,
-				07E06B76247AF218007139E2 /* LocalDataManagerOutputProtocol.swift in Sources */,
 				071DA9E5248D2D2500ADBB5F /* SettingsSnapshotTableViewCell.swift in Sources */,
 				07E06B5F247A7AFD007139E2 /* PickerDialogInterfaces.swift in Sources */,
 				07E2BA5724851B3D00465688 /* LocationService.swift in Sources */,

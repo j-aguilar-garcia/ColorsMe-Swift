@@ -79,7 +79,7 @@ extension ColorMapInteractor: ColorMapInteractorInterface {
         _ = eventHandler?.addDeleteListener(responseHandler: { deletedObject in
             guard let annotation = deletedObject as? Annotation else { return }
             
-            guard let cmAnnotation = DataManager.shared.localDataManager.filterLocalBy(objectId: annotation.objectId!) else { return }
+            guard let cmAnnotation = DataManager.shared.localDataManager.getAnnotationBy(primaryKey: annotation.objectId!) else { return }
             self.presenter.willRemoveAnnotation(cmAnnotation)
             
             DataManager.shared.localDataManager.deleteLocal(by: annotation.objectId!)

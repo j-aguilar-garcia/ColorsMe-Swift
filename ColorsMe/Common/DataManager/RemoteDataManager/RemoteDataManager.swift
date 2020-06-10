@@ -10,7 +10,7 @@ import Foundation
 import Backendless
 import CoreLocation
 
-class RemoteDataManager : RemoteDataManagerInputProtocol {
+class RemoteDataManager : RemoteDataManagerProtocol {
     
     init() { }
     
@@ -32,6 +32,7 @@ class RemoteDataManager : RemoteDataManagerInputProtocol {
                 completion(savedAnnotation)
             }
             }, errorHandler: { fault in
+                log.error(fault)
                 log.error("Error saving remote annotation \(fault.message ?? "")")
         })
     }
@@ -71,6 +72,10 @@ class RemoteDataManager : RemoteDataManagerInputProtocol {
         queryBuilder.setPageSize(pageSize: 100)
         queryBuilder.setOffset(offset: self.offset)
         
+        let delegate = UIApplication.shared.delegate as! AppDelegate
+        let cloudDataManager = CloudDataManager()
+        let userAnnotations = cloudDataManager.getAllCloudData(context: delegate.persistentContainer.viewContext)
+        
         let dateNow = Date()
         if let timeStamp = AppData.backendlessSyncTimeStamp {
             let dateFormatter = DateFormatter.MMMddyyyyHHmmss
@@ -95,8 +100,18 @@ class RemoteDataManager : RemoteDataManagerInputProtocol {
                     guard let annotations = foundObjects as? [Annotation] else { return }
                     for annotation in annotations {
                         remoteAnnotations.append(annotation)
-                        localDataManager.saveLocal(annotation: RealmAnnotation(annotation: annotation))
-                        self.annotations.append(CMAnnotation(annotation: annotation))
+                        
+                        let isMyColor = userAnnotations?.contains(where: { ($0.beObjectId?.elementsEqual(annotation.objectId!) ?? false) } ) ?? false
+                        let realmAnnotation = RealmAnnotation(annotation: annotation, isMyColor: isMyColor)
+                        
+                        if localDataManager.getAllLocal().contains(where: { $0.objectId?.elementsEqual(annotation.objectId!) ?? false }) {
+                            let rlmAnnotation = localDataManager.getObjectBy(primaryKey: annotation.objectId!)
+                            rlmAnnotation?.isMyColor = true
+                            localDataManager.updateLocal(annotation: rlmAnnotation!)
+                        } else {
+                            localDataManager.saveLocal(annotation: realmAnnotation)
+                        }
+                        self.annotations.append(CMAnnotation(annotation: realmAnnotation))
                     }
                     self.offset += size
                     self.queryBuilder.setOffset(offset: self.offset)
