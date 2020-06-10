@@ -8,14 +8,43 @@
 
 import UIKit
 import CoreData
+import Unrealm
+import Firebase
+import Sentry
+import CloudCore
+import SwiftyBeaver
+let log = SwiftyBeaver.self
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
+    
+    let iCloudDelegateHandler = iCloudDelegate()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        application.registerForRemoteNotifications()
+        
+        // Init SwiftyBeaver
+        let console = ConsoleDestination()  // log to Xcode Console
+        let file = FileDestination()
+        let cloud = SBPlatformDestination(
+            appID: AppConfiguration.default.swiftyBeaverAppId,
+            appSecret: AppConfiguration.default.swiftyBeaverAppSecret,
+            encryptionKey: AppConfiguration.default.swiftyBeaverEncryptionKey)
+        log.addDestination(console)
+        log.addDestination(file)
+        log.addDestination(cloud)
+        
+        Realm.registerRealmables([RealmAnnotation.self])
+        
+        _ = DataManager.shared.dataManager(willRetrieveWith: .remote)
+        
+        SentrySDK.start(options: [ "dsn": AppConfiguration.default.sentryDsn!, "debug": false ])
+        
+        CloudCore.delegate = iCloudDelegateHandler
+        CloudCore.enable(persistentContainer: persistentContainer)
+        
+        FirebaseApp.configure()
+        
         return true
     }
 
@@ -28,9 +57,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
+        AppData.selectedFilterIndex = 0
+        AppData.selectedFilterName = "All Colors"
         // Called when the user discards a scene session.
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+            // Check if it CloudKit's and CloudCore notification
+        if CloudCore.isCloudCoreNotification(withUserInfo: userInfo) {
+            // Fetch changed data from iCloud
+            CloudCore.pull(using: userInfo, to: persistentContainer, error: nil, completion: { (fetchResult) in
+                completionHandler(fetchResult.uiBackgroundFetchResult)
+            })
+        }
     }
 
     // MARK: - Core Data stack
@@ -43,6 +84,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          error conditions that could cause the creation of the store to fail.
         */
         let container = NSPersistentCloudKitContainer(name: "ColorsMe")
+
+        let storeDescription = container.persistentStoreDescriptions.first
+        storeDescription?.setOption(true as NSNumber, forKey: NSPersistentHistoryTrackingKey)
+
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.
@@ -59,6 +104,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
+        container.viewContext.automaticallyMergesChangesFromParent = true
         return container
     }()
 
@@ -73,6 +119,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 // Replace this implementation with code to handle the error appropriately.
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
                 let nserror = error as NSError
+                log.error(nserror)
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
