@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol RemoteDataManagerInputProtocol {
+protocol RemoteDataManagerProtocol {
     
     func initBackendless()
     
