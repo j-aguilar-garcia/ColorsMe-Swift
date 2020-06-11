@@ -18,19 +18,19 @@ class SettingsInteractor : SettingsInteractorInterface {
     }
     
     func enableCloudCore() {
-        let delegate = UIApplication.shared.delegate as! AppDelegate
-        let container = delegate.persistentContainer
+        /*
+        let container = DataManager.shared.cloudDataManager.persistentContainer!
         CloudCore.enable(persistentContainer: container)
         CloudCore.pull(to: container, error: { (error) in
             log.error(error)
         }) {
             AppData.lastCloudSync = Date()
             log.verbose("some completion")
-        }
+        }*/
     }
     
     func disableCloudCore() {
-        CloudCore.disable()
+        //CloudCore.disable()
     }
     
 }

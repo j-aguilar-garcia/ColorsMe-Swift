@@ -22,8 +22,7 @@ extension ColorMapInteractor: ColorMapInteractorInterface {
     
     func checkForAnnotationInCoreData(annotation: CMAnnotation) -> Bool {
         let fetchRequest : NSFetchRequest<UserAnnotation> = UserAnnotation.fetchRequest()
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
+        let context = DataManager.shared.cloudDataManager.persistentContainer.viewContext
         let annotations = try? context.fetch(fetchRequest)
         for anno in annotations! {
             if anno.beObjectId == annotation.objectId {

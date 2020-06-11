@@ -17,16 +17,16 @@ class LocalDataManager : LocalDataManagerProtocol {
     
     func saveLocal(annotation: RealmAnnotation) {
         try! realm.write {
-            log.debug("Realm add")
-            realm.add(annotation, update: .all)
+            log.debug("Realm add \(annotation.objectId!)")
+            realm.add(annotation, update: .modified)
             NotificationCenter.default.post(name: .didAddRealmAnnotation, object: nil)
         }
     }
     
     func updateLocal(annotation: RealmAnnotation) {
         try! realm.write {
-            log.debug("Realm Update")
-            realm.add(annotation, update: .all)
+            log.debug("Realm Update \(annotation.objectId!)")
+            realm.add(annotation, update: .modified)
         }
     }
     
@@ -40,7 +40,7 @@ class LocalDataManager : LocalDataManagerProtocol {
         try! realm.write {
             let objectToDelete = realm.object(ofType: RealmAnnotation.self, forPrimaryKey: id)
             guard let object = objectToDelete else {
-                log.error("Can not deleteLocal by Id")
+                log.error("Can not deleteLocal by Id \(objectToDelete?.objectId!)")
                 return
             }
             realm.delete(object)
@@ -91,7 +91,7 @@ class LocalDataManager : LocalDataManagerProtocol {
             
             let cloudAnnotations = DataManager.shared.cloudDataManager.getUserAnnotations()
             let localAnnotations = getAllLocal()
-            //let annotations = getAllLocal().filter({ $0.isMyColor == true })
+            let annotations = getAllLocal().filter({ $0.isMyColor == true })
             //let fetchRequest : NSFetchRequest<UserAnnotation> = UserAnnotation.fetchRequest()
 
             //let annotations = try? context.fetch(fetchRequest)
@@ -103,12 +103,13 @@ class LocalDataManager : LocalDataManagerProtocol {
                 }
             }
             log.verbose("annos = \(annos.count)")
+             */
             let annotations = filterLocal(with: NSPredicate(format: "isMyColor == true"))
             log.verbose("annotations predicate = \(annotations.count)")
-            */
-            let userAnnotations = DataManager.shared.cloudDataManager.getAnnotations()
-            log.debug(userAnnotations.count)
-            return userAnnotations
+        
+            //let userAnnotations = DataManager.shared.cloudDataManager.getAnnotations()
+            //log.debug(userAnnotations.count)
+            return annotations
             
             
             //log.debug(annotations.count)

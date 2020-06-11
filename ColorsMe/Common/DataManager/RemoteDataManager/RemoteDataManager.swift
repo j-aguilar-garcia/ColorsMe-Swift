@@ -92,17 +92,20 @@ class RemoteDataManager : RemoteDataManagerProtocol {
                     log.debug("remoteAnnotations.count == allColors \(remoteAnnotations.count == allColors)")
                     log.debug("Retrieved data in (ms) - \(Int(Date().timeIntervalSince(startTime) * 1000)) in secs \(Int(Date().timeIntervalSince(startTime)))")
                     self.offset = 0
-                    self.checkForDeletedData(localDataManager: localDataManager, date: dateNow)
+                    //self.checkForDeletedData(localDataManager: localDataManager, date: dateNow)
                     return
                 } else {
                     guard let annotations = foundObjects as? [Annotation] else { return }
                     for annotation in annotations {
                         remoteAnnotations.append(annotation)
                         
-                        let isMyColor = userAnnotations.contains(where: { ($0.beObjectId?.elementsEqual(annotation.objectId!) ?? false) } ) ?? false
+                        let isMyColor = userAnnotations.contains(where: { ($0.beObjectId!.elementsEqual(annotation.objectId!)) } )
+                        log.debug(isMyColor)
                         let realmAnnotation = RealmAnnotation(annotation: annotation, isMyColor: isMyColor)
                         
-                        if localDataManager.getAllLocal().contains(where: { $0.objectId?.elementsEqual(annotation.objectId!) ?? false }) {
+                        let localAnnotations = localDataManager.getAllLocal()
+                        if localAnnotations.contains(where: { $0.objectId!.elementsEqual(annotation.objectId!)} ) {
+                            
                             /*let rlmAnnotation = localDataManager.getObjectBy(primaryKey: annotation.objectId!)
                             rlmAnnotation?.isMyColor = true*/
                             localDataManager.updateLocal(annotation: realmAnnotation)

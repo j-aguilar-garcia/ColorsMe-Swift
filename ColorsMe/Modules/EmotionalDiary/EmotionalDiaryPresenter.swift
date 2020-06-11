@@ -64,12 +64,14 @@ extension EmotionalDiaryPresenter: EmotionalDiaryPresenterInterface {
             self.syncAnnotations()
         }
 
-        //syncAnnotations()
-        view.reloadTableView()
+        syncAnnotations()
+        //view.reloadTableView()
     }
     
     func syncAnnotations() {
-        userAnnotations = interactor.getUserAnnotations()
+        DataManager.shared.cloudDataManager.fetchCloudAnnotations()
+        userAnnotations = DataManager.shared.localDataManager.filterLocal(by: .mycolors)
+        view.reloadTableView()
     }
     
 }

@@ -13,12 +13,46 @@ import Mapbox
 
 class CloudDataManager : CloudDataManagerProtocol {
     
+    public var userAnnotations = [UserAnnotation]() {
+        didSet {
+            userAnnotations.sort { $0.created! > $1.created! }
+        }
+    }
+    
+    public var annotations = [CMAnnotation]() {
+        didSet {
+            annotations.sort { $0.created! > $1.created! }
+        }
+    }
+    
     private let entitiyName = "UserAnnotation"
-    private let context: NSManagedObjectContext!
+    private var context: NSManagedObjectContext!
+    let appTransactionAuthorName = "app"
+    
+    var cloudKitContainerOptions: NSPersistentCloudKitContainerOptions!
+    /**
+     A persistent container that can load cloud-backed and non-cloud stores.
+     */
+    var persistentContainer: NSPersistentContainer!
     
     init() {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        self.context = appDelegate.persistentContainer.viewContext
+        //let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        setPersistentContainer { (success) in }
+        //self.context = persistentContainer.viewContext
+
+        if let tokenData = try? Data(contentsOf: tokenFile) {
+            do {
+                lastHistoryToken = try NSKeyedUnarchiver.unarchivedObject(ofClass: NSPersistentHistoryToken.self, from: tokenData)
+            } catch {
+                log.error("###\(#function): Failed to unarchive NSPersistentHistoryToken. Error = \(error)")
+            }
+        }
+        fetchCloudAnnotations()
+    }
+    
+    func fetchCloudAnnotations() {
+        userAnnotations = getUserAnnotations()
+        annotations = getAnnotations()
     }
     
     func addAnnotation(annotation: CMAnnotation) {
@@ -50,14 +84,13 @@ class CloudDataManager : CloudDataManagerProtocol {
     func getUserAnnotations() -> [UserAnnotation] {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: entitiyName)
         request.sortDescriptors = [NSSortDescriptor(key: "created", ascending: false)]
-        var fetchedAnnotations = [UserAnnotation]()
         do {
             let result = try context.fetch(request) as! [UserAnnotation]
-            fetchedAnnotations = result
+            userAnnotations = result
             return result
         } catch {
             log.error(error.localizedDescription)
-            return fetchedAnnotations
+            return userAnnotations
         }
     }
     
@@ -76,7 +109,7 @@ class CloudDataManager : CloudDataManagerProtocol {
         
         return annotations
     }
-
+    
     
     func deleteAnnotationBy(objectId: String) {
         let annotationToDelete = getAnnotationBy(objectId: objectId)
@@ -100,4 +133,176 @@ class CloudDataManager : CloudDataManagerProtocol {
         return annotations.first!
     }
     
+    
+    
+    
+    private func setPersistentContainer(completionHandler: @escaping (_ success: Bool) -> Void) {
+        var container: NSPersistentContainer?
+        container = NSPersistentCloudKitContainer(name: "ColorsMe")
+        
+        // Enable history tracking and remote notifications
+        guard let description = container!.persistentStoreDescriptions.first else {
+            completionHandler(false)
+            return
+        }
+        description.setOption(true as NSNumber, forKey: NSPersistentHistoryTrackingKey)
+        description.setOption(true as NSNumber, forKey: NSPersistentStoreRemoteChangeNotificationPostOptionKey)
+        
+        cloudKitContainerOptions = description.cloudKitContainerOptions
+        
+        container!.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        container!.viewContext.transactionAuthor = appTransactionAuthorName
+        
+        // Pin the viewContext to the current generation token and set it to keep itself up to date with local changes.
+        container!.viewContext.automaticallyMergesChangesFromParent = true
+        do {
+            try container!.viewContext.setQueryGenerationFrom(.current)
+        } catch {
+            completionHandler(false)
+            //fatalError("###\(#function): Failed to pin viewContext to the current generation:\(error)")
+        }
+        
+        // Observe Core Data remote change notifications.
+        NotificationCenter.default.addObserver(
+            self, selector: #selector(type(of: self).storeRemoteChange(_:)),
+            name: .NSPersistentStoreRemoteChange, object: container)
+        
+        container!.loadPersistentStores(completionHandler: { (_, error) in
+            guard (error as NSError?) != nil else { return }
+            completionHandler(false)
+        })
+        persistentContainer = container!
+        context = container!.viewContext
+        completionHandler(true)
+        
+    }
+    
+    /**
+     Track the last history token processed for a store, and write its value to file.
+     The historyQueue reads the token when executing operations, and updates it after processing is complete.
+     */
+    public var lastHistoryToken: NSPersistentHistoryToken? = nil {
+        didSet {
+            guard let token = lastHistoryToken,
+                let data = try? NSKeyedArchiver.archivedData( withRootObject: token, requiringSecureCoding: true) else { return }
+            
+            do {
+                try data.write(to: tokenFile)
+            } catch {
+                log.error("###\(#function): Failed to write token data. Error = \(error)")
+            }
+        }
+    }
+    
+    /**
+     The file URL for persisting the persistent history token.
+     */
+    private lazy var tokenFile: URL = {
+        let url = NSPersistentContainer.defaultDirectoryURL().appendingPathComponent("CoreDataCloudKitColorsMe", isDirectory: true)
+        if !FileManager.default.fileExists(atPath: url.path) {
+            do {
+                try FileManager.default.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
+            } catch {
+                log.error("###\(#function): Failed to create persistent container URL. Error = \(error)")
+            }
+        }
+        return url.appendingPathComponent("token.data", isDirectory: false)
+    }()
+    
+    /**
+     An operation queue for handling history processing tasks: watching changes, deduplicating Annotations, and triggering UI updates if needed.
+     */
+    private lazy var historyQueue: OperationQueue = {
+        let queue = OperationQueue()
+        queue.maxConcurrentOperationCount = 1
+        return queue
+    }()
+    
+    /**
+     The URL of the thumbnail folder.
+     */
+    static var attachmentFolder: URL = {
+        var url = NSPersistentContainer.defaultDirectoryURL().appendingPathComponent("CoreDataCloudKit", isDirectory: true)
+        url = url.appendingPathComponent("attachments", isDirectory: true)
+        
+        // Create it if it doesn’t exist.
+        if !FileManager.default.fileExists(atPath: url.path) {
+            do {
+                try FileManager.default.createDirectory(at: url, withIntermediateDirectories: true, attributes: nil)
+                
+            } catch {
+                log.verbose("###\(#function): Failed to create thumbnail folder URL: \(error)")
+            }
+        }
+        return url
+    }()
 }
+
+
+// MARK: - Notifications
+
+extension CloudDataManager {
+    
+    /**
+     Handle remote store change notifications (.NSPersistentStoreRemoteChange).
+     */
+    @objc
+    func storeRemoteChange(_ notification: Notification) {
+        log.verbose("###\(#function): Merging changes from the other persistent store coordinator.")
+        // Process persistent history to merge changes from other coordinators.
+        historyQueue.addOperation {
+            self.processPersistentHistory()
+        }
+    }
+    
+}
+
+
+// MARK: - Persistent history processing
+
+extension CloudDataManager {
+    
+    /**
+     Process persistent history, posting any relevant transactions to the current view.
+     */
+    func processPersistentHistory() {
+        let taskContext = persistentContainer.newBackgroundContext()
+        taskContext.performAndWait {
+            
+            // Fetch history received from outside the app since the last token
+            let historyFetchRequest = NSPersistentHistoryTransaction.fetchRequest!
+            historyFetchRequest.predicate = NSPredicate(format: "author != %@", appTransactionAuthorName)
+            let request = NSPersistentHistoryChangeRequest.fetchHistory(after: lastHistoryToken)
+            request.fetchRequest = historyFetchRequest
+            
+            let result = (try? taskContext.execute(request)) as? NSPersistentHistoryResult
+            guard let transactions = result?.result as? [NSPersistentHistoryTransaction],
+                !transactions.isEmpty
+                else { return }
+            
+            // Post transactions relevant to the current view.
+            DispatchQueue.main.async {
+                NotificationCenter.default.post(name: .didFindRelevantTransactions, object: self, userInfo: ["transactions": transactions])
+            }
+            
+            // Deduplicate the new annotationss.
+            var newAnnotationObjectIDs = [NSManagedObjectID]()
+            let annotationEntityName = entitiyName
+            
+            for transaction in transactions where transaction.changes != nil {
+                for change in transaction.changes!
+                    where change.changedObjectID.entity.name == annotationEntityName && change.changeType == .insert {
+                        newAnnotationObjectIDs.append(change.changedObjectID)
+                }
+            }
+            if !newAnnotationObjectIDs.isEmpty {
+                //deduplicateAndWait(annotationObjectIDs: newAnnotationObjectIDs)
+            }
+            
+            // Update the history token using the last transaction.
+            lastHistoryToken = transactions.last!.token
+        }
+    }
+    
+}
+

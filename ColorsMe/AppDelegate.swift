@@ -60,7 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-            let taskContext = persistentContainer.newBackgroundContext()
+        let taskContext = DataManager.shared.cloudDataManager.persistentContainer.newBackgroundContext()
             taskContext.performAndWait {
                 var lastHistoryToken = AppData.lastCloudHistoryToken
 
@@ -86,7 +86,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     // MARK: - Core Data stack
-
+/*
     lazy var persistentContainer: NSPersistentCloudKitContainer = {
         /*
          The persistent container for the application. This implementation
@@ -117,12 +117,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         })
         container.viewContext.automaticallyMergesChangesFromParent = true
         return container
-    }()
+    }()*/
 
     // MARK: - Core Data Saving support
 
     func saveContext () {
-        let context = persistentContainer.viewContext
+        let context = DataManager.shared.cloudDataManager.persistentContainer.viewContext
         if context.hasChanges {
             do {
                 try context.save()

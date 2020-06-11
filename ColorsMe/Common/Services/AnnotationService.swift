@@ -47,17 +47,6 @@ class AnnotationService {
         })
     }
     
-    open func deleteAnnotation(id: String, objectId: NSManagedObjectID) {
-        DataManager.shared.dataManager(id: id, willDeltewith: .both)
-        delegate.persistentContainer.performBackgroundTask { (context) in
-            context.name = CloudCore.config.pushContextName
-            if let objectToDelete = try? context.existingObject(with: objectId) {
-                log.debug("delete iCloud Annotation: \(objectToDelete)")
-                context.delete(objectToDelete)
-                try? context.save()
-            }
-        }
-    }
     
     open func deleteAnnotation(_ annotation: CMAnnotation, completion: @escaping () -> ()) {
         DataManager.shared.dataManager(id: annotation.objectId!, willDeltewith: .both)

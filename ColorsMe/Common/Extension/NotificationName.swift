@@ -13,4 +13,6 @@ extension Notification.Name {
     static let networkReachability = Notification.Name("NetworkReachability")
     static let didAddRealmAnnotation = Notification.Name("DidAddRealmAnnotation")
     static let didSyncFromCloud = Notification.Name("DidSyncFromCloud")
+    static let didFindRelevantTransactions = Notification.Name("didFindRelevantTransactions")
+
 }
