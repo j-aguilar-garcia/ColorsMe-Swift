@@ -1,48 +1,16 @@
 {
   "images" : [
     {
-      "filename" : "EmptData@1Light.png",
-      "idiom" : "universal",
-      "scale" : "1x"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "dark"
-        }
-      ],
       "filename" : "EmptData@1Dark.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "EmptData@2Light.png",
-      "idiom" : "universal",
-      "scale" : "2x"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "dark"
-        }
-      ],
       "filename" : "EmptData@2Dark.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "idiom" : "universal",
-      "scale" : "3x"
-    },
-    {
-      "appearances" : [
-        {
-          "appearance" : "luminosity",
-          "value" : "dark"
-        }
-      ],
       "idiom" : "universal",
       "scale" : "3x"
     }

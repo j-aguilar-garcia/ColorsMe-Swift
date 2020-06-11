@@ -10,7 +10,7 @@ import Foundation
 import Backendless
 import CoreLocation
 
-class RemoteDataManager : RemoteDataManagerInputProtocol {
+class RemoteDataManager : RemoteDataManagerProtocol {
     
     init() { }
     

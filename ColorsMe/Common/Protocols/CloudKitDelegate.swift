@@ -7,3 +7,12 @@
 //
 
 import Foundation
+import CloudCore
+
+class CloudKitDelegate : CloudCoreDelegate {
+    
+    func didSyncFromCloud() {
+        
+    }
+    
+}

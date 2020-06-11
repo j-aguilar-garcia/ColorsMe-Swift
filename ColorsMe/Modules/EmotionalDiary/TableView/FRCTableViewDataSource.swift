@@ -118,6 +118,7 @@ class FRCTableViewDataSource<FetchRequestResult: NSFetchRequestResult>: NSObject
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView?.endUpdates()
+        tableView?.reloadEmptyDataSet()
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? { return nil }

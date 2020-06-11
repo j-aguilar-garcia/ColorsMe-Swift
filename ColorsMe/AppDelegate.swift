@@ -18,7 +18,7 @@ let log = SwiftyBeaver.self
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    let iCloudDelegateHandler = iCloudDelegate()
+    let iCloudDelegateHandler = CloudKitDelegate()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         application.registerForRemoteNotifications()
