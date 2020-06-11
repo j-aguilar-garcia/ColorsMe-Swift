@@ -72,9 +72,7 @@ class RemoteDataManager : RemoteDataManagerProtocol {
         queryBuilder.setPageSize(pageSize: 100)
         queryBuilder.setOffset(offset: self.offset)
         
-        let delegate = UIApplication.shared.delegate as! AppDelegate
-        let cloudDataManager = CloudDataManager()
-        let userAnnotations = cloudDataManager.getAllCloudData(context: delegate.persistentContainer.viewContext)
+        let userAnnotations = DataManager.shared.cloudDataManager.getUserAnnotations()
         
         let dateNow = Date()
         if let timeStamp = AppData.backendlessSyncTimeStamp {
@@ -101,7 +99,7 @@ class RemoteDataManager : RemoteDataManagerProtocol {
                     for annotation in annotations {
                         remoteAnnotations.append(annotation)
                         
-                        let isMyColor = userAnnotations?.contains(where: { ($0.beObjectId?.elementsEqual(annotation.objectId!) ?? false) } ) ?? false
+                        let isMyColor = userAnnotations.contains(where: { ($0.beObjectId?.elementsEqual(annotation.objectId!) ?? false) } ) ?? false
                         let realmAnnotation = RealmAnnotation(annotation: annotation, isMyColor: isMyColor)
                         
                         if localDataManager.getAllLocal().contains(where: { $0.objectId?.elementsEqual(annotation.objectId!) ?? false }) {

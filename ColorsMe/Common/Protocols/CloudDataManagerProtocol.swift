@@ -11,6 +11,10 @@ import CoreData
 
 protocol CloudDataManagerProtocol {
     
-    func getAllCloudData(context: NSManagedObjectContext) -> [UserAnnotation]?
+    func addAnnotation(annotation: CMAnnotation)
+    
+    func getUserAnnotations() -> [UserAnnotation]
+    
+    func getAnnotations() -> [CMAnnotation]
     
 }

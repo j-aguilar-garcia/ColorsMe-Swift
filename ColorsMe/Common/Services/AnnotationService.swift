@@ -38,7 +38,7 @@ class AnnotationService {
 
                         let cmAnnotation = CMAnnotation(annotation: savedAnnotation, isMyColor: byUser)
 
-                        self.saveAnnotationToiCloud(annotation: cmAnnotation)
+                        DataManager.shared.cloudDataManager.addAnnotation(annotation: cmAnnotation)
                         DataManager.shared.localDataManager.saveLocal(annotation: realmAnnotation)
                     }
                 })
@@ -59,27 +59,7 @@ class AnnotationService {
         }
     }
     
-    private func saveAnnotationToiCloud(annotation: CMAnnotation) {
-        delegate.persistentContainer.performBackgroundTask { (context) in
-            context.name = CloudCore.config.pushContextName
-            
-            let userAnnotation = UserAnnotation(context: context)
-            userAnnotation.beObjectId = annotation.objectId
-            userAnnotation.city = annotation.city
-            userAnnotation.color = annotation.color.rawValue
-            userAnnotation.isMyColor = true
-            userAnnotation.country = annotation.country
-            userAnnotation.countryIsoCode = annotation.isocountrycode
-            userAnnotation.created = annotation.created
-            userAnnotation.guid = annotation.guid
-            userAnnotation.latitude = annotation.latitude
-            userAnnotation.longitude = annotation.longitude
-            userAnnotation.title = annotation.title
-            log.debug("Annotation saved to iCloud with objectId \(String(describing: annotation.objectId))")
-            try? context.save()
-        }
 
-    }
     
     private func createAnnotation(with color: EmotionalColor, completion: @escaping (Annotation) -> ()) {
         let annotation = Annotation()

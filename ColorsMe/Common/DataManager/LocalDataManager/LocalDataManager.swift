@@ -86,12 +86,10 @@ class LocalDataManager : LocalDataManagerProtocol {
             
         case .mycolors:
             #warning("Filter my colors!")
+            /*
             var annos = [CMAnnotation]()
             
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            let context = appDelegate.persistentContainer.viewContext
-            
-            let cloudAnnotations = DataManager.shared.cloudDataManager.getAllCloudData(context: context)
+            let cloudAnnotations = DataManager.shared.cloudDataManager.getUserAnnotations()
             let localAnnotations = getAllLocal()
             //let annotations = getAllLocal().filter({ $0.isMyColor == true })
             //let fetchRequest : NSFetchRequest<UserAnnotation> = UserAnnotation.fetchRequest()
@@ -107,7 +105,10 @@ class LocalDataManager : LocalDataManagerProtocol {
             log.verbose("annos = \(annos.count)")
             let annotations = filterLocal(with: NSPredicate(format: "isMyColor == true"))
             log.verbose("annotations predicate = \(annotations.count)")
-            return annotations
+            */
+            let userAnnotations = DataManager.shared.cloudDataManager.getAnnotations()
+            log.debug(userAnnotations.count)
+            return userAnnotations
             
             
             //log.debug(annotations.count)

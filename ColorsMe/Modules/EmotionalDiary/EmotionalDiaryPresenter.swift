@@ -73,7 +73,7 @@ extension EmotionalDiaryPresenter: EmotionalDiaryPresenterInterface {
         }
 
         //userAnnotations = interactor.getUserAnnotations()
-        view.reloadTableView()
+        //view.reloadTableView()
     }
     
 }

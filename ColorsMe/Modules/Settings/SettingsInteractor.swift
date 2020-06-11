@@ -14,7 +14,7 @@ import CloudCore
 class SettingsInteractor : SettingsInteractorInterface {
     
     func getUserAnnotationsCount() -> Int {
-        return DataManager.shared.dataManager(filterBy: .mycolors, with: .local, completion: {}).count
+        return DataManager.shared.cloudDataManager.getAnnotations().count
     }
     
     func enableCloudCore() {

@@ -25,7 +25,7 @@ extension EmotionalDiaryInteractor: EmotionalDiaryInteractorInterface {
     }
     
     func getUserAnnotations() -> [CMAnnotation] {
-        let annotations = DataManager.shared.dataManager(filterBy: .mycolors, with: .local, completion: {})
+        let annotations = DataManager.shared.cloudDataManager.getAnnotations()
         return annotations
     }
     
