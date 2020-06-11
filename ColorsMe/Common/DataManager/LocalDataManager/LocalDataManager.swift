@@ -24,7 +24,7 @@ class LocalDataManager : LocalDataManagerProtocol {
     func updateLocal(annotation: RealmAnnotation) {
         try! realm.write {
             log.debug("Realm Update")
-            realm.add(annotation, update: .all)
+            realm.add(annotation, update: .modified)
         }
     }
     

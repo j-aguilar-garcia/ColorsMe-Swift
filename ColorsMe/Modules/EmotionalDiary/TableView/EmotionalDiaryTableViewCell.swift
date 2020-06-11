@@ -21,13 +21,11 @@ class EmotionalDiaryTableViewCell : MGSwipeTableCell {
     
     @IBOutlet weak var indicator: UIActivityIndicatorView!
 
-    let imageCache = ImageCache()
-
     override func draw(_ rect: CGRect) {
         dateLabel.textColor = UIColor.darkGray
     }
     
-    func configure(annotation: UserAnnotation) {
+    func configure(annotation: UserAnnotation, imageCache: ImageCache) {
         let calendar = Calendar.current
         let formatter = DateFormatter.yyyyMMddHHmmss
         let dateTitle = formatter.string(from: annotation.created!)
@@ -48,14 +46,14 @@ class EmotionalDiaryTableViewCell : MGSwipeTableCell {
 
         if AppData.shouldDisplaySnapshots {
             if let cachedImage = imageCache.loadImage(for: annotation.guid!) {
-                print("\(#function) cached image loaded")
+                log.verbose("Cached image loaded")
                 colorImage.image = cachedImage
             } else {
                 indicator.startAnimating()
                 takeSnapshot(coords: CLLocationCoordinate2D(latitude: annotation.latitude, longitude: annotation.longitude), color: EmotionalColor(rawValue: annotation.color!)!) { (image) in
+                    imageCache.setImage(image: image, for: annotation.guid!)
                     self.indicator.stopAnimating()
                     self.colorImage.image = image
-                    self.imageCache.setImage(image: image, for: annotation.guid!)
                 }
             }
             colorImage.layer.cornerRadius = 8

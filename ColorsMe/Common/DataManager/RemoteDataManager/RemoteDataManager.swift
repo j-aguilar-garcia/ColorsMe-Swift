@@ -95,7 +95,12 @@ class RemoteDataManager : RemoteDataManagerProtocol {
                     guard let annotations = foundObjects as? [Annotation] else { return }
                     for annotation in annotations {
                         remoteAnnotations.append(annotation)
-                        localDataManager.saveLocal(annotation: RealmAnnotation(annotation: annotation))
+                        let localAnnotations = localDataManager.getAllLocal()
+                        if localAnnotations.contains(where: { $0.objectId!.elementsEqual(annotation.objectId!)}) {
+                            localDataManager.updateLocal(annotation: RealmAnnotation(annotation: annotation))
+                        } else {
+                            localDataManager.saveLocal(annotation: RealmAnnotation(annotation: annotation))
+                        }
                         self.annotations.append(CMAnnotation(annotation: annotation))
                     }
                     self.offset += size
@@ -146,7 +151,7 @@ class RemoteDataManager : RemoteDataManagerProtocol {
                 } else {
                     guard let remoteAnnotations = foundObjects as? [Annotation] else { return }
                     for annotation in localAnnotations {
-                        if !remoteAnnotations.contains(where: { $0.objectId == annotation.objectId }) {
+                        if !remoteAnnotations.contains(where: { $0.objectId!.elementsEqual(annotation.objectId!) }) {
                             DispatchQueue.main.async {
                                 localDataManager.deleteLocal(by: annotation.objectId!)
                             }

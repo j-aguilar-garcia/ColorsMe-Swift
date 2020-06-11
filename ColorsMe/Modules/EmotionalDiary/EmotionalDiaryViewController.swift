@@ -19,6 +19,8 @@ final class EmotionalDiaryViewController: UIViewController {
     var presenter: EmotionalDiaryPresenterInterface!
 
     var tableDataSource: FRCTableViewDataSource<UserAnnotation>!
+        
+    let imageCache = ImageCache()
     // MARK: - Outlets
         
     @IBOutlet weak var tableView: UITableView!
@@ -178,7 +180,7 @@ extension EmotionalDiaryViewController : MGSwipeTableCellDelegate {
     private func onDeleteSwipe(_ indexPath: IndexPath) {
         let annotationToDelete = tableDataSource.object(at: indexPath)
         AnnotationService.default.deleteAnnotation(id: annotationToDelete.beObjectId!, objectId: annotationToDelete.objectID)
-        ImageCache().clear(key: annotationToDelete.guid!)
+        imageCache.clear(key: annotationToDelete.guid!)
         
         if AppData.iCloudDataSyncIsEnabled {
             AppData.lastCloudSync = Date()
@@ -193,7 +195,7 @@ extension EmotionalDiaryViewController : FRCTableViewDelegate {
     func frcTableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = tableDataSource.object(at: indexPath)
         let cell = tableView.dequeueReusableCell(ofType: EmotionalDiaryTableViewCell.self, for: indexPath)
-        cell.configure(annotation: item)
+        cell.configure(annotation: item, imageCache: imageCache)
         cell.delegate = self
         cell.configureSwipes()
         return cell
