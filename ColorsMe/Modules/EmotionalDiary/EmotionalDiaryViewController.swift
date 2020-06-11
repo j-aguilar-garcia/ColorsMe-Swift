@@ -73,8 +73,6 @@ final class EmotionalDiaryViewController: UIViewController {
             tableViewContainerWidthConstraint.priority = .defaultLow
             
         }
-        
-        //try! tableDataSource.performFetch()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -82,9 +80,6 @@ final class EmotionalDiaryViewController: UIViewController {
         if let indexPath = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: indexPath, animated: true)
         }
-        //try? tableDataSource.performFetch()
-
-        //tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .none)
         updateConstraints()
     }
     
@@ -108,7 +103,7 @@ final class EmotionalDiaryViewController: UIViewController {
 extension EmotionalDiaryViewController : UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return presenter.userAnnotations?.count ?? 0
+        return presenter.userAnnotations.count
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -207,8 +202,14 @@ extension EmotionalDiaryViewController : MGSwipeTableCellDelegate {
     private func onDeleteSwipe(_ indexPath: IndexPath) {
         let annotationToDelete = presenter.object(at: indexPath)
         #warning("Delete annotation and remove from map")
-        //AnnotationService.default.deleteAnnotation(id: annotationToDelete.beObjectId!, objectId: annotationToDelete.objectID)
+        
+        tableView.beginUpdates()
+        AnnotationService.default.deleteAnnotation(annotationToDelete, completion: {
+            self.presenter.syncAnnotations()
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+        })
         ImageCache().clear(key: annotationToDelete.guid!)
+        tableView.endUpdates()
         
         if AppData.iCloudDataSyncIsEnabled {
             AppData.lastCloudSync = Date()

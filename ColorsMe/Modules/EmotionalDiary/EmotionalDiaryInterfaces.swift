@@ -21,9 +21,11 @@ protocol EmotionalDiaryViewInterface: ViewInterface {
 }
 
 protocol EmotionalDiaryPresenterInterface: PresenterInterface {
+    var userAnnotations: [CMAnnotation] { get }
     func object(at: IndexPath) -> CMAnnotation
     func zoomToAnnotation(annotation: CMAnnotation)
     func didSelectAddAction(color: EmotionalColor)
+    func syncAnnotations()
 }
 
 protocol EmotionalDiaryInteractorInterface: InteractorInterface {
@@ -33,4 +35,9 @@ protocol EmotionalDiaryInteractorInterface: InteractorInterface {
 
 enum MyColorsItem {
     case myColors(CMAnnotation)
+}
+
+enum CornerSide {
+    case bottom
+    case top
 }

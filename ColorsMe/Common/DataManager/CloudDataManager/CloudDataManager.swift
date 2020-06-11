@@ -49,7 +49,7 @@ class CloudDataManager : CloudDataManagerProtocol {
     
     func getUserAnnotations() -> [UserAnnotation] {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: entitiyName)
-        request.sortDescriptors = [NSSortDescriptor(key: "created", ascending: true)]
+        request.sortDescriptors = [NSSortDescriptor(key: "created", ascending: false)]
         var fetchedAnnotations = [UserAnnotation]()
         do {
             let result = try context.fetch(request) as! [UserAnnotation]
@@ -77,5 +77,27 @@ class CloudDataManager : CloudDataManagerProtocol {
         return annotations
     }
 
+    
+    func deleteAnnotationBy(objectId: String) {
+        let annotationToDelete = getAnnotationBy(objectId: objectId)
+        context.delete(annotationToDelete)
+        self.context.perform {
+            do {
+                try self.context.save()
+            } catch {
+                log.error(error.localizedDescription)
+            }
+        }
+    }
+    
+    func getAnnotationBy(objectId: String) -> UserAnnotation {
+        let annotations = getUserAnnotations()
+        for annotation in annotations {
+            if annotation.beObjectId!.elementsEqual(objectId) {
+                return annotation
+            }
+        }
+        return annotations.first!
+    }
     
 }

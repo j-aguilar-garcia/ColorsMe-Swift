@@ -17,9 +17,6 @@ let log = SwiftyBeaver.self
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    
-    //let iCloudDelegateHandler = iCloudDelegate()
-    
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         application.registerForRemoteNotifications()
@@ -40,9 +37,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         DataManager.shared.fetchData()
         
         SentrySDK.start(options: [ "dsn": AppConfiguration.default.sentryDsn!, "debug": false ])
-        
-        //CloudCore.delegate = iCloudDelegateHandler
-        //CloudCore.enable(persistentContainer: persistentContainer)
         
         FirebaseApp.configure()
         
@@ -66,14 +60,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-            // Check if it CloudKit's and CloudCore notification
-        if CloudCore.isCloudCoreNotification(withUserInfo: userInfo) {
-            // Fetch changed data from iCloud
-            CloudCore.pull(using: userInfo, to: persistentContainer, error: nil, completion: { (fetchResult) in
+            let taskContext = persistentContainer.newBackgroundContext()
+            taskContext.performAndWait {
+                var lastHistoryToken = AppData.lastCloudHistoryToken
+
+                let historyFetchRequest = NSPersistentHistoryTransaction.fetchRequest!
+                taskContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+                let request = NSPersistentHistoryChangeRequest.fetchHistory(after: lastHistoryToken)
+                request.fetchRequest = historyFetchRequest
+                
+                let result = (try? taskContext.execute(request)) as? NSPersistentHistoryResult
+                guard let transactions = result?.result as? [NSPersistentHistoryTransaction],
+                      !transactions.isEmpty
+                    else { return }
+                
+                lastHistoryToken = transactions.last!.token
+                AppData.lastCloudHistoryToken = lastHistoryToken
                 AppData.lastCloudSync = Date()
-                completionHandler(fetchResult.uiBackgroundFetchResult)
-            })
-        }
+                AppData.iCloudHasSynced = true
+                
+                log.info("###\(#function): FINISHED \(String(describing: lastHistoryToken))")
+                NotificationCenter.default.post(name: .didSyncFromCloud, object: nil)
+            }
+            completionHandler(.newData)
     }
 
     // MARK: - Core Data stack

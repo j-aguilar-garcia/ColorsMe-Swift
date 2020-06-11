@@ -36,7 +36,6 @@
 		077325FD24869BB5009DDB57 /* AnnotationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 077325FC24869BB5009DDB57 /* AnnotationService.swift */; };
 		0780677D248E59D30054B12D /* SettingsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0780677C248E59D30054B12D /* SettingsInteractor.swift */; };
 		0780677F248E680F0054B12D /* ShareService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0780677E248E680F0054B12D /* ShareService.swift */; };
-		07823E36249160C500E0AA5F /* iCloudDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07823E35249160C500E0AA5F /* iCloudDelegate.swift */; };
 		079840F5247BC5310054024B /* LocalDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 079840F4247BC5310054024B /* LocalDataManager.swift */; };
 		07B2BA0E247C2AFD00ED5BE7 /* CMAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B2BA0D247C2AFD00ED5BE7 /* CMAnnotationView.swift */; };
 		07B2BA10247C558300ED5BE7 /* DataManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07B2BA0F247C558300ED5BE7 /* DataManagerProtocol.swift */; };
@@ -51,7 +50,6 @@
 		07C4BFD12486F7FF00552BC9 /* EmotionalDiaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C4BFD02486F7FF00552BC9 /* EmotionalDiaryTableViewCell.swift */; };
 		07C4BFD32486FB6D00552BC9 /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C4BFD22486FB6D00552BC9 /* TableView.swift */; };
 		07C4BFD52486FFBC00552BC9 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C4BFD42486FFBC00552BC9 /* ImageCache.swift */; };
-		07C4BFD7248703A700552BC9 /* FRCTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C4BFD6248703A700552BC9 /* FRCTableViewDataSource.swift */; };
 		07C5B7A82486A6BB00E36E91 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07C5B7A72486A6BB00E36E91 /* NetworkExtension.framework */; };
 		07C8FA0C248D036700612C93 /* ReachabilityObserverProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C8FA0B248D036700612C93 /* ReachabilityObserverProtocol.swift */; };
 		07C8FA10248D0A5A00612C93 /* NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C8FA0F248D0A5A00612C93 /* NotificationName.swift */; };
@@ -170,7 +168,6 @@
 		077325FC24869BB5009DDB57 /* AnnotationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationService.swift; sourceTree = "<group>"; };
 		0780677C248E59D30054B12D /* SettingsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsInteractor.swift; sourceTree = "<group>"; };
 		0780677E248E680F0054B12D /* ShareService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareService.swift; sourceTree = "<group>"; };
-		07823E35249160C500E0AA5F /* iCloudDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iCloudDelegate.swift; sourceTree = "<group>"; };
 		079840F4247BC5310054024B /* LocalDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataManager.swift; sourceTree = "<group>"; };
 		07B2BA0D247C2AFD00ED5BE7 /* CMAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMAnnotationView.swift; sourceTree = "<group>"; };
 		07B2BA0F247C558300ED5BE7 /* DataManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagerProtocol.swift; sourceTree = "<group>"; };
@@ -185,7 +182,6 @@
 		07C4BFD02486F7FF00552BC9 /* EmotionalDiaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionalDiaryTableViewCell.swift; sourceTree = "<group>"; };
 		07C4BFD22486FB6D00552BC9 /* TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableView.swift; sourceTree = "<group>"; };
 		07C4BFD42486FFBC00552BC9 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
-		07C4BFD6248703A700552BC9 /* FRCTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FRCTableViewDataSource.swift; sourceTree = "<group>"; };
 		07C5B7A72486A6BB00E36E91 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		07C8FA0B248D036700612C93 /* ReachabilityObserverProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityObserverProtocol.swift; sourceTree = "<group>"; };
 		07C8FA0F248D0A5A00612C93 /* NotificationName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationName.swift; sourceTree = "<group>"; };
@@ -379,7 +375,6 @@
 				0737FA8E247D96240015A8F7 /* LocalDataManager */,
 				07E06B79247AF680007139E2 /* DataManager.swift */,
 				07B2BA0F247C558300ED5BE7 /* DataManagerProtocol.swift */,
-				07823E35249160C500E0AA5F /* iCloudDelegate.swift */,
 			);
 			path = DataManager;
 			sourceTree = "<group>";
@@ -487,7 +482,6 @@
 		07C4BFCF2486F7EB00552BC9 /* TableView */ = {
 			isa = PBXGroup;
 			children = (
-				07C4BFD6248703A700552BC9 /* FRCTableViewDataSource.swift */,
 				07C4BFD02486F7FF00552BC9 /* EmotionalDiaryTableViewCell.swift */,
 			);
 			path = TableView;
@@ -1004,7 +998,6 @@
 				07E2BA632485232900465688 /* LocationSearchInteractor.swift in Sources */,
 				87CEC7AD2477FCE300206255 /* InteractorInterface.swift in Sources */,
 				07E06B61247A7AFD007139E2 /* PickerDialogViewController.swift in Sources */,
-				07823E36249160C500E0AA5F /* iCloudDelegate.swift in Sources */,
 				076880502489250E001E0F39 /* IntroInteractor.swift in Sources */,
 				077325FD24869BB5009DDB57 /* AnnotationService.swift in Sources */,
 				873AC7122477C8DC00261CD5 /* TabBarViewProtocol.swift in Sources */,
@@ -1030,7 +1023,6 @@
 				07C4BFC62486F59D00552BC9 /* EmotionalDiaryPresenter.swift in Sources */,
 				071429BD248AAEAC00CC49CF /* MGLMapView.swift in Sources */,
 				87CEC7AE2477FCE300206255 /* ViewInterface.swift in Sources */,
-				07C4BFD7248703A700552BC9 /* FRCTableViewDataSource.swift in Sources */,
 				87CEC7AB2477FCE300206255 /* PresenterInterface.swift in Sources */,
 				07C4BFC52486F59D00552BC9 /* EmotionalDiaryInterfaces.swift in Sources */,
 				072D9D05247E406000390186 /* MenuButtonViewConfigProtocol.swift in Sources */,

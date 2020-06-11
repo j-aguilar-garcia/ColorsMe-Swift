@@ -18,31 +18,19 @@ final class EmotionalDiaryPresenter {
     private let interactor: EmotionalDiaryInteractorInterface
     private let wireframe: EmotionalDiaryWireframeInterface
 
-    private var _userAnnotations: [CMAnnotation]!
+    var userAnnotations: [CMAnnotation] = []
     // MARK: - Lifecycle -
 
     init(view: EmotionalDiaryViewInterface, interactor: EmotionalDiaryInteractorInterface, wireframe: EmotionalDiaryWireframeInterface) {
         self.view = view
         self.interactor = interactor
         self.wireframe = wireframe
-        _userAnnotations = interactor.getUserAnnotations()
     }
 }
 
 // MARK: - Extensions -
 
 extension EmotionalDiaryPresenter: EmotionalDiaryPresenterInterface {
-    
-    var userAnnotations: [CMAnnotation]? {
-        get {
-            return _userAnnotations
-        }
-        set {
-            _userAnnotations = interactor.getUserAnnotations()
-            view.reloadTableView()
-        }
-    }
-    
     
     func didSelectAddAction(color: EmotionalColor) {
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
@@ -56,7 +44,7 @@ extension EmotionalDiaryPresenter: EmotionalDiaryPresenterInterface {
     }
     
     func object(at indexPath: IndexPath) -> CMAnnotation {
-        return userAnnotations![indexPath.row]
+        return userAnnotations[indexPath.row]
     }
     
     func viewDidLoad() {
@@ -69,11 +57,19 @@ extension EmotionalDiaryPresenter: EmotionalDiaryPresenterInterface {
     func viewWillAppear(animated: Bool) {
         NotificationCenter.default.addObserver(forName: .didAddRealmAnnotation, object: nil, queue: nil) { (notification) in
             log.verbose("Notifcation didAddRealmAnnotation received")
-            self.userAnnotations = self.interactor.getUserAnnotations()
+            self.syncAnnotations()
+        }
+        
+        NotificationCenter.default.addObserver(forName: .didSyncFromCloud, object: nil, queue: nil) { (notification) in
+            self.syncAnnotations()
         }
 
-        //userAnnotations = interactor.getUserAnnotations()
-        //view.reloadTableView()
+        //syncAnnotations()
+        view.reloadTableView()
+    }
+    
+    func syncAnnotations() {
+        userAnnotations = interactor.getUserAnnotations()
     }
     
 }

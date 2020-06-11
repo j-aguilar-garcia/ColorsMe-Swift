@@ -25,9 +25,6 @@ class BaseWireframe {
     init(viewController: UIViewController) {
         _temporaryStoredViewController = viewController
         _viewController = viewController
-        NotificationCenter.default.addObserver(forName: .didSyncFromCloud, object: nil, queue: nil) { (notification) in
-            log.debug("didSyncFromCloud notification received")
-        }
     }
 
 }

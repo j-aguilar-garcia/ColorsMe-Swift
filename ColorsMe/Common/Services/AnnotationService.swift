@@ -59,7 +59,11 @@ class AnnotationService {
         }
     }
     
-
+    open func deleteAnnotation(_ annotation: CMAnnotation, completion: @escaping () -> ()) {
+        DataManager.shared.dataManager(id: annotation.objectId!, willDeltewith: .both)
+        DataManager.shared.cloudDataManager.deleteAnnotationBy(objectId: annotation.objectId!)
+        completion()
+    }
     
     private func createAnnotation(with color: EmotionalColor, completion: @escaping (Annotation) -> ()) {
         let annotation = Annotation()

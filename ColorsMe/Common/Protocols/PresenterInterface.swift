@@ -12,19 +12,9 @@ protocol PresenterInterface: class {
     func viewDidAppear(animated: Bool)
     func viewWillDisappear(animated: Bool)
     func viewDidDisappear(animated: Bool)
-    var userAnnotations: [CMAnnotation]? { get set }
 }
 
 extension PresenterInterface {
-    
-    var userAnnotations: [CMAnnotation]? {
-        get {
-            fatalError("presenterInterface UserAnnotaion is nil")
-        }
-        set {
-            fatalError("presenterInterface UserAnnotaion is nil")
-        }
-    }
     
     func viewDidLoad() {
         fatalError("Implementation pending...")

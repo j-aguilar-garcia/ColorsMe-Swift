@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import CloudKit
+import CoreData
 
 /// Wrapper for the UserDefaults
 struct AppData {
@@ -61,6 +63,9 @@ struct AppData {
     /// Store selected Date
     @Storage(key: "selectedFilterDate", defaultValue: Date())
     static var selectedFilterDate: Date
+    
+    @Storage(key: "lastHistoryCloudToken", defaultValue: nil)
+    static var lastCloudHistoryToken: NSPersistentHistoryToken?
     
 }
 
