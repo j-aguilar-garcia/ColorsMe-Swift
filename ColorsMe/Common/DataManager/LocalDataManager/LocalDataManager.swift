@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreData
 import Unrealm
 import Mapbox
 
@@ -17,7 +18,7 @@ class LocalDataManager : LocalDataManagerProtocol {
     func saveLocal(annotation: RealmAnnotation) {
         try! realm.write {
             log.debug("Realm add")
-            realm.add(annotation)
+            realm.add(annotation, update: .all)
         }
     }
     
@@ -75,8 +76,22 @@ class LocalDataManager : LocalDataManagerProtocol {
             return getAllLocal()
             
         case .mycolors:
-            #warning("Filter my colors!")
-            return getAllLocal()
+            let fetchRequest : NSFetchRequest<UserAnnotation> = UserAnnotation.fetchRequest()
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            let context = appDelegate.persistentContainer.viewContext
+            let annotations = try? context.fetch(fetchRequest)
+            
+            guard annotations != nil else { return getAllLocal() }
+            
+            var userAnnotations = [CMAnnotation]()
+            for annotation in annotations! {
+                let userAnnotation = getAllLocal().first(where: { $0.objectId!.elementsEqual(annotation.beObjectId!) })
+                if userAnnotation == nil {
+                    continue
+                }
+                userAnnotations.append(userAnnotation!)
+            }
+            return userAnnotations
 
         case .today:
             let calendar = Calendar.current

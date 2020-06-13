@@ -103,7 +103,6 @@ class FRCTableViewDataSource<FetchRequestResult: NSFetchRequestResult>: NSObject
                 log.error("indexpath is not indexpath - can not delete")
                 break
             }
-            log.debug("indexpath is indexpath")
             tableView?.deleteRows(at: [indexPath], with: .automatic)
         case .update:
             guard let indexPath = indexPath else { break }
@@ -118,7 +117,6 @@ class FRCTableViewDataSource<FetchRequestResult: NSFetchRequestResult>: NSObject
     
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         tableView?.endUpdates()
-        tableView?.reloadEmptyDataSet()
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? { return nil }
