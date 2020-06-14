@@ -63,8 +63,11 @@ extension ColorMapInteractor: ColorMapInteractorInterface {
         _ = eventHandler?.addCreateListener(responseHandler: { createdObject in
             guard let annotation = createdObject as? Annotation else { return }
             
-            let realmAnnotation = RealmAnnotation(annotation: annotation)
-            DataManager.shared.localDataManager.saveLocal(annotation: realmAnnotation)
+            let localAnnotation = DataManager.shared.localDataManager.getObjectBy(primaryKey: annotation.objectId!)
+            if localAnnotation == nil {
+                let realmAnnotation = RealmAnnotation(annotation: annotation)
+                DataManager.shared.localDataManager.saveLocal(annotation: realmAnnotation)
+            }
             
             let cmAnnotation = CMAnnotation(annotation: annotation)
             self.presenter.willAddAnnotation(cmAnnotation)

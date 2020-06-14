@@ -74,4 +74,10 @@ extension EmotionalDiaryPresenter: EmotionalDiaryPresenterInterface {
         view.reloadTableView()
     }
     
+    func deleteUserAnnotation(at indexPath: IndexPath) {
+        let annotation = userAnnotations[indexPath.row]
+        userAnnotations.remove(at: indexPath.row)
+        wireframe.removeAnnotationFromMap(annotation)
+    }
+    
 }

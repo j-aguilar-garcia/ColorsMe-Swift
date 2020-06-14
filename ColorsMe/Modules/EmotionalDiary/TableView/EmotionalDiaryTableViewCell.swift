@@ -14,20 +14,15 @@ import MapKit
 class EmotionalDiaryTableViewCell : MGSwipeTableCell {
     
     @IBOutlet weak var dateLabel: UILabel!
-    
     @IBOutlet weak var colorImage: UIImageView!
-    
     @IBOutlet weak var coordinatesLabel: UILabel!
-    
     @IBOutlet weak var indicator: UIActivityIndicatorView!
-
-    let imageCache = ImageCache()
 
     override func draw(_ rect: CGRect) {
         dateLabel.textColor = UIColor.darkGray
     }
     
-    func configure(annotation: CMAnnotation) {
+    func configure(annotation: CMAnnotation, imageCache: ImageCache) {
         let calendar = Calendar.current
         let formatter = DateFormatter.yyyyMMddHHmmss
         let dateTitle = formatter.string(from: annotation.created!)
@@ -48,14 +43,13 @@ class EmotionalDiaryTableViewCell : MGSwipeTableCell {
 
         if AppData.shouldDisplaySnapshots {
             if let cachedImage = imageCache.loadImage(for: annotation.guid!) {
-                print("\(#function) cached image loaded")
                 colorImage.image = cachedImage
             } else {
                 indicator.startAnimating()
                 takeSnapshot(coords: CLLocationCoordinate2D(latitude: annotation.latitude, longitude: annotation.longitude), color: annotation.color) { (image) in
                     self.indicator.stopAnimating()
                     self.colorImage.image = image
-                    self.imageCache.setImage(image: image, for: annotation.guid!)
+                    imageCache.setImage(image: image, for: annotation.guid!)
                 }
             }
             colorImage.layer.cornerRadius = 8

@@ -17,6 +17,7 @@ final class EmotionalDiaryViewController: UIViewController {
     // MARK: - Public properties -
 
     var presenter: EmotionalDiaryPresenterInterface!
+    private let imageCache = ImageCache()
 
     // MARK: - Outlets
         
@@ -113,7 +114,7 @@ extension EmotionalDiaryViewController : UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let item = presenter.object(at: indexPath)
         let cell = tableView.dequeueReusableCell(ofType: EmotionalDiaryTableViewCell.self, for: indexPath)
-        cell.configure(annotation: item)
+        cell.configure(annotation: item, imageCache: imageCache)
         cell.delegate = self
         cell.configureSwipes()
         return cell
@@ -137,7 +138,8 @@ extension EmotionalDiaryViewController : UITableViewDelegate, UITableViewDataSou
 extension EmotionalDiaryViewController: EmotionalDiaryViewInterface {
     
     func reloadTableView() {
-        tableView.reloadData()
+        //tableView.reloadData()
+        tableView.reloadSections(IndexSet(integer: 0), with: .none)
         tableView.reloadEmptyDataSet()
     }
     
@@ -205,12 +207,12 @@ extension EmotionalDiaryViewController : MGSwipeTableCellDelegate {
         
         tableView.beginUpdates()
         AnnotationService.default.deleteAnnotation(annotationToDelete, completion: {
-            self.presenter.syncAnnotations()
-            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            self.presenter.deleteUserAnnotation(at: indexPath)
+            self.tableView.deleteRows(at: [indexPath], with: .fade)
         })
-        ImageCache().clear(key: annotationToDelete.guid!)
         tableView.endUpdates()
-        
+        ImageCache().clear(key: annotationToDelete.guid!)
+
         if AppData.iCloudDataSyncIsEnabled {
             AppData.lastCloudSync = Date()
             AppData.iCloudHasSynced = true

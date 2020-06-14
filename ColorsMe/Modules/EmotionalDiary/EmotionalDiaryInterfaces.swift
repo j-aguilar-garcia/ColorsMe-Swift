@@ -10,10 +10,12 @@ import UIKit
 
 protocol EmotionalDiaryDelegate {
     func zoomToAnnotation(annotation: CMAnnotation)
+    func removeAnnotation(_ annotation: CMAnnotation)
 }
 
 protocol EmotionalDiaryWireframeInterface: WireframeInterface {
     func navigateAndZoomToAnnotation(annotation: CMAnnotation)
+    func removeAnnotationFromMap(_ annotation: CMAnnotation)
 }
 
 protocol EmotionalDiaryViewInterface: ViewInterface {
@@ -26,6 +28,7 @@ protocol EmotionalDiaryPresenterInterface: PresenterInterface {
     func zoomToAnnotation(annotation: CMAnnotation)
     func didSelectAddAction(color: EmotionalColor)
     func syncAnnotations()
+    func deleteUserAnnotation(at indexPath: IndexPath)
 }
 
 protocol EmotionalDiaryInteractorInterface: InteractorInterface {

@@ -18,7 +18,7 @@ class LocalDataManager : LocalDataManagerProtocol {
     func saveLocal(annotation: RealmAnnotation) {
         try! realm.write {
             log.debug("Realm add \(annotation.objectId!)")
-            realm.add(annotation, update: .modified)
+            realm.add(annotation, update: .all)
             NotificationCenter.default.post(name: .didAddRealmAnnotation, object: nil)
         }
     }
@@ -104,10 +104,10 @@ class LocalDataManager : LocalDataManagerProtocol {
             }
             log.verbose("annos = \(annos.count)")
              */
-            let annotations = filterLocal(with: NSPredicate(format: "isMyColor == true"))
-            log.verbose("annotations predicate = \(annotations.count)")
+            //let annotations = filterLocal(with: NSPredicate(format: "isMyColor == true"))
+            //log.verbose("annotations predicate = \(annotations.count)")
         
-            //let userAnnotations = DataManager.shared.cloudDataManager.getAnnotations()
+            let annotations = DataManager.shared.cloudDataManager.getAnnotations()
             //log.debug(userAnnotations.count)
             return annotations
             
