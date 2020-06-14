@@ -49,4 +49,9 @@ extension EmotionalDiaryPresenter: EmotionalDiaryPresenterInterface {
         
     }
     
+    
+    func deleteUserAnnotation(id: String) {
+        let annotation = interactor.annotation(by: id)
+        wireframe.removeAnnotationFromMap(annotation)
+    }
 }

@@ -142,12 +142,20 @@ class LocalDataManager : LocalDataManagerProtocol {
     }
     
     func getAnnotationBy(primaryKey: String) -> CMAnnotation? {
-        #warning("TODO")
-        fatalError()
+        let annotationType = RealmAnnotation.self
+        guard let rlmResult = realm.object(ofType: annotationType, forPrimaryKey: primaryKey) else {
+            return nil
+        }
+        
+        return CMAnnotation(annotation: rlmResult)
     }
     
+    
     func getObjectBy(primaryKey: String) -> RealmAnnotation? {
-        #warning("TODO")
-        fatalError()
+        let annotationType = RealmAnnotation.self
+        guard let rlmResult = realm.object(ofType: annotationType, forPrimaryKey: primaryKey) else {
+            return nil
+        }
+        return rlmResult
     }
 }

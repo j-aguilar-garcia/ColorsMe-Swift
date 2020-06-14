@@ -103,15 +103,16 @@ extension ColorMapViewController: ColorMapViewInterface, EmotionalDiaryDelegate 
     }
     
     func removeAnnotation(_ annotation: CMAnnotation) {
-        if mapView.containsAnnotation(annotation) {
-            mapView.removeAnnotations([annotation])
-        }
+        mapView.removeAnnotation(annotation)
         presenter.shouldUpdateScale(mapView, slider.value)
         let layerType = ColorMapLayerType(rawValue: AppData.colorMapLayerItem)!
         showMapLayer(layerType: layerType)
     }
     
     func addAnnotation(_ annotation: CMAnnotation) {
+        if mapView.containsAnnotation(annotation) {
+            return
+        }
         mapView.addAnnotation(annotation)
         presenter.shouldUpdateScale(mapView, slider.value)
         updateColorsLabel(count: mapView!.annotations?.count ?? DataManager.shared.localDataManager.getAllLocal().count)
@@ -120,6 +121,8 @@ extension ColorMapViewController: ColorMapViewInterface, EmotionalDiaryDelegate 
     
     func zoomToAnnotation(annotation: CMAnnotation) {
         mapView.addAnnotation(annotation)
+        presenter.shouldUpdateScale(mapView, slider.value)
+        showMapLayer(layerType: .defaultmap)
         mapView.selectAnnotation(annotation, animated: true, completionHandler: {
             self.mapView.setCenter(annotation.coordinate, zoomLevel: 8, animated: true)
             let camera = MGLMapCamera(lookingAtCenter: annotation.coordinate, altitude: 2500, pitch: 50, heading: 180)

@@ -23,4 +23,8 @@ extension EmotionalDiaryInteractor: EmotionalDiaryInteractorInterface {
             self.presenter.zoomToAnnotation(annotation: annotation)
         })
     }
+    
+    func annotation(by id: String) -> CMAnnotation {
+        return DataManager.shared.localDataManager.getAnnotationBy(primaryKey: id)!
+    }
 }

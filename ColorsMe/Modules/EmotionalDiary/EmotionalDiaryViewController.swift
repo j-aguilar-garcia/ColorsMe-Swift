@@ -84,14 +84,12 @@ final class EmotionalDiaryViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        super.viewDidAppear(animated)
         if let indexPath = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: indexPath, animated: true)
         }
         try? tableDataSource.performFetch()
 
-        tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .none)
-        updateConstraints()
     }
     
     override func viewWillLayoutSubviews() {
@@ -178,6 +176,9 @@ extension EmotionalDiaryViewController : MGSwipeTableCellDelegate {
     private func onDeleteSwipe(_ indexPath: IndexPath) {
         let annotationToDelete = tableDataSource.object(at: indexPath)
         AnnotationService.default.deleteAnnotation(id: annotationToDelete.beObjectId!, objectId: annotationToDelete.objectID)
+        
+        presenter.deleteUserAnnotation(id: annotationToDelete.beObjectId!)
+
         ImageCache().clear(key: annotationToDelete.guid!)
         
         if AppData.iCloudDataSyncIsEnabled {

@@ -89,7 +89,7 @@ class RemoteDataManager : RemoteDataManagerProtocol {
                     log.debug("remoteAnnotations.count == allColors \(remoteAnnotations.count == allColors)")
                     log.debug("Retrieved data in (ms) - \(Int(Date().timeIntervalSince(startTime) * 1000)) in secs \(Int(Date().timeIntervalSince(startTime)))")
                     self.offset = 0
-                    //self.checkForDeletedData(localDataManager: localDataManager, date: dateNow)
+                    self.checkForDeletedData(localDataManager: localDataManager, date: dateNow)
                     return
                 } else {
                     guard let annotations = foundObjects as? [Annotation] else { return }
@@ -146,7 +146,7 @@ class RemoteDataManager : RemoteDataManagerProtocol {
                 } else {
                     guard let remoteAnnotations = foundObjects as? [Annotation] else { return }
                     for annotation in localAnnotations {
-                        if !remoteAnnotations.contains(where: { $0.objectId == annotation.objectId }) {
+                        if !remoteAnnotations.contains(where: { $0.objectId!.elementsEqual(annotation.objectId!) }) {
                             DispatchQueue.main.async {
                                 localDataManager.deleteLocal(by: annotation.objectId!)
                             }

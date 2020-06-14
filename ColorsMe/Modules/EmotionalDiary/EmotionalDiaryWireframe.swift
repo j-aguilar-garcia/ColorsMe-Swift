@@ -41,4 +41,8 @@ extension EmotionalDiaryWireframe: EmotionalDiaryWireframeInterface {
         delegate?.zoomToAnnotation(annotation: annotation)
     }
     
+    func removeAnnotationFromMap(_ annotation: CMAnnotation) {
+        delegate?.removeAnnotation(annotation)
+    }
+
 }
