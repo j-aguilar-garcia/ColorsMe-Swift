@@ -17,14 +17,14 @@ class LocalDataManager : LocalDataManagerProtocol {
     func saveLocal(annotation: RealmAnnotation) {
         try! realm.write {
             log.debug("Realm add")
-            realm.add(annotation)
+            realm.add(annotation, update: .all)
         }
     }
     
     func updateLocal(annotation: RealmAnnotation) {
         try! realm.write {
             log.debug("Realm Update")
-            realm.add(annotation, update: .all)
+            realm.add(annotation, update: .modified)
         }
     }
     
