@@ -29,18 +29,17 @@ class AnnotationService {
             
             DispatchQueue.global(qos: .background).async {
                 DataManager.shared.remoteDataManager.saveToBackendless(annotation: annotation, completion: { savedAnnotation in
-                    log.debug("saved Backendless Annotation: \(savedAnnotation.debugDescription)")
-
+                    //log.debug("saved Backendless Annotation: \(savedAnnotation.debugDescription)")
+                    
+                    let realmAnnotation = RealmAnnotation(annotation: savedAnnotation, isMyColor: byUser)
+                    //log.debug("saved: realmAnnotation: objectid = \(realmAnnotation.objectId!) & guid = \(realmAnnotation.guid!)")
                     DispatchQueue.main.async {
-
-                        let realmAnnotation = RealmAnnotation(annotation: savedAnnotation, isMyColor: byUser)
-                        log.debug("saved: realmAnnotation: objectid = \(realmAnnotation.objectId!) & guid = \(realmAnnotation.guid!)")
-
-                        let cmAnnotation = CMAnnotation(annotation: savedAnnotation, isMyColor: byUser)
-
-                        DataManager.shared.cloudDataManager.addAnnotation(annotation: cmAnnotation)
                         DataManager.shared.localDataManager.saveLocal(annotation: realmAnnotation)
                     }
+                    let cmAnnotation = CMAnnotation(annotation: savedAnnotation, isMyColor: byUser)
+                    
+                    DataManager.shared.cloudDataManager.addAnnotation(annotation: cmAnnotation)
+                    
                 })
             }
             
@@ -64,7 +63,7 @@ class AnnotationService {
         annotation.title = titleDate
         
         annotation.color = color.rawValue
-
+        
         annotation.longitude = NSNumber(value: currentUserLocation.longitude)
         annotation.latitude = NSNumber(value: currentUserLocation.latitude)
         annotation.guid = UUID().uuidString
@@ -81,13 +80,13 @@ class AnnotationService {
     private func reverseGeocoding(latitude: CLLocationDegrees, longitude: CLLocationDegrees, completion: @escaping (GeocodedPlacemark) -> ()) {
         let geocoder = Geocoder.shared
         let options = ReverseGeocodeOptions(coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
-
-            _ = geocoder.geocode(options) { (placemarks, attribution, error) in
-                guard let placemark = placemarks?.first else {
-                    return
-                }
-                completion(placemark)
+        
+        _ = geocoder.geocode(options) { (placemarks, attribution, error) in
+            guard let placemark = placemarks?.first else {
+                return
             }
+            completion(placemark)
+        }
     }
     
     

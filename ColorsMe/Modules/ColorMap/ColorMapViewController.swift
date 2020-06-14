@@ -13,21 +13,21 @@ import Reachability
 import CoreData
 
 final class ColorMapViewController: UIViewController {
-
+    
     // MARK: - Public properties -
-
+    
     var presenter: ColorMapPresenterInterface!
     var annotation: CMAnnotation!
     //var filteredAnnotations: [CMAnnotation]?
-
+    
     var heatMapLayer: CMHeatMapLayer?
     var clusterMapLayer: CMClusterMapLayer?
     var searchResultsOverlay: CMOverlayLayer?
-
+    
     @IBOutlet weak var mapView: MGLMapView!
     
     @IBOutlet weak var countColorsLabel: UILabel!
-        
+    
     @IBOutlet weak var scaleView: UIView!
     @IBOutlet weak var slider: UISlider!{
         didSet {
@@ -37,14 +37,14 @@ final class ColorMapViewController: UIViewController {
     }
     
     @IBOutlet weak var navigationFilterButton: UIBarButtonItem!
-
+    
     @IBAction func onRetryConnectionButton(_ sender: Any) {
         //NotificationCenter.default.post(name: .networkUnreachable, object: nil)
     }
     @IBOutlet weak var retryConnectionButton: UIButton!
     
     @IBOutlet weak var noNetworkConnectionView: UIView!
-        
+    
     @IBOutlet weak var filterButton: UIBarButtonItem!
     
     @IBAction func onFilterButton(_ sender: Any) {
@@ -58,16 +58,16 @@ final class ColorMapViewController: UIViewController {
     // Searchbar
     var resultSearchController: UISearchController?
     var locationSearchWireframe: LocationSearchWireframe!
-
+    
     
     // MARK: - Lifecycle -
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addReachabilityObserver()
         mapView.delegate = self
         mapView.automaticallyAdjustsContentInset = true
-
+        
         mapView.attributionButtonPosition = .topLeft
         mapView.setCenter(LocationService.default.currentLocation(), animated: false)
         addMenuButton()
@@ -88,7 +88,7 @@ final class ColorMapViewController: UIViewController {
         super.traitCollectionDidChange(previousTraitCollection)
         switchAppearanceFor(mapView: self.mapView)
     }
-
+    
 }
 
 // MARK: - Extensions -
@@ -102,29 +102,28 @@ extension ColorMapViewController: ColorMapViewInterface, EmotionalDiaryDelegate 
     }
     
     func removeAnnotation(_ annotation: CMAnnotation) {
-        if mapView.containsAnnotation(annotation) {
-            log.debug("Contains Annotation To Remove From Map = true")
-            mapView.removeAnnotations([annotation])
+        DispatchQueue.main.async {
+            let layerType = ColorMapLayerType(rawValue: AppData.colorMapLayerItem)!
+            self.showMapLayer(layerType: layerType)
         }
-        mapView.removeAnnotation(annotation)
-        presenter.shouldUpdateScale(mapView, slider.value)
-        let layerType = ColorMapLayerType(rawValue: AppData.colorMapLayerItem)!
-        showMapLayer(layerType: layerType)
     }
     
     func addAnnotation(_ annotation: CMAnnotation) {
-        if mapView.containsAnnotation(annotation) {
-            return
+        if !mapView.containsAnnotation(annotation) {
+            DispatchQueue.main.async {
+                self.mapView.addAnnotation(annotation)
+                self.updateColorsLabel(count: self.mapView.annotations?.count ?? 0)
+                self.presenter.shouldUpdateScale(self.mapView, self.slider.value)
+            }
         }
-        mapView.addAnnotation(annotation)
-        presenter.shouldUpdateScale(mapView, slider.value)
-        showMapLayer(layerType: .defaultmap)
+        
     }
     
     
     func zoomToAnnotation(annotation: CMAnnotation) {
+        log.debug(mapView.annotations?.count)
         mapView.addAnnotation(annotation)
-        presenter.shouldUpdateScale(mapView, slider.value)
+        log.debug(mapView.annotations?.count)
         showMapLayer(layerType: .defaultmap)
         mapView.selectAnnotation(annotation, animated: true, completionHandler: {
             self.mapView.setCenter(annotation.coordinate, zoomLevel: 8, animated: true)
@@ -137,7 +136,7 @@ extension ColorMapViewController: ColorMapViewInterface, EmotionalDiaryDelegate 
     func showMapLayer(layerType: ColorMapLayerType, annotations: [CMAnnotation]? = nil) {
         log.debug("")
         AppData.colorMapLayerItem = layerType.rawValue
-
+        
         heatMapLayer?.removeAllLayers(mapView: mapView)
         heatMapLayer = nil
         clusterMapLayer?.removeAllLayers(mapView: mapView)
@@ -155,28 +154,29 @@ extension ColorMapViewController: ColorMapViewInterface, EmotionalDiaryDelegate 
                 mapView.addAnnotations(allAnnotations)
             }
         }
-        updateColorsLabel(count: mapView.annotations?.count ?? 0)
         
+        updateColorsLabel(count: mapView.annotations?.count ?? 0)
+        presenter.shouldUpdateScale(mapView, slider.value)
         switch layerType {
             
         case .defaultmap:
-            showScale(true)
+            showScale()
             break
             
         case .heatmap:
-            hideScale(true)
             heatMapLayer = CMHeatMapLayer(mapView: mapView)
             if mapView.annotations != nil, !mapView.annotations!.isEmpty {
                 mapView.removeAnnotations(mapView!.annotations!)
             }
+            hideScale()
             break
             
         case .clustermap:
-            hideScale(true)
             clusterMapLayer = CMClusterMapLayer(mapView: mapView, view: view)
             if mapView.annotations != nil, !mapView.annotations!.isEmpty {
                 mapView.removeAnnotations(mapView!.annotations!)
             }
+            hideScale()
             break
         }
     }
@@ -286,17 +286,18 @@ extension ColorMapViewController : MGLMapViewDelegate {
         if annotationView == nil {
             annotationView = CMAnnotationView(annotation: cmAnnotation, reuseIdentifier: reuseIdentifier)
         }
-        
-        let scaleTransform = CGAffineTransform(scaleX: 0.0, y: 0.0)
-        UIView.animate(withDuration: 0.2, animations: {
-            annotationView!.imageView.transform = scaleTransform
-            annotationView!.imageView.layoutIfNeeded()
-        }) { (isCompleted) in
-            UIView.animate(withDuration: 0.3, animations: {
-                annotationView!.imageView.alpha = 1.0
-                annotationView!.imageView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+        if AppData.shouldAnimateAnnotations {
+            let scaleTransform = CGAffineTransform(scaleX: 0.0, y: 0.0)
+            UIView.animate(withDuration: 0.2, animations: {
+                annotationView!.imageView.transform = scaleTransform
                 annotationView!.imageView.layoutIfNeeded()
-            })
+            }) { (isCompleted) in
+                UIView.animate(withDuration: 0.3, animations: {
+                    annotationView!.imageView.alpha = 1.0
+                    annotationView!.imageView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                    annotationView!.imageView.layoutIfNeeded()
+                })
+            }
         }
         return annotationView
     }
@@ -337,7 +338,7 @@ extension ColorMapViewController : MGLMapViewDelegate {
             shareButton.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: 20, height: 40))
             return shareButton
         }
-
+        
         return UIView()
     }
     
@@ -346,6 +347,7 @@ extension ColorMapViewController : MGLMapViewDelegate {
     }
     
     func mapViewDidFinishLoadingMap(_ mapView: MGLMapView) {
+        updateColorsLabel(count: mapView.annotations?.count ?? 0)
         //heatMapLayer = CMHeatMapLayer(mapView: mapView)
     }
     
@@ -367,6 +369,10 @@ extension ColorMapViewController : MGLMapViewDelegate {
     
     func mapView(_ mapView: MGLMapView, fillColorForPolygonAnnotation annotation: MGLPolygon) -> UIColor {
         return .cmPolylineFill
+    }
+    
+    func mapView(_ mapView: MGLMapView, regionDidChangeAnimated animated: Bool) {
+        log.verbose("")
     }
 }
 
@@ -451,7 +457,7 @@ extension ColorMapViewController : UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         willRemoveOverlay()
     }
-
+    
 }
 
 extension ColorMapViewController : LocationSearchDelegate {

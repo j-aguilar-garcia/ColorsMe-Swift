@@ -81,6 +81,7 @@ final class EmotionalDiaryViewController: UIViewController {
         if let indexPath = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: indexPath, animated: true)
         }
+        presenter.syncAnnotations()
         updateConstraints()
     }
     
@@ -138,8 +139,7 @@ extension EmotionalDiaryViewController : UITableViewDelegate, UITableViewDataSou
 extension EmotionalDiaryViewController: EmotionalDiaryViewInterface {
     
     func reloadTableView() {
-        //tableView.reloadData()
-        tableView.reloadSections(IndexSet(integer: 0), with: .none)
+        tableView.reloadData()
         tableView.reloadEmptyDataSet()
     }
     

@@ -67,6 +67,10 @@ struct AppData {
     @Storage(key: "lastHistoryCloudToken", defaultValue: nil)
     static var lastCloudHistoryToken: NSPersistentHistoryToken?
     
+    
+    /// MapView [Workaround for removing annotation, because a single remove is currently buggy on mapbox]
+    @Storage(key: "shouldAnimateMapViewAnnotations", defaultValue: true)
+    static var shouldAnimateAnnotations: Bool
 }
 
 

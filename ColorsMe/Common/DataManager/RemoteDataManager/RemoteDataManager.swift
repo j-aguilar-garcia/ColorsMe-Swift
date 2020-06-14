@@ -92,7 +92,7 @@ class RemoteDataManager : RemoteDataManagerProtocol {
                     log.debug("remoteAnnotations.count == allColors \(remoteAnnotations.count == allColors)")
                     log.debug("Retrieved data in (ms) - \(Int(Date().timeIntervalSince(startTime) * 1000)) in secs \(Int(Date().timeIntervalSince(startTime)))")
                     self.offset = 0
-                    //self.checkForDeletedData(localDataManager: localDataManager, date: dateNow)
+                    self.checkForDeletedData(localDataManager: localDataManager, date: dateNow)
                     return
                 } else {
                     guard let annotations = foundObjects as? [Annotation] else { return }
@@ -140,14 +140,14 @@ class RemoteDataManager : RemoteDataManagerProtocol {
     */
     private func checkForDeletedData(localDataManager: LocalDataManager, date: Date) {
         let localAnnotations = localDataManager.getAllLocal()
-        
+        var remoteAnnotations = [Annotation]()
         queryBuilder.setPageSize(pageSize: 100)
         queryBuilder.setOffset(offset: self.offset)
-        queryBuilder.setGroupBy(groupBy: ["objectId"])
+        //queryBuilder.setGroupBy(groupBy: ["objectId"])
         
         let dateFormatter = DateFormatter.MMMddyyyyHHmmss
         let dateString = dateFormatter.string(from: date)
-        queryBuilder.setWhereClause(whereClause: String(format: "created < '%@'", dateString))
+        //queryBuilder.setWhereClause(whereClause: String(format: "created < '%@'", dateString))
         
         
         let dataStore = Backendless.shared.data.of(Annotation.self)
@@ -155,19 +155,28 @@ class RemoteDataManager : RemoteDataManagerProtocol {
             dataStore.getObjectCount(responseHandler: { allColors in
                 
                 let size = foundObjects.count
-                
                 if size == 0 || localAnnotations.count == foundObjects.count {
+                    log.debug("size delete = \(remoteAnnotations.count)")
+
+                    for annotation in localAnnotations {
+                        log.debug("local ID = \(annotation.objectId)")
+                        if !remoteAnnotations.contains(where: { $0.objectId == annotation.objectId }) {
+                            log.debug("DONT DELETE ")
+                            continue
+                        }
+                        DispatchQueue.main.async {
+                            log.debug("DELETE")
+                            //localDataManager.deleteLocal(by: annotation.objectId!)
+                        }
+                    }
                     self.hasDataFetched = true
                     return
                 } else {
-                    guard let remoteAnnotations = foundObjects as? [Annotation] else { return }
-                    for annotation in localAnnotations {
-                        if !remoteAnnotations.contains(where: { $0.objectId == annotation.objectId }) {
-                            DispatchQueue.main.async {
-                                localDataManager.deleteLocal(by: annotation.objectId!)
-                            }
-                        }
+                    guard let annotations = foundObjects as? [Annotation] else { return }
+                    for annotation in annotations {
+                        remoteAnnotations.append(annotation)
                     }
+                    
                     self.offset += size
                     self.queryBuilder.setOffset(offset: self.offset)
                 }

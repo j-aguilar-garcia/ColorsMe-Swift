@@ -17,15 +17,14 @@ class LocalDataManager : LocalDataManagerProtocol {
     
     func saveLocal(annotation: RealmAnnotation) {
         try! realm.write {
-            log.debug("Realm add \(annotation.objectId!)")
             realm.add(annotation, update: .all)
-            NotificationCenter.default.post(name: .didAddRealmAnnotation, object: nil)
         }
+        NotificationCenter.default.post(name: .didAddRealmAnnotation, object: nil)
     }
     
     func updateLocal(annotation: RealmAnnotation) {
         try! realm.write {
-            log.debug("Realm Update \(annotation.objectId!)")
+            //log.debug("Realm Update \(annotation.objectId!)")
             realm.add(annotation, update: .modified)
         }
     }

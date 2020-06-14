@@ -80,12 +80,12 @@ extension ColorMapInteractor: ColorMapInteractorInterface {
         
         _ = eventHandler?.addDeleteListener(responseHandler: { deletedObject in
             guard let annotation = deletedObject as? Annotation else { return }
-            
+            AppData.shouldAnimateAnnotations = false
             guard let cmAnnotation = DataManager.shared.localDataManager.getAnnotationBy(primaryKey: annotation.objectId!) else { return }
             self.presenter.willRemoveAnnotation(cmAnnotation)
             
             DataManager.shared.localDataManager.deleteLocal(by: annotation.objectId!)
-            
+            AppData.shouldAnimateAnnotations = true
             log.verbose("annotation has been deleted via deleteListener: \(cmAnnotation)")
         }, errorHandler: { fault in
             log.error("Error: \(fault.message ?? "")")

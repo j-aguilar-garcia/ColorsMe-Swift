@@ -354,12 +354,12 @@
 			children = (
 				07C4BFCA2486F63300552BC9 /* TableView */,
 				07E2BA5524851B3100465688 /* Services */,
-				073E3B13247BD92E00540BF0 /* AppData.swift */,
 				0737FA8D247D96170015A8F7 /* DataManager */,
 				0737FA90247D964D0015A8F7 /* Models */,
 				0737FA92247D96850015A8F7 /* Extension */,
 				0737FA93247D96960015A8F7 /* Protocols */,
 				0737FA91247D96660015A8F7 /* Wireframe */,
+				073E3B13247BD92E00540BF0 /* AppData.swift */,
 				87CEC7912477F9AF00206255 /* ColorsNavigationViewController.swift */,
 				0737FA8A247D7E430015A8F7 /* AppConfiguration.swift */,
 				07C4BFD42486FFBC00552BC9 /* ImageCache.swift */,

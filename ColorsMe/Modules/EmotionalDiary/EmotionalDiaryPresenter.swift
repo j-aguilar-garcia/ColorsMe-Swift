@@ -61,6 +61,7 @@ extension EmotionalDiaryPresenter: EmotionalDiaryPresenterInterface {
         }
         
         NotificationCenter.default.addObserver(forName: .didSyncFromCloud, object: nil, queue: nil) { (notification) in
+            log.verbose("Notification didSyncFromCloud")
             self.syncAnnotations()
         }
 
