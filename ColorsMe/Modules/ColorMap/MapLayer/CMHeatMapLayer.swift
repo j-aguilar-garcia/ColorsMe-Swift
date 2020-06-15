@@ -45,9 +45,9 @@ class CMHeatMapLayer : CMLayer {
         let heatmapLayer = MGLHeatmapStyleLayer(identifier: "heatmaplayer", source: source)
         let colorDictionary: [NSNumber: UIColor] = [
         0.0: .clear,
-        0.01: .cyan,
-        0.15: .blue,
-        0.75: .red,
+        0.1: .cyan,
+        0.3: .blue,
+        0.7: .red,
         1: .orange
         ]
         /*
@@ -63,7 +63,7 @@ class CMHeatMapLayer : CMLayer {
          
         // Heatmap weight measures how much a single data point impacts the layer's appearance.
         heatmapLayer.heatmapWeight = NSExpression(format: "mgl_interpolate:withCurveType:parameters:stops:(mag, 'linear', nil, %@)",
-        [0: 0, 6: 1])
+        [0: 0, 16: 1])
          
         // Heatmap intensity multiplies the heatmap weight based on zoom level.
         heatmapLayer.heatmapIntensity = NSExpression(format: "mgl_interpolate:withCurveType:parameters:stops:($zoomLevel, 'linear', nil, %@)",

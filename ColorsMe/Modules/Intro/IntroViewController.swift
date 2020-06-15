@@ -10,11 +10,11 @@ import UIKit
 import CoreLocation
 
 final class IntroViewController: UIViewController {
-
+    
     // MARK: - Public properties -
-
+    
     var presenter: IntroPresenterInterface!
-
+    
     
     // Portrait Constraints for iPad
     
@@ -66,7 +66,7 @@ final class IntroViewController: UIViewController {
     }
     
     // MARK: - Lifecycle -
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter.viewDidLoad()
@@ -85,7 +85,7 @@ final class IntroViewController: UIViewController {
         super.viewWillTransition(to: size, with: coordinator)
         updateConstraints(animated: true)
     }
-
+    
 }
 
 // MARK: - Extensions -
@@ -99,38 +99,37 @@ extension IntroViewController: IntroViewInterface {
         
         var delay: TimeInterval = 0.0
         let colorButtons = [greenDotButton, yellowDotButton, redDotButton]
-        //greenDotButton.alpha = 0
-        //yellowDotButton.alpha = 0
-        //redDotButton.alpha = 0
         
-        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
-            self.splashScreenImageView?.transform = CGAffineTransform(scaleX: 2, y: 2)
-            self.splashScreenImageView?.alpha = 0.0
-            self.splashScreenImageView?.layoutIfNeeded()
-        }) { finish in
-            for button in colorButtons {
-                UIView.animate(withDuration: commonAnimationDuration, delay: delay, usingSpringWithDamping: commonSpringDumping, initialSpringVelocity: commonInitSpringVelocity, options: .curveEaseOut, animations: {
-                    button?.transform = CGAffineTransform(scaleX: 0.0, y: 0.0)
-                    button?.layoutIfNeeded()
-                }) { finish in
-                    UIView.animate(withDuration: 0.3, animations:  {
-                        button?.alpha = 1.0
-                        button?.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
+                self.splashScreenImageView?.transform = CGAffineTransform(scaleX: 2, y: 2)
+                self.splashScreenImageView?.alpha = 0.0
+                self.splashScreenImageView?.layoutIfNeeded()
+            }) { finish in
+                for button in colorButtons {
+                    UIView.animate(withDuration: commonAnimationDuration, delay: delay, usingSpringWithDamping: commonSpringDumping, initialSpringVelocity: commonInitSpringVelocity, options: .curveEaseOut, animations: {
+                        button?.transform = CGAffineTransform(scaleX: 0.0, y: 0.0)
                         button?.layoutIfNeeded()
                     }) { finish in
-                        button?.isUserInteractionEnabled = true
-                        if button == colorButtons.last {
-                            UIView.animate(withDuration: 0.4, delay: delay, animations: {
-                                self.skipButton.alpha = 1.0
-                                self.skipButton.isUserInteractionEnabled = true
-                                self.skipButton.layoutIfNeeded()
-                                LocationService.default.startLocationRequest()
-                            })
+                        UIView.animate(withDuration: 0.3, animations:  {
+                            button?.alpha = 1.0
+                            button?.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                            button?.layoutIfNeeded()
+                        }) { finish in
+                            button?.isUserInteractionEnabled = true
+                            if button == colorButtons.last {
+                                UIView.animate(withDuration: 0.4, delay: delay, animations: {
+                                    self.skipButton.alpha = 1.0
+                                    self.skipButton.isUserInteractionEnabled = true
+                                    self.skipButton.layoutIfNeeded()
+                                    LocationService.default.startLocationRequest()
+                                })
+                            }
                         }
                     }
-                }
-                if withDelay {
-                    delay += 0.1
+                    if withDelay {
+                        delay += 0.1
+                    }
                 }
             }
         }
@@ -139,47 +138,48 @@ extension IntroViewController: IntroViewInterface {
     
     private func updateConstraints(animated: Bool = false) {
         if animated && UIDevice.current.userInterfaceIdiom == .pad {
-            let colorButtons = [greenDotButton, yellowDotButton, redDotButton]
-            for button in colorButtons {
-                UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations:  {
-                    button?.transform = CGAffineTransform(scaleX: 0.0, y: 0.0)
-                    button?.alpha = 0
-                    button?.layoutIfNeeded()
-                    self.skipButton.alpha = 0
-                    self.skipButton.layoutIfNeeded()
-                }) { finish in
-                    UIView.animate(withDuration: 0.3, animations:  {
-                        button?.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+            DispatchQueue.main.async {
+                let colorButtons = [self.greenDotButton, self.yellowDotButton, self.redDotButton]
+                for button in colorButtons {
+                    UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations:  {
+                        button?.transform = CGAffineTransform(scaleX: 0.0, y: 0.0)
+                        button?.alpha = 0
                         button?.layoutIfNeeded()
+                        self.skipButton.alpha = 0
+                        self.skipButton.layoutIfNeeded()
                     }) { finish in
-                        if button == colorButtons.last {
-                            //UIView.animate(withDuration: 0.4, delay: 0.1, animations: {
+                        UIView.animate(withDuration: 0.3, animations:  {
+                            button?.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                            button?.layoutIfNeeded()
+                        }) { finish in
+                            if button == colorButtons.last {
                                 self.animateSplashScreen(withDelay: false)
-                            //})
+                            }
                         }
                     }
                 }
-
             }
         }
-        if UIDevice.current.orientation.isLandscape && UIDevice.current.userInterfaceIdiom == .pad {
-            greenCenterY.priority = .required
-            redCenterY.priority = .required
-            greenDotTrailingToYellowLeadingConstraint.priority = .required
-            yellowDotTrailingToRedDotLeadingConstraint.priority = .required
-            greenDotBottomToYellowDotTopConstraint.priority = .defaultLow
-            yellowDotBottomToRedDotTopConstraint.priority = .defaultLow
-            greenCenterX.priority = .defaultLow
-            redCenterX.priority = .defaultLow
-        } else if UIDevice.current.orientation.isPortrait && UIDevice.current.userInterfaceIdiom == .pad {
-            greenDotBottomToYellowDotTopConstraint.priority = .required
-            yellowDotBottomToRedDotTopConstraint.priority = .required
-            greenCenterX.priority = .required
-            redCenterX.priority = .required
-            greenCenterY.priority = .defaultLow
-            redCenterY.priority = .defaultLow
-            greenDotTrailingToYellowLeadingConstraint.priority = .defaultLow
-            yellowDotTrailingToRedDotLeadingConstraint.priority = .defaultLow
+        DispatchQueue.main.async {
+            if UIDevice.current.orientation.isLandscape && UIDevice.current.userInterfaceIdiom == .pad {
+                self.greenCenterY.priority = .required
+                self.redCenterY.priority = .required
+                self.greenDotTrailingToYellowLeadingConstraint.priority = .required
+                self.yellowDotTrailingToRedDotLeadingConstraint.priority = .required
+                self.greenDotBottomToYellowDotTopConstraint.priority = .defaultLow
+                self.yellowDotBottomToRedDotTopConstraint.priority = .defaultLow
+                self.greenCenterX.priority = .defaultLow
+                self.redCenterX.priority = .defaultLow
+            } else if UIDevice.current.orientation.isPortrait && UIDevice.current.userInterfaceIdiom == .pad {
+                self.greenDotBottomToYellowDotTopConstraint.priority = .required
+                self.yellowDotBottomToRedDotTopConstraint.priority = .required
+                self.greenCenterX.priority = .required
+                self.redCenterX.priority = .required
+                self.greenCenterY.priority = .defaultLow
+                self.redCenterY.priority = .defaultLow
+                self.greenDotTrailingToYellowLeadingConstraint.priority = .defaultLow
+                self.yellowDotTrailingToRedDotLeadingConstraint.priority = .defaultLow
+            }
         }
     }
     
