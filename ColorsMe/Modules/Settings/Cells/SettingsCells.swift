@@ -64,11 +64,11 @@ class SettingsAboutItem : SettingsAboutItemInterface {
 
 
 class SettingsAboutSelectorItem : SettingsAboutItem {
-    var key: String
+    var pageType: SettingsPageType
     var navigationTitle: String
 
-    init(icon: UIImage, title: String, isButton: Bool, accessoryType: UITableViewCell.AccessoryType, key: String, navigationTitle: String) {
-        self.key = key
+    init(icon: UIImage, title: String, isButton: Bool, accessoryType: UITableViewCell.AccessoryType, pageType: SettingsPageType, navigationTitle: String) {
+        self.pageType = pageType
         self.navigationTitle = navigationTitle
         super.init(icon: icon, title: title, isButton: isButton, accessoryType: accessoryType)
     }

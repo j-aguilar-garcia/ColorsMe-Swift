@@ -73,3 +73,8 @@ protocol SettingsVersionItemInterface {
     var versionNumber : String { get }
     var buildNumber : String { get }
 }
+
+enum SettingsPageType {
+    case aboutus
+    case privacypolicy
+}

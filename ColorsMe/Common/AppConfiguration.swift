@@ -28,6 +28,9 @@ class AppConfiguration {
     var aboutUs: String!
     var privacyPolicy: String!
     
+    var aboutUsUrl: String!
+    var privacyPolicyUrl: String!
+    
     init() {
         let bundleURL = Bundle.main.url(forResource: "AppProperties", withExtension: "plist")!
         let plist = NSDictionary(contentsOf: bundleURL)!
@@ -46,6 +49,9 @@ class AppConfiguration {
         
         aboutUs = plist["about_us"] as? String
         privacyPolicy = plist["data_protection"] as? String
+        
+        aboutUsUrl = plist["about_us_url"] as? String
+        privacyPolicyUrl = plist["data_protection_url"] as? String
     }
     
 }

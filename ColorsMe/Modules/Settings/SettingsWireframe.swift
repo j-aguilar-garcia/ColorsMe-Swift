@@ -39,8 +39,8 @@ extension SettingsWireframe: SettingsWireframeInterface {
         switch option {
         case .textview(let item):
             let vc = storyboard.instantiateViewController(ofType: TextViewViewController.self)
-            vc.key = item.key
             vc.navigationItem.title = item.navigationTitle
+            vc.pageType = item.pageType
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }

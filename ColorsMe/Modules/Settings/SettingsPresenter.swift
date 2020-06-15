@@ -61,7 +61,10 @@ extension SettingsPresenter: SettingsPresenterInterface {
     private var infoSection: Section<SettingsItem> {
         return Section(
             items: [SettingsItem.details(
-                SettingsDetailsItem(icon: UIImage(named: "Logo")!, title: "My Emotional Diary", entries: "Entries: \(String(describing: self.entriesCount))")
+                SettingsDetailsItem(
+                    icon: UIImage(named: "Logo")!,
+                    title: "My Emotional Diary",
+                    entries: "Entries: \(String(describing: self.entriesCount))")
                 )]
         )
     }
@@ -70,7 +73,10 @@ extension SettingsPresenter: SettingsPresenterInterface {
         return Section(
             items: [
                 SettingsItem.synchronisation(
-                    SettingsCloudItem(icon: UIImage(systemName: "cloud")!, title: "iCloud", isEnabled: AppData.iCloudDataSyncIsEnabled)
+                    SettingsCloudItem(
+                        icon: UIImage(systemName: "cloud")!,
+                        title: "iCloud",
+                        isEnabled: AppData.iCloudDataSyncIsEnabled)
                 )],
             header: "Synchronisation",
             footer: cloudSectionFooterTitle()
@@ -81,7 +87,10 @@ extension SettingsPresenter: SettingsPresenterInterface {
         return Section(
             items: [
                 SettingsItem.snapshots(
-                    SettingsSnapshotItem(icon: UIImage(systemName: "photo")!, title: "ColorSnapshots", isEnabled: AppData.shouldDisplaySnapshots)
+                    SettingsSnapshotItem(
+                        icon: UIImage(systemName: "photo")!,
+                        title: "ColorSnapshots",
+                        isEnabled: AppData.shouldDisplaySnapshots)
                 )],
             footer: "If enabled, your colors are displayed with a snapshot"
         )
@@ -91,13 +100,37 @@ extension SettingsPresenter: SettingsPresenterInterface {
         return Section(
             items: [
                 SettingsItem.about(
-                    SettingsAboutSelectorItem(icon: UIImage(systemName: "info.circle")!, title: "About", isButton: false, accessoryType: .disclosureIndicator, key: AppConfiguration.default.aboutUs, navigationTitle: "Imprint")),
+                    SettingsAboutSelectorItem(
+                        icon: UIImage(systemName: "info.circle")!,
+                        title: "About",
+                        isButton: false,
+                        accessoryType:
+                        .disclosureIndicator,
+                        pageType: .aboutus,
+                        navigationTitle: "Imprint")),
+                
                 SettingsItem.about(
-                    SettingsAboutSelectorItem(icon: UIImage(systemName: "hand.raised")!, title: "Privacy Policy", isButton: false, accessoryType: .disclosureIndicator, key: AppConfiguration.default.privacyPolicy, navigationTitle: "Privacy Policy")),
+                    SettingsAboutSelectorItem(
+                        icon: UIImage(systemName: "hand.raised")!,
+                        title: "Privacy Policy",
+                        isButton: false,
+                        accessoryType: .disclosureIndicator,
+                        pageType: .privacypolicy,
+                        navigationTitle: "Privacy Policy")),
+                
                 SettingsItem.about(
-                    SettingsAboutItem(icon: UIImage(systemName: "square.and.arrow.up")!, title: "Share", isButton: true, accessoryType: .none)),
+                    SettingsAboutItem(
+                        icon: UIImage(systemName: "square.and.arrow.up")!,
+                        title: "Share",
+                        isButton: true,
+                        accessoryType: .none)),
+                
                 SettingsItem.about(
-                    SettingsAboutItem(icon: UIImage(systemName: "star")!, title: "Rate ColorsMe", isButton: true, accessoryType: .none)
+                    SettingsAboutItem(
+                        icon: UIImage(systemName: "star")!,
+                        title: "Rate ColorsMe",
+                        isButton: true,
+                        accessoryType: .none)
                 )],
             footer: "We were pleased about a honest review in the AppStore."
         )
@@ -109,7 +142,11 @@ extension SettingsPresenter: SettingsPresenterInterface {
         return Section(
             items: [
                 SettingsItem.version(
-                    SettingsVersionItem(icon: UIImage(systemName: "hammer")!, title: "Version", versionNumber: version, buildNumber: build)
+                    SettingsVersionItem(
+                        icon: UIImage(systemName: "hammer")!,
+                        title: "Version",
+                        versionNumber: version,
+                        buildNumber: build)
                 )]
         )
     }
