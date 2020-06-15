@@ -36,28 +36,6 @@ extension SettingsPresenter: SettingsPresenterInterface {
         return interactor.getUserAnnotationsCount()
     }
     
-    
-    private func cloudSectionFooterTitle() -> String {
-        if !AppData.iCloudDataSyncIsEnabled {
-            return "iCloud data synchronization is disabled."
-        }
-        if AppData.iCloudHasSynced {
-            let lastSyncDate = AppData.lastCloudSync
-            let calendar = Calendar.current
-            let timeFormatter = DateFormatter.HHmmss
-            
-            if calendar.isDateInToday(lastSyncDate) {
-                return "Last sync: Today at \(timeFormatter.string(from: lastSyncDate))"
-            } else if calendar.isDateInYesterday(lastSyncDate) {
-                return "Last sync: Yesterday at \(timeFormatter.string(from: lastSyncDate))"
-            } else {
-                let dateTimeFormatter = DateFormatter.ddMMyyyy
-                return "Last sync: \(dateTimeFormatter.string(from: lastSyncDate))"
-            }
-        }
-        return "No data has been synchronized yet."
-    }
-    
     private var infoSection: Section<SettingsItem> {
         return Section(
             items: [SettingsItem.details(
@@ -66,20 +44,6 @@ extension SettingsPresenter: SettingsPresenterInterface {
                     title: "My Emotional Diary",
                     entries: "Entries: \(String(describing: self.entriesCount))")
                 )]
-        )
-    }
-    
-    private var cloudSection: Section<SettingsItem> {
-        return Section(
-            items: [
-                SettingsItem.synchronisation(
-                    SettingsCloudItem(
-                        icon: UIImage(systemName: "cloud")!,
-                        title: "iCloud",
-                        isEnabled: AppData.iCloudDataSyncIsEnabled)
-                )],
-            header: "Synchronisation",
-            footer: cloudSectionFooterTitle()
         )
     }
     
@@ -158,22 +122,11 @@ extension SettingsPresenter: SettingsPresenterInterface {
     func viewWillAppear(animated: Bool) {
         sections = [
             infoSection,
-            cloudSection,
             snapshotsSection,
             aboutSection,
             versionSection
         ]
         view.reloadTableView()
-    }
-    
-    func handleCloudSyncSwitchState(_ isOn: Bool) {
-        AppData.iCloudDataSyncIsEnabled = isOn
-        if isOn {
-            interactor.enableCloudCore()
-        } else {
-            interactor.disableCloudCore()
-        }
-        #warning("Handle CloudCore - enable")
     }
     
     func handleSnapshotsSwitchState(_ isOn: Bool) {

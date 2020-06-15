@@ -39,12 +39,6 @@ final class SettingsViewController: UITableViewController {
             cell.configure(with: item)
             return cell
             
-        case .synchronisation(let item):
-            let cell = tableView.dequeueReusableCell(ofType: SettingsCloudTableViewCell.self, for: indexPath)
-            cell.configure(with: item)
-            cell.delegate = self
-            return cell
-            
         case .snapshots(let item):
             let cell = tableView.dequeueReusableCell(ofType: SettingsSnapshotTableViewCell.self, for: indexPath)
             cell.configure(with: item)
@@ -114,14 +108,6 @@ extension SettingsViewController: SettingsViewInterface {
     }
 }
 
-// MARK: - SettingsCloudSyncCellDelegate
-extension SettingsViewController : SettingsCloudSyncCellDelegate {
-    
-    func handleCloudSyncSwitchState(isOn: Bool) {
-        presenter.handleCloudSyncSwitchState(isOn)
-    }
-    
-}
 
 // MARK: - SettingsSnapshotCellDelegate
 extension SettingsViewController : SettingsSnapshotCellDelegate {

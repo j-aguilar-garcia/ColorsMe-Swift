@@ -18,20 +18,4 @@ class SettingsInteractor : SettingsInteractorInterface {
         //return DataManager.shared.cloudDataManager.getAnnotations().count
     }
     
-    func enableCloudCore() {
-        /*
-        let container = DataManager.shared.cloudDataManager.persistentContainer!
-        CloudCore.enable(persistentContainer: container)
-        CloudCore.pull(to: container, error: { (error) in
-            log.error(error)
-        }) {
-            AppData.lastCloudSync = Date()
-            log.verbose("some completion")
-        }*/
-    }
-    
-    func disableCloudCore() {
-        //CloudCore.disable()
-    }
-    
 }

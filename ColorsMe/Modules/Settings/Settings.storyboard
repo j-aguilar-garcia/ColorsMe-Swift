@@ -16,35 +16,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SettingsCloudTableViewCell" id="p7f-I3-xgZ" customClass="SettingsCloudTableViewCell" customModule="ColorsMe" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="55.333332061767578" width="414" height="43.666667938232422"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="p7f-I3-xgZ" id="TYY-gS-vb5">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cR3-Ya-jFm">
-                                            <rect key="frame" x="351" y="6.3333333333333321" width="49" height="30.999999999999996"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="47" id="Vyw-Hh-8L3"/>
-                                                <constraint firstAttribute="height" constant="31" id="vV4-Zl-kSd"/>
-                                            </constraints>
-                                            <connections>
-                                                <action selector="onCloudSyncSwitch:" destination="p7f-I3-xgZ" eventType="valueChanged" id="2zU-mc-kBk"/>
-                                            </connections>
-                                        </switch>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="cR3-Ya-jFm" firstAttribute="centerY" secondItem="TYY-gS-vb5" secondAttribute="centerY" id="tLr-Bp-jvX"/>
-                                        <constraint firstAttribute="trailing" secondItem="cR3-Ya-jFm" secondAttribute="trailing" constant="16" id="ypP-bB-phy"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="allowCloudSyncSwitch" destination="cR3-Ya-jFm" id="EJ0-St-4u8"/>
-                                </connections>
-                            </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="SettingsAboutTableViewCell" textLabel="f1W-JL-3fn" style="IBUITableViewCellStyleDefault" id="kok-wc-6UC" customClass="SettingsAboutTableViewCell" customModule="ColorsMe" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="99" width="414" height="43.666667938232422"/>
+                                <rect key="frame" x="0.0" y="55.333332061767578" width="414" height="43.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kok-wc-6UC" id="Vwn-4d-LJ9">
                                     <rect key="frame" x="0.0" y="0.0" width="383" height="43.666667938232422"/>
@@ -64,7 +37,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SettingsDetailsTableViewCell" textLabel="7iz-MB-hhe" detailTextLabel="abb-lC-bF0" style="IBUITableViewCellStyleSubtitle" id="HrY-eH-ZEm" customClass="SettingsDetailsTableViewCell" customModule="ColorsMe" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="142.66666793823242" width="414" height="55.666667938232422"/>
+                                <rect key="frame" x="0.0" y="99" width="414" height="55.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="HrY-eH-ZEm" id="N7W-JO-YoK">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="55.666667938232422"/>
@@ -92,7 +65,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SettingsVersionTableViewCell" textLabel="fEh-FO-MPp" detailTextLabel="Vl9-wE-XdT" style="IBUITableViewCellStyleValue1" id="jug-Uw-iFY" customClass="SettingsVersionTableViewCell" customModule="ColorsMe" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="198.33333587646484" width="414" height="43.666667938232422"/>
+                                <rect key="frame" x="0.0" y="154.66666793823242" width="414" height="43.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jug-Uw-iFY" id="L0z-cB-I05">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
@@ -117,7 +90,7 @@
                                 </tableViewCellContentView>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SettingsSnapshotTableViewCell" id="Eeg-M9-kkp" customClass="SettingsSnapshotTableViewCell" customModule="ColorsMe" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="242.00000381469727" width="414" height="43.666667938232422"/>
+                                <rect key="frame" x="0.0" y="198.33333587646484" width="414" height="43.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Eeg-M9-kkp" id="tNs-Qc-Tu5">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
@@ -205,6 +178,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="b0k-2G-k6J" customClass="ColorsNavigationViewController" customModule="ColorsMe" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="EY5-gI-Lju">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

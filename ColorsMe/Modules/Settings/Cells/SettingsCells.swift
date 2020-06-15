@@ -21,20 +21,6 @@ class SettingsDetailsItem : SettingsDetailsItemInterface {
     }
 }
 
-
-class SettingsCloudItem : SettingsCloudItemInterface {
-    var icon: UIImage
-    var title: String
-    var isEnabled: Bool
-    
-    init(icon: UIImage, title: String, isEnabled: Bool) {
-        self.icon = icon
-        self.title = title
-        self.isEnabled = isEnabled
-    }
-}
-
-
 class SettingsSnapshotItem : SettingsSnapshotsItemInterface {
     var icon: UIImage
     var title: String

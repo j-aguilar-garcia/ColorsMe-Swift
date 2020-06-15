@@ -58,7 +58,6 @@
 		07C8FA1A248D20A300612C93 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C8FA15248D20A300612C93 /* SettingsViewController.swift */; };
 		07C8FA1B248D20A300612C93 /* SettingsWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C8FA16248D20A300612C93 /* SettingsWireframe.swift */; };
 		07C8FA1E248D282B00612C93 /* SettingsDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C8FA1D248D282B00612C93 /* SettingsDetailsTableViewCell.swift */; };
-		07C8FA20248D2BCA00612C93 /* SettingsCloudTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C8FA1F248D2BCA00612C93 /* SettingsCloudTableViewCell.swift */; };
 		07E06B5E247A7AFD007139E2 /* PickerDialog.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07E06B58247A7AFD007139E2 /* PickerDialog.storyboard */; };
 		07E06B5F247A7AFD007139E2 /* PickerDialogInterfaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B59247A7AFD007139E2 /* PickerDialogInterfaces.swift */; };
 		07E06B60247A7AFD007139E2 /* PickerDialogPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B5A247A7AFD007139E2 /* PickerDialogPresenter.swift */; };
@@ -189,7 +188,6 @@
 		07C8FA15248D20A300612C93 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		07C8FA16248D20A300612C93 /* SettingsWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsWireframe.swift; sourceTree = "<group>"; };
 		07C8FA1D248D282B00612C93 /* SettingsDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDetailsTableViewCell.swift; sourceTree = "<group>"; };
-		07C8FA1F248D2BCA00612C93 /* SettingsCloudTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCloudTableViewCell.swift; sourceTree = "<group>"; };
 		07E06B58247A7AFD007139E2 /* PickerDialog.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PickerDialog.storyboard; sourceTree = "<group>"; };
 		07E06B59247A7AFD007139E2 /* PickerDialogInterfaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerDialogInterfaces.swift; sourceTree = "<group>"; };
 		07E06B5A247A7AFD007139E2 /* PickerDialogPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerDialogPresenter.swift; sourceTree = "<group>"; };
@@ -504,7 +502,6 @@
 			isa = PBXGroup;
 			children = (
 				07C8FA1D248D282B00612C93 /* SettingsDetailsTableViewCell.swift */,
-				07C8FA1F248D2BCA00612C93 /* SettingsCloudTableViewCell.swift */,
 				071DA9E4248D2D2500ADBB5F /* SettingsSnapshotTableViewCell.swift */,
 				071DA9E8248D2FDA00ADBB5F /* SettingsAboutTableViewCell.swift */,
 				071DA9E6248D2DD600ADBB5F /* SettingsVersionTableViewCell.swift */,
@@ -1034,7 +1031,6 @@
 				0737FA8B247D7E430015A8F7 /* AppConfiguration.swift in Sources */,
 				07C4BFD32486FB6D00552BC9 /* TableView.swift in Sources */,
 				07E2BA4A247EE07E00465688 /* CMHeatMapLayer.swift in Sources */,
-				07C8FA20248D2BCA00612C93 /* SettingsCloudTableViewCell.swift in Sources */,
 				07E06B7A247AF680007139E2 /* DataManager.swift in Sources */,
 				07B2BA0E247C2AFD00ED5BE7 /* CMAnnotationView.swift in Sources */,
 				07C8FA1E248D282B00612C93 /* SettingsDetailsTableViewCell.swift in Sources */,
