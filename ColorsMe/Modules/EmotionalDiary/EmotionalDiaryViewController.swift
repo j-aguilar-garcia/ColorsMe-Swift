@@ -63,17 +63,20 @@ final class EmotionalDiaryViewController: UIViewController {
         tableView.emptyDataSetDelegate = self
         
         self.navigationController?.navigationBar.isHidden = true
-        
+        /*
         if UIDevice.current.userInterfaceIdiom == .pad {
             tableViewContainerLeading.priority = .defaultLow
             tableViewContainerTrailing.priority = .defaultLow
-            tableViewContainerWidthConstraint.priority = .defaultHigh
+            //tableViewContainerWidthConstraint.priority = .defaultHigh
         } else if UIDevice.current.userInterfaceIdiom == .phone {
             tableViewContainerLeading.priority = .defaultHigh
             tableViewContainerTrailing.priority = .defaultHigh
             tableViewContainerWidthConstraint.priority = .defaultLow
             
-        }
+        }*/
+        tableViewContainerLeading.priority = .defaultHigh
+        tableViewContainerTrailing.priority = .defaultHigh
+        tableViewContainerWidthConstraint.priority = .defaultLow
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -129,6 +132,9 @@ extension EmotionalDiaryViewController : UITableViewDelegate, UITableViewDataSou
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            return 95
+        }
         return 70
     }
     
@@ -147,7 +153,7 @@ extension EmotionalDiaryViewController: EmotionalDiaryViewInterface {
     private func updateConstraints() {
         if UIDevice.current.userInterfaceIdiom == .phone {
             self.tableView.contentInset = UIEdgeInsets(top: -24, left: 0, bottom: 0, right: 0)
-            tableViewContainerWidthConstraint.constant = UIScreen.main.bounds.width
+            //tableViewContainerWidthConstraint.constant = UIScreen.main.bounds.width
         }
         if UIDevice.current.orientation.isLandscape && UIDevice.current.userInterfaceIdiom == .pad {
             if buttonViewBottomToTableViewTopConstraint != nil && tableViewBottomToTabBarTopConstraint != nil {

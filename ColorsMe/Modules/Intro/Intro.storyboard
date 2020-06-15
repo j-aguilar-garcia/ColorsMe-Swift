@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jjj-bN-sFd">
-    <device id="retina6_5" orientation="portrait" appearance="light"/>
+    <device id="ipad11_0rounded" orientation="portrait" layout="fullscreen" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -12,17 +12,17 @@
             <objects>
                 <viewController storyboardIdentifier="IntroViewController" id="jjj-bN-sFd" customClass="IntroViewController" customModule="ColorsMe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EWc-zU-rKP">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UqK-Be-p2b">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="-44" width="834" height="1252"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="rFO-yu-EUR">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="834" height="1252"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How do you feel at the moment?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="AK4-QX-8p3">
-                                            <rect key="frame" x="66" y="68" width="282.33333333333331" height="23.666666666666671"/>
+                                            <rect key="frame" x="233.5" y="88" width="367" height="31"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -31,15 +31,15 @@
                                             </variation>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Green means Happy | Red means sick" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="Z6H-gK-pY6">
-                                            <rect key="frame" x="74.666666666666686" y="106.66666666666667" width="265" height="19"/>
+                                            <rect key="frame" x="243" y="139" width="348" height="25"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                                             <nil key="highlightedColor"/>
                                             <variation key="heightClass=regular-widthClass=regular">
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="21"/>
                                             </variation>
                                         </label>
-                                        <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ud7-Pv-ROj">
-                                            <rect key="frame" x="177" y="819" width="60" height="45"/>
+                                        <button opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ud7-Pv-ROj">
+                                            <rect key="frame" x="387" y="1143" width="60" height="45"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="45" id="hKP-cM-eDT"/>
                                                 <constraint firstAttribute="width" constant="60" id="kcI-FG-xcB"/>
@@ -51,14 +51,14 @@
                                                 <action selector="onSkipButton:" destination="jjj-bN-sFd" eventType="touchUpInside" id="uiB-WY-1Et"/>
                                             </connections>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PxM-uM-FBA" userLabel="yellow">
-                                            <rect key="frame" x="157" y="398" width="100" height="100"/>
+                                        <button opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PxM-uM-FBA" userLabel="yellow">
+                                            <rect key="frame" x="322" y="531" width="190" height="190"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="100" id="UPF-LL-NWx">
-                                                    <variation key="heightClass=regular-widthClass=regular" constant="200"/>
+                                                    <variation key="heightClass=regular-widthClass=regular" constant="190"/>
                                                 </constraint>
                                                 <constraint firstAttribute="height" constant="100" id="oVN-3c-5wu">
-                                                    <variation key="heightClass=regular-widthClass=regular" constant="200"/>
+                                                    <variation key="heightClass=regular-widthClass=regular" constant="190"/>
                                                 </constraint>
                                             </constraints>
                                             <state key="normal" image="YellowBigDot"/>
@@ -66,14 +66,14 @@
                                                 <action selector="onYellowDot:" destination="jjj-bN-sFd" eventType="touchUpInside" id="Q2d-y1-c9M"/>
                                             </connections>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="roQ-dG-7Nl" userLabel="green">
-                                            <rect key="frame" x="157" y="248" width="100" height="100"/>
+                                        <button opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="roQ-dG-7Nl" userLabel="green">
+                                            <rect key="frame" x="322" y="291" width="190" height="190"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="100" id="46u-NM-gl0">
-                                                    <variation key="heightClass=regular-widthClass=regular" constant="200"/>
+                                                    <variation key="heightClass=regular-widthClass=regular" constant="190"/>
                                                 </constraint>
                                                 <constraint firstAttribute="width" constant="100" id="4hB-dy-rdM">
-                                                    <variation key="heightClass=regular-widthClass=regular" constant="200"/>
+                                                    <variation key="heightClass=regular-widthClass=regular" constant="190"/>
                                                 </constraint>
                                             </constraints>
                                             <state key="normal" image="GreenBigDot"/>
@@ -81,14 +81,14 @@
                                                 <action selector="onGreenDot:" destination="jjj-bN-sFd" eventType="touchUpInside" id="g8k-Td-ShW"/>
                                             </connections>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fs9-0E-NV8" userLabel="red">
-                                            <rect key="frame" x="157" y="548" width="100" height="100"/>
+                                        <button opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fs9-0E-NV8" userLabel="red">
+                                            <rect key="frame" x="322" y="771" width="190" height="190"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="100" id="BKc-1a-QxE">
-                                                    <variation key="heightClass=regular-widthClass=regular" constant="200"/>
+                                                    <variation key="heightClass=regular-widthClass=regular" constant="190"/>
                                                 </constraint>
                                                 <constraint firstAttribute="width" constant="100" id="Vb2-gN-sA1">
-                                                    <variation key="heightClass=regular-widthClass=regular" constant="200"/>
+                                                    <variation key="heightClass=regular-widthClass=regular" constant="190"/>
                                                 </constraint>
                                             </constraints>
                                             <state key="normal" image="RedBigDot"/>
@@ -126,7 +126,7 @@
                                 <blurEffect style="regular"/>
                             </visualEffectView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Splashscreen" translatesAutoresizingMaskIntoConstraints="NO" id="zQ7-Ky-FEI">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="0.0" width="834" height="1194"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -164,9 +164,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="GreenBigDot" width="104.66666412353516" height="106.66666412353516"/>
-        <image name="RedBigDot" width="104.66666412353516" height="106.66666412353516"/>
-        <image name="Splashscreen" width="354.66665649414062" height="600.33331298828125"/>
-        <image name="YellowBigDot" width="104.66666412353516" height="106.66666412353516"/>
+        <image name="GreenBigDot" width="157" height="160"/>
+        <image name="RedBigDot" width="157" height="160"/>
+        <image name="Splashscreen" width="532" height="900.5"/>
+        <image name="YellowBigDot" width="157" height="160"/>
     </resources>
 </document>

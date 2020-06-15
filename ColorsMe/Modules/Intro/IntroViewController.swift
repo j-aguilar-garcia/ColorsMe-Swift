@@ -70,6 +70,7 @@ final class IntroViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         presenter.viewDidLoad()
+        updateConstraints()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -82,7 +83,7 @@ final class IntroViewController: UIViewController {
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        updateConstraints()
+        updateConstraints(animated: true)
     }
 
 }
@@ -91,16 +92,16 @@ final class IntroViewController: UIViewController {
 
 extension IntroViewController: IntroViewInterface {
     
-    func animateSplashScreen() {
+    func animateSplashScreen(withDelay: Bool = true) {
         let commonAnimationDuration = TimeInterval(0.4)
         let commonSpringDumping = CGFloat(0.4)
         let commonInitSpringVelocity = CGFloat(0.1)
         
         var delay: TimeInterval = 0.0
         let colorButtons = [greenDotButton, yellowDotButton, redDotButton]
-        greenDotButton.alpha = 0
-        yellowDotButton.alpha = 0
-        redDotButton.alpha = 0
+        //greenDotButton.alpha = 0
+        //yellowDotButton.alpha = 0
+        //redDotButton.alpha = 0
         
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
             self.splashScreenImageView?.transform = CGAffineTransform(scaleX: 2, y: 2)
@@ -117,21 +118,50 @@ extension IntroViewController: IntroViewInterface {
                         button?.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
                         button?.layoutIfNeeded()
                     }) { finish in
+                        button?.isUserInteractionEnabled = true
                         if button == colorButtons.last {
                             UIView.animate(withDuration: 0.4, delay: delay, animations: {
                                 self.skipButton.alpha = 1.0
+                                self.skipButton.isUserInteractionEnabled = true
+                                self.skipButton.layoutIfNeeded()
                                 LocationService.default.startLocationRequest()
                             })
                         }
                     }
                 }
-                delay += 0.1
+                if withDelay {
+                    delay += 0.1
+                }
             }
         }
     }
     
     
-    private func updateConstraints() {
+    private func updateConstraints(animated: Bool = false) {
+        if animated && UIDevice.current.userInterfaceIdiom == .pad {
+            let colorButtons = [greenDotButton, yellowDotButton, redDotButton]
+            for button in colorButtons {
+                UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations:  {
+                    button?.transform = CGAffineTransform(scaleX: 0.0, y: 0.0)
+                    button?.alpha = 0
+                    button?.layoutIfNeeded()
+                    self.skipButton.alpha = 0
+                    self.skipButton.layoutIfNeeded()
+                }) { finish in
+                    UIView.animate(withDuration: 0.3, animations:  {
+                        button?.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                        button?.layoutIfNeeded()
+                    }) { finish in
+                        if button == colorButtons.last {
+                            //UIView.animate(withDuration: 0.4, delay: 0.1, animations: {
+                                self.animateSplashScreen(withDelay: false)
+                            //})
+                        }
+                    }
+                }
+
+            }
+        }
         if UIDevice.current.orientation.isLandscape && UIDevice.current.userInterfaceIdiom == .pad {
             greenCenterY.priority = .required
             redCenterY.priority = .required

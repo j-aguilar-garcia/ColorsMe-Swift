@@ -59,7 +59,7 @@ final class ColorMapViewController: UIViewController {
     var resultSearchController: UISearchController?
     var locationSearchWireframe: LocationSearchWireframe!
     
-    
+    var triggerButton: MenuTriggerButtonView!
     // MARK: - Lifecycle -
     
     override func viewDidLoad() {
@@ -87,6 +87,11 @@ final class ColorMapViewController: UIViewController {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         switchAppearanceFor(mapView: self.mapView)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        let tabBarHeight = tabBarController?.tabBar.frame.size.height ?? 83
+        sideButtonsView.setTriggerButtonPosition(CGPoint(x: self.view.frame.maxX - triggerButton.frame.width - 16, y: self.view.frame.height - tabBarHeight - triggerButton.frame.height - 16))
     }
     
 }
@@ -121,9 +126,7 @@ extension ColorMapViewController: ColorMapViewInterface, EmotionalDiaryDelegate 
     
     
     func zoomToAnnotation(annotation: CMAnnotation) {
-        log.debug(mapView.annotations?.count)
         mapView.addAnnotation(annotation)
-        log.debug(mapView.annotations?.count)
         showMapLayer(layerType: .defaultmap)
         mapView.selectAnnotation(annotation, animated: true, completionHandler: {
             self.mapView.setCenter(annotation.coordinate, zoomLevel: 8, animated: true)
@@ -183,7 +186,7 @@ extension ColorMapViewController: ColorMapViewInterface, EmotionalDiaryDelegate 
     
     
     func addMenuButton() {
-        let triggerButton = MenuTriggerButtonView(highlightedImage: UIImage(systemName: "xmark.circle.fill")!) {
+        triggerButton = MenuTriggerButtonView(highlightedImage: UIImage(systemName: "xmark.circle.fill")!) {
             $0.image = UIImage(named: "Menu")
             $0.hasShadow = false
         }

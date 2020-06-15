@@ -92,7 +92,7 @@ class EmotionalDiaryTableViewCell : MGSwipeTableCell {
         let backgroundQueue = DispatchQueue.global(qos: .background)
         let options = MKMapSnapshotter.Options.init()
         options.mapType = .mutedStandard
-        options.region = MKCoordinateRegion(center: coords, latitudinalMeters: 300, longitudinalMeters: 300)
+        options.region = MKCoordinateRegion(center: coords, latitudinalMeters: 150, longitudinalMeters: 150)
         options.pointOfInterestFilter = MKPointOfInterestFilter.init(including: [
             .airport,
             .beach,
@@ -124,7 +124,7 @@ class EmotionalDiaryTableViewCell : MGSwipeTableCell {
                 UIGraphicsBeginImageContextWithOptions(options.size, true, snapShotImage.scale)
                 snapShotImage.draw(at: CGPoint.zero)
                 
-                let fixedPinPoint = CGPoint(x: coordinatePoint.x - pinImage.size.width / 2, y: coordinatePoint.y - pinImage.size.height)
+                let fixedPinPoint = CGPoint(x: coordinatePoint.x - (pinImage.size.width / 2), y: coordinatePoint.y - (pinImage.size.height / 2))
                 pinImage.draw(at: fixedPinPoint)
                 let mapImage = UIGraphicsGetImageFromCurrentImageContext()
                 DispatchQueue.main.async {

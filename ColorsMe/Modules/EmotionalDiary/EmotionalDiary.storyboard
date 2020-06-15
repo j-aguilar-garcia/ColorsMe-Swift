@@ -176,17 +176,21 @@
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8v8-zL-7ke">
-                                                            <rect key="frame" x="961" y="7.5" width="55" height="55"/>
+                                                            <rect key="frame" x="936" y="-5" width="80" height="80"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="55" id="azP-cF-UJG"/>
-                                                                <constraint firstAttribute="height" constant="55" id="duJ-wt-uDY"/>
+                                                                <constraint firstAttribute="width" constant="55" id="azP-cF-UJG">
+                                                                    <variation key="heightClass=regular-widthClass=regular" constant="80"/>
+                                                                </constraint>
+                                                                <constraint firstAttribute="height" constant="55" id="duJ-wt-uDY">
+                                                                    <variation key="heightClass=regular-widthClass=regular" constant="80"/>
+                                                                </constraint>
                                                             </constraints>
                                                         </imageView>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n7j-mK-evv">
-                                                            <rect key="frame" x="15" y="13.5" width="930" height="43"/>
+                                                            <rect key="frame" x="15" y="13.5" width="905" height="43"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="q4W-mo-1Be">
-                                                                    <rect key="frame" x="0.0" y="23" width="930" height="20"/>
+                                                                    <rect key="frame" x="0.0" y="23" width="905" height="20"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="20" id="Uo0-Qf-12b"/>
                                                                     </constraints>
@@ -195,7 +199,7 @@
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tCl-Wz-I8m">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="930" height="22"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="905" height="22"/>
                                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="22" id="9j3-Sh-dR9"/>
@@ -217,7 +221,7 @@
                                                             </constraints>
                                                         </view>
                                                         <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="etJ-6M-f96">
-                                                            <rect key="frame" x="976" y="22.5" width="25" height="25"/>
+                                                            <rect key="frame" x="963.5" y="22.5" width="25" height="25"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="25" id="eDh-EZ-XYT"/>
                                                                 <constraint firstAttribute="height" constant="25" id="eo8-w9-eeq"/>
