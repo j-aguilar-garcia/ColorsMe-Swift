@@ -55,6 +55,15 @@ extension LocationSearchViewController : LocationSearchViewInterface {
     
 }
 
+extension LocationSearchViewController : ColorMapViewSearchDelegate {
+    
+    func onSearchBarButtonClicked(_ searchBar: UISearchBar) {
+        if !presenter.searchResults.isEmpty {
+            self.presenter.didSelectRowAt(index: 0)
+        }
+    }
+    
+}
 
 extension LocationSearchViewController : UISearchResultsUpdating {
     

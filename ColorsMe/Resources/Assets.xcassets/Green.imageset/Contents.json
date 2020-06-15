@@ -1,23 +1,32 @@
 {
   "images" : [
     {
-      "idiom" : "universal",
       "filename" : "GreenDot.png",
+      "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "idiom" : "universal",
       "filename" : "GreenDot@2.png",
+      "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "GreenDot@3-1.png",
       "idiom" : "universal",
-      "filename" : "GreenDot@3.png",
       "scale" : "3x"
+    },
+    {
+      "filename" : "GreenDot@3.png",
+      "idiom" : "ipad",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "ipad",
+      "scale" : "2x"
     }
   ],
   "info" : {
-    "version" : 1,
-    "author" : "xcode"
+    "author" : "xcode",
+    "version" : 1
   }
 }

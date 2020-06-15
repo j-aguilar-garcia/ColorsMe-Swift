@@ -90,8 +90,10 @@ final class ColorMapViewController: UIViewController {
     }
     
     override func viewWillLayoutSubviews() {
-        let tabBarHeight = tabBarController?.tabBar.frame.size.height ?? 83
-        sideButtonsView.setTriggerButtonPosition(CGPoint(x: self.view.frame.maxX - triggerButton.frame.width - 16, y: self.view.frame.height - tabBarHeight - triggerButton.frame.height - 16))
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            let tabBarHeight = tabBarController?.tabBar.frame.size.height ?? 44
+            sideButtonsView.setTriggerButtonPosition(CGPoint(x: self.view.frame.maxX - triggerButton.frame.width - 16, y: self.view.frame.height - tabBarHeight - triggerButton.frame.height - 16))
+        }
     }
     
 }
@@ -126,61 +128,66 @@ extension ColorMapViewController: ColorMapViewInterface, EmotionalDiaryDelegate 
     
     
     func zoomToAnnotation(annotation: CMAnnotation) {
-        mapView.addAnnotation(annotation)
-        showMapLayer(layerType: .defaultmap)
-        mapView.selectAnnotation(annotation, animated: true, completionHandler: {
+        DispatchQueue.main.async {
+            self.mapView.addAnnotation(annotation)
+            self.showMapLayer(layerType: .defaultmap)
+            self.mapView.selectAnnotation(annotation, animated: true, completionHandler: {
             self.mapView.setCenter(annotation.coordinate, zoomLevel: 8, animated: true)
             let camera = MGLMapCamera(lookingAtCenter: annotation.coordinate, altitude: 2500, pitch: 50, heading: 180)
             self.mapView.setCamera(camera, withDuration: 3.5, animationTimingFunction: CAMediaTimingFunction(name: .easeInEaseOut))
         })
+        }
     }
     
     
     func showMapLayer(layerType: ColorMapLayerType, annotations: [CMAnnotation]? = nil) {
-        log.debug("")
-        AppData.colorMapLayerItem = layerType.rawValue
-        
-        heatMapLayer?.removeAllLayers(mapView: mapView)
-        heatMapLayer = nil
-        clusterMapLayer?.removeAllLayers(mapView: mapView)
-        clusterMapLayer = nil
-        willRemoveOverlay()
-        
-        if annotations != nil {
-            mapView.addAnnotations(annotations!)
-        } else {
-            if mapView.annotations != nil {
-                mapView.removeAnnotations(mapView.annotations!)
-            }
-            let allAnnotations = DataManager.shared.dataManager(willRetrieveWith: .local)
-            if mapView.annotations?.count != allAnnotations.count {
-                mapView.addAnnotations(allAnnotations)
-            }
-        }
-        
-        updateColorsLabel(count: mapView.annotations?.count ?? 0)
-        presenter.shouldUpdateScale(mapView, slider.value)
-        switch layerType {
+        DispatchQueue.main.async {
+            log.debug("")
+            AppData.colorMapLayerItem = layerType.rawValue
             
-        case .defaultmap:
-            showScale()
-            break
+            self.heatMapLayer?.removeAllLayers(mapView: self.mapView)
+            self.heatMapLayer = nil
+            self.clusterMapLayer?.removeAllLayers(mapView: self.mapView)
+            self.clusterMapLayer = nil
+            self.willRemoveOverlay()
             
-        case .heatmap:
-            heatMapLayer = CMHeatMapLayer(mapView: mapView)
-            if mapView.annotations != nil, !mapView.annotations!.isEmpty {
-                mapView.removeAnnotations(mapView!.annotations!)
+            if annotations != nil {
+                self.mapView.addAnnotations(annotations!)
+            } else {
+                if self.mapView.annotations != nil {
+                    self.mapView.removeAnnotations(self.mapView.annotations!)
+                }
+                let allAnnotations = DataManager.shared.dataManager(willRetrieveWith: .local)
+                if self.mapView.annotations?.count != allAnnotations.count {
+                    self.mapView.addAnnotations(allAnnotations)
+                }
             }
-            hideScale()
-            break
             
-        case .clustermap:
-            clusterMapLayer = CMClusterMapLayer(mapView: mapView, view: view)
-            if mapView.annotations != nil, !mapView.annotations!.isEmpty {
-                mapView.removeAnnotations(mapView!.annotations!)
+            self.updateColorsLabel(count: self.mapView.annotations?.count ?? 0)
+            self.presenter.shouldUpdateScale(self.mapView, self.slider.value)
+            switch layerType {
+                
+            case .defaultmap:
+                self.showScale()
+                break
+                
+            case .heatmap:
+                self.hideScale()
+                self.heatMapLayer = CMHeatMapLayer(mapView: self.mapView)
+                if self.mapView.annotations != nil, !self.mapView.annotations!.isEmpty {
+                    self.mapView.removeAnnotations(self.mapView!.annotations!)
+                }
+                break
+                
+            case .clustermap:
+                self.hideScale()
+                self.clusterMapLayer = CMClusterMapLayer(mapView: self.mapView, view: self.view)
+                if self.mapView.annotations != nil, !self.mapView.annotations!.isEmpty {
+                    self.mapView.removeAnnotations(self.mapView!.annotations!)
+                }
+                self.hideScale()
+                break
             }
-            hideScale()
-            break
         }
     }
     
@@ -225,53 +232,62 @@ extension ColorMapViewController: ColorMapViewInterface, EmotionalDiaryDelegate 
     }
     
     func hideScale(_ animated: Bool = true) {
-        let hideScaleViewFrame = CGRect(x: 0 - self.scaleView.frame.width - 8, y: self.scaleView.frame.minY, width: self.scaleView.frame.width, height: self.scaleView.frame.height)
-        
-        if scaleView.frame == hideScaleViewFrame {
-            return
+        DispatchQueue.main.async {
+            let hideScaleViewFrame = CGRect(x: UIScreen.main.bounds.origin.x - self.scaleView.frame.width - 8, y: self.scaleView.frame.minY, width: self.scaleView.frame.width, height: self.scaleView.frame.height)
+            
+            if self.scaleView.frame.equalTo(hideScaleViewFrame) {
+                return
+            }
+            log.debug(hideScaleViewFrame)
+            self.scaleView.frame = CGRect(x: UIScreen.main.bounds.origin.x, y: self.scaleView.frame.minY, width: self.scaleView.frame.width, height: self.scaleView.frame.height)
+            log.debug(self.scaleView.frame)
+            if animated {
+                UIView.animate(withDuration: 0.5, delay: 0.2, animations: {
+                    self.scaleView.frame = hideScaleViewFrame
+                })
+                return
+            }
+            self.scaleView.frame = hideScaleViewFrame
         }
-        scaleView.frame = CGRect(x: 0, y: self.scaleView.frame.minY, width: self.scaleView.frame.width, height: self.scaleView.frame.height)
-        
-        if animated {
-            UIView.animate(withDuration: 0.5, delay: 0.2, animations: {
-                self.scaleView.frame = hideScaleViewFrame
-            })
-            return
-        }
-        self.scaleView.frame = hideScaleViewFrame
     }
     
     func showScale(_ animated: Bool = true) {
-        let showScaleViewFrame = CGRect(x: 0, y: self.scaleView.frame.minY, width: self.scaleView.frame.width, height: self.scaleView.frame.height)
-        
-        if scaleView.frame == showScaleViewFrame {
-            return
-        }
-        scaleView.frame = CGRect(x: 0 - self.scaleView.frame.width - 8, y: self.scaleView.frame.minY, width: self.scaleView.frame.width, height: self.scaleView.frame.height)
-        
-        if animated {
-            UIView.animate(withDuration: 0.5, delay: 0.2, animations: {
-                self.scaleView.frame = showScaleViewFrame
-            }) { finish in
-                self.presenter.shouldUpdateScale(self.mapView, self.slider.value)
+        DispatchQueue.main.async {
+            let showScaleViewFrame = CGRect(x: UIScreen.main.bounds.origin.x, y: self.scaleView.frame.minY, width: self.scaleView.frame.width, height: self.scaleView.frame.height)
+            
+            if self.scaleView.frame.equalTo(showScaleViewFrame) {
+                return
             }
-            return
+            self.scaleView.frame = CGRect(x: UIScreen.main.bounds.origin.x - self.scaleView.frame.width - 8, y: self.scaleView.frame.minY, width: self.scaleView.frame.width, height: self.scaleView.frame.height)
+            
+            if animated {
+                UIView.animate(withDuration: 0.5, delay: 0.2, animations: {
+                    self.scaleView.frame = showScaleViewFrame
+                }) { finish in
+                    self.presenter.shouldUpdateScale(self.mapView, self.slider.value)
+                }
+                return
+            }
+            self.scaleView.frame = showScaleViewFrame
         }
-        self.scaleView.frame = showScaleViewFrame
         presenter.shouldUpdateScale(mapView, slider.value)
     }
     
     func updateScale(value: Float, duration: Double) {
-        UIView.animate(withDuration: duration, animations: {
-            self.slider.setValue(self.slider.maximumValue - value, animated: true)
-        })
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: duration, animations: {
+                self.slider.setValue(self.slider.maximumValue - value, animated: true)
+            })
+        }
     }
     
     private func updateColorsLabel(count: Int, name: String = "") {
-        if name.isEmpty {
-            countColorsLabel.text = "\(AppData.selectedFilterName) : \(count)"
-        } else {
-            countColorsLabel.text = "\(name) : \(count)"
+        DispatchQueue.main.async {
+            if name.isEmpty {
+                self.countColorsLabel.text = "\(AppData.selectedFilterName) : \(count)"
+            } else {
+                self.countColorsLabel.text = "\(name) : \(count)"
+            }
         }
     }
     
@@ -421,7 +437,7 @@ extension ColorMapViewController : PickerDialogDelegate {
             self.mapView.removeAnnotations(self.mapView.annotations!)
         }
         presenter.filteredAnnotationsDidChange(annotations)
-        hideScale()
+        //hideScale()
         showMapLayer(layerType: ColorMapLayerType(rawValue: AppData.colorMapLayerItem)!, annotations: annotations)
     }
     
@@ -441,11 +457,12 @@ extension ColorMapViewController : UISearchBarDelegate {
         resultSearchController?.searchResultsUpdater = locationSearchTable as UISearchResultsUpdating
         
         resultSearchController?.searchBar.sizeToFit()
-        resultSearchController?.searchBar.barTintColor = .green
+        resultSearchController?.searchBar.barTintColor = .cmAppDefaultColor
         resultSearchController?.searchBar.searchBarStyle = .prominent
         resultSearchController?.searchBar.autocorrectionType = .default
         resultSearchController?.searchBar.textContentType = .addressCityAndState
-        resultSearchController?.searchBar.placeholder = "Find places"
+        resultSearchController?.searchBar.placeholder = "Find places..."
+        resultSearchController?.searchBar.delegate = self
         
         navigationItem.titleView = resultSearchController?.searchBar
         resultSearchController?.hidesNavigationBarDuringPresentation = false
@@ -454,11 +471,14 @@ extension ColorMapViewController : UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         willRemoveOverlay()
-        
     }
     
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         willRemoveOverlay()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        presenter.searchBarbuttonClicked(searchBar, searchWireframe: locationSearchWireframe)
     }
     
 }
@@ -478,7 +498,7 @@ extension ColorMapViewController : LocationSearchDelegate {
         if searchResultsOverlay != nil {
             searchResultsOverlay?.removePolygon(mapView: mapView)
             searchResultsOverlay = nil
-            showMapLayer(layerType: .defaultmap)
+            resultSearchController?.searchBar.text = nil
         }
     }
     
