@@ -55,7 +55,11 @@ class EmotionalDiaryTableViewCell : MGSwipeTableCell {
             colorImage.layer.cornerRadius = 8
             colorImage.clipsToBounds = true
         } else {
-            colorImage.image = UIImage(named: "\(annotation.color!)")
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                colorImage.image = UIImage(named: "\(annotation.color!)BigDot")
+            } else {
+                colorImage.image = UIImage(named: "\(annotation.color!)")
+            }
         }
     }
     
