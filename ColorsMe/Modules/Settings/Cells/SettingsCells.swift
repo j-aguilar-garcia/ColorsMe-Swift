@@ -64,11 +64,11 @@ class SettingsAboutItem : SettingsAboutItemInterface {
 
 
 class SettingsAboutSelectorItem : SettingsAboutItem {
-    var remoteConfigKey: String
+    var key: String
     var navigationTitle: String
 
-    init(icon: UIImage, title: String, isButton: Bool, accessoryType: UITableViewCell.AccessoryType, remoteConfigKey: String, navigationTitle: String) {
-        self.remoteConfigKey = remoteConfigKey
+    init(icon: UIImage, title: String, isButton: Bool, accessoryType: UITableViewCell.AccessoryType, key: String, navigationTitle: String) {
+        self.key = key
         self.navigationTitle = navigationTitle
         super.init(icon: icon, title: title, isButton: isButton, accessoryType: accessoryType)
     }

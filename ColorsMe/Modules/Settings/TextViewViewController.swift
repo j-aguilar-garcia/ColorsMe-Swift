@@ -7,14 +7,11 @@
 //
 
 import UIKit
-import Firebase
 
 class TextViewViewController: UIViewController {
 
         @IBOutlet weak var textView: UITextView!
-        
-        var remoteConfig: RemoteConfig!
-        
+                
         var key: String!
         
         override func viewDidLoad() {
@@ -28,9 +25,8 @@ class TextViewViewController: UIViewController {
         
         
         private func display() {
-            let text = remoteConfig[key].stringValue
+            let text = key
             let html = Data(text!.utf8)
-            print("remoteConfig Text = \(String(describing: text))")
             if let attributedString = try? NSMutableAttributedString(data: html, options: [.documentType: NSAttributedString.DocumentType.html, ], documentAttributes: nil) {
                 print("remotConfig Text attributedString = \(attributedString)")
 

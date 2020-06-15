@@ -15,7 +15,6 @@
 		071DA9E9248D2FDA00ADBB5F /* SettingsAboutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071DA9E8248D2FDA00ADBB5F /* SettingsAboutTableViewCell.swift */; };
 		071DA9EB248D31B700ADBB5F /* SettingsCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071DA9EA248D31B700ADBB5F /* SettingsCells.swift */; };
 		071DA9ED248D3DF800ADBB5F /* TextViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071DA9EC248D3DF800ADBB5F /* TextViewViewController.swift */; };
-		071DA9EF248D446D00ADBB5F /* FirebaseConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071DA9EE248D446D00ADBB5F /* FirebaseConfig.swift */; };
 		072D9D00247E3FCC00390186 /* MenuButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072D9CFF247E3FCC00390186 /* MenuButtons.swift */; };
 		072D9D03247E402B00390186 /* MenuButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072D9D02247E402B00390186 /* MenuButtonView.swift */; };
 		072D9D05247E406000390186 /* MenuButtonViewConfigProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072D9D04247E406000390186 /* MenuButtonViewConfigProtocol.swift */; };
@@ -146,7 +145,6 @@
 		071DA9E8248D2FDA00ADBB5F /* SettingsAboutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAboutTableViewCell.swift; sourceTree = "<group>"; };
 		071DA9EA248D31B700ADBB5F /* SettingsCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCells.swift; sourceTree = "<group>"; };
 		071DA9EC248D3DF800ADBB5F /* TextViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewViewController.swift; sourceTree = "<group>"; };
-		071DA9EE248D446D00ADBB5F /* FirebaseConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConfig.swift; sourceTree = "<group>"; };
 		072D9CFF247E3FCC00390186 /* MenuButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButtons.swift; sourceTree = "<group>"; };
 		072D9D02247E402B00390186 /* MenuButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButtonView.swift; sourceTree = "<group>"; };
 		072D9D04247E406000390186 /* MenuButtonViewConfigProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButtonViewConfigProtocol.swift; sourceTree = "<group>"; };
@@ -544,7 +542,6 @@
 			children = (
 				07E2BA5624851B3D00465688 /* LocationService.swift */,
 				077325FC24869BB5009DDB57 /* AnnotationService.swift */,
-				071DA9EE248D446D00ADBB5F /* FirebaseConfig.swift */,
 				0780677E248E680F0054B12D /* ShareService.swift */,
 			);
 			path = Services;
@@ -981,7 +978,6 @@
 				071DA9E9248D2FDA00ADBB5F /* SettingsAboutTableViewCell.swift in Sources */,
 				071DA9ED248D3DF800ADBB5F /* TextViewViewController.swift in Sources */,
 				072D9D00247E3FCC00390186 /* MenuButtons.swift in Sources */,
-				071DA9EF248D446D00ADBB5F /* FirebaseConfig.swift in Sources */,
 				07C4BFC72486F59D00552BC9 /* EmotionalDiaryViewController.swift in Sources */,
 				87CEC7C924782A7400206255 /* ColorMapViewController.swift in Sources */,
 				07C8FA1A248D20A300612C93 /* SettingsViewController.swift in Sources */,

@@ -36,6 +36,7 @@ class CloudDataManager : CloudDataManagerProtocol {
     var persistentContainer: NSPersistentContainer!
     
     init() {
+        log.verbose("init CloudDataManager")
         //let appDelegate = UIApplication.shared.delegate as! AppDelegate
         setPersistentContainer { (success) in }
         //self.context = persistentContainer.viewContext
@@ -181,13 +182,27 @@ class CloudDataManager : CloudDataManagerProtocol {
      Track the last history token processed for a store, and write its value to file.
      The historyQueue reads the token when executing operations, and updates it after processing is complete.
      */
-    public var lastHistoryToken: NSPersistentHistoryToken? = nil {
-        didSet {
-            guard let token = lastHistoryToken,
-                let data = try? NSKeyedArchiver.archivedData( withRootObject: token, requiringSecureCoding: true) else { return }
+    public var lastHistoryToken: NSPersistentHistoryToken? {
+        get {
+            do {
+                guard let tokenData = UserDefaults.standard.data(forKey: "lastHistoryCloudToken"),
+                    let token = try NSKeyedUnarchiver.unarchivedObject(ofClass: NSPersistentHistoryToken.self, from: tokenData) else {
+                        return nil
+                }
+                return token
+            } catch {
+                log.error(error.localizedDescription)
+                return nil
+            }
+        }
+        set {
+            guard let token = newValue,
+                let data = try? NSKeyedArchiver.archivedData(withRootObject: token, requiringSecureCoding: true) else { return }
             
             do {
                 try data.write(to: tokenFile)
+                let tokenData = try NSKeyedArchiver.archivedData(withRootObject: token, requiringSecureCoding: false)
+                UserDefaults.standard.set(tokenData, forKey: "lastHistoryCloudToken")
             } catch {
                 log.error("###\(#function): Failed to write token data. Error = \(error)")
             }
@@ -301,6 +316,30 @@ extension CloudDataManager {
             
             // Update the history token using the last transaction.
             lastHistoryToken = transactions.last!.token
+            //saveTokenToUserDefaults(token: lastHistoryToken!)
+        }
+    }
+    
+    // MARK: - Save and Load History Token
+    func saveTokenToUserDefaults(token: NSPersistentHistoryToken) {
+        do {
+            let tokenData = try NSKeyedArchiver.archivedData(withRootObject: token, requiringSecureCoding: false)
+            UserDefaults.standard.set(tokenData, forKey: "lastHistoryCloudToken")
+        } catch {
+            log.error(error.localizedDescription)
+        }
+    }
+    
+    func tokenFromUserDefaults() -> NSPersistentHistoryToken {
+        do {
+            guard let tokenData = UserDefaults.standard.data(forKey: "lastHistoryCloudToken"),
+                let token = try NSKeyedUnarchiver.unarchivedObject(ofClass: NSPersistentHistoryToken.self, from: tokenData) else {
+                    return NSPersistentHistoryToken()
+            }
+            return token
+        } catch {
+            log.error(error.localizedDescription)
+            return NSPersistentHistoryToken()
         }
     }
     

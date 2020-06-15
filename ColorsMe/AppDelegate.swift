@@ -9,7 +9,6 @@
 import UIKit
 import CoreData
 import Unrealm
-import Firebase
 import Sentry
 import CloudCore
 import SwiftyBeaver
@@ -17,7 +16,7 @@ import UserNotifications
 let log = SwiftyBeaver.self
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         application.registerForRemoteNotifications()
@@ -35,11 +34,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Realm.registerRealmables([RealmAnnotation.self])
         
         DataManager.shared.fetchData()
-        
+        UNUserNotificationCenter.current().delegate = self
         SentrySDK.start(options: [ "dsn": AppConfiguration.default.sentryDsn!, "debug": false ])
-        
-        FirebaseApp.configure()
-        
+                
         return true
     }
 
@@ -60,9 +57,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
         
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        log.verbose("DidReceiveRemoteNotification")
         let taskContext = DataManager.shared.cloudDataManager.persistentContainer.newBackgroundContext()
             taskContext.performAndWait {
-                var lastHistoryToken = AppData.lastCloudHistoryToken
+                var lastHistoryToken = DataManager.shared.cloudDataManager.lastHistoryToken
 
                 let historyFetchRequest = NSPersistentHistoryTransaction.fetchRequest!
                 taskContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
@@ -75,7 +73,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     else { return }
                 
                 lastHistoryToken = transactions.last!.token
-                AppData.lastCloudHistoryToken = lastHistoryToken
+                DataManager.shared.cloudDataManager.lastHistoryToken = lastHistoryToken
                 AppData.lastCloudSync = Date()
                 AppData.iCloudHasSynced = true
                 

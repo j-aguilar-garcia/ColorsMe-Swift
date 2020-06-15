@@ -91,9 +91,9 @@ extension SettingsPresenter: SettingsPresenterInterface {
         return Section(
             items: [
                 SettingsItem.about(
-                    SettingsAboutSelectorItem(icon: UIImage(systemName: "info.circle")!, title: "About", isButton: false, accessoryType: .disclosureIndicator, remoteConfigKey: "attributed_text_impressum", navigationTitle: "Imprint")),
+                    SettingsAboutSelectorItem(icon: UIImage(systemName: "info.circle")!, title: "About", isButton: false, accessoryType: .disclosureIndicator, key: AppConfiguration.default.aboutUs, navigationTitle: "Imprint")),
                 SettingsItem.about(
-                    SettingsAboutSelectorItem(icon: UIImage(systemName: "hand.raised")!, title: "Privacy Policy", isButton: false, accessoryType: .disclosureIndicator, remoteConfigKey: "attributed_text_privacy_policy", navigationTitle: "Privacy Policy")),
+                    SettingsAboutSelectorItem(icon: UIImage(systemName: "hand.raised")!, title: "Privacy Policy", isButton: false, accessoryType: .disclosureIndicator, key: AppConfiguration.default.privacyPolicy, navigationTitle: "Privacy Policy")),
                 SettingsItem.about(
                     SettingsAboutItem(icon: UIImage(systemName: "square.and.arrow.up")!, title: "Share", isButton: true, accessoryType: .none)),
                 SettingsItem.about(

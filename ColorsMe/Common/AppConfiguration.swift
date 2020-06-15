@@ -23,8 +23,10 @@ class AppConfiguration {
     var sentryDsn: String!
     
     var appStoreUrl: String!
-    
     var appUrlHost: String!
+    
+    var aboutUs: String!
+    var privacyPolicy: String!
     
     init() {
         let bundleURL = Bundle.main.url(forResource: "AppProperties", withExtension: "plist")!
@@ -41,6 +43,9 @@ class AppConfiguration {
         
         appStoreUrl = plist["app_store_url"] as? String
         appUrlHost = plist["app_url_host"] as? String
+        
+        aboutUs = plist["about_us"] as? String
+        privacyPolicy = plist["data_protection"] as? String
     }
     
 }

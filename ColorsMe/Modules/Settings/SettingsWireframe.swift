@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Firebase
 
 final class SettingsWireframe: BaseWireframe, TabBarViewProtocol {
     
@@ -18,7 +17,6 @@ final class SettingsWireframe: BaseWireframe, TabBarViewProtocol {
     // MARK: - Private properties -
 
     private let storyboard = UIStoryboard(name: "Settings", bundle: nil)
-    private var firebaseConfig: FirebaseConfig!
 
     // MARK: - Module setup -
 
@@ -29,7 +27,6 @@ final class SettingsWireframe: BaseWireframe, TabBarViewProtocol {
         let interactor = SettingsInteractor()
         let presenter = SettingsPresenter(view: moduleViewController, interactor: interactor, wireframe: self)
         moduleViewController.presenter = presenter
-        firebaseConfig = FirebaseConfig.shared
     }
 
 }
@@ -42,8 +39,7 @@ extension SettingsWireframe: SettingsWireframeInterface {
         switch option {
         case .textview(let item):
             let vc = storyboard.instantiateViewController(ofType: TextViewViewController.self)
-            vc.key = item.remoteConfigKey
-            vc.remoteConfig = firebaseConfig.remoteConfig
+            vc.key = item.key
             vc.navigationItem.title = item.navigationTitle
             self.navigationController?.pushViewController(vc, animated: true)
         }

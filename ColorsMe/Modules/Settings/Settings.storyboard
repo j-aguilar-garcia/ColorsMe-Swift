@@ -205,7 +205,6 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="b0k-2G-k6J" customClass="ColorsNavigationViewController" customModule="ColorsMe" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="EY5-gI-Lju">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
