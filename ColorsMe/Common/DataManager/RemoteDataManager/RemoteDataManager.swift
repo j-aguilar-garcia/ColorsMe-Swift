@@ -15,6 +15,8 @@ class RemoteDataManager : RemoteDataManagerProtocol {
     init() { }
     
     var annotations: [CMAnnotation] = []
+    var remoteAnnotations = [Annotation]()
+
     private let dataStore = Backendless.shared.data.of(Annotation.self)
     private var offset = 0
     private var queryBuilder = DataQueryBuilder()
@@ -140,50 +142,47 @@ class RemoteDataManager : RemoteDataManagerProtocol {
     */
     private func checkForDeletedData(localDataManager: LocalDataManager, date: Date) {
         let localAnnotations = localDataManager.getAllLocal()
-        var remoteAnnotations = [Annotation]()
         queryBuilder.setPageSize(pageSize: 100)
         queryBuilder.setOffset(offset: self.offset)
-        //queryBuilder.setGroupBy(groupBy: ["objectId"])
         
         let dateFormatter = DateFormatter.MMMddyyyyHHmmss
         let dateString = dateFormatter.string(from: date)
-        //queryBuilder.setWhereClause(whereClause: String(format: "created < '%@'", dateString))
+        queryBuilder.setWhereClause(whereClause: String(format: "created < '%@'", dateString))
         
         
         let dataStore = Backendless.shared.data.of(Annotation.self)
         dataStore.find(queryBuilder: queryBuilder, responseHandler: { (foundObjects) in
-            dataStore.getObjectCount(responseHandler: { allColors in
-                
+            dataStore.getObjectCount(queryBuilder: self.queryBuilder, responseHandler: { allColors in
+                log.debug("allColors DELETE = \(allColors)")
                 let size = foundObjects.count
-                if size == 0 || localAnnotations.count == foundObjects.count {
-                    log.debug("size delete = \(remoteAnnotations.count)")
+                if self.remoteAnnotations.count == allColors || size == 0{
+                    log.debug("self.remoteAnnotations delete = \(self.remoteAnnotations.count)")
 
                     for annotation in localAnnotations {
-                        log.debug("local ID = \(annotation.objectId)")
-                        if !remoteAnnotations.contains(where: { $0.objectId == annotation.objectId }) {
-                            log.debug("DONT DELETE ")
+                        log.debug("local ID = \(String(describing: annotation.objectId))")
+                        if self.remoteAnnotations.contains(where: { $0.objectId!.elementsEqual(annotation.objectId!) }) {
+                            log.debug("KEEP")
                             continue
-                        }
-                        DispatchQueue.main.async {
-                            log.debug("DELETE")
-                            //localDataManager.deleteLocal(by: annotation.objectId!)
+                        } else {
+                            DispatchQueue.main.async {
+                                log.debug("DELETE")
+                                localDataManager.deleteLocal(by: annotation.objectId!)
+                            }
                         }
                     }
                     self.hasDataFetched = true
                     return
                 } else {
                     guard let annotations = foundObjects as? [Annotation] else { return }
-                    for annotation in annotations {
-                        remoteAnnotations.append(annotation)
+                    annotations.forEach { (annotation) in
+                        self.remoteAnnotations.append(annotation)
                     }
-                    
+
                     self.offset += size
                     self.queryBuilder.setOffset(offset: self.offset)
                 }
-                if self.queryBuilder.getOffset() < allColors {
-                    log.debug("queryBuilder.getOffset() = \(self.queryBuilder.getOffset())")
-                    self.checkForDeletedData(localDataManager: localDataManager, date: date)
-                }
+                log.debug("queryBuilder.getOffset() = \(self.queryBuilder.getOffset())")
+                self.checkForDeletedData(localDataManager: localDataManager, date: date)
             }, errorHandler: { fault in
                 log.error("Fault = \(fault)")
             })

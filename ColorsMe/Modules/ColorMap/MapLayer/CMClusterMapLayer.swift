@@ -23,7 +23,7 @@ class CMClusterMapLayer : CMLayer {
         super.init()
         self.mapView = mapView
         self.view = view
-
+        
         guard let style = mapView.style else { return }
         createClusterMap(style)
         addGestures()
@@ -49,22 +49,22 @@ class CMClusterMapLayer : CMLayer {
         // overriding this new gesture (and then not detecting a cluster that had been
         // tapped on).
         for recognizer in mapView.gestureRecognizers!
-        where (recognizer as? UITapGestureRecognizer)?.numberOfTapsRequired == 2 {
-        recognizer.require(toFail: doubleTap)
+            where (recognizer as? UITapGestureRecognizer)?.numberOfTapsRequired == 2 {
+                recognizer.require(toFail: doubleTap)
         }
         mapView.addGestureRecognizer(doubleTap)
         gestures.append(doubleTap)
-
+        
         // Add a single tap gesture recognizer. This gesture requires the built-in
         // MGLMapView tap gestures (such as those for zoom and annotation selection)
         // to fail (this order differs from the double tap above).
         let singleTap = UITapGestureRecognizer(target: self, action: #selector(handleMapTap(sender:)))
         for recognizer in mapView.gestureRecognizers! where recognizer is UITapGestureRecognizer {
-        singleTap.require(toFail: recognizer)
+            singleTap.require(toFail: recognizer)
         }
         mapView.addGestureRecognizer(singleTap)
         gestures.append(singleTap)
-
+        
     }
     
     
@@ -79,54 +79,63 @@ class CMClusterMapLayer : CMLayer {
             feature.coordinate = coordinate
             features.append(feature)
         }
-
+        
         let source = MGLShapeSource(identifier: "clusteredPorts", features: features, options: [.clustered: true, .clusterRadius: icon.size.width])
         style.addSource(source)
         layerSources.append(source)
-         
+        
         // Use a template image so that we can tint it with the `iconColor` runtime styling property.
         style.setImage(icon.withRenderingMode(.alwaysTemplate), forName: "icon")
-         
+        
         // Show unclustered features as icons. The `cluster` attribute is built into clustering-enabled
         // source features.
         let ports = MGLSymbolStyleLayer(identifier: "ports", source: source)
         ports.iconImageName = NSExpression(forConstantValue: "icon")
-        ports.iconColor = NSExpression(forConstantValue: UIColor.cmClusterImage)
+        ports.iconColor = NSExpression(forConstantValue: UIColor.cmAppDefaultColor)
         ports.predicate = NSPredicate(format: "cluster != YES")
         ports.iconAllowsOverlap = NSExpression(forConstantValue: true)
         style.addLayer(ports)
         layerStyles.append(ports)
-         
+        
         // Color clustered features based on clustered point counts.
         #warning("Change Colors?")
-        let stops = [
-        20: UIColor.lightGray,
-        50: UIColor.orange,
-        100: UIColor.red,
-        200: UIColor.purple
+        let colorStops = [
+            20: UIColor.cmHeatmapTwo,
+            50: UIColor.cmHeatmapThree,
+            100: UIColor.cmHeatmapFour,
+            200: UIColor.cmHeatmapFive,
+            500: UIColor.cmHeatmapSix
         ]
-         
-        // Show clustered features as circles. The `point_count` attribute is built into
-        // clustering-enabled source features.
+        
+        let fontstops = [
+            20: NSExpression(forConstantValue: 25),
+            50: NSExpression(forConstantValue: 35),
+            200: NSExpression(forConstantValue: 45),
+        ]
+        let defaultCircleFont = NSExpression(forConstantValue: 25)
+        
+        
         let circlesLayer = MGLCircleStyleLayer(identifier: "clusteredPorts", source: source)
-        circlesLayer.circleRadius = NSExpression(forConstantValue: NSNumber(value: Double(icon.size.width) / 2))
+        
+        circlesLayer.circleRadius = NSExpression(format: "mgl_step:from:stops:(point_count, %@, %@)", defaultCircleFont, fontstops)
+        //circlesLayer.circleRadius = NSExpression(forConstantValue: NSNumber(value: Double(icon.size.width) / 2))
         circlesLayer.circleOpacity = NSExpression(forConstantValue: 0.75)
         circlesLayer.circleStrokeColor = NSExpression(forConstantValue: UIColor.white.withAlphaComponent(0.75))
         circlesLayer.circleStrokeWidth = NSExpression(forConstantValue: 2)
-        circlesLayer.circleColor = NSExpression(format: "mgl_step:from:stops:(point_count, %@, %@)", UIColor.cmGreen, stops)
+        circlesLayer.circleColor = NSExpression(format: "mgl_step:from:stops:(point_count, %@, %@)", UIColor.cmHeatmapOne, colorStops)
         circlesLayer.predicate = NSPredicate(format: "cluster == YES")
         style.addLayer(circlesLayer)
         layerStyles.append(circlesLayer)
-         
+        
         // Label cluster circles with a layer of text indicating feature count. The value for
         // `point_count` is an integer. In order to use that value for the
         // `MGLSymbolStyleLayer.text` property, cast it as a string.
         let numbersLayer = MGLSymbolStyleLayer(identifier: "clusteredPortsNumbers", source: source)
         numbersLayer.textColor = NSExpression(forConstantValue: UIColor.white)
-        numbersLayer.textFontSize = NSExpression(forConstantValue: NSNumber(value: Double(icon.size.width) / 2))
+        numbersLayer.textFontSize = NSExpression(format: "mgl_step:from:stops:(point_count, %@, %@)", defaultCircleFont, fontstops)
         numbersLayer.iconAllowsOverlap = NSExpression(forConstantValue: true)
         numbersLayer.text = NSExpression(format: "CAST(point_count, 'NSString')")
-         
+        
         numbersLayer.predicate = NSPredicate(format: "cluster == YES")
         style.addLayer(numbersLayer)
         layerStyles.append(numbersLayer)
@@ -203,18 +212,18 @@ class CMClusterMapLayer : CMLayer {
             // Tapped on a cluster.
             let children = source.children(of: cluster)
             /*
-            var coordinates = [CLLocationCoordinate2D]()
-            for child in children {
-                // TODO: - GET COLORS
-                coordinates.append(child.coordinate)
-            }
-            let clusterAnnotations = DataManager.shared.dataManager(filterLocalBy: coordinates)
-            log.debug(clusterAnnotations.count)
-            let redCount = clusterAnnotations.filter( { $0.color == EmotionalColor.Red }).count
-            let yellowCount = clusterAnnotations.filter( { $0.color == EmotionalColor.Yellow }).count
-            let greenCount = clusterAnnotations.filter( { $0.color == EmotionalColor.Green }).count
-
-            */
+             var coordinates = [CLLocationCoordinate2D]()
+             for child in children {
+             // TODO: - GET COLORS
+             coordinates.append(child.coordinate)
+             }
+             let clusterAnnotations = DataManager.shared.dataManager(filterLocalBy: coordinates)
+             log.debug(clusterAnnotations.count)
+             let redCount = clusterAnnotations.filter( { $0.color == EmotionalColor.Red }).count
+             let yellowCount = clusterAnnotations.filter( { $0.color == EmotionalColor.Yellow }).count
+             let greenCount = clusterAnnotations.filter( { $0.color == EmotionalColor.Green }).count
+             
+             */
             description = "\(children.debugDescription)"
             color = .cmAppDefaultColor
         } else if let featureName = feature.attribute(forKey: "name") as? String?,

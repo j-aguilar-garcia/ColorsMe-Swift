@@ -1,26 +1,27 @@
 {
   "images" : [
     {
-      "filename" : "GreenDot.png",
+      "filename" : "RedDot.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "GreenDot@2.png",
+      "filename" : "RedDot@2.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "GreenDot@3-1.png",
+      "filename" : "RedDot@3.png",
       "idiom" : "universal",
       "scale" : "3x"
     },
     {
-      "filename" : "GreenDot@3.png",
+      "filename" : "RedDot@2-1.png",
       "idiom" : "ipad",
       "scale" : "1x"
     },
     {
+      "filename" : "RedDot@3-2.png",
       "idiom" : "ipad",
       "scale" : "2x"
     }

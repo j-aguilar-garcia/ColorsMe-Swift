@@ -44,21 +44,15 @@ class CMHeatMapLayer : CMLayer {
         #warning("Change Colors?")
         let heatmapLayer = MGLHeatmapStyleLayer(identifier: "heatmaplayer", source: source)
         let colorDictionary: [NSNumber: UIColor] = [
-        0.0: .clear,
-        0.1: .cyan,
-        0.3: .blue,
-        0.7: .red,
-        1: .orange
+            0.0: .clear,
+            0.05: .cmHeatmapOne,
+            0.1: .cmHeatmapTwo,
+            0.3: .cmHeatmapThree,
+            0.5: .cmHeatmapFour,
+            0.7: .cmHeatmapFive,
+            1: .cmHeatmapSix
         ]
-        /*
-         let colorDictionary: [NSNumber: UIColor] = [
-         0.0: .clear,
-         0.01: .white,
-         0.15: UIColor(red: 0.19, green: 0.30, blue: 0.80, alpha: 1.0),
-         0.5: UIColor(red: 0.73, green: 0.23, blue: 0.25, alpha: 1.0),
-         1: .yellow
-         ]
-         */
+        
         heatmapLayer.heatmapColor = NSExpression(format: "mgl_interpolate:withCurveType:parameters:stops:($heatmapDensity, 'linear', nil, %@)", colorDictionary)
          
         // Heatmap weight measures how much a single data point impacts the layer's appearance.

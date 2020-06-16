@@ -128,10 +128,10 @@ extension ColorMapViewController: ColorMapViewInterface, EmotionalDiaryDelegate 
     
     
     func zoomToAnnotation(annotation: CMAnnotation) {
+        self.mapView.addAnnotation(annotation)
+        self.showMapLayer(layerType: .defaultmap)
         DispatchQueue.main.async {
-            self.mapView.addAnnotation(annotation)
-            self.showMapLayer(layerType: .defaultmap)
-            self.mapView.selectAnnotation(annotation, animated: true, completionHandler: {
+        self.mapView.selectAnnotation(annotation, animated: true, completionHandler: {
             self.mapView.setCenter(annotation.coordinate, zoomLevel: 8, animated: true)
             let camera = MGLMapCamera(lookingAtCenter: annotation.coordinate, altitude: 2500, pitch: 50, heading: 180)
             self.mapView.setCamera(camera, withDuration: 3.5, animationTimingFunction: CAMediaTimingFunction(name: .easeInEaseOut))
