@@ -35,7 +35,7 @@ class RemoteDataManager : RemoteDataManagerProtocol {
             }
             }, errorHandler: { fault in
                 log.error(fault)
-                log.error("Error saving remote annotation \(fault.message ?? "")")
+                log.error("Error saving remote annotation. Code: \(fault.faultCode), message: \(fault.message ?? "")")
         })
     }
     
@@ -102,14 +102,13 @@ class RemoteDataManager : RemoteDataManagerProtocol {
                         remoteAnnotations.append(annotation)
                         
                         let isMyColor = userAnnotations.contains(where: { ($0.beObjectId!.elementsEqual(annotation.objectId!)) } )
-                        log.debug(isMyColor)
                         let realmAnnotation = RealmAnnotation(annotation: annotation, isMyColor: isMyColor)
                         
                         let localAnnotations = localDataManager.getAllLocal()
                         if localAnnotations.contains(where: { $0.objectId!.elementsEqual(annotation.objectId!)} ) {
                             
-                            /*let rlmAnnotation = localDataManager.getObjectBy(primaryKey: annotation.objectId!)
-                            rlmAnnotation?.isMyColor = true*/
+                            //let rlmAnnotation = localDataManager.getObjectBy(primaryKey: annotation.objectId!)
+                            realmAnnotation.isMyColor = true
                             localDataManager.updateLocal(annotation: realmAnnotation)
                         } else {
                             localDataManager.saveLocal(annotation: realmAnnotation)
@@ -159,13 +158,10 @@ class RemoteDataManager : RemoteDataManagerProtocol {
                     log.debug("self.remoteAnnotations delete = \(self.remoteAnnotations.count)")
 
                     for annotation in localAnnotations {
-                        log.debug("local ID = \(String(describing: annotation.objectId))")
                         if self.remoteAnnotations.contains(where: { $0.objectId!.elementsEqual(annotation.objectId!) }) {
-                            log.debug("KEEP")
                             continue
                         } else {
                             DispatchQueue.main.async {
-                                log.debug("DELETE")
                                 localDataManager.deleteLocal(by: annotation.objectId!)
                             }
                         }

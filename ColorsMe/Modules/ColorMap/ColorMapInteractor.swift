@@ -101,6 +101,7 @@ extension ColorMapInteractor: ColorMapInteractorInterface {
             }
             if reachability.connection != .unavailable {
                 self.presenter.reachabilityChanged(true)
+                //AnnotationService.default.uploadOfflineAnnotations()
             }
         }
     }

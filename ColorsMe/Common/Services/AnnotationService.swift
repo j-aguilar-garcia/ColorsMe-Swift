@@ -11,6 +11,7 @@ import CoreData
 import CloudCore
 import Mapbox
 import MapboxGeocoder
+import Reachability
 
 class AnnotationService {
     
@@ -23,6 +24,18 @@ class AnnotationService {
     }
     
     open func addAnnotation(color: EmotionalColor, byUser: Bool = false, completion: @escaping (CMAnnotation) -> ()) {
+        let reachability = try! Reachability()
+        if reachability.connection == .unavailable {
+            let alert = UIAlertController.init(title: "You don't have an internet connection.", message: "We do not know where you are, please make sure you have an internet connection", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (UIAlertAction) in
+                alert.dismiss(animated: true, completion: {
+                    
+                })
+            }))
+            UIApplication.shared.windows.first?.rootViewController?.present(alert, animated: true, completion: nil)
+            return
+        }
+        
         createAnnotation(with: color, completion: { annotation in
             let cmAnnotation = CMAnnotation(annotation: annotation, isMyColor: byUser)
             completion(cmAnnotation)
@@ -44,6 +57,22 @@ class AnnotationService {
         })
     }
     
+    private func saveAnnotationOffline(annotation: Annotation, byUser: Bool) {
+        annotation.objectId = annotation.guid
+        DispatchQueue.main.async {
+            let realmAnnotation = RealmAnnotation(annotation: annotation, isMyColor: byUser)
+            DataManager.shared.localDataManager.saveLocal(annotation: realmAnnotation)
+            let cmAnnotation = CMAnnotation(annotation: annotation, isMyColor: byUser)
+            
+            DataManager.shared.cloudDataManager.addAnnotation(annotation: cmAnnotation)
+        }
+    }
+    
+    /// Updates the annotations that were created offline once the Internet connection is established
+    open func updateOfflineCreatedAnnotations(annotation: Annotation) {
+        
+    }
+    
     
     open func deleteAnnotation(_ annotation: CMAnnotation, completion: @escaping () -> ()) {
         DataManager.shared.dataManager(id: annotation.objectId!, willDeltewith: .both)
@@ -54,7 +83,10 @@ class AnnotationService {
     private func createAnnotation(with color: EmotionalColor, completion: @escaping (Annotation) -> ()) {
         let annotation = Annotation()
         
-        let currentUserLocation = LocationService.default.currentLocation()
+        guard let currentUserLocation = LocationService.default.currentLocation() else {
+            LocationService.default.checkPermissionForLocation(view: (UIApplication.shared.windows.first?.rootViewController)!)
+            return
+        }
         
         let formatter = DateFormatter.yyyyMMddHHmmss
         let titleDate = formatter.string(from: Date())

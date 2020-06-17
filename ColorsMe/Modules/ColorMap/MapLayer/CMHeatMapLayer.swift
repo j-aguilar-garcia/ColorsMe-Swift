@@ -13,7 +13,7 @@ import UIKit
 class CMHeatMapLayer : CMLayer {
     
     fileprivate let identifier = "heatmaplayer"
-    fileprivate let maximumZoomLevel = 8.9
+    fileprivate let maximumZoomLevel = 17.9//8.9
         
     init(mapView: MGLMapView) {
         super.init()
@@ -22,11 +22,14 @@ class CMHeatMapLayer : CMLayer {
     
     override func removeAllLayers(mapView: MGLMapView) {
         super.removeAllLayers(mapView: mapView)
-        mapView.maximumZoomLevel = 18
+        DispatchQueue.main.async {
+            mapView.maximumZoomLevel = 18
+        }
+        //mapView.maximumZoomLevel = 18
     }
     
     
-    func createHeatMap(_ mapView: MGLMapView) {
+    private func createHeatMap(_ mapView: MGLMapView) {
         guard let annotations = mapView.annotations as? [CMAnnotation] else { return }
         var coordinates = [CLLocationCoordinate2D]()
         annotations.forEach({ coordinates.append(CLLocationCoordinate2D(latitude: $0.latitude, longitude: $0.longitude)) })
@@ -66,7 +69,7 @@ class CMHeatMapLayer : CMLayer {
         [0: 4, 9: 30])
          
         // The heatmap layer should be visible up to zoom level 9.
-        heatmapLayer.heatmapOpacity = NSExpression(format: "mgl_step:from:stops:($zoomLevel, 0.75, %@)", [0: 0.75, 9: 0])
+        heatmapLayer.heatmapOpacity = NSExpression(format: "mgl_step:from:stops:($zoomLevel, 0.75, %@)", [0: 0.75, 18: 0])
         mapView.style?.addLayer(heatmapLayer)
         layerStyles.append(heatmapLayer)
         //createCircleLayer(mapView: mapView, source: source)

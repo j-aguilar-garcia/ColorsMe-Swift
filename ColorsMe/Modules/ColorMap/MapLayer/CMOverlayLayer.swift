@@ -47,11 +47,13 @@ class CMOverlayLayer : CMLayer {
 
         log.debug("annotationsInBounds = \(annotationsInBounds.count)")
         mapView.addAnnotations(annotationsInBounds)
-        mapView.setVisibleCoordinates(coordinates, count: UInt(coordinates.count), edgePadding: UIEdgeInsets(top: 30, left: 30, bottom: 30, right: 30), animated: true)
+        mapView.setVisibleCoordinates(coordinates, count: UInt(coordinates.count), edgePadding: UIEdgeInsets(top: 30, left: 40, bottom: 40, right: 40), animated: true)
     }
     
     
     func removePolygon(mapView: MGLMapView) {
-        mapView.remove(polygon)
+        DispatchQueue.main.async {
+            mapView.remove(self.polygon)
+        }
     }
 }

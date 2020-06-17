@@ -69,7 +69,9 @@ final class ColorMapViewController: UIViewController {
         mapView.automaticallyAdjustsContentInset = true
         
         mapView.attributionButtonPosition = .topLeft
-        mapView.setCenter(LocationService.default.currentLocation(), animated: false)
+        if let userLocation = LocationService.default.currentLocation() {
+            self.mapView.setCenter(userLocation, animated: false)
+        }
         addMenuButton()
         
         setUpSearchBar()
@@ -131,11 +133,11 @@ extension ColorMapViewController: ColorMapViewInterface, EmotionalDiaryDelegate 
         self.mapView.addAnnotation(annotation)
         self.showMapLayer(layerType: .defaultmap)
         DispatchQueue.main.async {
-        self.mapView.selectAnnotation(annotation, animated: true, completionHandler: {
-            self.mapView.setCenter(annotation.coordinate, zoomLevel: 8, animated: true)
-            let camera = MGLMapCamera(lookingAtCenter: annotation.coordinate, altitude: 2500, pitch: 50, heading: 180)
-            self.mapView.setCamera(camera, withDuration: 3.5, animationTimingFunction: CAMediaTimingFunction(name: .easeInEaseOut))
-        })
+            self.mapView.selectAnnotation(annotation, animated: true, completionHandler: {
+                self.mapView.setCenter(annotation.coordinate, zoomLevel: 8, animated: true)
+                let camera = MGLMapCamera(lookingAtCenter: annotation.coordinate, altitude: 2500, pitch: 50, heading: 180)
+                self.mapView.setCamera(camera, withDuration: 3.5, animationTimingFunction: CAMediaTimingFunction(name: .easeInEaseOut))
+            })
         }
     }
     
@@ -282,13 +284,12 @@ extension ColorMapViewController: ColorMapViewInterface, EmotionalDiaryDelegate 
     }
     
     private func updateColorsLabel(count: Int, name: String = "") {
-        DispatchQueue.main.async {
             if name.isEmpty {
                 self.countColorsLabel.text = "\(AppData.selectedFilterName) : \(count)"
             } else {
                 self.countColorsLabel.text = "\(name) : \(count)"
             }
-        }
+        
     }
     
 }
@@ -470,11 +471,21 @@ extension ColorMapViewController : UISearchBarDelegate {
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        willRemoveOverlay()
+        let layerType = ColorMapLayerType(rawValue: AppData.colorMapLayerItem)
+        showMapLayer(layerType: layerType!)
     }
     
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        willRemoveOverlay()
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                searchBar.resignFirstResponder()
+                let layerType = ColorMapLayerType(rawValue: AppData.colorMapLayerItem)
+                self.showMapLayer(layerType: layerType!)
+            }
+        }
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -490,15 +501,20 @@ extension ColorMapViewController : LocationSearchDelegate {
         AppData.selectedFilterIndex = 0
         showMapLayer(layerType: .defaultmap)
         resultSearchController?.searchBar.text = placemark.qualifiedName
-        searchResultsOverlay = CMOverlayLayer(mapView: self.mapView, coordinates: coordinates)
-        updateColorsLabel(count: mapView.annotations?.count ?? 0, name: placemark.name)
+        DispatchQueue.main.async {
+            self.searchResultsOverlay = CMOverlayLayer(mapView: self.mapView, coordinates: coordinates)
+            self.updateColorsLabel(count: self.mapView.annotations?.count ?? 0, name: placemark.name)
+        }
     }
     
     func willRemoveOverlay() {
         if searchResultsOverlay != nil {
-            searchResultsOverlay?.removePolygon(mapView: mapView)
+            searchResultsOverlay?.removePolygon(mapView: self.mapView)
+            
             searchResultsOverlay = nil
-            resultSearchController?.searchBar.text = nil
+            DispatchQueue.main.async {
+                self.resultSearchController?.searchBar.text = nil
+            }
         }
     }
     

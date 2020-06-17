@@ -58,12 +58,12 @@ class CMClusterMapLayer : CMLayer {
         // Add a single tap gesture recognizer. This gesture requires the built-in
         // MGLMapView tap gestures (such as those for zoom and annotation selection)
         // to fail (this order differs from the double tap above).
-        let singleTap = UITapGestureRecognizer(target: self, action: #selector(handleMapTap(sender:)))
+        /*let singleTap = UITapGestureRecognizer(target: self, action: #selector(handleMapTap(sender:)))
         for recognizer in mapView.gestureRecognizers! where recognizer is UITapGestureRecognizer {
             singleTap.require(toFail: recognizer)
         }
         mapView.addGestureRecognizer(singleTap)
-        gestures.append(singleTap)
+        gestures.append(singleTap)*/
         
     }
     
@@ -109,8 +109,10 @@ class CMClusterMapLayer : CMLayer {
         
         let fontstops = [
             20: NSExpression(forConstantValue: 25),
-            50: NSExpression(forConstantValue: 35),
-            200: NSExpression(forConstantValue: 45),
+            50: NSExpression(forConstantValue: 30),
+            100: NSExpression(forConstantValue: 35),
+            200: NSExpression(forConstantValue: 40),
+            500: NSExpression(forConstantValue: 45)
         ]
         let defaultCircleFont = NSExpression(forConstantValue: 25)
         

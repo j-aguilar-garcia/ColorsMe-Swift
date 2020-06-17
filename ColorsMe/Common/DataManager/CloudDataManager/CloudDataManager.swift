@@ -13,12 +13,8 @@ import Mapbox
 
 class CloudDataManager : CloudDataManagerProtocol {
     
-    public var userAnnotations = [UserAnnotation]() {
-        didSet {
-            userAnnotations.sort { $0.created! > $1.created! }
-        }
-    }
-    
+    public var userAnnotations = [UserAnnotation]()
+
     public var annotations = [CMAnnotation]() {
         didSet {
             annotations.sort { $0.created! > $1.created! }
@@ -81,6 +77,17 @@ class CloudDataManager : CloudDataManagerProtocol {
         }
     }
     
+    func updateAnnotation(annotation: Annotation) {
+        let cloudAnnotation = getAnnotationBy(guid: annotation.guid!)
+        cloudAnnotation.beObjectId = annotation.objectId
+        self.context.performAndWait {
+            do {
+                try self.context.save()
+            } catch {
+                log.error(error.localizedDescription)
+            }
+        }
+    }
     
     func getUserAnnotations() -> [UserAnnotation] {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: entitiyName)
@@ -102,7 +109,7 @@ class CloudDataManager : CloudDataManagerProtocol {
         var annotations = [CMAnnotation]()
         
         for annotation in userAnnotations {
-            guard let cmAnnotation = localAnnotations.first(where: { $0.objectId!.elementsEqual(annotation.beObjectId!) }) else {
+            guard let cmAnnotation = localAnnotations.first(where: { $0.objectId!.elementsEqual(annotation.beObjectId ?? "nil") }) else {
                 continue
             }
             annotations.append(cmAnnotation)
@@ -134,7 +141,15 @@ class CloudDataManager : CloudDataManagerProtocol {
         return annotations.first!
     }
     
-    
+    func getAnnotationBy(guid: String) -> UserAnnotation {
+        let annotations = getUserAnnotations()
+        for annotation in annotations {
+            if annotation.guid!.elementsEqual(guid) {
+                return annotation
+            }
+        }
+        return annotations.first!
+    }
     
     
     private func setPersistentContainer(completionHandler: @escaping (_ success: Bool) -> Void) {

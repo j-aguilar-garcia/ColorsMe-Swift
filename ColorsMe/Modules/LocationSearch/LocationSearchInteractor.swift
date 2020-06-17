@@ -24,10 +24,11 @@ extension LocationSearchInteractor: LocationSearchInteractorInterface {
     func search(text: String) {
         let options = ForwardGeocodeOptions(query: text)
         
-        options.focalLocation = CLLocation(
-            latitude: LocationService.default.currentLocation().latitude,
-            longitude: LocationService.default.currentLocation().longitude)
-        
+        if let userLocation = LocationService.default.currentLocation() {
+            options.focalLocation = CLLocation(
+                latitude: userLocation.latitude,
+                longitude: userLocation.longitude)
+        }
         options.maximumResultCount = 10
         options.allowedScopes = [.locality, .place, .region]
         
