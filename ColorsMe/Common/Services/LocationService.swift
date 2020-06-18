@@ -97,15 +97,12 @@ extension LocationService : CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        if let error = error as? CLError {
-            let delegate = UIApplication.shared.delegate as! AppDelegate
-            
+        if let error = error as? CLError {            
             log.error("LocationManager failed with code: \(error.code), \(error.localizedDescription)")
             if error.code == .denied {
-                #warning("Pop up for settings")
                 manager.stopUpdatingLocation()
                 
-                self.checkPermissionForLocation(view: delegate.inputViewController!)
+                self.checkPermissionForLocation(view: UIApplication.shared.windows.first!.rootViewController!)
             } else if error.code == .network || error.code == .locationUnknown {
                 let alert = UIAlertController.init(title: "Where are you?", message: "Something's gone wrong. We do not know where you are, please make sure you have an internet connection", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (UIAlertAction) in

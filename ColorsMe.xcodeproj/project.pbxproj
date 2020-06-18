@@ -20,6 +20,7 @@
 		072D9D05247E406000390186 /* MenuButtonViewConfigProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072D9D04247E406000390186 /* MenuButtonViewConfigProtocol.swift */; };
 		072D9D07247E407F00390186 /* MenuButtonAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072D9D06247E407F00390186 /* MenuButtonAnimator.swift */; };
 		072D9D09247E40D900390186 /* TriggerMenuButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072D9D08247E40D900390186 /* TriggerMenuButtonView.swift */; };
+		07338182249B64C4005F95C4 /* CMBorderedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07338181249B64C4005F95C4 /* CMBorderedLabel.swift */; };
 		07342E0E247956E800A77BF7 /* Intro.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07342E09247956E800A77BF7 /* Intro.storyboard */; };
 		07342E0F247956E800A77BF7 /* IntroInterfaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07342E0A247956E800A77BF7 /* IntroInterfaces.swift */; };
 		07342E10247956E800A77BF7 /* IntroPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07342E0B247956E800A77BF7 /* IntroPresenter.swift */; };
@@ -153,6 +154,7 @@
 		072D9D04247E406000390186 /* MenuButtonViewConfigProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButtonViewConfigProtocol.swift; sourceTree = "<group>"; };
 		072D9D06247E407F00390186 /* MenuButtonAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButtonAnimator.swift; sourceTree = "<group>"; };
 		072D9D08247E40D900390186 /* TriggerMenuButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriggerMenuButtonView.swift; sourceTree = "<group>"; };
+		07338181249B64C4005F95C4 /* CMBorderedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMBorderedLabel.swift; sourceTree = "<group>"; };
 		07342E09247956E800A77BF7 /* Intro.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Intro.storyboard; sourceTree = "<group>"; };
 		07342E0A247956E800A77BF7 /* IntroInterfaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroInterfaces.swift; sourceTree = "<group>"; };
 		07342E0B247956E800A77BF7 /* IntroPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroPresenter.swift; sourceTree = "<group>"; };
@@ -340,6 +342,14 @@
 			path = MenuButton;
 			sourceTree = "<group>";
 		};
+		07338183249B6708005F95C4 /* CMUserInterface */ = {
+			isa = PBXGroup;
+			children = (
+				07338181249B64C4005F95C4 /* CMBorderedLabel.swift */,
+			);
+			path = CMUserInterface;
+			sourceTree = "<group>";
+		};
 		07342E08247956DA00A77BF7 /* Intro */ = {
 			isa = PBXGroup;
 			children = (
@@ -356,6 +366,7 @@
 		0737FA8C247D96080015A8F7 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				07338183249B6708005F95C4 /* CMUserInterface */,
 				07C4BFCA2486F63300552BC9 /* TableView */,
 				07E2BA5524851B3100465688 /* Services */,
 				0737FA8D247D96170015A8F7 /* DataManager */,
@@ -999,6 +1010,7 @@
 				073E3B14247BD92E00540BF0 /* AppData.swift in Sources */,
 				072D9D07247E407F00390186 /* MenuButtonAnimator.swift in Sources */,
 				87CEC7BC2478265400206255 /* ColorTabBarInterfaces.swift in Sources */,
+				07338182249B64C4005F95C4 /* CMBorderedLabel.swift in Sources */,
 				07FB1800249179EF0047C725 /* LocalDataManagerProtocol.swift in Sources */,
 				07E2BA612485232900465688 /* LocationSearchPresenter.swift in Sources */,
 				077325F524855401009DDB57 /* CMOverlayLayer.swift in Sources */,
@@ -1225,6 +1237,7 @@
 				CODE_SIGN_ENTITLEMENTS = ColorsMe/ColorsMe.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 953;
 				DEVELOPMENT_TEAM = MPA25UYNXL;
 				INFOPLIST_FILE = ColorsMe/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -1232,7 +1245,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1;
+				MARKETING_VERSION = "1.0.0-beta.1";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.bit-design.ColorsMe";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "org.bit-design.ColorsMe iOS Development";
@@ -1249,6 +1262,7 @@
 				CODE_SIGN_ENTITLEMENTS = ColorsMe/ColorsMe.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 953;
 				DEVELOPMENT_TEAM = MPA25UYNXL;
 				INFOPLIST_FILE = ColorsMe/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -1256,7 +1270,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1;
+				MARKETING_VERSION = "1.0.0-beta.1";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.bit-design.ColorsMe";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "org.bit-design.ColorsMe iOS Development";

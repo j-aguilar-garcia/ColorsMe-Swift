@@ -28,7 +28,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleVersion</key>
-	<string>951</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>FirebaseScreenReportingEnabled</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
@@ -39,8 +39,10 @@
 	<array>
 		<string>MKDirectionsModeOther</string>
 	</array>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>For the best experience of the app the use of the location is needed. This allows you to share your colors.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Test</string>
+	<string>For the best experience of the app the use of the location is needed. This allows you to share your colors.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

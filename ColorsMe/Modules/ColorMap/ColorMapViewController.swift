@@ -26,7 +26,7 @@ final class ColorMapViewController: UIViewController {
     
     @IBOutlet weak var mapView: MGLMapView!
     
-    @IBOutlet weak var countColorsLabel: UILabel!
+    @IBOutlet weak var countColorsLabel: CMBorderedLabel!
     
     @IBOutlet weak var scaleView: UIView!
     @IBOutlet weak var slider: UISlider!{
@@ -276,20 +276,19 @@ extension ColorMapViewController: ColorMapViewInterface, EmotionalDiaryDelegate 
     }
     
     func updateScale(value: Float, duration: Double) {
-        DispatchQueue.main.async {
+        //DispatchQueue.main.async {
             UIView.animate(withDuration: duration, animations: {
                 self.slider.setValue(self.slider.maximumValue - value, animated: true)
             })
-        }
+        //}
     }
     
     private func updateColorsLabel(count: Int, name: String = "") {
-            if name.isEmpty {
-                self.countColorsLabel.text = "\(AppData.selectedFilterName) : \(count)"
-            } else {
-                self.countColorsLabel.text = "\(name) : \(count)"
-            }
-        
+        if name.isEmpty {
+            self.countColorsLabel.borderedText = "\(AppData.selectedFilterName) : \(count)"
+        } else {
+            self.countColorsLabel.borderedText = "\(name) : \(count)"
+        }
     }
     
 }

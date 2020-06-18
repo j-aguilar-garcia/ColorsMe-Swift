@@ -24,5 +24,8 @@ extension UIFont {
       return UIFont(name: "HelveticaNeue-Light", size: size)!
     }
     
+    class func bold(ofSize size: CGFloat) -> UIFont {
+      return UIFont(name: "HelveticaNeue-Bold", size: size)!
+    }
     
 }

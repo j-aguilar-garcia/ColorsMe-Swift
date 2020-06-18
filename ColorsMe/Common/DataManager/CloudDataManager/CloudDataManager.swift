@@ -166,17 +166,9 @@ class CloudDataManager : CloudDataManagerProtocol {
         
         cloudKitContainerOptions = description.cloudKitContainerOptions
         
-        container!.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
-        container!.viewContext.transactionAuthor = appTransactionAuthorName
         
         // Pin the viewContext to the current generation token and set it to keep itself up to date with local changes.
-        container!.viewContext.automaticallyMergesChangesFromParent = true
-        do {
-            try container!.viewContext.setQueryGenerationFrom(.current)
-        } catch {
-            completionHandler(false)
-            //fatalError("###\(#function): Failed to pin viewContext to the current generation:\(error)")
-        }
+
         
         // Observe Core Data remote change notifications.
         NotificationCenter.default.addObserver(
@@ -184,6 +176,15 @@ class CloudDataManager : CloudDataManagerProtocol {
             name: .NSPersistentStoreRemoteChange, object: container)
         
         container!.loadPersistentStores(completionHandler: { (_, error) in
+            container!.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+            container!.viewContext.transactionAuthor = self.appTransactionAuthorName
+            container!.viewContext.automaticallyMergesChangesFromParent = true
+            do {
+                try container!.viewContext.setQueryGenerationFrom(.current)
+            } catch {
+                completionHandler(false)
+                //fatalError("###\(#function): Failed to pin viewContext to the current generation:\(error)")
+            }
             guard (error as NSError?) != nil else { return }
             completionHandler(false)
         })

@@ -63,17 +63,6 @@ final class EmotionalDiaryViewController: UIViewController {
         tableView.emptyDataSetDelegate = self
         
         self.navigationController?.navigationBar.isHidden = true
-        /*
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            tableViewContainerLeading.priority = .defaultLow
-            tableViewContainerTrailing.priority = .defaultLow
-            //tableViewContainerWidthConstraint.priority = .defaultHigh
-        } else if UIDevice.current.userInterfaceIdiom == .phone {
-            tableViewContainerLeading.priority = .defaultHigh
-            tableViewContainerTrailing.priority = .defaultHigh
-            tableViewContainerWidthConstraint.priority = .defaultLow
-            
-        }*/
         tableViewContainerLeading.priority = .defaultHigh
         tableViewContainerTrailing.priority = .defaultHigh
         tableViewContainerWidthConstraint.priority = .defaultLow
@@ -208,9 +197,7 @@ extension EmotionalDiaryViewController : MGSwipeTableCellDelegate {
     
     
     private func onDeleteSwipe(_ indexPath: IndexPath) {
-        let annotationToDelete = presenter.object(at: indexPath)
-        #warning("Delete annotation and remove from map")
-        
+        let annotationToDelete = presenter.object(at: indexPath)        
         tableView.beginUpdates()
         AnnotationService.default.deleteAnnotation(annotationToDelete, completion: {
             self.presenter.deleteUserAnnotation(at: indexPath)

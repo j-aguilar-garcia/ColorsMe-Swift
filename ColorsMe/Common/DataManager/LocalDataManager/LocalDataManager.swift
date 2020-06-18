@@ -40,7 +40,7 @@ class LocalDataManager : LocalDataManagerProtocol {
         try! realm.write {
             let objectToDelete = realm.object(ofType: RealmAnnotation.self, forPrimaryKey: id)
             guard let object = objectToDelete else {
-                log.error("Can not deleteLocal by Id \(objectToDelete?.objectId!)")
+                log.error("Can not deleteLocal by Id \(String(describing: objectToDelete?.objectId!))")
                 return
             }
             realm.delete(object)
@@ -86,24 +86,8 @@ class LocalDataManager : LocalDataManagerProtocol {
             return getAllLocal()
             
         case .mycolors:
-            #warning("Filter my colors!")
             let annotations = DataManager.shared.cloudDataManager.getAnnotations()
-            //log.debug(userAnnotations.count)
             return annotations
-            
-            
-            //log.debug(annotations.count)
-            //return annotations
-            
-            var userAnnotations = [CMAnnotation]()
-            for annotation in annotations! {
-                let userAnnotation = getAllLocal().first(where: { $0.objectId!.elementsEqual(annotation.beObjectId!) })
-                if userAnnotation == nil {
-                    continue
-                }
-                userAnnotations.append(userAnnotation!)
-            }
-            return userAnnotations
 
         case .today:
             let calendar = Calendar.current
