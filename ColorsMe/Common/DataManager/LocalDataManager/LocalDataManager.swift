@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreData
 import Unrealm
 import Mapbox
 import CoreData
@@ -86,27 +87,6 @@ class LocalDataManager : LocalDataManagerProtocol {
             
         case .mycolors:
             #warning("Filter my colors!")
-            /*
-            var annos = [CMAnnotation]()
-            
-            let cloudAnnotations = DataManager.shared.cloudDataManager.getUserAnnotations()
-            let localAnnotations = getAllLocal()
-            let annotations = getAllLocal().filter({ $0.isMyColor == true })
-            //let fetchRequest : NSFetchRequest<UserAnnotation> = UserAnnotation.fetchRequest()
-
-            //let annotations = try? context.fetch(fetchRequest)
-            for anno in cloudAnnotations! {
-                if localAnnotations.contains(where: { $0.objectId == anno.beObjectId }) {
-                    log.verbose("$0.objectId == anno.beObjectId === true")
-                    let local = localAnnotations.first(where: { $0.objectId == anno.beObjectId })
-                    annos.append(local!)
-                }
-            }
-            log.verbose("annos = \(annos.count)")
-             */
-            //let annotations = filterLocal(with: NSPredicate(format: "isMyColor == true"))
-            //log.verbose("annotations predicate = \(annotations.count)")
-        
             let annotations = DataManager.shared.cloudDataManager.getAnnotations()
             //log.debug(userAnnotations.count)
             return annotations
@@ -115,6 +95,16 @@ class LocalDataManager : LocalDataManagerProtocol {
             //log.debug(annotations.count)
             //return annotations
             
+            var userAnnotations = [CMAnnotation]()
+            for annotation in annotations! {
+                let userAnnotation = getAllLocal().first(where: { $0.objectId!.elementsEqual(annotation.beObjectId!) })
+                if userAnnotation == nil {
+                    continue
+                }
+                userAnnotations.append(userAnnotation!)
+            }
+            return userAnnotations
+
         case .today:
             let calendar = Calendar.current
             let dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: Date())
@@ -128,7 +118,6 @@ class LocalDataManager : LocalDataManagerProtocol {
             let dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: yesterday!)
             let filteredColorAnnotations = getAllLocal().filter { calendar.date(($0.created), matchesComponents: dateComponents) }
             return filteredColorAnnotations
-
         case .lastweek:
             let lastWeek = Calendar.current.date(byAdding: .day, value: -7, to: Date())
             let filteredColorAnnotations = getAllLocal().filter { $0.created > lastWeek! }
