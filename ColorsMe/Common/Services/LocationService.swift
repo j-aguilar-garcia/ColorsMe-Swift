@@ -22,6 +22,7 @@ class LocationService : NSObject {
         locationManager = CLLocationManager()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        startLocationRequest()
     }
     
     func currentLocation() -> CLLocationCoordinate2D? {

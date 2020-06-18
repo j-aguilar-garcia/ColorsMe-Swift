@@ -100,39 +100,38 @@ extension IntroViewController: IntroViewInterface {
         var delay: TimeInterval = 0.0
         let colorButtons = [greenDotButton, yellowDotButton, redDotButton]
         
-        DispatchQueue.main.async {
-            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
-                self.splashScreenImageView?.transform = CGAffineTransform(scaleX: 2, y: 2)
-                self.splashScreenImageView?.alpha = 0.0
-                self.splashScreenImageView?.layoutIfNeeded()
-            }) { finish in
-                for button in colorButtons {
-                    UIView.animate(withDuration: commonAnimationDuration, delay: delay, usingSpringWithDamping: commonSpringDumping, initialSpringVelocity: commonInitSpringVelocity, options: .curveEaseOut, animations: {
-                        button?.transform = CGAffineTransform(scaleX: 0.0, y: 0.0)
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
+            self.splashScreenImageView?.transform = CGAffineTransform(scaleX: 2, y: 2)
+            self.splashScreenImageView?.alpha = 0.0
+            self.splashScreenImageView?.layoutIfNeeded()
+        }) { finish in
+            for button in colorButtons {
+                UIView.animate(withDuration: commonAnimationDuration, delay: delay, usingSpringWithDamping: commonSpringDumping, initialSpringVelocity: commonInitSpringVelocity, options: .curveEaseOut, animations: {
+                    button?.transform = CGAffineTransform(scaleX: 0.0, y: 0.0)
+                    button?.layoutIfNeeded()
+                }) { finish in
+                    UIView.animate(withDuration: 0.3, animations:  {
+                        button?.alpha = 1.0
+                        button?.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
                         button?.layoutIfNeeded()
                     }) { finish in
-                        UIView.animate(withDuration: 0.3, animations:  {
-                            button?.alpha = 1.0
-                            button?.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
-                            button?.layoutIfNeeded()
-                        }) { finish in
-                            button?.isUserInteractionEnabled = true
-                            if button == colorButtons.last {
-                                UIView.animate(withDuration: 0.4, delay: delay, animations: {
-                                    self.skipButton.alpha = 1.0
-                                    self.skipButton.isUserInteractionEnabled = true
-                                    self.skipButton.layoutIfNeeded()
-                                    LocationService.default.startLocationRequest()
-                                })
-                            }
+                        button?.isUserInteractionEnabled = true
+                        if button == colorButtons.last {
+                            UIView.animate(withDuration: 0.4, delay: delay, animations: {
+                                self.skipButton.alpha = 1.0
+                                self.skipButton.isUserInteractionEnabled = true
+                                self.skipButton.layoutIfNeeded()
+                                LocationService.default.startLocationRequest()
+                            })
                         }
                     }
-                    if withDelay {
-                        delay += 0.1
-                    }
+                }
+                if withDelay {
+                    delay += 0.1
                 }
             }
         }
+        
     }
     
     

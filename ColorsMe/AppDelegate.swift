@@ -20,9 +20,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         application.registerForRemoteNotifications()
+        AppData.appStartDate = Date()
+        
         // Init SwiftyBeaver
-        let console = ConsoleDestination()  // log to Xcode Console
+        #if DEBUG
+        let console = ConsoleDestination()
         let file = FileDestination()
+        #endif
         let cloud = SBPlatformDestination(
             appID: AppConfiguration.default.swiftyBeaverAppId,
             appSecret: AppConfiguration.default.swiftyBeaverAppSecret,
@@ -30,10 +34,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         log.addDestination(console)
         log.addDestination(file)
         log.addDestination(cloud)
-        
+
         Realm.registerRealmables([RealmAnnotation.self])
         
         DataManager.shared.fetchData()
+        
         UNUserNotificationCenter.current().delegate = self
         SentrySDK.start(options: [ "dsn": AppConfiguration.default.sentryDsn!, "debug": false ])
                 

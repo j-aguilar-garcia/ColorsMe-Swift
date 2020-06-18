@@ -66,7 +66,7 @@ class CMHeatMapLayer : CMLayer {
         heatmapLayer.heatmapIntensity = NSExpression(format: "mgl_interpolate:withCurveType:parameters:stops:($zoomLevel, 'linear', nil, %@)",
         [0: 9, 3: 3])
         heatmapLayer.heatmapRadius = NSExpression(format: "mgl_interpolate:withCurveType:parameters:stops:($zoomLevel, 'linear', nil, %@)",
-        [0: 4, 9: 30])
+        [0: 7, 22: 30])
          
         // The heatmap layer should be visible up to zoom level 9.
         heatmapLayer.heatmapOpacity = NSExpression(format: "mgl_step:from:stops:($zoomLevel, 0.75, %@)", [0: 0.75, 18: 0])

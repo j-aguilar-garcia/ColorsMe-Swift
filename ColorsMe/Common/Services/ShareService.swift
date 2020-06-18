@@ -34,11 +34,14 @@ class ShareService {
         
         //Excluded Activities
         activityVC.excludedActivityTypes = [
-            UIActivity.ActivityType.airDrop,
-            UIActivity.ActivityType.addToReadingList,
-            UIActivity.ActivityType.openInIBooks,
-            UIActivity.ActivityType.assignToContact,
-            UIActivity.ActivityType.saveToCameraRoll
+            .airDrop,
+            .addToReadingList,
+            .openInIBooks,
+            .assignToContact,
+            .saveToCameraRoll,
+            .markupAsPDF,
+            .postToWeibo,
+            .print
         ]
         
         if let popover = activityVC.popoverPresentationController {
@@ -55,6 +58,17 @@ class ShareService {
         let textToShare = "Hey!\nHow do you feel at the moment? \nPost your feeling with a click. Completely Anonymous!\nWith ColorsMe"
         let items = [URL(string: AppConfiguration.default.appStoreUrl)!, textToShare] as [Any]
         let activityVC = UIActivityViewController(activityItems: items, applicationActivities: nil)
+        
+        activityVC.excludedActivityTypes = [
+            .airDrop,
+            .addToReadingList,
+            .openInIBooks,
+            .assignToContact,
+            .saveToCameraRoll,
+            .markupAsPDF,
+            .postToWeibo,
+            .print
+        ]
         return activityVC
     }
     

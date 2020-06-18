@@ -75,14 +75,14 @@ class RemoteDataManager : RemoteDataManagerProtocol {
         queryBuilder.setOffset(offset: self.offset)
         
         let userAnnotations = DataManager.shared.cloudDataManager.getUserAnnotations()
-        
-        let dateNow = Date()
-        if let timeStamp = AppData.backendlessSyncTimeStamp {
+        log.info("before \(localDataManager.getAllLocal().count)")
+        let dateNow = AppData.appStartDate
+        if let timeStamp = AppData.backendlessLastSyncTimeStamp {
             let dateFormatter = DateFormatter.MMMddyyyyHHmmss
             let dateString = dateFormatter.string(from: timeStamp)
             queryBuilder.setWhereClause(whereClause: String(format: "created > '%@'", dateString))
+            log.info("TimeStamp: \(timeStamp)")
         }
-        
         var remoteAnnotations = [Annotation]()
         let startTime = Date()
         let dataStore = Backendless.shared.data.of(Annotation.self)
@@ -95,6 +95,7 @@ class RemoteDataManager : RemoteDataManagerProtocol {
                     log.debug("Retrieved data in (ms) - \(Int(Date().timeIntervalSince(startTime) * 1000)) in secs \(Int(Date().timeIntervalSince(startTime)))")
                     self.offset = 0
                     self.checkForDeletedData(localDataManager: localDataManager, date: dateNow)
+                    AppData.backendlessLastSyncTimeStamp = dateNow
                     return
                 } else {
                     guard let annotations = foundObjects as? [Annotation] else { return }
@@ -111,6 +112,7 @@ class RemoteDataManager : RemoteDataManagerProtocol {
                             realmAnnotation.isMyColor = true
                             localDataManager.updateLocal(annotation: realmAnnotation)
                         } else {
+                            log.info("Save annotation id: \(annotation.objectId!) created: \(String(describing: annotation.created))")
                             localDataManager.saveLocal(annotation: realmAnnotation)
                         }
                         self.annotations.append(CMAnnotation(annotation: realmAnnotation))
@@ -122,7 +124,8 @@ class RemoteDataManager : RemoteDataManagerProtocol {
                     log.debug("queryBuilder.getOffset() = \(self.queryBuilder.getOffset())")
                     self.retrieveData(localDataManager: localDataManager)
                 } else {
-                    AppData.backendlessSyncTimeStamp = dateNow
+                    log.info("Set backendlessLastSyncTimeStamp")
+                    AppData.backendlessLastSyncTimeStamp = dateNow
                     log.debug("Retrieved data in (ms) - \(Int(Date().timeIntervalSince(startTime) * 1000)) in secs \(Int(Date().timeIntervalSince(startTime)))")
                 }
             }, errorHandler: { fault in
@@ -141,11 +144,12 @@ class RemoteDataManager : RemoteDataManagerProtocol {
     */
     private func checkForDeletedData(localDataManager: LocalDataManager, date: Date) {
         let localAnnotations = localDataManager.getAllLocal()
+        log.info("after \(localDataManager.getAllLocal().count)")
         queryBuilder.setPageSize(pageSize: 100)
         queryBuilder.setOffset(offset: self.offset)
         
         let dateFormatter = DateFormatter.MMMddyyyyHHmmss
-        let dateString = dateFormatter.string(from: date)
+        let dateString = dateFormatter.string(from: AppData.backendlessLastSyncTimeStamp!)
         queryBuilder.setWhereClause(whereClause: String(format: "created < '%@'", dateString))
         
         
@@ -154,13 +158,14 @@ class RemoteDataManager : RemoteDataManagerProtocol {
             dataStore.getObjectCount(queryBuilder: self.queryBuilder, responseHandler: { allColors in
                 log.debug("allColors DELETE = \(allColors)")
                 let size = foundObjects.count
-                if self.remoteAnnotations.count == allColors || size == 0{
+                if self.remoteAnnotations.count == allColors || size == 0 {
                     log.debug("self.remoteAnnotations delete = \(self.remoteAnnotations.count)")
 
                     for annotation in localAnnotations {
                         if self.remoteAnnotations.contains(where: { $0.objectId!.elementsEqual(annotation.objectId!) }) {
                             continue
-                        } else {
+                        } else if !annotation.isMyColor {
+                            log.info("Delte local annotation with id: \(annotation.objectId!) created: \(String(describing: annotation.created))")
                             DispatchQueue.main.async {
                                 localDataManager.deleteLocal(by: annotation.objectId!)
                             }

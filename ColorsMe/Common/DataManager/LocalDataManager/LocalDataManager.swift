@@ -47,6 +47,7 @@ class LocalDataManager : LocalDataManagerProtocol {
     }
     
     func getAllLocal() -> [CMAnnotation] {
+        realm.refresh()
         let annotationType = RealmAnnotation.self
         let rlmResult = realm.objects(annotationType)
         
