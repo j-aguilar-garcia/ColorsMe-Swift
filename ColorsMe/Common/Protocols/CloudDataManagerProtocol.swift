@@ -7,3 +7,14 @@
 //
 
 import Foundation
+import CoreData
+
+protocol CloudDataManagerProtocol {
+    
+    func addAnnotation(annotation: CMAnnotation)
+    
+    func getUserAnnotations() -> [UserAnnotation]
+    
+    func getAnnotations() -> [CMAnnotation]
+    
+}

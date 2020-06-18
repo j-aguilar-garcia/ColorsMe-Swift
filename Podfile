@@ -6,9 +6,6 @@ target 'ColorsMe' do
   use_frameworks!
     pod 'BackendlessSwift'
     pod 'ReachabilitySwift'
-    pod 'Firebase/Analytics'
-    pod 'Firebase/Crashlytics'
-    pod 'Firebase/RemoteConfig'
     pod 'MGSwipeTableCell'    
     pod 'Mapbox-iOS-SDK', '~> 5.9'
     pod 'MapboxGeocoder.swift', '~> 0.12'

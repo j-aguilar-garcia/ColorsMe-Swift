@@ -23,6 +23,10 @@ class DataManager : DataManagerInputProtocol {
         return LocalDataManager()
     }()
     
+    lazy var cloudDataManager : CloudDataManager = {
+        return CloudDataManager()
+    }()
+    
     init() {
         remoteDataManager.initBackendless()
     }

@@ -13,21 +13,21 @@ import Reachability
 import CoreData
 
 final class ColorMapViewController: UIViewController {
-
+    
     // MARK: - Public properties -
-
+    
     var presenter: ColorMapPresenterInterface!
     var annotation: CMAnnotation!
     //var filteredAnnotations: [CMAnnotation]?
-
+    
     var heatMapLayer: CMHeatMapLayer?
     var clusterMapLayer: CMClusterMapLayer?
     var searchResultsOverlay: CMOverlayLayer?
-
+    
     @IBOutlet weak var mapView: MGLMapView!
     
     @IBOutlet weak var countColorsLabel: UILabel!
-        
+    
     @IBOutlet weak var scaleView: UIView!
     @IBOutlet weak var slider: UISlider!{
         didSet {
@@ -37,14 +37,14 @@ final class ColorMapViewController: UIViewController {
     }
     
     @IBOutlet weak var navigationFilterButton: UIBarButtonItem!
-
+    
     @IBAction func onRetryConnectionButton(_ sender: Any) {
         //NotificationCenter.default.post(name: .networkUnreachable, object: nil)
     }
     @IBOutlet weak var retryConnectionButton: UIButton!
     
     @IBOutlet weak var noNetworkConnectionView: UIView!
-        
+    
     @IBOutlet weak var filterButton: UIBarButtonItem!
     
     @IBAction func onFilterButton(_ sender: Any) {
@@ -58,18 +58,20 @@ final class ColorMapViewController: UIViewController {
     // Searchbar
     var resultSearchController: UISearchController?
     var locationSearchWireframe: LocationSearchWireframe!
-
     
+    var triggerButton: MenuTriggerButtonView!
     // MARK: - Lifecycle -
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         addReachabilityObserver()
         mapView.delegate = self
         mapView.automaticallyAdjustsContentInset = true
-
+        
         mapView.attributionButtonPosition = .topLeft
-        mapView.setCenter(LocationService.default.currentLocation(), animated: false)
+        if let userLocation = LocationService.default.currentLocation() {
+            self.mapView.setCenter(userLocation, animated: false)
+        }
         addMenuButton()
         
         setUpSearchBar()
@@ -88,7 +90,14 @@ final class ColorMapViewController: UIViewController {
         super.traitCollectionDidChange(previousTraitCollection)
         switchAppearanceFor(mapView: self.mapView)
     }
-
+    
+    override func viewWillLayoutSubviews() {
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            let tabBarHeight = tabBarController?.tabBar.frame.size.height ?? 44
+            sideButtonsView.setTriggerButtonPosition(CGPoint(x: self.view.frame.maxX - triggerButton.frame.width - 16, y: self.view.frame.height - tabBarHeight - triggerButton.frame.height - 16))
+        }
+    }
+    
 }
 
 // MARK: - Extensions -
@@ -96,87 +105,97 @@ final class ColorMapViewController: UIViewController {
 extension ColorMapViewController: ColorMapViewInterface, EmotionalDiaryDelegate {
     
     func showAnnotations(_ annotations: [CMAnnotation], animated: Bool) {
-        //mapView.showAnnotations(annotations, animated: animated)
         var coordinates = [CLLocationCoordinate2D]()
         annotations.forEach({ coordinates.append($0.coordinate) })
         mapView.setVisibleCoordinates(coordinates, count: UInt(coordinates.count), edgePadding: UIEdgeInsets(top: 30, left: 60, bottom: 30, right: 30), animated: animated)
     }
     
     func removeAnnotation(_ annotation: CMAnnotation) {
-        if mapView.containsAnnotation(annotation) {
-            mapView.removeAnnotations([annotation])
+        DispatchQueue.main.async {
+            let layerType = ColorMapLayerType(rawValue: AppData.colorMapLayerItem)!
+            self.showMapLayer(layerType: layerType)
         }
-        presenter.shouldUpdateScale(mapView, slider.value)
-        updateColorsLabel(count: mapView!.annotations?.count ?? DataManager.shared.localDataManager.getAllLocal().count)
     }
     
     func addAnnotation(_ annotation: CMAnnotation) {
-        mapView.addAnnotation(annotation)
-        presenter.shouldUpdateScale(mapView, slider.value)
-        updateColorsLabel(count: mapView!.annotations?.count ?? DataManager.shared.localDataManager.getAllLocal().count)
+        if !mapView.containsAnnotation(annotation) {
+            DispatchQueue.main.async {
+                self.mapView.addAnnotation(annotation)
+                self.updateColorsLabel(count: self.mapView.annotations?.count ?? 0)
+                self.presenter.shouldUpdateScale(self.mapView, self.slider.value)
+            }
+        }
+        
     }
     
     
     func zoomToAnnotation(annotation: CMAnnotation) {
-        mapView.addAnnotation(annotation)
-        mapView.selectAnnotation(annotation, animated: true, completionHandler: {
-            self.mapView.setCenter(annotation.coordinate, zoomLevel: 8, animated: true)
-            let camera = MGLMapCamera(lookingAtCenter: annotation.coordinate, altitude: 2500, pitch: 50, heading: 180)
-            self.mapView.setCamera(camera, withDuration: 3.5, animationTimingFunction: CAMediaTimingFunction(name: .easeInEaseOut))
-        })
+        self.mapView.addAnnotation(annotation)
+        self.showMapLayer(layerType: .defaultmap)
+        DispatchQueue.main.async {
+            self.mapView.selectAnnotation(annotation, animated: true, completionHandler: {
+                self.mapView.setCenter(annotation.coordinate, zoomLevel: 8, animated: true)
+                let camera = MGLMapCamera(lookingAtCenter: annotation.coordinate, altitude: 2500, pitch: 50, heading: 180)
+                self.mapView.setCamera(camera, withDuration: 3.5, animationTimingFunction: CAMediaTimingFunction(name: .easeInEaseOut))
+            })
+        }
     }
     
     
     func showMapLayer(layerType: ColorMapLayerType, annotations: [CMAnnotation]? = nil) {
-        log.debug("")
-        AppData.colorMapLayerItem = layerType.rawValue
-
-        heatMapLayer?.removeAllLayers(mapView: mapView)
-        heatMapLayer = nil
-        clusterMapLayer?.removeAllLayers(mapView: mapView)
-        clusterMapLayer = nil
-        willRemoveOverlay()
-        
-        if annotations != nil {
-            mapView.addAnnotations(annotations!)
-        } else {
-            if mapView.annotations != nil {
-                mapView.removeAnnotations(mapView.annotations!)
-            }
-            let allAnnotations = DataManager.shared.dataManager(willRetrieveWith: .local)
-            if mapView.annotations?.count != allAnnotations.count {
-                mapView.addAnnotations(allAnnotations)
-            }
-        }
-        updateColorsLabel(count: mapView.annotations?.count ?? 0)
-        
-        switch layerType {
+        DispatchQueue.main.async {
+            log.debug("")
+            AppData.colorMapLayerItem = layerType.rawValue
             
-        case .defaultmap:
-            showScale(true)
-            break
+            self.heatMapLayer?.removeAllLayers(mapView: self.mapView)
+            self.heatMapLayer = nil
+            self.clusterMapLayer?.removeAllLayers(mapView: self.mapView)
+            self.clusterMapLayer = nil
+            self.willRemoveOverlay()
             
-        case .heatmap:
-            hideScale(true)
-            heatMapLayer = CMHeatMapLayer(mapView: mapView)
-            if mapView.annotations != nil, !mapView.annotations!.isEmpty {
-                mapView.removeAnnotations(mapView!.annotations!)
+            if annotations != nil {
+                self.mapView.addAnnotations(annotations!)
+            } else {
+                if self.mapView.annotations != nil {
+                    self.mapView.removeAnnotations(self.mapView.annotations!)
+                }
+                let allAnnotations = DataManager.shared.dataManager(willRetrieveWith: .local)
+                if self.mapView.annotations?.count != allAnnotations.count {
+                    self.mapView.addAnnotations(allAnnotations)
+                }
             }
-            break
             
-        case .clustermap:
-            hideScale(true)
-            clusterMapLayer = CMClusterMapLayer(mapView: mapView, view: view)
-            if mapView.annotations != nil, !mapView.annotations!.isEmpty {
-                mapView.removeAnnotations(mapView!.annotations!)
+            self.updateColorsLabel(count: self.mapView.annotations?.count ?? 0)
+            self.presenter.shouldUpdateScale(self.mapView, self.slider.value)
+            switch layerType {
+                
+            case .defaultmap:
+                self.showScale()
+                break
+                
+            case .heatmap:
+                self.hideScale()
+                self.heatMapLayer = CMHeatMapLayer(mapView: self.mapView)
+                if self.mapView.annotations != nil, !self.mapView.annotations!.isEmpty {
+                    self.mapView.removeAnnotations(self.mapView!.annotations!)
+                }
+                break
+                
+            case .clustermap:
+                self.hideScale()
+                self.clusterMapLayer = CMClusterMapLayer(mapView: self.mapView, view: self.view)
+                if self.mapView.annotations != nil, !self.mapView.annotations!.isEmpty {
+                    self.mapView.removeAnnotations(self.mapView!.annotations!)
+                }
+                self.hideScale()
+                break
             }
-            break
         }
     }
     
     
     func addMenuButton() {
-        let triggerButton = MenuTriggerButtonView(highlightedImage: UIImage(systemName: "xmark.circle.fill")!) {
+        triggerButton = MenuTriggerButtonView(highlightedImage: UIImage(systemName: "xmark.circle.fill")!) {
             $0.image = UIImage(named: "Menu")
             $0.hasShadow = false
         }
@@ -215,52 +234,62 @@ extension ColorMapViewController: ColorMapViewInterface, EmotionalDiaryDelegate 
     }
     
     func hideScale(_ animated: Bool = true) {
-        let hideScaleViewFrame = CGRect(x: 0 - self.scaleView.frame.width - 8, y: self.scaleView.frame.minY, width: self.scaleView.frame.width, height: self.scaleView.frame.height)
-        
-        if scaleView.frame == hideScaleViewFrame {
-            return
+        DispatchQueue.main.async {
+            let hideScaleViewFrame = CGRect(x: UIScreen.main.bounds.origin.x - self.scaleView.frame.width - 8, y: self.scaleView.frame.minY, width: self.scaleView.frame.width, height: self.scaleView.frame.height)
+            
+            if self.scaleView.frame.equalTo(hideScaleViewFrame) {
+                return
+            }
+            log.debug(hideScaleViewFrame)
+            self.scaleView.frame = CGRect(x: UIScreen.main.bounds.origin.x, y: self.scaleView.frame.minY, width: self.scaleView.frame.width, height: self.scaleView.frame.height)
+            log.debug(self.scaleView.frame)
+            if animated {
+                UIView.animate(withDuration: 0.5, delay: 0.2, animations: {
+                    self.scaleView.frame = hideScaleViewFrame
+                })
+                return
+            }
+            self.scaleView.frame = hideScaleViewFrame
         }
-        
-        if animated {
-            UIView.animate(withDuration: 0.5, delay: 0.2, animations: {
-                self.scaleView.frame = hideScaleViewFrame
-            })
-            return
-        }
-        self.scaleView.frame = hideScaleViewFrame
     }
     
     func showScale(_ animated: Bool = true) {
-        let showScaleViewFrame = CGRect(x: 0, y: self.scaleView.frame.minY, width: self.scaleView.frame.width, height: self.scaleView.frame.height)
-        
-        if scaleView.frame == showScaleViewFrame {
-            return
-        }
-        
-        if animated {
-            UIView.animate(withDuration: 0.5, delay: 0.2, animations: {
-                self.scaleView.frame = showScaleViewFrame
-            }) { finish in
-                self.presenter.shouldUpdateScale(self.mapView, self.slider.value)
+        DispatchQueue.main.async {
+            let showScaleViewFrame = CGRect(x: UIScreen.main.bounds.origin.x, y: self.scaleView.frame.minY, width: self.scaleView.frame.width, height: self.scaleView.frame.height)
+            
+            if self.scaleView.frame.equalTo(showScaleViewFrame) {
+                return
             }
-            return
+            self.scaleView.frame = CGRect(x: UIScreen.main.bounds.origin.x - self.scaleView.frame.width - 8, y: self.scaleView.frame.minY, width: self.scaleView.frame.width, height: self.scaleView.frame.height)
+            
+            if animated {
+                UIView.animate(withDuration: 0.5, delay: 0.2, animations: {
+                    self.scaleView.frame = showScaleViewFrame
+                }) { finish in
+                    self.presenter.shouldUpdateScale(self.mapView, self.slider.value)
+                }
+                return
+            }
+            self.scaleView.frame = showScaleViewFrame
         }
-        self.scaleView.frame = showScaleViewFrame
         presenter.shouldUpdateScale(mapView, slider.value)
     }
     
     func updateScale(value: Float, duration: Double) {
-        UIView.animate(withDuration: duration, animations: {
-            self.slider.setValue(self.slider.maximumValue - value, animated: true)
-        })
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: duration, animations: {
+                self.slider.setValue(self.slider.maximumValue - value, animated: true)
+            })
+        }
     }
     
     private func updateColorsLabel(count: Int, name: String = "") {
-        if name.isEmpty {
-            countColorsLabel.text = "\(AppData.selectedFilterName) : \(count)"
-        } else {
-            countColorsLabel.text = "\(name) : \(count)"
-        }
+            if name.isEmpty {
+                self.countColorsLabel.text = "\(AppData.selectedFilterName) : \(count)"
+            } else {
+                self.countColorsLabel.text = "\(name) : \(count)"
+            }
+        
     }
     
 }
@@ -277,17 +306,18 @@ extension ColorMapViewController : MGLMapViewDelegate {
         if annotationView == nil {
             annotationView = CMAnnotationView(annotation: cmAnnotation, reuseIdentifier: reuseIdentifier)
         }
-        
-        let scaleTransform = CGAffineTransform(scaleX: 0.0, y: 0.0)
-        UIView.animate(withDuration: 0.2, animations: {
-            annotationView!.imageView.transform = scaleTransform
-            annotationView!.imageView.layoutIfNeeded()
-        }) { (isCompleted) in
-            UIView.animate(withDuration: 0.3, animations: {
-                annotationView!.imageView.alpha = 1.0
-                annotationView!.imageView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+        if AppData.shouldAnimateAnnotations {
+            let scaleTransform = CGAffineTransform(scaleX: 0.0, y: 0.0)
+            UIView.animate(withDuration: 0.2, animations: {
+                annotationView!.imageView.transform = scaleTransform
                 annotationView!.imageView.layoutIfNeeded()
-            })
+            }) { (isCompleted) in
+                UIView.animate(withDuration: 0.3, animations: {
+                    annotationView!.imageView.alpha = 1.0
+                    annotationView!.imageView.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
+                    annotationView!.imageView.layoutIfNeeded()
+                })
+            }
         }
         return annotationView
     }
@@ -320,7 +350,7 @@ extension ColorMapViewController : MGLMapViewDelegate {
         }
         
         let isUserAnnotation = presenter.checkForUserAnnotation(annotation: annotation)
-        if isUserAnnotation {
+        if annotation.isMyColor || isUserAnnotation {
             let shareButton = UIButton(type: .custom)
             let shareButtonImage = UIImage(systemName: "square.and.arrow.up")
             shareButton.setImage(shareButtonImage, for: .normal)
@@ -328,7 +358,7 @@ extension ColorMapViewController : MGLMapViewDelegate {
             shareButton.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: 20, height: 40))
             return shareButton
         }
-
+        
         return UIView()
     }
     
@@ -337,6 +367,7 @@ extension ColorMapViewController : MGLMapViewDelegate {
     }
     
     func mapViewDidFinishLoadingMap(_ mapView: MGLMapView) {
+        updateColorsLabel(count: mapView.annotations?.count ?? 0)
         //heatMapLayer = CMHeatMapLayer(mapView: mapView)
     }
     
@@ -358,6 +389,10 @@ extension ColorMapViewController : MGLMapViewDelegate {
     
     func mapView(_ mapView: MGLMapView, fillColorForPolygonAnnotation annotation: MGLPolygon) -> UIColor {
         return .cmPolylineFill
+    }
+    
+    func mapView(_ mapView: MGLMapView, regionDidChangeAnimated animated: Bool) {
+        log.verbose("")
     }
 }
 
@@ -403,7 +438,7 @@ extension ColorMapViewController : PickerDialogDelegate {
             self.mapView.removeAnnotations(self.mapView.annotations!)
         }
         presenter.filteredAnnotationsDidChange(annotations)
-        hideScale()
+        //hideScale()
         showMapLayer(layerType: ColorMapLayerType(rawValue: AppData.colorMapLayerItem)!, annotations: annotations)
     }
     
@@ -423,11 +458,12 @@ extension ColorMapViewController : UISearchBarDelegate {
         resultSearchController?.searchResultsUpdater = locationSearchTable as UISearchResultsUpdating
         
         resultSearchController?.searchBar.sizeToFit()
-        resultSearchController?.searchBar.barTintColor = .green
+        resultSearchController?.searchBar.barTintColor = .cmAppDefaultColor
         resultSearchController?.searchBar.searchBarStyle = .prominent
         resultSearchController?.searchBar.autocorrectionType = .default
         resultSearchController?.searchBar.textContentType = .addressCityAndState
-        resultSearchController?.searchBar.placeholder = "Find places"
+        resultSearchController?.searchBar.placeholder = "Find places..."
+        resultSearchController?.searchBar.delegate = self
         
         navigationItem.titleView = resultSearchController?.searchBar
         resultSearchController?.hidesNavigationBarDuringPresentation = false
@@ -435,14 +471,27 @@ extension ColorMapViewController : UISearchBarDelegate {
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        willRemoveOverlay()
-        
+        let layerType = ColorMapLayerType(rawValue: AppData.colorMapLayerItem)
+        showMapLayer(layerType: layerType!)
     }
     
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        willRemoveOverlay()
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
     }
-
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                searchBar.resignFirstResponder()
+                let layerType = ColorMapLayerType(rawValue: AppData.colorMapLayerItem)
+                self.showMapLayer(layerType: layerType!)
+            }
+        }
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        presenter.searchBarbuttonClicked(searchBar, searchWireframe: locationSearchWireframe)
+    }
+    
 }
 
 extension ColorMapViewController : LocationSearchDelegate {
@@ -452,15 +501,20 @@ extension ColorMapViewController : LocationSearchDelegate {
         AppData.selectedFilterIndex = 0
         showMapLayer(layerType: .defaultmap)
         resultSearchController?.searchBar.text = placemark.qualifiedName
-        searchResultsOverlay = CMOverlayLayer(mapView: self.mapView, coordinates: coordinates)
-        updateColorsLabel(count: mapView.annotations?.count ?? 0, name: placemark.name)
+        DispatchQueue.main.async {
+            self.searchResultsOverlay = CMOverlayLayer(mapView: self.mapView, coordinates: coordinates)
+            self.updateColorsLabel(count: self.mapView.annotations?.count ?? 0, name: placemark.name)
+        }
     }
     
     func willRemoveOverlay() {
         if searchResultsOverlay != nil {
-            searchResultsOverlay?.removePolygon(mapView: mapView)
+            searchResultsOverlay?.removePolygon(mapView: self.mapView)
+            
             searchResultsOverlay = nil
-            showMapLayer(layerType: .defaultmap)
+            DispatchQueue.main.async {
+                self.resultSearchController?.searchBar.text = nil
+            }
         }
     }
     

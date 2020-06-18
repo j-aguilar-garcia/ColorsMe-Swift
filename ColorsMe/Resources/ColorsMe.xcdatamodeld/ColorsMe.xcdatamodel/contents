@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19F101" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
     <entity name="UserAnnotation" representedClassName="UserAnnotation" syncable="YES" codeGenerationType="class">
-        <attribute name="beObjectId" optional="YES" attributeType="String" spotlightIndexingEnabled="YES"/>
+        <attribute name="beObjectId" attributeType="String" defaultValueString="" spotlightIndexingEnabled="YES">
+            <userInfo>
+                <entry key="CloudCoreType" value="recordID"/>
+            </userInfo>
+        </attribute>
         <attribute name="city" optional="YES" attributeType="String"/>
         <attribute name="color" optional="YES" attributeType="String"/>
         <attribute name="country" optional="YES" attributeType="String"/>
@@ -11,21 +15,12 @@
         <attribute name="isMyColor" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="ownerName" optional="YES" attributeType="String"/>
-        <attribute name="privateRecordData" optional="YES" attributeType="Binary" preserveAfterDeletion="YES"/>
-        <attribute name="publicRecordData" optional="YES" attributeType="Binary" preserveAfterDeletion="YES"/>
-        <attribute name="recordData" optional="YES" attributeType="Binary" preserveAfterDeletion="YES">
-            <userInfo>
-                <entry key="CloudCoreType" value="recordData"/>
-            </userInfo>
-        </attribute>
-        <attribute name="recordName" optional="YES" attributeType="String" spotlightIndexingEnabled="YES"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <userInfo>
             <entry key="CloudCoreScopes" value="private"/>
         </userInfo>
     </entity>
     <elements>
-        <element name="UserAnnotation" positionX="-63" positionY="-18" width="128" height="283"/>
+        <element name="UserAnnotation" positionX="-63" positionY="-18" width="128" height="208"/>
     </elements>
 </model>

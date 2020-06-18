@@ -11,6 +11,7 @@ import CoreData
 import CloudCore
 import Mapbox
 import MapboxGeocoder
+import Reachability
 
 class AnnotationService {
     
@@ -22,74 +23,77 @@ class AnnotationService {
         delegate = UIApplication.shared.delegate as! AppDelegate
     }
     
-    open func addAnnotation(color: EmotionalColor, completion: @escaping (CMAnnotation) -> ()) {
+    open func addAnnotation(color: EmotionalColor, byUser: Bool = false, completion: @escaping (CMAnnotation) -> ()) {
+        let reachability = try! Reachability()
+        if reachability.connection == .unavailable {
+            let alert = UIAlertController.init(title: "You don't have an internet connection.", message: "We do not know where you are, please make sure you have an internet connection", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (UIAlertAction) in
+                alert.dismiss(animated: true, completion: {
+                    
+                })
+            }))
+            UIApplication.shared.windows.first?.rootViewController?.present(alert, animated: true, completion: nil)
+            return
+        }
+        
         createAnnotation(with: color, completion: { annotation in
-            let cmAnnotation = CMAnnotation(annotation: annotation)
+            let cmAnnotation = CMAnnotation(annotation: annotation, isMyColor: byUser)
             completion(cmAnnotation)
             
             DispatchQueue.global(qos: .background).async {
                 DataManager.shared.remoteDataManager.saveToBackendless(annotation: annotation, completion: { savedAnnotation in
-                    log.debug("saved Backendless Annotation: \(savedAnnotation.debugDescription)")
 
                     DispatchQueue.main.async {
-                        let realmAnnotation = RealmAnnotation(annotation: savedAnnotation)
-                        log.debug("saved: realmAnnotation: objectid = \(realmAnnotation.objectId!) & guid = \(realmAnnotation.guid!)")
-                        let cmAnnotation = CMAnnotation(annotation: savedAnnotation)
-                        log.debug("saved: cmAnnotation: objectId = \(cmAnnotation.objectId)")
-                        self.saveAnnotationToiCloud(annotation: cmAnnotation)
+                        let realmAnnotation = RealmAnnotation(annotation: savedAnnotation, isMyColor: byUser)
                         DataManager.shared.localDataManager.saveLocal(annotation: realmAnnotation)
+                        let cmAnnotation = CMAnnotation(annotation: savedAnnotation, isMyColor: byUser)
+                        
+                        DataManager.shared.cloudDataManager.addAnnotation(annotation: cmAnnotation)
                     }
+                    
                 })
             }
             
         })
     }
     
-    open func deleteAnnotation(id: String, objectId: NSManagedObjectID) {
-        DataManager.shared.dataManager(id: id, willDeltewith: .both)
-        delegate.persistentContainer.performBackgroundTask { (context) in
-            context.name = CloudCore.config.pushContextName
-            if let objectToDelete = try? context.existingObject(with: objectId) {
-                log.debug("delete iCloud Annotation: \(objectToDelete)")
-                context.delete(objectToDelete)
-                try? context.save()
-            }
+    private func saveAnnotationOffline(annotation: Annotation, byUser: Bool) {
+        annotation.objectId = annotation.guid
+        DispatchQueue.main.async {
+            let realmAnnotation = RealmAnnotation(annotation: annotation, isMyColor: byUser)
+            DataManager.shared.localDataManager.saveLocal(annotation: realmAnnotation)
+            let cmAnnotation = CMAnnotation(annotation: annotation, isMyColor: byUser)
+            
+            DataManager.shared.cloudDataManager.addAnnotation(annotation: cmAnnotation)
         }
     }
     
-    private func saveAnnotationToiCloud(annotation: CMAnnotation) {
-        delegate.persistentContainer.performBackgroundTask { (context) in
-            context.name = CloudCore.config.pushContextName
-            
-            let userAnnotation = UserAnnotation(context: context)
-            userAnnotation.beObjectId = annotation.objectId
-            userAnnotation.city = annotation.city
-            userAnnotation.color = annotation.color.rawValue
-            userAnnotation.isMyColor = true
-            userAnnotation.country = annotation.country
-            userAnnotation.countryIsoCode = annotation.isocountrycode
-            userAnnotation.created = annotation.created
-            userAnnotation.guid = annotation.guid
-            userAnnotation.latitude = annotation.latitude
-            userAnnotation.longitude = annotation.longitude
-            userAnnotation.title = annotation.title
-            log.debug("Annotation saved to iCloud with objectId \(String(describing: annotation.objectId))")
-            try? context.save()
-        }
-
+    /// Updates the annotations that were created offline once the Internet connection is established
+    open func updateOfflineCreatedAnnotations(annotation: Annotation) {
+        
+    }
+    
+    
+    open func deleteAnnotation(_ annotation: CMAnnotation, completion: @escaping () -> ()) {
+        DataManager.shared.dataManager(id: annotation.objectId!, willDeltewith: .both)
+        DataManager.shared.cloudDataManager.deleteAnnotationBy(objectId: annotation.objectId!)
+        completion()
     }
     
     private func createAnnotation(with color: EmotionalColor, completion: @escaping (Annotation) -> ()) {
         let annotation = Annotation()
         
-        let currentUserLocation = LocationService.default.currentLocation()
+        guard let currentUserLocation = LocationService.default.currentLocation() else {
+            LocationService.default.checkPermissionForLocation(view: (UIApplication.shared.windows.first?.rootViewController)!)
+            return
+        }
         
         let formatter = DateFormatter.yyyyMMddHHmmss
         let titleDate = formatter.string(from: Date())
         annotation.title = titleDate
         
         annotation.color = color.rawValue
-
+        
         annotation.longitude = NSNumber(value: currentUserLocation.longitude)
         annotation.latitude = NSNumber(value: currentUserLocation.latitude)
         annotation.guid = UUID().uuidString
@@ -106,13 +110,13 @@ class AnnotationService {
     private func reverseGeocoding(latitude: CLLocationDegrees, longitude: CLLocationDegrees, completion: @escaping (GeocodedPlacemark) -> ()) {
         let geocoder = Geocoder.shared
         let options = ReverseGeocodeOptions(coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude))
-
-            _ = geocoder.geocode(options) { (placemarks, attribution, error) in
-                guard let placemark = placemarks?.first else {
-                    return
-                }
-                completion(placemark)
+        
+        _ = geocoder.geocode(options) { (placemarks, attribution, error) in
+            guard let placemark = placemarks?.first else {
+                return
             }
+            completion(placemark)
+        }
     }
     
     

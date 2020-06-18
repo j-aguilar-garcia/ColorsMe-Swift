@@ -22,8 +22,7 @@ extension ColorMapInteractor: ColorMapInteractorInterface {
     
     func checkForAnnotationInCoreData(annotation: CMAnnotation) -> Bool {
         let fetchRequest : NSFetchRequest<UserAnnotation> = UserAnnotation.fetchRequest()
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
+        let context = DataManager.shared.cloudDataManager.persistentContainer.viewContext
         let annotations = try? context.fetch(fetchRequest)
         for anno in annotations! {
             if anno.beObjectId == annotation.objectId {
@@ -64,8 +63,11 @@ extension ColorMapInteractor: ColorMapInteractorInterface {
         _ = eventHandler?.addCreateListener(responseHandler: { createdObject in
             guard let annotation = createdObject as? Annotation else { return }
             
-            let realmAnnotation = RealmAnnotation(annotation: annotation)
-            DataManager.shared.localDataManager.saveLocal(annotation: realmAnnotation)
+            let localAnnotation = DataManager.shared.localDataManager.getObjectBy(primaryKey: annotation.objectId!)
+            if localAnnotation == nil {
+                let realmAnnotation = RealmAnnotation(annotation: annotation)
+                DataManager.shared.localDataManager.saveLocal(annotation: realmAnnotation)
+            }
             
             let cmAnnotation = CMAnnotation(annotation: annotation)
             self.presenter.willAddAnnotation(cmAnnotation)
@@ -78,12 +80,12 @@ extension ColorMapInteractor: ColorMapInteractorInterface {
         
         _ = eventHandler?.addDeleteListener(responseHandler: { deletedObject in
             guard let annotation = deletedObject as? Annotation else { return }
-            
-            guard let cmAnnotation = DataManager.shared.localDataManager.filterLocalBy(objectId: annotation.objectId!) else { return }
+            AppData.shouldAnimateAnnotations = false
+            guard let cmAnnotation = DataManager.shared.localDataManager.getAnnotationBy(primaryKey: annotation.objectId!) else { return }
             self.presenter.willRemoveAnnotation(cmAnnotation)
             
             DataManager.shared.localDataManager.deleteLocal(by: annotation.objectId!)
-            
+            AppData.shouldAnimateAnnotations = true
             log.verbose("annotation has been deleted via deleteListener: \(cmAnnotation)")
         }, errorHandler: { fault in
             log.error("Error: \(fault.message ?? "")")
@@ -99,6 +101,7 @@ extension ColorMapInteractor: ColorMapInteractorInterface {
             }
             if reachability.connection != .unavailable {
                 self.presenter.reachabilityChanged(true)
+                //AnnotationService.default.uploadOfflineAnnotations()
             }
         }
     }

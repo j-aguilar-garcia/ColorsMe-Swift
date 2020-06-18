@@ -39,12 +39,6 @@ final class SettingsViewController: UITableViewController {
             cell.configure(with: item)
             return cell
             
-        case .synchronisation(let item):
-            let cell = tableView.dequeueReusableCell(ofType: SettingsCloudTableViewCell.self, for: indexPath)
-            cell.configure(with: item)
-            cell.delegate = self
-            return cell
-            
         case .snapshots(let item):
             let cell = tableView.dequeueReusableCell(ofType: SettingsSnapshotTableViewCell.self, for: indexPath)
             cell.configure(with: item)
@@ -91,8 +85,21 @@ final class SettingsViewController: UITableViewController {
                 self.presenter.presentTextViewController(with: item)
             }
             if indexPath.row == 2 {
+                let cell = tableView.cellForRow(at: indexPath)
+
+                let indicator = UIActivityIndicatorView(frame:
+                    CGRect(x: (cell?.frame.height)! / 2, y: cell!.frame.width - 20, width: 20, height: 20))
+                indicator.hidesWhenStopped = true
+                cell?.accessoryView = indicator
+                indicator.startAnimating()
+                
                 let share = ShareService.default.shareApp()
-                present(share, animated: true, completion: nil)
+                DispatchQueue.main.async {
+                    self.present(share, animated: true, completion: {
+                        indicator.stopAnimating()
+                        cell?.accessoryView = nil
+                    })
+                }
             } else if indexPath.row == 3 {
                 if let url =
                     URL(string: "\(AppConfiguration.default.appStoreUrl!)?action=write-review") {
@@ -114,14 +121,6 @@ extension SettingsViewController: SettingsViewInterface {
     }
 }
 
-// MARK: - SettingsCloudSyncCellDelegate
-extension SettingsViewController : SettingsCloudSyncCellDelegate {
-    
-    func handleCloudSyncSwitchState(isOn: Bool) {
-        presenter.handleCloudSyncSwitchState(isOn)
-    }
-    
-}
 
 // MARK: - SettingsSnapshotCellDelegate
 extension SettingsViewController : SettingsSnapshotCellDelegate {

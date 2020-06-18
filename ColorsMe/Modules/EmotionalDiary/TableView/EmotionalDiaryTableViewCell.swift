@@ -14,18 +14,15 @@ import MapKit
 class EmotionalDiaryTableViewCell : MGSwipeTableCell {
     
     @IBOutlet weak var dateLabel: UILabel!
-    
     @IBOutlet weak var colorImage: UIImageView!
-    
     @IBOutlet weak var coordinatesLabel: UILabel!
-    
     @IBOutlet weak var indicator: UIActivityIndicatorView!
 
     override func draw(_ rect: CGRect) {
         dateLabel.textColor = UIColor.darkGray
     }
     
-    func configure(annotation: UserAnnotation, imageCache: ImageCache) {
+    func configure(annotation: CMAnnotation, imageCache: ImageCache) {
         let calendar = Calendar.current
         let formatter = DateFormatter.yyyyMMddHHmmss
         let dateTitle = formatter.string(from: annotation.created!)
@@ -42,24 +39,27 @@ class EmotionalDiaryTableViewCell : MGSwipeTableCell {
         }
         
         dateLabel.text = "\(title) - \(time)"
-        coordinatesLabel.text = "\(annotation.city!), \(annotation.countryIsoCode!)"
+        coordinatesLabel.text = "\(annotation.city!), \(annotation.isocountrycode!)"
 
         if AppData.shouldDisplaySnapshots {
             if let cachedImage = imageCache.loadImage(for: annotation.guid!) {
-                log.verbose("Cached image loaded")
                 colorImage.image = cachedImage
             } else {
                 indicator.startAnimating()
-                takeSnapshot(coords: CLLocationCoordinate2D(latitude: annotation.latitude, longitude: annotation.longitude), color: EmotionalColor(rawValue: annotation.color!)!) { (image) in
-                    imageCache.setImage(image: image, for: annotation.guid!)
+                takeSnapshot(coords: CLLocationCoordinate2D(latitude: annotation.latitude, longitude: annotation.longitude), color: annotation.color) { (image) in
                     self.indicator.stopAnimating()
                     self.colorImage.image = image
+                    imageCache.setImage(image: image, for: annotation.guid!)
                 }
             }
             colorImage.layer.cornerRadius = 8
             colorImage.clipsToBounds = true
         } else {
-            colorImage.image = UIImage(named: "\(annotation.color!)")
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                colorImage.image = UIImage(named: "\(annotation.color!)BigDot")
+            } else {
+                colorImage.image = UIImage(named: "\(annotation.color!)")
+            }
         }
     }
     
@@ -96,7 +96,7 @@ class EmotionalDiaryTableViewCell : MGSwipeTableCell {
         let backgroundQueue = DispatchQueue.global(qos: .background)
         let options = MKMapSnapshotter.Options.init()
         options.mapType = .mutedStandard
-        options.region = MKCoordinateRegion(center: coords, latitudinalMeters: 300, longitudinalMeters: 300)
+        options.region = MKCoordinateRegion(center: coords, latitudinalMeters: 150, longitudinalMeters: 150)
         options.pointOfInterestFilter = MKPointOfInterestFilter.init(including: [
             .airport,
             .beach,
@@ -128,7 +128,7 @@ class EmotionalDiaryTableViewCell : MGSwipeTableCell {
                 UIGraphicsBeginImageContextWithOptions(options.size, true, snapShotImage.scale)
                 snapShotImage.draw(at: CGPoint.zero)
                 
-                let fixedPinPoint = CGPoint(x: coordinatePoint.x - pinImage.size.width / 2, y: coordinatePoint.y - pinImage.size.height)
+                let fixedPinPoint = CGPoint(x: coordinatePoint.x - (pinImage.size.width / 2), y: coordinatePoint.y - (pinImage.size.height / 2))
                 pinImage.draw(at: fixedPinPoint)
                 let mapImage = UIGraphicsGetImageFromCurrentImageContext()
                 DispatchQueue.main.async {

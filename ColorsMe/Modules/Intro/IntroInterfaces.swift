@@ -18,7 +18,7 @@ protocol IntroWireframeInterface: WireframeInterface {
 }
 
 protocol IntroViewInterface: ViewInterface {
-    func animateSplashScreen()
+    func animateSplashScreen(withDelay: Bool)
 }
 
 protocol IntroInteractorInterface: InteractorInterface {

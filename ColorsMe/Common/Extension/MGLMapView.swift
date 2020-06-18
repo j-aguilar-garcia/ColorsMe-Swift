@@ -18,8 +18,8 @@ extension MGLMapView {
         if annotations.count == 0 {
             return false
         }
-        for annotation in annotations {
-            if annotation.objectId == annotation.objectId {
+        for cmannotation in annotations {
+            if cmannotation.objectId == annotation.objectId {
                 return true
             }
         }

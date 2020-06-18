@@ -36,44 +36,14 @@ extension SettingsPresenter: SettingsPresenterInterface {
         return interactor.getUserAnnotationsCount()
     }
     
-    
-    private func cloudSectionFooterTitle() -> String {
-        if !AppData.iCloudDataSyncIsEnabled {
-            return "iCloud data synchronization is disabled."
-        }
-        if AppData.iCloudHasSynced {
-            let lastSyncDate = AppData.lastCloudSync
-            let calendar = Calendar.current
-            let timeFormatter = DateFormatter.HHmmss
-            
-            if calendar.isDateInToday(lastSyncDate) {
-                return "Last sync: Today at \(timeFormatter.string(from: lastSyncDate))"
-            } else if calendar.isDateInYesterday(lastSyncDate) {
-                return "Last sync: Yesterday at \(timeFormatter.string(from: lastSyncDate))"
-            } else {
-                let dateTimeFormatter = DateFormatter.ddMMyyyy
-                return "Last sync: \(dateTimeFormatter.string(from: lastSyncDate))"
-            }
-        }
-        return "No data has been synchronized yet."
-    }
-    
     private var infoSection: Section<SettingsItem> {
         return Section(
             items: [SettingsItem.details(
-                SettingsDetailsItem(icon: UIImage(named: "Logo")!, title: "My Emotional Diary", entries: "Entries: \(String(describing: self.entriesCount))")
+                SettingsDetailsItem(
+                    icon: UIImage(named: "Logo")!,
+                    title: "My Emotional Diary",
+                    entries: "Entries: \(String(describing: self.entriesCount))")
                 )]
-        )
-    }
-    
-    private var cloudSection: Section<SettingsItem> {
-        return Section(
-            items: [
-                SettingsItem.synchronisation(
-                    SettingsCloudItem(icon: UIImage(systemName: "cloud")!, title: "iCloud", isEnabled: AppData.iCloudDataSyncIsEnabled)
-                )],
-            header: "Synchronisation",
-            footer: cloudSectionFooterTitle()
         )
     }
     
@@ -81,7 +51,10 @@ extension SettingsPresenter: SettingsPresenterInterface {
         return Section(
             items: [
                 SettingsItem.snapshots(
-                    SettingsSnapshotItem(icon: UIImage(systemName: "photo")!, title: "ColorSnapshots", isEnabled: AppData.shouldDisplaySnapshots)
+                    SettingsSnapshotItem(
+                        icon: UIImage(systemName: "photo")!,
+                        title: "ColorSnapshots",
+                        isEnabled: AppData.shouldDisplaySnapshots)
                 )],
             footer: "If enabled, your colors are displayed with a snapshot"
         )
@@ -91,13 +64,37 @@ extension SettingsPresenter: SettingsPresenterInterface {
         return Section(
             items: [
                 SettingsItem.about(
-                    SettingsAboutSelectorItem(icon: UIImage(systemName: "info.circle")!, title: "About", isButton: false, accessoryType: .disclosureIndicator, remoteConfigKey: "attributed_text_impressum", navigationTitle: "Imprint")),
+                    SettingsAboutSelectorItem(
+                        icon: UIImage(systemName: "info.circle")!,
+                        title: "About",
+                        isButton: false,
+                        accessoryType:
+                        .disclosureIndicator,
+                        pageType: .aboutus,
+                        navigationTitle: "Imprint")),
+                
                 SettingsItem.about(
-                    SettingsAboutSelectorItem(icon: UIImage(systemName: "hand.raised")!, title: "Privacy Policy", isButton: false, accessoryType: .disclosureIndicator, remoteConfigKey: "attributed_text_privacy_policy", navigationTitle: "Privacy Policy")),
+                    SettingsAboutSelectorItem(
+                        icon: UIImage(systemName: "hand.raised")!,
+                        title: "Privacy Policy",
+                        isButton: false,
+                        accessoryType: .disclosureIndicator,
+                        pageType: .privacypolicy,
+                        navigationTitle: "Privacy Policy")),
+                
                 SettingsItem.about(
-                    SettingsAboutItem(icon: UIImage(systemName: "square.and.arrow.up")!, title: "Share", isButton: true, accessoryType: .none)),
+                    SettingsAboutItem(
+                        icon: UIImage(systemName: "square.and.arrow.up")!,
+                        title: "Share",
+                        isButton: true,
+                        accessoryType: .none)),
+                
                 SettingsItem.about(
-                    SettingsAboutItem(icon: UIImage(systemName: "star")!, title: "Rate ColorsMe", isButton: true, accessoryType: .none)
+                    SettingsAboutItem(
+                        icon: UIImage(systemName: "star")!,
+                        title: "Rate ColorsMe",
+                        isButton: true,
+                        accessoryType: .none)
                 )],
             footer: "We were pleased about a honest review in the AppStore."
         )
@@ -109,7 +106,11 @@ extension SettingsPresenter: SettingsPresenterInterface {
         return Section(
             items: [
                 SettingsItem.version(
-                    SettingsVersionItem(icon: UIImage(systemName: "hammer")!, title: "Version", versionNumber: version, buildNumber: build)
+                    SettingsVersionItem(
+                        icon: UIImage(systemName: "hammer")!,
+                        title: "Version",
+                        versionNumber: version,
+                        buildNumber: build)
                 )]
         )
     }
@@ -121,22 +122,11 @@ extension SettingsPresenter: SettingsPresenterInterface {
     func viewWillAppear(animated: Bool) {
         sections = [
             infoSection,
-            cloudSection,
             snapshotsSection,
             aboutSection,
             versionSection
         ]
         view.reloadTableView()
-    }
-    
-    func handleCloudSyncSwitchState(_ isOn: Bool) {
-        AppData.iCloudDataSyncIsEnabled = isOn
-        if isOn {
-            interactor.enableCloudCore()
-        } else {
-            interactor.disableCloudCore()
-        }
-        #warning("Handle CloudCore - enable")
     }
     
     func handleSnapshotsSwitchState(_ isOn: Bool) {

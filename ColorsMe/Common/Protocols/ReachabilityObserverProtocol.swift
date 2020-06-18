@@ -38,7 +38,7 @@ extension ReachabilityObserverProtocol {
         do {
             try reachability.startNotifier()
         } catch {
-            print("Unable to start notifier")
+            log.error("Unable to start notifier")
         }
     }
     

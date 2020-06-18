@@ -18,6 +18,7 @@ final class EmotionalDiaryPresenter {
     private let interactor: EmotionalDiaryInteractorInterface
     private let wireframe: EmotionalDiaryWireframeInterface
 
+    var userAnnotations: [CMAnnotation] = []
     // MARK: - Lifecycle -
 
     init(view: EmotionalDiaryViewInterface, interactor: EmotionalDiaryInteractorInterface, wireframe: EmotionalDiaryWireframeInterface) {
@@ -30,7 +31,6 @@ final class EmotionalDiaryPresenter {
 // MARK: - Extensions -
 
 extension EmotionalDiaryPresenter: EmotionalDiaryPresenterInterface {
-
     
     func didSelectAddAction(color: EmotionalColor) {
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
@@ -43,10 +43,42 @@ extension EmotionalDiaryPresenter: EmotionalDiaryPresenterInterface {
         wireframe.navigateAndZoomToAnnotation(annotation: annotation)
     }
     
-    
+    func object(at indexPath: IndexPath) -> CMAnnotation {
+        return userAnnotations[indexPath.row]
+    }
     
     func viewDidLoad() {
+    }
+    
+    func viewWillDisappear(animated: Bool) {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    func viewWillAppear(animated: Bool) {
+        NotificationCenter.default.addObserver(forName: .didAddRealmAnnotation, object: nil, queue: nil) { (notification) in
+            log.verbose("Notifcation didAddRealmAnnotation received")
+            self.syncAnnotations()
+        }
         
+        NotificationCenter.default.addObserver(forName: .didSyncFromCloud, object: nil, queue: nil) { (notification) in
+            log.verbose("Notification didSyncFromCloud")
+            self.syncAnnotations()
+        }
+
+        syncAnnotations()
+        //view.reloadTableView()
+    }
+    
+    func syncAnnotations() {
+        DataManager.shared.cloudDataManager.fetchCloudAnnotations()
+        userAnnotations = DataManager.shared.localDataManager.filterLocal(by: .mycolors)
+        view.reloadTableView()
+    }
+    
+    func deleteUserAnnotation(at indexPath: IndexPath) {
+        let annotation = userAnnotations[indexPath.row]
+        userAnnotations.remove(at: indexPath.row)
+        wireframe.removeAnnotationFromMap(annotation)
     }
     
 }

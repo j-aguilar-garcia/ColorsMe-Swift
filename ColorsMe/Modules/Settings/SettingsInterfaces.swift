@@ -18,8 +18,6 @@ protocol SettingsWireframeInterface: WireframeInterface {
 
 protocol SettingsInteractorInterface: InteractorInterface {
     func getUserAnnotationsCount() -> Int
-    func enableCloudCore()
-    func disableCloudCore()
 }
 
 protocol SettingsViewInterface: ViewInterface {
@@ -29,14 +27,12 @@ protocol SettingsViewInterface: ViewInterface {
 protocol SettingsPresenterInterface: PresenterInterface {
     var sections: [Section<SettingsItem>] { get }
     var entriesCount: Int { get }
-    func handleCloudSyncSwitchState(_ isOn: Bool)
     func handleSnapshotsSwitchState(_ isOn: Bool)
     func presentTextViewController(with: SettingsAboutSelectorItem)
 }
 
 enum SettingsItem {
     case details(SettingsDetailsItemInterface)
-    case synchronisation(SettingsCloudItemInterface)
     case snapshots(SettingsSnapshotsItemInterface)
     case about(SettingsAboutItemInterface)
     case version(SettingsVersionItemInterface)
@@ -46,12 +42,6 @@ protocol SettingsDetailsItemInterface {
     var icon : UIImage { get }
     var title : String { get }
     var entries : String { get }
-}
-
-protocol SettingsCloudItemInterface {
-    var icon : UIImage { get }
-    var title : String { get }
-    var isEnabled : Bool { get }
 }
 
 protocol SettingsSnapshotsItemInterface {
@@ -72,4 +62,9 @@ protocol SettingsVersionItemInterface {
     var title : String { get }
     var versionNumber : String { get }
     var buildNumber : String { get }
+}
+
+enum SettingsPageType {
+    case aboutus
+    case privacypolicy
 }

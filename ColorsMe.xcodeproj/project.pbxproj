@@ -8,12 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		071429BD248AAEAC00CC49CF /* MGLMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071429BC248AAEAC00CC49CF /* MGLMapView.swift */; };
+		071521B32490E1FE00E61DF4 /* CloudDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071521B22490E1FE00E61DF4 /* CloudDataManager.swift */; };
+		071521B52490E23100E61DF4 /* CloudDataManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071521B42490E23100E61DF4 /* CloudDataManagerProtocol.swift */; };
 		071DA9E5248D2D2500ADBB5F /* SettingsSnapshotTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071DA9E4248D2D2500ADBB5F /* SettingsSnapshotTableViewCell.swift */; };
 		071DA9E7248D2DD600ADBB5F /* SettingsVersionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071DA9E6248D2DD600ADBB5F /* SettingsVersionTableViewCell.swift */; };
 		071DA9E9248D2FDA00ADBB5F /* SettingsAboutTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071DA9E8248D2FDA00ADBB5F /* SettingsAboutTableViewCell.swift */; };
 		071DA9EB248D31B700ADBB5F /* SettingsCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071DA9EA248D31B700ADBB5F /* SettingsCells.swift */; };
 		071DA9ED248D3DF800ADBB5F /* TextViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071DA9EC248D3DF800ADBB5F /* TextViewViewController.swift */; };
-		071DA9EF248D446D00ADBB5F /* FirebaseConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071DA9EE248D446D00ADBB5F /* FirebaseConfig.swift */; };
 		072D9D00247E3FCC00390186 /* MenuButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072D9CFF247E3FCC00390186 /* MenuButtons.swift */; };
 		072D9D03247E402B00390186 /* MenuButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072D9D02247E402B00390186 /* MenuButtonView.swift */; };
 		072D9D05247E406000390186 /* MenuButtonViewConfigProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 072D9D04247E406000390186 /* MenuButtonViewConfigProtocol.swift */; };
@@ -48,7 +49,6 @@
 		07C4BFD12486F7FF00552BC9 /* EmotionalDiaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C4BFD02486F7FF00552BC9 /* EmotionalDiaryTableViewCell.swift */; };
 		07C4BFD32486FB6D00552BC9 /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C4BFD22486FB6D00552BC9 /* TableView.swift */; };
 		07C4BFD52486FFBC00552BC9 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C4BFD42486FFBC00552BC9 /* ImageCache.swift */; };
-		07C4BFD7248703A700552BC9 /* FRCTableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C4BFD6248703A700552BC9 /* FRCTableViewDataSource.swift */; };
 		07C5B7A82486A6BB00E36E91 /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 07C5B7A72486A6BB00E36E91 /* NetworkExtension.framework */; };
 		07C8FA0C248D036700612C93 /* ReachabilityObserverProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C8FA0B248D036700612C93 /* ReachabilityObserverProtocol.swift */; };
 		07C8FA10248D0A5A00612C93 /* NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C8FA0F248D0A5A00612C93 /* NotificationName.swift */; };
@@ -58,7 +58,6 @@
 		07C8FA1A248D20A300612C93 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C8FA15248D20A300612C93 /* SettingsViewController.swift */; };
 		07C8FA1B248D20A300612C93 /* SettingsWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C8FA16248D20A300612C93 /* SettingsWireframe.swift */; };
 		07C8FA1E248D282B00612C93 /* SettingsDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C8FA1D248D282B00612C93 /* SettingsDetailsTableViewCell.swift */; };
-		07C8FA20248D2BCA00612C93 /* SettingsCloudTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07C8FA1F248D2BCA00612C93 /* SettingsCloudTableViewCell.swift */; };
 		07E06B5E247A7AFD007139E2 /* PickerDialog.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 07E06B58247A7AFD007139E2 /* PickerDialog.storyboard */; };
 		07E06B5F247A7AFD007139E2 /* PickerDialogInterfaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B59247A7AFD007139E2 /* PickerDialogInterfaces.swift */; };
 		07E06B60247A7AFD007139E2 /* PickerDialogPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B5A247A7AFD007139E2 /* PickerDialogPresenter.swift */; };
@@ -69,6 +68,8 @@
 		07E06B67247A8234007139E2 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B66247A8234007139E2 /* DateFormatter.swift */; };
 		07E06B69247A8266007139E2 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B68247A8266007139E2 /* String.swift */; };
 		07E06B6E247AAC7A007139E2 /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B6D247AAC7A007139E2 /* Annotation.swift */; };
+		07E06B70247AF1EF007139E2 /* RemoteDataManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B6F247AF1EE007139E2 /* RemoteDataManagerProtocol.swift */; };
+		07E06B74247AF20B007139E2 /* LocalDataManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B73247AF20B007139E2 /* LocalDataManagerProtocol.swift */; };
 		07E06B78247AF385007139E2 /* DataManagerInputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B77247AF384007139E2 /* DataManagerInputProtocol.swift */; };
 		07E06B7A247AF680007139E2 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B79247AF680007139E2 /* DataManager.swift */; };
 		07E06B7C247AF975007139E2 /* RemoteDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B7B247AF975007139E2 /* RemoteDataManager.swift */; };
@@ -140,12 +141,13 @@
 
 /* Begin PBXFileReference section */
 		071429BC248AAEAC00CC49CF /* MGLMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MGLMapView.swift; sourceTree = "<group>"; };
+		071521B22490E1FE00E61DF4 /* CloudDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudDataManager.swift; sourceTree = "<group>"; };
+		071521B42490E23100E61DF4 /* CloudDataManagerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudDataManagerProtocol.swift; sourceTree = "<group>"; };
 		071DA9E4248D2D2500ADBB5F /* SettingsSnapshotTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsSnapshotTableViewCell.swift; sourceTree = "<group>"; };
 		071DA9E6248D2DD600ADBB5F /* SettingsVersionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVersionTableViewCell.swift; sourceTree = "<group>"; };
 		071DA9E8248D2FDA00ADBB5F /* SettingsAboutTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAboutTableViewCell.swift; sourceTree = "<group>"; };
 		071DA9EA248D31B700ADBB5F /* SettingsCells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCells.swift; sourceTree = "<group>"; };
 		071DA9EC248D3DF800ADBB5F /* TextViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewViewController.swift; sourceTree = "<group>"; };
-		071DA9EE248D446D00ADBB5F /* FirebaseConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseConfig.swift; sourceTree = "<group>"; };
 		072D9CFF247E3FCC00390186 /* MenuButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButtons.swift; sourceTree = "<group>"; };
 		072D9D02247E402B00390186 /* MenuButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButtonView.swift; sourceTree = "<group>"; };
 		072D9D04247E406000390186 /* MenuButtonViewConfigProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuButtonViewConfigProtocol.swift; sourceTree = "<group>"; };
@@ -181,7 +183,6 @@
 		07C4BFD02486F7FF00552BC9 /* EmotionalDiaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionalDiaryTableViewCell.swift; sourceTree = "<group>"; };
 		07C4BFD22486FB6D00552BC9 /* TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableView.swift; sourceTree = "<group>"; };
 		07C4BFD42486FFBC00552BC9 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
-		07C4BFD6248703A700552BC9 /* FRCTableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FRCTableViewDataSource.swift; sourceTree = "<group>"; };
 		07C5B7A72486A6BB00E36E91 /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		07C8FA0B248D036700612C93 /* ReachabilityObserverProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityObserverProtocol.swift; sourceTree = "<group>"; };
 		07C8FA0F248D0A5A00612C93 /* NotificationName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationName.swift; sourceTree = "<group>"; };
@@ -191,7 +192,6 @@
 		07C8FA15248D20A300612C93 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		07C8FA16248D20A300612C93 /* SettingsWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsWireframe.swift; sourceTree = "<group>"; };
 		07C8FA1D248D282B00612C93 /* SettingsDetailsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDetailsTableViewCell.swift; sourceTree = "<group>"; };
-		07C8FA1F248D2BCA00612C93 /* SettingsCloudTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCloudTableViewCell.swift; sourceTree = "<group>"; };
 		07E06B58247A7AFD007139E2 /* PickerDialog.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PickerDialog.storyboard; sourceTree = "<group>"; };
 		07E06B59247A7AFD007139E2 /* PickerDialogInterfaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerDialogInterfaces.swift; sourceTree = "<group>"; };
 		07E06B5A247A7AFD007139E2 /* PickerDialogPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerDialogPresenter.swift; sourceTree = "<group>"; };
@@ -202,6 +202,8 @@
 		07E06B66247A8234007139E2 /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		07E06B68247A8266007139E2 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		07E06B6D247AAC7A007139E2 /* Annotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
+		07E06B6F247AF1EE007139E2 /* RemoteDataManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteDataManagerProtocol.swift; sourceTree = "<group>"; };
+		07E06B73247AF20B007139E2 /* LocalDataManagerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDataManagerProtocol.swift; sourceTree = "<group>"; };
 		07E06B77247AF384007139E2 /* DataManagerInputProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManagerInputProtocol.swift; sourceTree = "<group>"; };
 		07E06B79247AF680007139E2 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		07E06B7B247AF975007139E2 /* RemoteDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteDataManager.swift; sourceTree = "<group>"; };
@@ -310,6 +312,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		071521B12490E1FE00E61DF4 /* CloudDataManager */ = {
+			isa = PBXGroup;
+			children = (
+				071521B22490E1FE00E61DF4 /* CloudDataManager.swift */,
+			);
+			path = CloudDataManager;
+			sourceTree = "<group>";
+		};
 		072D5459247981CA00551637 /* AnnotationView */ = {
 			isa = PBXGroup;
 			children = (
@@ -348,12 +358,12 @@
 			children = (
 				07C4BFCA2486F63300552BC9 /* TableView */,
 				07E2BA5524851B3100465688 /* Services */,
-				073E3B13247BD92E00540BF0 /* AppData.swift */,
 				0737FA8D247D96170015A8F7 /* DataManager */,
 				0737FA90247D964D0015A8F7 /* Models */,
 				0737FA92247D96850015A8F7 /* Extension */,
 				0737FA93247D96960015A8F7 /* Protocols */,
 				0737FA91247D96660015A8F7 /* Wireframe */,
+				073E3B13247BD92E00540BF0 /* AppData.swift */,
 				87CEC7912477F9AF00206255 /* ColorsNavigationViewController.swift */,
 				0737FA8A247D7E430015A8F7 /* AppConfiguration.swift */,
 				07C4BFD42486FFBC00552BC9 /* ImageCache.swift */,
@@ -364,6 +374,7 @@
 		0737FA8D247D96170015A8F7 /* DataManager */ = {
 			isa = PBXGroup;
 			children = (
+				071521B12490E1FE00E61DF4 /* CloudDataManager */,
 				0737FA8F247D96350015A8F7 /* RemoteDataManager */,
 				0737FA8E247D96240015A8F7 /* LocalDataManager */,
 				07E06B79247AF680007139E2 /* DataManager.swift */,
@@ -434,6 +445,9 @@
 				87CEC7A72477FCE300206255 /* PresenterInterface.swift */,
 				87CEC7AA2477FCE300206255 /* ViewInterface.swift */,
 				873AC7112477C8DC00261CD5 /* TabBarViewProtocol.swift */,
+				071521B42490E23100E61DF4 /* CloudDataManagerProtocol.swift */,
+				07E06B6F247AF1EE007139E2 /* RemoteDataManagerProtocol.swift */,
+				07E06B73247AF20B007139E2 /* LocalDataManagerProtocol.swift */,
 				07E06B77247AF384007139E2 /* DataManagerInputProtocol.swift */,
 				07C8FA0B248D036700612C93 /* ReachabilityObserverProtocol.swift */,
 			);
@@ -476,7 +490,6 @@
 		07C4BFCF2486F7EB00552BC9 /* TableView */ = {
 			isa = PBXGroup;
 			children = (
-				07C4BFD6248703A700552BC9 /* FRCTableViewDataSource.swift */,
 				07C4BFD02486F7FF00552BC9 /* EmotionalDiaryTableViewCell.swift */,
 			);
 			path = TableView;
@@ -501,7 +514,6 @@
 			isa = PBXGroup;
 			children = (
 				07C8FA1D248D282B00612C93 /* SettingsDetailsTableViewCell.swift */,
-				07C8FA1F248D2BCA00612C93 /* SettingsCloudTableViewCell.swift */,
 				071DA9E4248D2D2500ADBB5F /* SettingsSnapshotTableViewCell.swift */,
 				071DA9E8248D2FDA00ADBB5F /* SettingsAboutTableViewCell.swift */,
 				071DA9E6248D2DD600ADBB5F /* SettingsVersionTableViewCell.swift */,
@@ -539,7 +551,6 @@
 			children = (
 				07E2BA5624851B3D00465688 /* LocationService.swift */,
 				077325FC24869BB5009DDB57 /* AnnotationService.swift */,
-				071DA9EE248D446D00ADBB5F /* FirebaseConfig.swift */,
 				0780677E248E680F0054B12D /* ShareService.swift */,
 			);
 			path = Services;
@@ -953,6 +964,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				87CEC7C724782A7400206255 /* ColorMapInterfaces.swift in Sources */,
+				071521B52490E23100E61DF4 /* CloudDataManagerProtocol.swift in Sources */,
 				87CEC7922477F9AF00206255 /* ColorsNavigationViewController.swift in Sources */,
 				07E06B7C247AF975007139E2 /* RemoteDataManager.swift in Sources */,
 				873AC71C2477C95400261CD5 /* BaseWireframe.swift in Sources */,
@@ -965,6 +977,7 @@
 				07C4BFD52486FFBC00552BC9 /* ImageCache.swift in Sources */,
 				87CEC7CA24782A7400206255 /* ColorMapInteractor.swift in Sources */,
 				873AC7302477D59100261CD5 /* Storyboard.swift in Sources */,
+				07E06B74247AF20B007139E2 /* LocalDataManagerProtocol.swift in Sources */,
 				875D6E11247431B100C6DF31 /* ColorsMe.xcdatamodeld in Sources */,
 				07C8FA0C248D036700612C93 /* ReachabilityObserverProtocol.swift in Sources */,
 				07E2BA502481274C00465688 /* Font.swift in Sources */,
@@ -975,7 +988,6 @@
 				071DA9ED248D3DF800ADBB5F /* TextViewViewController.swift in Sources */,
 				07FB1802249179EF0047C725 /* RemoteDataManagerProtocol.swift in Sources */,
 				072D9D00247E3FCC00390186 /* MenuButtons.swift in Sources */,
-				071DA9EF248D446D00ADBB5F /* FirebaseConfig.swift in Sources */,
 				07C4BFC72486F59D00552BC9 /* EmotionalDiaryViewController.swift in Sources */,
 				87CEC7C924782A7400206255 /* ColorMapViewController.swift in Sources */,
 				07C8FA1A248D20A300612C93 /* SettingsViewController.swift in Sources */,
@@ -1020,21 +1032,21 @@
 				07C4BFC62486F59D00552BC9 /* EmotionalDiaryPresenter.swift in Sources */,
 				071429BD248AAEAC00CC49CF /* MGLMapView.swift in Sources */,
 				87CEC7AE2477FCE300206255 /* ViewInterface.swift in Sources */,
-				07C4BFD7248703A700552BC9 /* FRCTableViewDataSource.swift in Sources */,
 				87CEC7AB2477FCE300206255 /* PresenterInterface.swift in Sources */,
 				07C4BFC52486F59D00552BC9 /* EmotionalDiaryInterfaces.swift in Sources */,
 				072D9D05247E406000390186 /* MenuButtonViewConfigProtocol.swift in Sources */,
 				07E06B78247AF385007139E2 /* DataManagerInputProtocol.swift in Sources */,
+				071521B32490E1FE00E61DF4 /* CloudDataManager.swift in Sources */,
 				07E2BA4C247EE4A400465688 /* CMClusterMapLayer.swift in Sources */,
 				07C8FA19248D20A300612C93 /* SettingsPresenter.swift in Sources */,
 				07E2BA602485232900465688 /* LocationSearchInterfaces.swift in Sources */,
+				07E06B70247AF1EF007139E2 /* RemoteDataManagerProtocol.swift in Sources */,
 				875D6E09247431B100C6DF31 /* SceneDelegate.swift in Sources */,
 				87CEC7CB24782A7400206255 /* ColorMapWireframe.swift in Sources */,
 				07C8FA1B248D20A300612C93 /* SettingsWireframe.swift in Sources */,
 				0737FA8B247D7E430015A8F7 /* AppConfiguration.swift in Sources */,
 				07C4BFD32486FB6D00552BC9 /* TableView.swift in Sources */,
 				07E2BA4A247EE07E00465688 /* CMHeatMapLayer.swift in Sources */,
-				07C8FA20248D2BCA00612C93 /* SettingsCloudTableViewCell.swift in Sources */,
 				07E06B7A247AF680007139E2 /* DataManager.swift in Sources */,
 				07B2BA0E247C2AFD00ED5BE7 /* CMAnnotationView.swift in Sources */,
 				07C8FA1E248D282B00612C93 /* SettingsDetailsTableViewCell.swift in Sources */,
@@ -1220,6 +1232,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.bit-design.ColorsMe";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "org.bit-design.ColorsMe iOS Development";
@@ -1243,6 +1256,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.bit-design.ColorsMe";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "org.bit-design.ColorsMe iOS Development";

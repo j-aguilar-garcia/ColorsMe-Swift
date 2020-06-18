@@ -9,8 +9,7 @@
 import UIKit
 
 protocol ColorTabBarWireframeInterface: WireframeInterface {
-    func installTabBar(with annotation: CMAnnotation)
-    func installTabBar()
+    func installTabBar(with annotation: CMAnnotation?)
 }
 
 protocol ColorTabBarViewInterface: ViewInterface {

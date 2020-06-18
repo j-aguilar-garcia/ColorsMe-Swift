@@ -21,20 +21,6 @@ class SettingsDetailsItem : SettingsDetailsItemInterface {
     }
 }
 
-
-class SettingsCloudItem : SettingsCloudItemInterface {
-    var icon: UIImage
-    var title: String
-    var isEnabled: Bool
-    
-    init(icon: UIImage, title: String, isEnabled: Bool) {
-        self.icon = icon
-        self.title = title
-        self.isEnabled = isEnabled
-    }
-}
-
-
 class SettingsSnapshotItem : SettingsSnapshotsItemInterface {
     var icon: UIImage
     var title: String
@@ -64,11 +50,11 @@ class SettingsAboutItem : SettingsAboutItemInterface {
 
 
 class SettingsAboutSelectorItem : SettingsAboutItem {
-    var remoteConfigKey: String
+    var pageType: SettingsPageType
     var navigationTitle: String
 
-    init(icon: UIImage, title: String, isButton: Bool, accessoryType: UITableViewCell.AccessoryType, remoteConfigKey: String, navigationTitle: String) {
-        self.remoteConfigKey = remoteConfigKey
+    init(icon: UIImage, title: String, isButton: Bool, accessoryType: UITableViewCell.AccessoryType, pageType: SettingsPageType, navigationTitle: String) {
+        self.pageType = pageType
         self.navigationTitle = navigationTitle
         super.init(icon: icon, title: title, isButton: isButton, accessoryType: accessoryType)
     }

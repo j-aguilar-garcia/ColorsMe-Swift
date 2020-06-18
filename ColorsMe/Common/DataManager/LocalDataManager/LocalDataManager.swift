@@ -10,6 +10,7 @@ import Foundation
 import CoreData
 import Unrealm
 import Mapbox
+import CoreData
 
 class LocalDataManager : LocalDataManagerProtocol {
     
@@ -17,14 +18,14 @@ class LocalDataManager : LocalDataManagerProtocol {
     
     func saveLocal(annotation: RealmAnnotation) {
         try! realm.write {
-            log.debug("Realm add")
             realm.add(annotation, update: .all)
         }
+        NotificationCenter.default.post(name: .didAddRealmAnnotation, object: nil)
     }
     
     func updateLocal(annotation: RealmAnnotation) {
         try! realm.write {
-            log.debug("Realm Update")
+            //log.debug("Realm Update \(annotation.objectId!)")
             realm.add(annotation, update: .modified)
         }
     }
@@ -39,7 +40,7 @@ class LocalDataManager : LocalDataManagerProtocol {
         try! realm.write {
             let objectToDelete = realm.object(ofType: RealmAnnotation.self, forPrimaryKey: id)
             guard let object = objectToDelete else {
-                log.error("Can not deleteLocal by Id")
+                log.error("Can not deleteLocal by Id \(objectToDelete?.objectId!)")
                 return
             }
             realm.delete(object)
@@ -47,6 +48,7 @@ class LocalDataManager : LocalDataManagerProtocol {
     }
     
     func getAllLocal() -> [CMAnnotation] {
+        realm.refresh()
         let annotationType = RealmAnnotation.self
         let rlmResult = realm.objects(annotationType)
         
@@ -60,6 +62,13 @@ class LocalDataManager : LocalDataManagerProtocol {
         return annotations
     }
     
+    func getAllRealm() -> [RealmAnnotation] {
+        let annotationType = RealmAnnotation.self
+        let rlmResult = realm.objects(annotationType)
+        
+        return rlmResult.reversed()
+    }
+    
     
     func getAllCoordinates() -> [CLLocationCoordinate2D] {
         let annotations = getAllLocal()
@@ -70,18 +79,21 @@ class LocalDataManager : LocalDataManagerProtocol {
     
     
     func filterLocal(by option: PickerDialogFilterOption) -> [CMAnnotation] {
+        realm.refresh()
         switch option {
             
         case .allcolors:
             return getAllLocal()
             
         case .mycolors:
-            let fetchRequest : NSFetchRequest<UserAnnotation> = UserAnnotation.fetchRequest()
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            let context = appDelegate.persistentContainer.viewContext
-            let annotations = try? context.fetch(fetchRequest)
+            #warning("Filter my colors!")
+            let annotations = DataManager.shared.cloudDataManager.getAnnotations()
+            //log.debug(userAnnotations.count)
+            return annotations
             
-            guard annotations != nil else { return getAllLocal() }
+            
+            //log.debug(annotations.count)
+            //return annotations
             
             var userAnnotations = [CMAnnotation]()
             for annotation in annotations! {
@@ -106,12 +118,11 @@ class LocalDataManager : LocalDataManagerProtocol {
             let dateComponents = Calendar.current.dateComponents([.year, .month, .day], from: yesterday!)
             let filteredColorAnnotations = getAllLocal().filter { calendar.date(($0.created), matchesComponents: dateComponents) }
             return filteredColorAnnotations
-            
         case .lastweek:
             let lastWeek = Calendar.current.date(byAdding: .day, value: -7, to: Date())
             let filteredColorAnnotations = getAllLocal().filter { $0.created > lastWeek! }
             return filteredColorAnnotations
-
+            
         case .year(let date):
             let calendar = Calendar.current
             var dateComponents = DateComponents.init()
@@ -146,23 +157,22 @@ class LocalDataManager : LocalDataManagerProtocol {
     }
     
     
-    func filterLocalBy(objectId: String) -> CMAnnotation? {
-        realm.refresh()
+    func getAnnotationBy(primaryKey: String) -> CMAnnotation? {
         let annotationType = RealmAnnotation.self
-        guard let rlmResult = realm.object(ofType: annotationType, forPrimaryKey: objectId) else {
+        guard let rlmResult = realm.object(ofType: annotationType, forPrimaryKey: primaryKey) else {
             return nil
         }
         
         return CMAnnotation(annotation: rlmResult)
     }
     
-    func getAnnotationBy(primaryKey: String) -> CMAnnotation? {
-        #warning("TODO")
-        fatalError()
-    }
     
     func getObjectBy(primaryKey: String) -> RealmAnnotation? {
-        #warning("TODO")
-        fatalError()
+        let annotationType = RealmAnnotation.self
+        guard let rlmResult = realm.object(ofType: annotationType, forPrimaryKey: primaryKey) else {
+            return nil
+        }
+        return rlmResult
     }
+    
 }
