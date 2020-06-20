@@ -17,8 +17,8 @@ final class EmotionalDiaryViewController: UIViewController {
     // MARK: - Public properties -
 
     var presenter: EmotionalDiaryPresenterInterface!
+    private let imageCache = ImageCache()
 
-    var tableDataSource: FRCTableViewDataSource<UserAnnotation>!
     // MARK: - Outlets
         
     @IBOutlet weak var tableView: UITableView!
@@ -46,6 +46,8 @@ final class EmotionalDiaryViewController: UIViewController {
     @IBOutlet weak var tableViewBottomToTabBarTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var tableViewContainerWidthConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var tableViewContainerLeading: NSLayoutConstraint!
+    @IBOutlet weak var tableViewContainerTrailing: NSLayoutConstraint!
     
     
     // MARK: - Lifecycle -
@@ -54,35 +56,29 @@ final class EmotionalDiaryViewController: UIViewController {
         super.viewDidLoad()
         hintColorLabel.text = "Green means Happy | Red means sick"
         questionView.dropShadow()
-        
-        let fetchRequest : NSFetchRequest<UserAnnotation> = UserAnnotation.fetchRequest()
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "created", ascending: false)]
-    
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        tableDataSource = FRCTableViewDataSource(fetchRequest: fetchRequest, context: appDelegate.persistentContainer.viewContext, sectionNameKeyPath: nil, delegate: self, tableView: tableView)
-        tableView.dataSource = tableDataSource
-        tableView.delegate = tableDataSource
+
+        tableView.dataSource = self
+        tableView.delegate = self
         tableView.emptyDataSetSource = self
         tableView.emptyDataSetDelegate = self
-
+        
         self.navigationController?.navigationBar.isHidden = true
-        
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            self.tableView.contentInset = UIEdgeInsets(top: -24, left: 0, bottom: 0, right: 0)
-            tableViewContainerWidthConstraint.constant = UIScreen.main.bounds.width
-        }
-        
-        try! tableDataSource.performFetch()
+        tableViewContainerLeading.priority = .defaultHigh
+        tableViewContainerTrailing.priority = .defaultHigh
+        tableViewContainerWidthConstraint.priority = .defaultLow
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        super.viewDidAppear(animated)
         if let indexPath = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: indexPath, animated: true)
         }
+        presenter.syncAnnotations()
         updateConstraints()
-        try? tableDataSource.performFetch()
-        //tableView.reloadSections(IndexSet(arrayLiteral: 0), with: .automatic)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        presenter.viewWillAppear(animated: animated)
     }
     
     override func viewWillLayoutSubviews() {
@@ -93,9 +89,44 @@ final class EmotionalDiaryViewController: UIViewController {
         super.viewWillTransition(to: size, with: coordinator)
         updateConstraints()
     }
+}
 
+
+// MARK: - UITableView
+
+extension EmotionalDiaryViewController : UITableViewDelegate, UITableViewDataSource {
     
-
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return presenter.userAnnotations.count
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let item = presenter.object(at: indexPath)
+        let cell = tableView.dequeueReusableCell(ofType: EmotionalDiaryTableViewCell.self, for: indexPath)
+        cell.configure(annotation: item, imageCache: imageCache)
+        cell.delegate = self
+        cell.configureSwipes()
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? EmotionalDiaryTableViewCell else {
+            return
+        }
+        cell.showSwipe(.rightToLeft, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            return 95
+        }
+        return 70
+    }
+    
 }
 
 // MARK: - Extensions -
@@ -103,12 +134,16 @@ final class EmotionalDiaryViewController: UIViewController {
 extension EmotionalDiaryViewController: EmotionalDiaryViewInterface {
     
     func reloadTableView() {
-        //try? tableDataSource.performFetch()
-        tableView.reloadSections(IndexSet(integer: 0), with: .automatic)
+        tableView.reloadData()
+        tableView.reloadEmptyDataSet()
     }
     
     
     private func updateConstraints() {
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            self.tableView.contentInset = UIEdgeInsets(top: -24, left: 0, bottom: 0, right: 0)
+            //tableViewContainerWidthConstraint.constant = UIScreen.main.bounds.width
+        }
         if UIDevice.current.orientation.isLandscape && UIDevice.current.userInterfaceIdiom == .pad {
             if buttonViewBottomToTableViewTopConstraint != nil && tableViewBottomToTabBarTopConstraint != nil {
                 buttonViewBottomToTableViewTopConstraint.constant = 16
@@ -136,9 +171,9 @@ extension EmotionalDiaryViewController : MGSwipeTableCellDelegate {
             onDeleteSwipe(indexPath)
         } else {
             if index == 0 {
-                onShareSwipe(indexPath)
-            } else if index == 1 {
                 onShowSwipe(indexPath)
+            } else if index == 1 {
+                onShareSwipe(indexPath)
             }
         }
         return true
@@ -147,32 +182,8 @@ extension EmotionalDiaryViewController : MGSwipeTableCellDelegate {
     
     private func onShareSwipe(_ indexPath: IndexPath) {
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
-        var components = URLComponents()
-            components.scheme = "https"
-            components.host = "colorsme.bit-design.org"
-            components.path = "/"
-            components.queryItems = [
-                URLQueryItem(name: "id", value: "\(tableDataSource.object(at: indexPath).guid!)")
-            ]
-            let urlToShare = components.url?.absoluteString
-            let objectsToShare = [urlToShare!] as [Any]
-            let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
-            
-            //Excluded Activities
-        activityVC.excludedActivityTypes = [
-            UIActivity.ActivityType.airDrop,
-            UIActivity.ActivityType.addToReadingList,
-            UIActivity.ActivityType.openInIBooks,
-            UIActivity.ActivityType.assignToContact,
-            UIActivity.ActivityType.saveToCameraRoll
-        ]
-        
-        if let popover = activityVC.popoverPresentationController {
-            popover.sourceRect = CGRect(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height / 2, width: 0, height: 0)
-            popover.sourceView = self.view
-            popover.permittedArrowDirections = .any
-        }
-            
+        let guid = presenter.object(at: indexPath).guid!
+        let activityVC = ShareService.default.share(guid: guid, view: self.view)
         self.present(activityVC, animated: true, completion: nil)
     }
     
@@ -180,17 +191,21 @@ extension EmotionalDiaryViewController : MGSwipeTableCellDelegate {
     private func onShowSwipe(_ indexPath: IndexPath) {
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
         self.tabBarController?.selectedIndex = 0
-        let annotation = tableDataSource.object(at: indexPath)
-        let colorAnnotation = DataManager.shared.localDataManager.filterLocalBy(objectId: annotation.beObjectId!)
-        presenter.zoomToAnnotation(annotation: colorAnnotation)
+        let annotation = presenter.object(at: indexPath)
+        presenter.zoomToAnnotation(annotation: annotation)
     }
     
     
     private func onDeleteSwipe(_ indexPath: IndexPath) {
-        let annotationToDelete = tableDataSource.object(at: indexPath)
-        AnnotationService.default.deleteAnnotation(id: annotationToDelete.beObjectId!, objectId: annotationToDelete.objectID)
+        let annotationToDelete = presenter.object(at: indexPath)        
+        tableView.beginUpdates()
+        AnnotationService.default.deleteAnnotation(annotationToDelete, completion: {
+            self.presenter.deleteUserAnnotation(at: indexPath)
+            self.tableView.deleteRows(at: [indexPath], with: .fade)
+        })
+        tableView.endUpdates()
         ImageCache().clear(key: annotationToDelete.guid!)
-        
+
         if AppData.iCloudDataSyncIsEnabled {
             AppData.lastCloudSync = Date()
             AppData.iCloudHasSynced = true
@@ -198,26 +213,6 @@ extension EmotionalDiaryViewController : MGSwipeTableCellDelegate {
     }
 }
 
-
-extension EmotionalDiaryViewController : FRCTableViewDelegate {
-    
-    func frcTableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let item = tableDataSource.object(at: indexPath)
-        let cell = tableView.dequeueReusableCell(ofType: EmotionalDiaryTableViewCell.self, for: indexPath)
-        cell.configure(annotation: item)
-        cell.delegate = self
-        cell.configureSwipes()
-        return cell
-    }
-    
-    
-    func frcTableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let cell = tableView.cellForRow(at: indexPath) as? EmotionalDiaryTableViewCell else {
-            return
-        }
-        cell.showSwipe(.rightToLeft, animated: true)
-    }
-}
 
 extension EmotionalDiaryViewController : EmptyDataSetDelegate , EmptyDataSetSource {
     
@@ -231,5 +226,9 @@ extension EmotionalDiaryViewController : EmptyDataSetDelegate , EmptyDataSetSour
         let attributedString = NSAttributedString(string: title, attributes: font)
 
         return attributedString
+    }
+    
+    func emptyDataSetShouldAllowScroll(_ scrollView: UIScrollView) -> Bool {
+        return true
     }
 }

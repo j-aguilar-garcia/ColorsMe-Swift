@@ -30,52 +30,17 @@ final class ColorTabBarWireframe: BaseWireframe {
 
 extension ColorTabBarWireframe: ColorTabBarWireframeInterface {
     
-    func installTabBar(with annotation: CMAnnotation) {
-        log.verbose(#function)
-        
-            //log.debug("installTabBar annotation saved: \(annotation.objectId) && guid \(annotation.guid)")
-            let colorMapWireframe = ColorMapWireframe(annotation: annotation)
-            let emotionalDiaryWireframe = EmotionalDiaryWireframe()
-            //var settingsWireframe = SettingsWireFrame()
-
-            // Setup delegate
-            emotionalDiaryWireframe.delegate = colorMapWireframe.viewController as? EmotionalDiaryDelegate
-            
-            let wireframes : [BaseWireframe & TabBarViewProtocol] =
-                [colorMapWireframe, emotionalDiaryWireframe] //, emotionalDiaryWireframe, settingsWireframe]
-            
-            var viewControllers = [UIViewController]()
-                        
-            for wireFrame in wireframes {
-                let tabBarItem = UITabBarItem()
-                tabBarItem.image = wireFrame.tabIcon
-                tabBarItem.title = wireFrame.tabTitle
-                
-                let navigationController = UINavigationController()
-                navigationController.setRootWireframe(wireFrame)
-                navigationController.tabBarItem = tabBarItem
-
-                viewControllers.append(navigationController)
-            }
-            
-            if let controller = self.viewController as? ColorTabBarViewController {
-                controller.viewControllers = viewControllers
-            }
-    
-    }
-    
-    func installTabBar() {
-        log.verbose(#function)
-        
-        let colorMapWireframe = ColorMapWireframe()
+    func installTabBar(with annotation: CMAnnotation? = nil) {        
+        let colorMapWireframe = ColorMapWireframe(annotation: annotation)
         let emotionalDiaryWireframe = EmotionalDiaryWireframe()
-        //var settingsWireframe = SettingsWireFrame()
+        let settingsWireframe = SettingsWireframe()
         
         // Setup delegate
+        
         emotionalDiaryWireframe.delegate = colorMapWireframe.viewController as? EmotionalDiaryDelegate
         
         let wireframes : [BaseWireframe & TabBarViewProtocol] =
-            [colorMapWireframe, emotionalDiaryWireframe] //, emotionalDiaryWireframe, settingsWireframe]
+            [colorMapWireframe, emotionalDiaryWireframe, settingsWireframe]
         
         var viewControllers = [UIViewController]()
         
@@ -87,7 +52,7 @@ extension ColorTabBarWireframe: ColorTabBarWireframeInterface {
             let navigationController = UINavigationController()
             navigationController.setRootWireframe(wireFrame)
             navigationController.tabBarItem = tabBarItem
-
+            
             viewControllers.append(navigationController)
         }
         
@@ -95,6 +60,5 @@ extension ColorTabBarWireframe: ColorTabBarWireframeInterface {
             controller.viewControllers = viewControllers
         }
     }
-    
     
 }

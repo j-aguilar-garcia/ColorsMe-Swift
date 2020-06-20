@@ -18,6 +18,8 @@ final class ColorMapWireframe: BaseWireframe, TabBarViewProtocol {
 
     private let storyboard = UIStoryboard(name: "ColorMap", bundle: nil)
 
+    var delegate: ColorMapViewSearchDelegate?
+    
     // MARK: - Module setup -
 
     init(annotation: CMAnnotation? = nil) {
@@ -28,7 +30,7 @@ final class ColorMapWireframe: BaseWireframe, TabBarViewProtocol {
         let presenter = ColorMapPresenter(view: moduleViewController, interactor: interactor, wireframe: self, annotation: annotation)
         moduleViewController.presenter = presenter
         interactor.presenter = presenter
-        interactor.startObserverSubscriptions()
+        interactor.addSubscriptionsObserver()
     }
     
 }
@@ -41,6 +43,8 @@ extension ColorMapWireframe: ColorMapWireframeInterface {
         switch option {
         case .pickerdialog:
             openPickerDialog()
+        case .searchbar(let searchBar, let wireframe):
+            openSearch(searchBar, wireframe)
         }
     }
     
@@ -56,4 +60,10 @@ extension ColorMapWireframe: ColorMapWireframeInterface {
         viewController.presentWireframe(pickerWireframe)
     }
 
+    private func openSearch(_ searchBar: UISearchBar, _ searchWireframe: LocationSearchWireframe) {
+        delegate = searchWireframe.viewController as? ColorMapViewSearchDelegate
+        delegate?.onSearchBarButtonClicked(searchBar)
+        
+    }
+    
 }

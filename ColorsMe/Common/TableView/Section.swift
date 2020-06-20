@@ -14,8 +14,10 @@ struct Section<T> {
     var footer: String?
     var items: [T] = []
 
-    init(items: [T]) {
+    init(items: [T], header: String? = nil, footer: String? = nil) {
         self.items = items
+        self.header = header
+        self.footer = footer
     }
     
 }

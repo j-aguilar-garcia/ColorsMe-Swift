@@ -21,10 +21,13 @@ final class PickerDialogViewController: UIViewController {
     @IBOutlet weak var doneButton: UIButton!
     
     @IBAction func onCancel(_ sender: Any) {
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
         presenter.didSelectCancelButton()
     }
     
     @IBAction func onDone(_ sender: Any) {
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        AppData.selectedFilterIndex = pickerView.selectedRow(inComponent: 0)
         presenter.didSelectDoneButton(with: AppData.selectedFilterIndex)
     }
     
@@ -35,6 +38,7 @@ final class PickerDialogViewController: UIViewController {
         pickerView.delegate = self
         pickerView.dataSource = self
         pickerView.selectRow(AppData.selectedFilterIndex, inComponent: 0, animated: false)
+        presenter.viewDidLoad()
     }
 
 }
@@ -43,7 +47,22 @@ final class PickerDialogViewController: UIViewController {
 
 extension PickerDialogViewController: PickerDialogViewInterface {
     
-    func updatePicker(row: Int) {
+    func addBorders() {
+        let bottomLine = CALayer()
+        bottomLine.backgroundColor = UIColor.cmPolylineFill.cgColor
+        bottomLine.frame = CGRect(x: 0, y: pickerView.frame.height - 1, width: pickerView.frame.width, height: 0.3)
+        
+        let topLine = CALayer()
+        topLine.backgroundColor = UIColor.cmPolylineFill.cgColor
+        topLine.frame = CGRect(x: 0, y: 0, width: pickerView.frame.width, height: 0.3)
+        
+        pickerView.layer.addSublayer(bottomLine)
+        pickerView.layer.addSublayer(topLine)
+        
+        let leftLine = CALayer()
+        leftLine.backgroundColor = UIColor.cmPolylineFill.cgColor
+        leftLine.frame = CGRect(x: 1, y: 0, width: 0.3, height: doneButton.frame.height)
+        doneButton.layer.addSublayer(leftLine)
     }
     
 }
@@ -67,10 +86,6 @@ extension PickerDialogViewController : UIPickerViewDataSource {
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return presenter.pickerData[row].value
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        AppData.selectedFilterIndex = row
     }
     
 }

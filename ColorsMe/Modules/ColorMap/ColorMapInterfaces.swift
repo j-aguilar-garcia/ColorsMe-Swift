@@ -11,6 +11,7 @@ import Mapbox
 
 enum ColorMapNavigationOption {
     case pickerdialog
+    case searchbar(UISearchBar, LocationSearchWireframe)
 }
 
 enum ColorMapViewLayer {
@@ -34,6 +35,7 @@ protocol ColorMapViewInterface: ViewInterface {
     func removeAnnotation(_ annotation: CMAnnotation)
     func addAnnotation(_ annotation: CMAnnotation)
     func showAnnotations(_ annotations: [CMAnnotation], animated: Bool)
+    func reachabilityChanged(_ isReachable: Bool)
 }
 
 protocol ColorMapPresenterInterface: PresenterInterface {
@@ -46,11 +48,19 @@ protocol ColorMapPresenterInterface: PresenterInterface {
     
     func willAddAnnotation(_ annotation: CMAnnotation)
     func willRemoveAnnotation(_ annotation: CMAnnotation)
+    
+    func searchBarbuttonClicked(_ searchBar: UISearchBar, searchWireframe: LocationSearchWireframe)
+    
+    func reachabilityChanged(_ isReachable: Bool)
+    func checkForUserAnnotation(annotation: CMAnnotation) -> Bool
 }
 
 protocol ColorMapInteractorInterface: InteractorInterface {
     func shouldUpdateScale(mapView: MGLMapView, oldValue: Float)
-    func startObserverSubscriptions()
+    func addSubscriptionsObserver()
+    func addNetworkReachabilityObserver()
+    func checkForAnnotationInCoreData(annotation: CMAnnotation) -> Bool
+
 }
 
 // MARK: - Menubutton
@@ -67,4 +77,8 @@ enum ColorMapLayerType : Int {
 protocol PickerDialogDelegate {
     func pickerDialogDidChange(with option: PickerDialogFilterOption, annotations: [CMAnnotation])
     func pickerDialogDidClose()
+}
+
+protocol ColorMapViewSearchDelegate {
+    func onSearchBarButtonClicked(_ searchBar: UISearchBar)
 }

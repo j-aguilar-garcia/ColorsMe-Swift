@@ -22,10 +22,17 @@ class LocationService : NSObject {
         locationManager = CLLocationManager()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        startLocationRequest()
     }
     
-    func currentLocation() -> CLLocationCoordinate2D {
-        return currentUserLocation
+    func currentLocation() -> CLLocationCoordinate2D? {
+        if CLLocationManager.locationServicesEnabled() {
+            return currentUserLocation
+        } else {
+            let delegate = UIApplication.shared.delegate as! AppDelegate
+            checkPermissionForLocation(view: delegate.inputViewController!)
+            return nil
+        }
     }
     
     public func startLocationRequest() {
@@ -42,10 +49,10 @@ class LocationService : NSObject {
     func checkPermissionForLocation(view: UIViewController) {
         if CLLocationManager.locationServicesEnabled() {
             if CLLocationManager.authorizationStatus() == .denied || CLLocationManager.authorizationStatus() == .notDetermined || CLLocationManager.authorizationStatus() == .restricted {
-                let alert = UIAlertController.init(title: "Permission denied", message: "We need your permission to take your colors", preferredStyle: .alert)
+                let alert = UIAlertController.init(title: "Permission denied", message: "You have not allowed us to retrieve your location. We need your permission to take your colors", preferredStyle: .alert)
                 
                 // Open Settings to allow locationrequests
-                let settingsAction = UIAlertAction(title: "Settings", style: .default) { (_) -> Void in
+                let settingsAction = UIAlertAction(title: "Go to Settings", style: .default) { (_) -> Void in
                     
                     guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
                         return
@@ -53,7 +60,7 @@ class LocationService : NSObject {
                     
                     if UIApplication.shared.canOpenURL(settingsUrl) {
                         UIApplication.shared.open(settingsUrl, completionHandler: { (success) in
-                            print("Settings opened: \(success)")
+                            log.verbose("Settings opened: \(success)")
                         })
                     }
                 }
@@ -68,13 +75,19 @@ class LocationService : NSObject {
         }
     }
     
+    func authorizationStatus() -> CLAuthorizationStatus {
+        return CLLocationManager.authorizationStatus()
+    }
+    
 }
 
 // MARK: - LocationManagerDelegate
 extension LocationService : CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        startLocationRequest()
+        if status != .authorizedAlways && status != .authorizedWhenInUse {
+            self.startLocationRequest()
+        }
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -83,5 +96,24 @@ extension LocationService : CLLocationManagerDelegate {
         manager.stopUpdatingLocation()
     }
     
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        if let error = error as? CLError {            
+            log.error("LocationManager failed with code: \(error.code), \(error.localizedDescription)")
+            if error.code == .denied {
+                manager.stopUpdatingLocation()
+                
+                self.checkPermissionForLocation(view: UIApplication.shared.windows.first!.rootViewController!)
+            } else if error.code == .network || error.code == .locationUnknown {
+                let alert = UIAlertController.init(title: "Where are you?", message: "Something's gone wrong. We do not know where you are, please make sure you have an internet connection", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (UIAlertAction) in
+                    alert.dismiss(animated: true, completion: {
+                        
+                    })
+                }))
+                UIApplication.shared.windows.first?.rootViewController?.present(alert, animated: true, completion: nil)
+            }
+
+        }
+    }
     
 }

@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import CloudKit
+import CoreData
 
 /// Wrapper for the UserDefaults
 struct AppData {
@@ -37,7 +39,7 @@ struct AppData {
     
     /// Last backendless sync as date
     @Storage(key: "backendlessLastSyncTimeStamp", defaultValue: nil)
-    static var backendlessSyncTimeStamp: Date?
+    static var backendlessLastSyncTimeStamp: Date?
     
     /// Last selected ColorMapLayerItem - .defaultmap - .heatmap - .clustermap
     @Storage(key: "ColorMapLayerItemCurrentVisible", defaultValue: ColorMapLayerType.defaultmap.rawValue)
@@ -62,6 +64,17 @@ struct AppData {
     @Storage(key: "selectedFilterDate", defaultValue: Date())
     static var selectedFilterDate: Date
     
+    @Storage(key: "lastHistoryCloudToken", defaultValue: nil)
+    static var lastCloudHistoryToken: NSPersistentHistoryToken?
+    
+    
+    /// MapView [Workaround for removing annotation, because a single remove is currently buggy on mapbox]
+    @Storage(key: "shouldAnimateMapViewAnnotations", defaultValue: true)
+    static var shouldAnimateAnnotations: Bool
+    
+    
+    @Storage(key: "appStartDateTime", defaultValue: Date())
+    static var appStartDate: Date
 }
 
 

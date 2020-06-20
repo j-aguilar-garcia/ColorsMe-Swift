@@ -9,7 +9,7 @@
 import Foundation
 import Mapbox
 
-protocol LocalDataManagerInputProtocol {
+protocol LocalDataManagerProtocol {
             
     func saveLocal(annotation: RealmAnnotation)
     
@@ -25,5 +25,7 @@ protocol LocalDataManagerInputProtocol {
     
     func filterLocal(with predicate: NSPredicate) -> [CMAnnotation]
     
-    func filterLocalBy(objectId: String) -> CMAnnotation
+    func getAnnotationBy(primaryKey: String) -> CMAnnotation?
+    
+    func getObjectBy(primaryKey: String) -> RealmAnnotation?
 }

@@ -9,6 +9,8 @@
 import Foundation
 import Mapbox
 import Backendless
+import Reachability
+import CoreData
 
 final class ColorMapInteractor {
     var presenter: ColorMapPresenterInterface!
@@ -17,6 +19,19 @@ final class ColorMapInteractor {
 // MARK: - Extensions -
 
 extension ColorMapInteractor: ColorMapInteractorInterface {
+    
+    func checkForAnnotationInCoreData(annotation: CMAnnotation) -> Bool {
+        let fetchRequest : NSFetchRequest<UserAnnotation> = UserAnnotation.fetchRequest()
+        let context = DataManager.shared.cloudDataManager.persistentContainer.viewContext
+        let annotations = try? context.fetch(fetchRequest)
+        for anno in annotations! {
+            if anno.beObjectId == annotation.objectId {
+                return true
+            }
+        }
+        return false
+    }
+    
     
     func shouldUpdateScale(mapView: MGLMapView, oldValue: Float) {
         var result: Float!
@@ -42,14 +57,17 @@ extension ColorMapInteractor: ColorMapInteractorInterface {
     }
     
     
-    func startObserverSubscriptions() {
+    func addSubscriptionsObserver() {
         let eventHandler = Backendless.shared.data.of(Annotation.self).rt
         
         _ = eventHandler?.addCreateListener(responseHandler: { createdObject in
             guard let annotation = createdObject as? Annotation else { return }
             
-            let realmAnnotation = RealmAnnotation(annotation: annotation)
-            DataManager.shared.localDataManager.saveLocal(annotation: realmAnnotation)
+            let localAnnotation = DataManager.shared.localDataManager.getObjectBy(primaryKey: annotation.objectId!)
+            if localAnnotation == nil {
+                let realmAnnotation = RealmAnnotation(annotation: annotation)
+                DataManager.shared.localDataManager.saveLocal(annotation: realmAnnotation)
+            }
             
             let cmAnnotation = CMAnnotation(annotation: annotation)
             self.presenter.willAddAnnotation(cmAnnotation)
@@ -62,16 +80,30 @@ extension ColorMapInteractor: ColorMapInteractorInterface {
         
         _ = eventHandler?.addDeleteListener(responseHandler: { deletedObject in
             guard let annotation = deletedObject as? Annotation else { return }
-            
-            let cmAnnotation = DataManager.shared.localDataManager.filterLocalBy(objectId: annotation.objectId!)
+            AppData.shouldAnimateAnnotations = false
+            guard let cmAnnotation = DataManager.shared.localDataManager.getAnnotationBy(primaryKey: annotation.objectId!) else { return }
             self.presenter.willRemoveAnnotation(cmAnnotation)
             
             DataManager.shared.localDataManager.deleteLocal(by: annotation.objectId!)
-            
+            AppData.shouldAnimateAnnotations = true
             log.verbose("annotation has been deleted via deleteListener: \(cmAnnotation)")
         }, errorHandler: { fault in
             log.error("Error: \(fault.message ?? "")")
         })
+    }
+    
+    
+    func addNetworkReachabilityObserver() {
+        NotificationCenter.default.addObserver(forName: .networkReachability, object: nil, queue: nil) { (notification) in
+            let reachability = try! Reachability()
+            if reachability.connection == .unavailable {
+                self.presenter.reachabilityChanged(false)
+            }
+            if reachability.connection != .unavailable {
+                self.presenter.reachabilityChanged(true)
+                //AnnotationService.default.uploadOfflineAnnotations()
+            }
+        }
     }
     
 }

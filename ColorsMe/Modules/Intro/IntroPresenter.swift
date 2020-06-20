@@ -37,7 +37,7 @@ extension IntroPresenter: IntroPresenterInterface {
     
     
     func viewDidLoad() {
-        view.animateSplashScreen()        
+        view.animateSplashScreen(withDelay: true)        
     }
     
     func didSelectSkipAction() {

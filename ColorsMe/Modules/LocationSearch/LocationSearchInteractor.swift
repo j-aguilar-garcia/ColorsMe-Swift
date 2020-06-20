@@ -24,10 +24,11 @@ extension LocationSearchInteractor: LocationSearchInteractorInterface {
     func search(text: String) {
         let options = ForwardGeocodeOptions(query: text)
         
-        options.focalLocation = CLLocation(
-            latitude: LocationService.default.currentLocation().latitude,
-            longitude: LocationService.default.currentLocation().longitude)
-        
+        if let userLocation = LocationService.default.currentLocation() {
+            options.focalLocation = CLLocation(
+                latitude: userLocation.latitude,
+                longitude: userLocation.longitude)
+        }
         options.maximumResultCount = 10
         options.allowedScopes = [.locality, .place, .region]
         
@@ -46,7 +47,6 @@ extension LocationSearchInteractor: LocationSearchInteractorInterface {
     
     
     func parseGeoJSON(placemark: GeocodedPlacemark) {
-        var results = [CLLocationCoordinate2D]()
         let search = placemark.qualifiedName!
         let fullUrl = "https://nominatim.openstreetmap.org/search?q=" + search + "&polygon_geojson=1&format=geocodejson&limit=2"
         let encodedUrl = fullUrl.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed)!
@@ -58,28 +58,34 @@ extension LocationSearchInteractor: LocationSearchInteractorInterface {
                 
                 DispatchQueue.main.async {
                     let geoJson = try! GeoJSON.parse(FeatureCollection.self, from: data)
-                    let feature = geoJson.features.last!
+                    let features = geoJson.features
                     
-                    switch feature {
-                        
-                    case .multiPolygonFeature(let multipolygon):
-                        let coordinates = multipolygon.geometry.coordinates.first!.first!
-                        log.debug("multipolygon: \(coordinates.count)")
-                        results.append(contentsOf: coordinates)
-                        break
-                        
-                    case .polygonFeature(let polygon):
-                        let coordinates = polygon.geometry.coordinates.first!
-                        log.debug("polygon: \(coordinates.count)")
-                        results.append(contentsOf: coordinates)
-                        break
-                        
-                    default:
-                        break
+                    var multiPolygonCoordinates = [CLLocationCoordinate2D]()
+                    var polygonCoordinates = [CLLocationCoordinate2D]()
+                    
+                    for feature in features {
+                        switch feature {
+                            
+                        case .multiPolygonFeature(let multipolygon):
+                            let coordinates = multipolygon.geometry.coordinates.first!.first!
+                            log.debug("multipolygon: \(coordinates.count)")
+                            multiPolygonCoordinates.append(contentsOf: coordinates)
+                            break
+                            
+                        case .polygonFeature(let polygon):
+                            let coordinates = polygon.geometry.coordinates.first!
+                            log.debug("polygon: \(coordinates.count)")
+                            polygonCoordinates.append(contentsOf: coordinates)
+                            break
+                            
+                        default:
+                            break
+                        }
                     }
-                    
-                    if !results.isEmpty {
-                        self.presenter.onGeoJsonRetrieved(coordinates: results, placemark: placemark)
+                    if multiPolygonCoordinates.count > polygonCoordinates.count {
+                        self.presenter.onGeoJsonRetrieved(coordinates: multiPolygonCoordinates, placemark: placemark)
+                    } else if !polygonCoordinates.isEmpty {
+                        self.presenter.onGeoJsonRetrieved(coordinates: polygonCoordinates, placemark: placemark)
                     }
                 }
             }

@@ -24,7 +24,7 @@ protocol PickerDialogWireframeInterface: WireframeInterface {
 }
 
 protocol PickerDialogViewInterface: ViewInterface {
-    func updatePicker(row: Int)
+    func addBorders()
 }
 
 protocol PickerDialogPresenterInterface: PresenterInterface {

@@ -9,7 +9,7 @@
 import Foundation
 import Backendless
 import CloudKit
-
+import Reachability
 
 class DataManager : DataManagerInputProtocol {
     
@@ -23,12 +23,28 @@ class DataManager : DataManagerInputProtocol {
         return LocalDataManager()
     }()
     
+    lazy var cloudDataManager : CloudDataManager = {
+        return CloudDataManager()
+    }()
+    
     init() {
         remoteDataManager.initBackendless()
     }
     
     
-    func dataManager(annotation: Annotation, willSaveWith type: DataManagerType, completion: @escaping (_ success: Bool) -> Void) {
+    func fetchData() {
+        if !remoteDataManager.hasDataFetched {
+            let reachability = try! Reachability()
+            if reachability.connection != .unavailable {
+                _ = dataManager(willRetrieveWith: .remote)
+            } else {
+                NotificationCenter.default.post(name: .networkReachability, object: nil)
+            }
+        }
+    }
+    
+    
+    func willSave(annotation: Annotation, with type: DataManagerType, completion: @escaping (_ success: Bool) -> Void) {
         switch type {
         case .remote:
             remoteDataManager.saveToBackendless(annotation: annotation) { (annotation) in
@@ -46,7 +62,7 @@ class DataManager : DataManagerInputProtocol {
     }
     
     
-    func dataManager(annotation: Annotation, willDeleteWith type: DataManagerType, completion: @escaping (_ success: Bool) -> Void) {
+    func willDelete(annotation: Annotation, with type: DataManagerType, completion: @escaping (_ success: Bool) -> Void) {
         switch type {
             
         case .remote:
@@ -103,5 +119,6 @@ class DataManager : DataManagerInputProtocol {
             localDataManager.deleteLocal(by: id)
         }
     }
+    
     
 }
