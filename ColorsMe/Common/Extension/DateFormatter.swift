@@ -60,4 +60,10 @@ extension DateFormatter {
         return formatter
     }()
     
+    static let backendless: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MM/dd/yyyy HH:mm:ss"
+        return formatter
+    }()
+    
 }

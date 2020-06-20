@@ -94,8 +94,8 @@ class RemoteDataManager : RemoteDataManagerProtocol {
         log.info("before \(localDataManager.getAllLocal().count)")
         let dateNow = AppData.appStartDate
         if let timeStamp = AppData.backendlessLastSyncTimeStamp {
-            let dateFormatter = DateFormatter.MMMddyyyyHHmmss
-            let dateString = dateFormatter.string(from: timeStamp)
+            let dateFormatter = DateFormatter.backendless
+            let dateString = dateFormatter.string(from: dateNow)
             queryBuilder.setWhereClause(whereClause: String(format: "created > '%@'", dateString))
             log.info("TimeStamp: \(timeStamp)")
         }
@@ -128,7 +128,7 @@ class RemoteDataManager : RemoteDataManagerProtocol {
                             realmAnnotation.isMyColor = true
                             localDataManager.updateLocal(annotation: realmAnnotation)
                         } else {
-                            log.info("Save annotation id: \(annotation.objectId!) created: \(String(describing: annotation.created))")
+                            //log.info("Save annotation id: \(annotation.objectId!) created: \(String(describing: annotation.created))")
                             localDataManager.saveLocal(annotation: realmAnnotation)
                         }
                         self.annotations.append(CMAnnotation(annotation: realmAnnotation))
@@ -140,7 +140,7 @@ class RemoteDataManager : RemoteDataManagerProtocol {
                     log.debug("queryBuilder.getOffset() = \(self.queryBuilder.getOffset())")
                     self.retrieveData(localDataManager: localDataManager)
                 } else {
-                    log.info("Set backendlessLastSyncTimeStamp")
+                    log.info("Set backendlessLastSyncTimeStamp to: \(dateNow)")
                     AppData.backendlessLastSyncTimeStamp = dateNow
                     log.debug("Retrieved data in (ms) - \(Int(Date().timeIntervalSince(startTime) * 1000)) in secs \(Int(Date().timeIntervalSince(startTime)))")
                 }
@@ -164,8 +164,9 @@ class RemoteDataManager : RemoteDataManagerProtocol {
         queryBuilder.setPageSize(pageSize: 100)
         queryBuilder.setOffset(offset: self.offset)
         
-        let dateFormatter = DateFormatter.MMMddyyyyHHmmss
+        let dateFormatter = DateFormatter.backendless
         let dateString = dateFormatter.string(from: AppData.backendlessLastSyncTimeStamp!)
+        log.info(dateString)
         queryBuilder.setWhereClause(whereClause: String(format: "created < '%@'", dateString))
         
         
@@ -180,7 +181,7 @@ class RemoteDataManager : RemoteDataManagerProtocol {
                     for annotation in localAnnotations {
                         if self.remoteAnnotations.contains(where: { $0.objectId!.elementsEqual(annotation.objectId!) }) {
                             continue
-                        } else if !annotation.isMyColor {
+                        } else {
                             log.info("Delte local annotation with id: \(annotation.objectId!) created: \(String(describing: annotation.created))")
                             DispatchQueue.main.async {
                                 localDataManager.deleteLocal(by: annotation.objectId!)
