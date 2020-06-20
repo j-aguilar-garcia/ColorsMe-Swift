@@ -66,6 +66,22 @@ class RemoteDataManager : RemoteDataManagerProtocol {
         })
     }
     
+    func findBy(guid: String) -> Annotation? {
+        var annotationById: Annotation?
+        let idQueryBuilder = DataQueryBuilder()
+        idQueryBuilder.setWhereClause(whereClause: String(format: "guid == %@", guid))
+        dataStore.findFirst(queryBuilder: idQueryBuilder, responseHandler: { foundAnnotation in
+            guard let annotation = foundAnnotation as? Annotation else {
+                return
+            }
+            annotationById = annotation
+            
+        }) { (fault) in
+            return
+        }
+        return annotationById
+    }
+    
     /**
      Downloads all data from the server that has been created since the last check.
      Here the server-side timestamp is used as a global timestamp.

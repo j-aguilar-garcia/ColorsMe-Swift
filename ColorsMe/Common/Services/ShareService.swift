@@ -24,7 +24,7 @@ class ShareService {
         var components = URLComponents()
         components.scheme = "https"
         components.host = AppConfiguration.default.appUrlHost
-        components.path = "/"
+        components.path = "/colorsme/"
         components.queryItems = [
             URLQueryItem(name: "id", value: guid)
         ]

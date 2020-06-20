@@ -703,7 +703,6 @@
 				875D6E01247431B100C6DF31 /* Resources */,
 				875D6E392474335500C6DF31 /* Build Number */,
 				2D9A2E674DCC264C24B8091B /* [CP] Embed Pods Frameworks */,
-				0725E758247ECA4B00FDDD46 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -832,23 +831,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0725E758247ECA4B00FDDD46 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "find dSYM_directory -name \"*.dSYM\" | xargs -I \\{\\} $PODS_ROOT/FirebaseCrashlytics/upload-symbols -gsp ${PROJECT_DIR}/Resources/GoogleService-Info.plist -p platform \\{\\}\n";
-		};
 		2C56D9C5BA39023FFC852E1E /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -929,7 +911,7 @@
 		};
 		875D6E392474335500C6DF31 /* Build Number */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 8;
 			files = (
 			);
 			inputFileListPaths = (
@@ -941,7 +923,7 @@
 			);
 			outputPaths = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
+			runOnlyForDeploymentPostprocessing = 1;
 			shellPath = /bin/sh;
 			shellScript = "buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"\n";
 		};
@@ -1237,7 +1219,7 @@
 				CODE_SIGN_ENTITLEMENTS = ColorsMe/ColorsMe.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 953;
+				CURRENT_PROJECT_VERSION = 958;
 				DEVELOPMENT_TEAM = MPA25UYNXL;
 				INFOPLIST_FILE = ColorsMe/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -1262,7 +1244,7 @@
 				CODE_SIGN_ENTITLEMENTS = ColorsMe/ColorsMe.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 953;
+				CURRENT_PROJECT_VERSION = 958;
 				DEVELOPMENT_TEAM = MPA25UYNXL;
 				INFOPLIST_FILE = ColorsMe/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;

@@ -18,9 +18,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
+        if let urlContext = connectionOptions.urlContexts.first?.url {
+            let components = URLComponents(url: urlContext, resolvingAgainstBaseURL: true)
+            handleDeepLink(scene, components: components!)
+            return
+        }
+        if let userActivity = connectionOptions.userActivities.first {
+            self.scene(scene, continue: userActivity)
+        }
+        
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
-        
+
         let introWireframe = IntroWireframe()
         let navigationController = UINavigationController()
         navigationController.setRootWireframe(introWireframe)
@@ -28,9 +37,39 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window!.tintColor = .cmAppDefaultColor
         self.window?.rootViewController = navigationController
         self.window?.makeKeyAndVisible()
-
+    }
+    
+    func scene(_ scene: UIScene, didUpdate userActivity: NSUserActivity) {
+        log.info("")
+    }
+    
+    func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
+        log.info("")
+        guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
+            let url = userActivity.webpageURL,
+            let components = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
+                return
+        }
+        handleDeepLink(scene, components: components)
     }
 
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        log.info("")
+        guard let url = URLContexts.first?.url, let components = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
+            return
+        }
+        log.info("openURLContexts \(url.absoluteString)")
+        
+        handleDeepLink(scene, components: components)
+    }
+    
+    func scene(_ scene: UIScene, willContinueUserActivityWithType userActivityType: String) {
+        log.info(userActivityType)
+    }
+    
+    
+    
+    
     func sceneDidDisconnect(_ scene: UIScene) {
         log.debug("")
         // Called as the scene is being released by the system.
@@ -67,6 +106,69 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }
 
+    
+    private func handleDeepLink(_ scene: UIScene, components: URLComponents) {
+        var queryID: String?
+        
+        for queryItem in components.queryItems ?? [] {
+            if queryItem.name == "id" {
+                queryID = queryItem.value!
+            }
+        }
+
+        guard queryID != nil else {
+            return
+        }
+        if queryID!.count == 36 {
+            var cmAnnotation: CMAnnotation!
+            let annotations = DataManager.shared.localDataManager.getAllLocal()
+            let containsAnnotation = annotations.contains(where: { $0.guid!.contains(queryID!)})
+            if !containsAnnotation {
+                let remoteAnnotationById = DataManager.shared.remoteDataManager.findBy(guid: queryID!)
+                guard remoteAnnotationById != nil else {
+                    return
+                }
+                cmAnnotation = CMAnnotation(annotation: remoteAnnotationById!)
+            } else {
+                cmAnnotation = annotations.first(where: { $0.guid!.contains(queryID!) })
+            }
+            
+            if self.window == nil {
+                log.info("self.window is nil")
+                guard let windowScene = (scene as? UIWindowScene) else { return }
+                self.window = UIWindow(windowScene: windowScene)
+                log.info("rootView after setup \(String(describing: self.window?.rootViewController?.typeString()))")
+            }
+
+            // Current View is ColorTabBar
+            if let tabBarController = self.window?.rootViewController as? ColorTabBarViewController {
+                log.info("Current View is ColorTab ... \(String(describing: self.window?.rootViewController?.typeString()))")
+                tabBarController.selectedIndex = 0
+                let vc = tabBarController.selectedViewController as? ColorMapViewController
+                DispatchQueue.main.async {
+                    vc?.showMapLayer(layerType: .defaultmap)
+                    vc?.zoomToAnnotation(annotation: cmAnnotation)
+                }
+            } else {
+                // Current View is Intro
+                if self.window?.rootViewController is IntroViewController {
+                    log.info("Current View is Intro ... \(String(describing: self.window?.rootViewController?.typeString()))")
+                    let introWireframe = IntroWireframe()
+                    let tabBarWireframe = ColorTabBarWireframe()
+                    tabBarWireframe.installTabBar(with: cmAnnotation)
+                    introWireframe.switchRootWireframe(rootWireframe: tabBarWireframe, animated: true, completion: nil)
+                } else {
+                    // Start directly with Tabbar
+                    log.info("Current View is nil ... \(String(describing: self.window?.rootViewController?.typeString()))")
+                    let tabBarWireframe = ColorTabBarWireframe()
+                    tabBarWireframe.installTabBar(with: cmAnnotation)
+                    self.window?.rootViewController = tabBarWireframe.viewController
+                    self.window!.tintColor = .cmAppDefaultColor
+                    self.window?.makeKeyAndVisible()
+                }
+            }
+        }
+    }
 
 }
 
