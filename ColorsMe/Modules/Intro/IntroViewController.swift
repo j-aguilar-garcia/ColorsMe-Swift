@@ -71,11 +71,11 @@ final class IntroViewController: UIViewController {
         super.viewDidLoad()
         updateConstraints()
         presenter.viewDidLoad()
-        updateConstraints()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.navigationBar.isHidden = true
+        updateConstraints()
     }
     
     override func viewWillLayoutSubviews() {
@@ -160,7 +160,7 @@ extension IntroViewController: IntroViewInterface {
                 }
             }
         }
-        DispatchQueue.main.async {
+        //DispatchQueue.main.async {
             if UIDevice.current.orientation.isLandscape && UIDevice.current.userInterfaceIdiom == .pad {
                 self.greenCenterY.priority = .required
                 self.redCenterY.priority = .required
@@ -180,7 +180,7 @@ extension IntroViewController: IntroViewInterface {
                 self.greenDotTrailingToYellowLeadingConstraint.priority = .defaultLow
                 self.yellowDotTrailingToRedDotLeadingConstraint.priority = .defaultLow
             }
-        }
+        //}
     }
     
 }

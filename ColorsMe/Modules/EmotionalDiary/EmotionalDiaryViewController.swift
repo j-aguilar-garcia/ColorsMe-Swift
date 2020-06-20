@@ -206,10 +206,8 @@ extension EmotionalDiaryViewController : MGSwipeTableCellDelegate {
         tableView.endUpdates()
         ImageCache().clear(key: annotationToDelete.guid!)
 
-        if AppData.iCloudDataSyncIsEnabled {
-            AppData.lastCloudSync = Date()
-            AppData.iCloudHasSynced = true
-        }
+        AppData.lastCloudSync = Date()
+        AppData.iCloudHasSynced = true
     }
 }
 
