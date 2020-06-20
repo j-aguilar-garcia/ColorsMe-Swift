@@ -15,10 +15,10 @@ class CMBorderedLabel : UILabel {
     var borderedText: String = "" {
         willSet(value) {
             let attributes = [
-                NSAttributedString.Key.strokeColor : UIColor.black,
-                NSAttributedString.Key.foregroundColor : UIColor.label,
-                NSAttributedString.Key.strokeWidth : -4.0,
-                NSAttributedString.Key.font : UIFont.bold(ofSize: UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad ? 17 : 17)]
+                NSAttributedString.Key.strokeColor : UIColor.cmBorderedStroke,
+                NSAttributedString.Key.foregroundColor : UIColor.cmBorderedForeground,
+                NSAttributedString.Key.strokeWidth : -6.0,
+                NSAttributedString.Key.font : UIFont.bold(ofSize: UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad ? 19 : 17)]
                 as [NSAttributedString.Key : Any]
 
             attributedText = NSMutableAttributedString(string: value, attributes: attributes)

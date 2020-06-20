@@ -39,7 +39,7 @@ final class ColorMapViewController: UIViewController {
     @IBOutlet weak var navigationFilterButton: UIBarButtonItem!
     
     @IBAction func onRetryConnectionButton(_ sender: Any) {
-        //NotificationCenter.default.post(name: .networkUnreachable, object: nil)
+        NotificationCenter.default.post(name: .networkReachability, object: nil)
     }
     @IBOutlet weak var retryConnectionButton: UIButton!
     

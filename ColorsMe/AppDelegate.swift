@@ -26,13 +26,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         #if DEBUG
         let console = ConsoleDestination()
         let file = FileDestination()
+        log.addDestination(console)
+        log.addDestination(file)
         #endif
         let cloud = SBPlatformDestination(
             appID: AppConfiguration.default.swiftyBeaverAppId,
             appSecret: AppConfiguration.default.swiftyBeaverAppSecret,
             encryptionKey: AppConfiguration.default.swiftyBeaverEncryptionKey)
-        log.addDestination(console)
-        log.addDestination(file)
         log.addDestination(cloud)
 
         Realm.registerRealmables([RealmAnnotation.self])
