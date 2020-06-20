@@ -107,6 +107,10 @@ extension ColorMapViewController: ColorMapViewInterface, EmotionalDiaryDelegate 
     func showAnnotations(_ annotations: [CMAnnotation], animated: Bool) {
         var coordinates = [CLLocationCoordinate2D]()
         annotations.forEach({ coordinates.append($0.coordinate) })
+        if let userLocation = LocationService.default.currentLocation() {
+            let camera = MGLMapCamera(lookingAtCenter: userLocation, acrossDistance: .zero, pitch: 0, heading: 0)
+            mapView.setCamera(camera, animated: false)
+        }
         mapView.setVisibleCoordinates(coordinates, count: UInt(coordinates.count), edgePadding: UIEdgeInsets(top: 30, left: 60, bottom: 30, right: 30), animated: animated)
     }
     
