@@ -13,10 +13,6 @@ import CoreData
 /// Wrapper for the UserDefaults
 struct AppData {
     
-    /// Checks the iCloud sync status
-    @Storage(key: "allowCloudSync", defaultValue: true)
-    static var iCloudDataSyncIsEnabled: Bool
-    
     /// Checks when the Snapshots should be displayed
     @Storage(key: "allowSnapshotsColorMe", defaultValue: true)
     static var shouldDisplaySnapshots: Bool

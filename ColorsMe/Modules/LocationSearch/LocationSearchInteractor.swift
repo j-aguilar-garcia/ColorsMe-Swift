@@ -31,6 +31,7 @@ extension LocationSearchInteractor: LocationSearchInteractorInterface {
         }
         options.maximumResultCount = 10
         options.allowedScopes = [.locality, .place, .region]
+        options.locale = Locale.current
         
         _ = geocoder.geocode(options) { (placemarks, attribution, error) in
             guard error == nil else {

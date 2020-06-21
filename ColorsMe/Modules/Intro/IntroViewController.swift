@@ -69,17 +69,14 @@ final class IntroViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateConstraints()
         presenter.viewDidLoad()
-        updateConstraints()
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        UIDevice.current.beginGeneratingDeviceOrientationNotifications()
         navigationController?.navigationBar.isHidden = true
-    }
-    
-    override func viewWillLayoutSubviews() {
         updateConstraints()
+
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -141,14 +138,14 @@ extension IntroViewController: IntroViewInterface {
             DispatchQueue.main.async {
                 let colorButtons = [self.greenDotButton, self.yellowDotButton, self.redDotButton]
                 for button in colorButtons {
-                    UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations:  {
+                    UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseOut, animations:  {
                         button?.transform = CGAffineTransform(scaleX: 0.0, y: 0.0)
                         button?.alpha = 0
                         button?.layoutIfNeeded()
                         self.skipButton.alpha = 0
                         self.skipButton.layoutIfNeeded()
                     }) { finish in
-                        UIView.animate(withDuration: 0.3, animations:  {
+                        UIView.animate(withDuration: 0.1, animations:  {
                             button?.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
                             button?.layoutIfNeeded()
                         }) { finish in
@@ -161,7 +158,10 @@ extension IntroViewController: IntroViewInterface {
             }
         }
         DispatchQueue.main.async {
-            if UIDevice.current.orientation.isLandscape && UIDevice.current.userInterfaceIdiom == .pad {
+            let isPad = UIDevice.current.userInterfaceIdiom == .pad
+            let isLandscape = UIApplication.shared.windows.first?.windowScene?.interfaceOrientation.isLandscape ?? false
+            
+            if isPad && isLandscape {
                 self.greenCenterY.priority = .required
                 self.redCenterY.priority = .required
                 self.greenDotTrailingToYellowLeadingConstraint.priority = .required
@@ -170,7 +170,8 @@ extension IntroViewController: IntroViewInterface {
                 self.yellowDotBottomToRedDotTopConstraint.priority = .defaultLow
                 self.greenCenterX.priority = .defaultLow
                 self.redCenterX.priority = .defaultLow
-            } else if UIDevice.current.orientation.isPortrait && UIDevice.current.userInterfaceIdiom == .pad {
+                
+            } else if isPad && !isLandscape {
                 self.greenDotBottomToYellowDotTopConstraint.priority = .required
                 self.yellowDotBottomToRedDotTopConstraint.priority = .required
                 self.greenCenterX.priority = .required

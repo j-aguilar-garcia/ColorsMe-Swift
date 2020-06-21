@@ -11,9 +11,7 @@ import Foundation
 protocol RemoteDataManagerProtocol {
     
     func initBackendless()
-    
-    var annotations: [CMAnnotation] { get set }
-        
+            
     func saveToBackendless(annotation: Annotation, completion: @escaping (_ annotation: Annotation) -> Void)
     
     func updateToBackendless(annotation: Annotation)

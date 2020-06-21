@@ -69,7 +69,6 @@
 		07E06B67247A8234007139E2 /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B66247A8234007139E2 /* DateFormatter.swift */; };
 		07E06B69247A8266007139E2 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B68247A8266007139E2 /* String.swift */; };
 		07E06B6E247AAC7A007139E2 /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B6D247AAC7A007139E2 /* Annotation.swift */; };
-		07E06B70247AF1EF007139E2 /* RemoteDataManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B6F247AF1EE007139E2 /* RemoteDataManagerProtocol.swift */; };
 		07E06B74247AF20B007139E2 /* LocalDataManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B73247AF20B007139E2 /* LocalDataManagerProtocol.swift */; };
 		07E06B78247AF385007139E2 /* DataManagerInputProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B77247AF384007139E2 /* DataManagerInputProtocol.swift */; };
 		07E06B7A247AF680007139E2 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E06B79247AF680007139E2 /* DataManager.swift */; };
@@ -87,8 +86,6 @@
 		07E2BA622485232900465688 /* LocationSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E2BA5C2485232900465688 /* LocationSearchViewController.swift */; };
 		07E2BA632485232900465688 /* LocationSearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E2BA5D2485232900465688 /* LocationSearchInteractor.swift */; };
 		07E2BA642485232900465688 /* LocationSearchWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E2BA5E2485232900465688 /* LocationSearchWireframe.swift */; };
-		07FB17FF249179EF0047C725 /* CloudDataManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FB17FB249179EF0047C725 /* CloudDataManagerProtocol.swift */; };
-		07FB1800249179EF0047C725 /* LocalDataManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FB17FC249179EF0047C725 /* LocalDataManagerProtocol.swift */; };
 		07FB1801249179EF0047C725 /* CloudKitDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FB17FD249179EF0047C725 /* CloudKitDelegate.swift */; };
 		07FB1802249179EF0047C725 /* RemoteDataManagerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07FB17FE249179EF0047C725 /* RemoteDataManagerProtocol.swift */; };
 		53D40F3CD091A40F37168060 /* Pods_ColorsMe_ColorsMeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE899B237EC7777F01FF7D36 /* Pods_ColorsMe_ColorsMeUITests.framework */; };
@@ -758,7 +755,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1140;
-				LastUpgradeCheck = 1140;
+				LastUpgradeCheck = 1150;
 				ORGANIZATIONNAME = "Juan Carlos Aguilar Garcia";
 				TargetAttributes = {
 					875D6E02247431B100C6DF31 = {
@@ -974,7 +971,6 @@
 				072D9D07247E407F00390186 /* MenuButtonAnimator.swift in Sources */,
 				87CEC7BC2478265400206255 /* ColorTabBarInterfaces.swift in Sources */,
 				07338182249B64C4005F95C4 /* CMBorderedLabel.swift in Sources */,
-				07FB1800249179EF0047C725 /* LocalDataManagerProtocol.swift in Sources */,
 				07E2BA612485232900465688 /* LocationSearchPresenter.swift in Sources */,
 				077325F524855401009DDB57 /* CMOverlayLayer.swift in Sources */,
 				07E2BA632485232900465688 /* LocationSearchInteractor.swift in Sources */,
@@ -983,7 +979,6 @@
 				076880502489250E001E0F39 /* IntroInteractor.swift in Sources */,
 				077325FD24869BB5009DDB57 /* AnnotationService.swift in Sources */,
 				873AC7122477C8DC00261CD5 /* TabBarViewProtocol.swift in Sources */,
-				07FB17FF249179EF0047C725 /* CloudDataManagerProtocol.swift in Sources */,
 				07E06B6E247AAC7A007139E2 /* Annotation.swift in Sources */,
 				07C8FA18248D20A300612C93 /* SettingsInterfaces.swift in Sources */,
 				07FB1801249179EF0047C725 /* CloudKitDelegate.swift in Sources */,
@@ -1015,7 +1010,6 @@
 				07E2BA4C247EE4A400465688 /* CMClusterMapLayer.swift in Sources */,
 				07C8FA19248D20A300612C93 /* SettingsPresenter.swift in Sources */,
 				07E2BA602485232900465688 /* LocationSearchInterfaces.swift in Sources */,
-				07E06B70247AF1EF007139E2 /* RemoteDataManagerProtocol.swift in Sources */,
 				875D6E09247431B100C6DF31 /* SceneDelegate.swift in Sources */,
 				87CEC7CB24782A7400206255 /* ColorMapWireframe.swift in Sources */,
 				07C8FA1B248D20A300612C93 /* SettingsWireframe.swift in Sources */,
@@ -1200,7 +1194,7 @@
 				CODE_SIGN_ENTITLEMENTS = ColorsMe/ColorsMe.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 960;
+				CURRENT_PROJECT_VERSION = 998;
 				DEVELOPMENT_TEAM = MPA25UYNXL;
 				INFOPLIST_FILE = ColorsMe/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -1208,7 +1202,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.9;
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.bit-design.ColorsMe";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "org.bit-design.ColorsMe iOS Development";
@@ -1225,7 +1219,7 @@
 				CODE_SIGN_ENTITLEMENTS = ColorsMe/ColorsMe.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 960;
+				CURRENT_PROJECT_VERSION = 998;
 				DEVELOPMENT_TEAM = MPA25UYNXL;
 				INFOPLIST_FILE = ColorsMe/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -1233,7 +1227,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.9;
+				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.bit-design.ColorsMe";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "org.bit-design.ColorsMe iOS Development";

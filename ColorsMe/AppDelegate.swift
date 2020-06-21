@@ -20,6 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         application.registerForRemoteNotifications()
+
+        
         AppData.appStartDate = Date()
         
         // Init SwiftyBeaver
@@ -33,6 +35,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             appID: AppConfiguration.default.swiftyBeaverAppId,
             appSecret: AppConfiguration.default.swiftyBeaverAppSecret,
             encryptionKey: AppConfiguration.default.swiftyBeaverEncryptionKey)
+        #if !DEBUG
+        cloud.asynchronously = true
+        cloud.minLevel = .warning
+        #endif
         log.addDestination(cloud)
 
         Realm.registerRealmables([RealmAnnotation.self])

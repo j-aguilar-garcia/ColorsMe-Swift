@@ -94,6 +94,7 @@ final class SettingsViewController: UITableViewController {
                 indicator.startAnimating()
                 
                 let share = ShareService.default.shareApp()
+                share.popoverPresentationController?.sourceView = cell!
                 DispatchQueue.main.async {
                     self.present(share, animated: true, completion: {
                         indicator.stopAnimating()

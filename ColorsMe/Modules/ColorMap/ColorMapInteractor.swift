@@ -67,10 +67,9 @@ extension ColorMapInteractor: ColorMapInteractorInterface {
             if localAnnotation == nil {
                 let realmAnnotation = RealmAnnotation(annotation: annotation)
                 DataManager.shared.localDataManager.saveLocal(annotation: realmAnnotation)
+                let cmAnnotation = CMAnnotation(annotation: annotation)
+                self.presenter.willAddAnnotation(cmAnnotation)
             }
-            
-            let cmAnnotation = CMAnnotation(annotation: annotation)
-            self.presenter.willAddAnnotation(cmAnnotation)
             
             log.verbose("annotation has been created via createListener: \(annotation)")
         }, errorHandler: { fault in
@@ -80,12 +79,18 @@ extension ColorMapInteractor: ColorMapInteractorInterface {
         
         _ = eventHandler?.addDeleteListener(responseHandler: { deletedObject in
             guard let annotation = deletedObject as? Annotation else { return }
+            
             AppData.shouldAnimateAnnotations = false
-            guard let cmAnnotation = DataManager.shared.localDataManager.getAnnotationBy(primaryKey: annotation.objectId!) else { return }
+            
+            guard let cmAnnotation = DataManager.shared.localDataManager.getAnnotationBy(primaryKey: annotation.objectId!) else {
+                return
+            }
             self.presenter.willRemoveAnnotation(cmAnnotation)
             
             DataManager.shared.localDataManager.deleteLocal(by: annotation.objectId!)
+
             AppData.shouldAnimateAnnotations = true
+            
             log.verbose("annotation has been deleted via deleteListener: \(cmAnnotation)")
         }, errorHandler: { fault in
             log.error("Error: \(fault.message ?? "")")

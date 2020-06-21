@@ -53,6 +53,8 @@ protocol ColorMapPresenterInterface: PresenterInterface {
     
     func reachabilityChanged(_ isReachable: Bool)
     func checkForUserAnnotation(annotation: CMAnnotation) -> Bool
+    
+    func didFinishLoadingMap()
 }
 
 protocol ColorMapInteractorInterface: InteractorInterface {

@@ -46,6 +46,10 @@ class LocationService : NSObject {
         }
     }
     
+    public func stopLocationRequest() {
+        locationManager.stopUpdatingLocation()
+    }
+    
     func checkPermissionForLocation(view: UIViewController) {
         if CLLocationManager.locationServicesEnabled() {
             if CLLocationManager.authorizationStatus() == .denied || CLLocationManager.authorizationStatus() == .notDetermined || CLLocationManager.authorizationStatus() == .restricted {
@@ -93,7 +97,6 @@ extension LocationService : CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location: CLLocationCoordinate2D = locationManager.location?.coordinate else { return }
         currentUserLocation = location
-        manager.stopUpdatingLocation()
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

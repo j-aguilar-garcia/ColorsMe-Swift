@@ -68,7 +68,8 @@ class CloudDataManager : CloudDataManagerProtocol {
         userAnnotation.longitude = annotation.longitude
         userAnnotation.title = annotation.title
         
-        self.context.performAndWait {
+        let taskContext = persistentContainer.newBackgroundContext()
+        taskContext.perform {
             do {
                 try self.context.save()
             } catch {
@@ -80,7 +81,8 @@ class CloudDataManager : CloudDataManagerProtocol {
     func updateAnnotation(annotation: Annotation) {
         let cloudAnnotation = getAnnotationBy(guid: annotation.guid!)
         cloudAnnotation.beObjectId = annotation.objectId
-        self.context.performAndWait {
+        let taskContext = persistentContainer.newBackgroundContext()
+        taskContext.performAndWait {
             do {
                 try self.context.save()
             } catch {
@@ -90,10 +92,10 @@ class CloudDataManager : CloudDataManagerProtocol {
     }
     
     func getUserAnnotations() -> [UserAnnotation] {
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: entitiyName)
+        let request = NSFetchRequest<UserAnnotation>(entityName: entitiyName)
         request.sortDescriptors = [NSSortDescriptor(key: "created", ascending: false)]
         do {
-            let result = try context.fetch(request) as! [UserAnnotation]
+            let result = try context.fetch(request)
             userAnnotations = result
             return result
         } catch {
@@ -166,9 +168,9 @@ class CloudDataManager : CloudDataManagerProtocol {
         
         cloudKitContainerOptions = description.cloudKitContainerOptions
         
-        
         // Pin the viewContext to the current generation token and set it to keep itself up to date with local changes.
-
+        container!.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        container!.viewContext.transactionAuthor = self.appTransactionAuthorName
         
         // Observe Core Data remote change notifications.
         NotificationCenter.default.addObserver(
@@ -176,8 +178,7 @@ class CloudDataManager : CloudDataManagerProtocol {
             name: .NSPersistentStoreRemoteChange, object: container)
         
         container!.loadPersistentStores(completionHandler: { (_, error) in
-            container!.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
-            container!.viewContext.transactionAuthor = self.appTransactionAuthorName
+
             container!.viewContext.automaticallyMergesChangesFromParent = true
             do {
                 try container!.viewContext.setQueryGenerationFrom(.current)
@@ -253,7 +254,7 @@ class CloudDataManager : CloudDataManagerProtocol {
      The URL of the thumbnail folder.
      */
     static var attachmentFolder: URL = {
-        var url = NSPersistentContainer.defaultDirectoryURL().appendingPathComponent("CoreDataCloudKit", isDirectory: true)
+        var url = NSPersistentContainer.defaultDirectoryURL().appendingPathComponent("CoreDataCloudKitColorsMe", isDirectory: true)
         url = url.appendingPathComponent("attachments", isDirectory: true)
         
         // Create it if it doesn’t exist.
