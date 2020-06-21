@@ -45,7 +45,7 @@ extension ColorMapPresenter: ColorMapPresenterInterface {
     }
     
     
-    func viewDidLoad() {
+    func didFinishLoadingMap() {
         guard let annotation = annotation else {
             return
         }

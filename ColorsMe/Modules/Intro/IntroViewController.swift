@@ -73,8 +73,10 @@ final class IntroViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        UIDevice.current.beginGeneratingDeviceOrientationNotifications()
         navigationController?.navigationBar.isHidden = true
         updateConstraints()
+
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -155,24 +157,30 @@ extension IntroViewController: IntroViewInterface {
                 }
             }
         }
-        if UIDevice.current.orientation.isLandscape && UIDevice.current.userInterfaceIdiom == .pad {
-            self.greenCenterY.priority = .required
-            self.redCenterY.priority = .required
-            self.greenDotTrailingToYellowLeadingConstraint.priority = .required
-            self.yellowDotTrailingToRedDotLeadingConstraint.priority = .required
-            self.greenDotBottomToYellowDotTopConstraint.priority = .defaultLow
-            self.yellowDotBottomToRedDotTopConstraint.priority = .defaultLow
-            self.greenCenterX.priority = .defaultLow
-            self.redCenterX.priority = .defaultLow
-        } else if UIDevice.current.orientation.isPortrait && UIDevice.current.userInterfaceIdiom == .pad {
-            self.greenDotBottomToYellowDotTopConstraint.priority = .required
-            self.yellowDotBottomToRedDotTopConstraint.priority = .required
-            self.greenCenterX.priority = .required
-            self.redCenterX.priority = .required
-            self.greenCenterY.priority = .defaultLow
-            self.redCenterY.priority = .defaultLow
-            self.greenDotTrailingToYellowLeadingConstraint.priority = .defaultLow
-            self.yellowDotTrailingToRedDotLeadingConstraint.priority = .defaultLow
+        DispatchQueue.main.async {
+            let isPad = UIDevice.current.userInterfaceIdiom == .pad
+            let isLandscape = UIApplication.shared.windows.first?.windowScene?.interfaceOrientation.isLandscape ?? false
+            
+            if isPad && isLandscape {
+                self.greenCenterY.priority = .required
+                self.redCenterY.priority = .required
+                self.greenDotTrailingToYellowLeadingConstraint.priority = .required
+                self.yellowDotTrailingToRedDotLeadingConstraint.priority = .required
+                self.greenDotBottomToYellowDotTopConstraint.priority = .defaultLow
+                self.yellowDotBottomToRedDotTopConstraint.priority = .defaultLow
+                self.greenCenterX.priority = .defaultLow
+                self.redCenterX.priority = .defaultLow
+                
+            } else if isPad && !isLandscape {
+                self.greenDotBottomToYellowDotTopConstraint.priority = .required
+                self.yellowDotBottomToRedDotTopConstraint.priority = .required
+                self.greenCenterX.priority = .required
+                self.redCenterX.priority = .required
+                self.greenCenterY.priority = .defaultLow
+                self.redCenterY.priority = .defaultLow
+                self.greenDotTrailingToYellowLeadingConstraint.priority = .defaultLow
+                self.yellowDotTrailingToRedDotLeadingConstraint.priority = .defaultLow
+            }
         }
     }
     

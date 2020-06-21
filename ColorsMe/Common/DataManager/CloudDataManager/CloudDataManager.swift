@@ -90,10 +90,10 @@ class CloudDataManager : CloudDataManagerProtocol {
     }
     
     func getUserAnnotations() -> [UserAnnotation] {
-        let request = NSFetchRequest<NSFetchRequestResult>(entityName: entitiyName)
+        let request = NSFetchRequest<UserAnnotation>(entityName: entitiyName)
         request.sortDescriptors = [NSSortDescriptor(key: "created", ascending: false)]
         do {
-            let result = try context.fetch(request) as! [UserAnnotation]
+            let result = try context.fetch(request)
             userAnnotations = result
             return result
         } catch {
@@ -252,7 +252,7 @@ class CloudDataManager : CloudDataManagerProtocol {
      The URL of the thumbnail folder.
      */
     static var attachmentFolder: URL = {
-        var url = NSPersistentContainer.defaultDirectoryURL().appendingPathComponent("CoreDataCloudKit", isDirectory: true)
+        var url = NSPersistentContainer.defaultDirectoryURL().appendingPathComponent("CoreDataCloudKitColorsMe", isDirectory: true)
         url = url.appendingPathComponent("attachments", isDirectory: true)
         
         // Create it if it doesn’t exist.

@@ -18,7 +18,6 @@ final class ColorMapViewController: UIViewController {
     
     var presenter: ColorMapPresenterInterface!
     var annotation: CMAnnotation!
-    //var filteredAnnotations: [CMAnnotation]?
     
     var heatMapLayer: CMHeatMapLayer?
     var clusterMapLayer: CMClusterMapLayer?
@@ -82,7 +81,6 @@ final class ColorMapViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         log.debug("")
         sideButtonsView.reloadButtons()
-        presenter.shouldUpdateScale(mapView, slider.value)
         presenter.viewWillAppear(animated: animated)
     }
     
@@ -125,16 +123,15 @@ extension ColorMapViewController: ColorMapViewInterface, EmotionalDiaryDelegate 
         if !mapView.containsAnnotation(annotation) {
             DispatchQueue.main.async {
                 self.mapView.addAnnotation(annotation)
-                self.updateColorsLabel(count: self.mapView.annotations?.count ?? 0)
-                self.presenter.shouldUpdateScale(self.mapView, self.slider.value)
             }
         }
-        
+        self.updateColorsLabel(count: self.mapView.annotations?.count ?? 0)
+        self.presenter.shouldUpdateScale(self.mapView, self.slider.value)
     }
     
     
     func zoomToAnnotation(annotation: CMAnnotation) {
-        self.mapView.addAnnotation(annotation)
+        addAnnotation(annotation)
         self.showMapLayer(layerType: .defaultmap)
         DispatchQueue.main.async {
             self.mapView.selectAnnotation(annotation, animated: true, completionHandler: {
@@ -330,8 +327,12 @@ extension ColorMapViewController : MGLMapViewDelegate {
         presenter.shouldUpdateScale(mapView, slider.value)
     }
     
+    func mapView(_ mapView: MGLMapView, regionIsChangingWith reason: MGLCameraChangeReason) {
+        presenter.shouldUpdateScale(mapView, slider.value)
+    }
+    
     func mapViewDidFinishRenderingMap(_ mapView: MGLMapView, fullyRendered: Bool) {
-        //showScale()
+        presenter.shouldUpdateScale(mapView, slider.value)
     }
     
     func mapView(_ mapView: MGLMapView, annotationCanShowCallout annotation: MGLAnnotation) -> Bool {
@@ -375,8 +376,7 @@ extension ColorMapViewController : MGLMapViewDelegate {
     }
     
     func mapView(_ mapView: MGLMapView, didFinishLoading style: MGLStyle) {
-        presenter.viewDidLoad()
-        //clusterMapLayer = CMClusterMapLayer(mapView: mapView, view: view)
+        presenter.didFinishLoadingMap()
     }
     
     func mapView(_ mapView: MGLMapView, didChange mode: MGLUserTrackingMode, animated: Bool) {
@@ -441,7 +441,6 @@ extension ColorMapViewController : PickerDialogDelegate {
             self.mapView.removeAnnotations(self.mapView.annotations!)
         }
         presenter.filteredAnnotationsDidChange(annotations)
-        //hideScale()
         showMapLayer(layerType: ColorMapLayerType(rawValue: AppData.colorMapLayerItem)!, annotations: annotations)
     }
     
