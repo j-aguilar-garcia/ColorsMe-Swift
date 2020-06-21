@@ -28,8 +28,6 @@
 	<array>
 		<string>MKDirectionsModeOther</string>
 	</array>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>For the best experience of the app the use of the location is needed. This allows you to share your colors.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>For the best experience of the app the use of the location is needed. This allows you to share your colors.</string>
 	<key>UIApplicationSceneManifest</key>
