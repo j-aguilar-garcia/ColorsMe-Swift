@@ -68,7 +68,8 @@ class CloudDataManager : CloudDataManagerProtocol {
         userAnnotation.longitude = annotation.longitude
         userAnnotation.title = annotation.title
         
-        self.context.performAndWait {
+        let taskContext = persistentContainer.newBackgroundContext()
+        taskContext.perform {
             do {
                 try self.context.save()
             } catch {
@@ -80,7 +81,8 @@ class CloudDataManager : CloudDataManagerProtocol {
     func updateAnnotation(annotation: Annotation) {
         let cloudAnnotation = getAnnotationBy(guid: annotation.guid!)
         cloudAnnotation.beObjectId = annotation.objectId
-        self.context.performAndWait {
+        let taskContext = persistentContainer.newBackgroundContext()
+        taskContext.performAndWait {
             do {
                 try self.context.save()
             } catch {
