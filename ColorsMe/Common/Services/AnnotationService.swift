@@ -38,22 +38,22 @@ class AnnotationService {
         
         createAnnotation(with: color, completion: { annotation in
             let cmAnnotation = CMAnnotation(annotation: annotation, isMyColor: byUser)
-            completion(cmAnnotation)
             
-            DispatchQueue.global(qos: .background).async {
-                DataManager.shared.remoteDataManager.saveToBackendless(annotation: annotation, completion: { savedAnnotation in
-
-                    DispatchQueue.main.async {
-                        let realmAnnotation = RealmAnnotation(annotation: savedAnnotation, isMyColor: byUser)
-                        DataManager.shared.localDataManager.saveLocal(annotation: realmAnnotation)
-                        let cmAnnotation = CMAnnotation(annotation: savedAnnotation, isMyColor: byUser)
-                        
-                        DataManager.shared.cloudDataManager.addAnnotation(annotation: cmAnnotation)
-                    }
-                    
-                })
+            DispatchQueue.main.async {
+                completion(cmAnnotation)
             }
             
+            DataManager.shared.remoteDataManager.saveToBackendless(annotation: annotation, completion: { savedAnnotation in
+                cmAnnotation.objectId = savedAnnotation.objectId
+                
+                DataManager.shared.cloudDataManager.addAnnotation(annotation: cmAnnotation)
+                let realmAnnotation = RealmAnnotation(annotation: savedAnnotation, isMyColor: byUser)
+                
+                DispatchQueue.main.async {
+                    DataManager.shared.localDataManager.saveLocal(annotation: realmAnnotation)
+                }
+                
+            })
         })
     }
     
