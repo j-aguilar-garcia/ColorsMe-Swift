@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Tdj-oh-4LM">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -22,12 +22,21 @@
                             <imageView clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" image="Splashscreen" translatesAutoresizingMaskIntoConstraints="NO" id="AZF-D8-b3q">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                             </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mapboxLogo" translatesAutoresizingMaskIntoConstraints="NO" id="Nts-dx-jww">
+                                <rect key="frame" x="16" y="823" width="100" height="23"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="23" id="7Pp-CQ-36H"/>
+                                    <constraint firstAttribute="width" constant="100" id="e3R-4O-Ce3"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <constraints>
                             <constraint firstItem="AZF-D8-b3q" firstAttribute="top" secondItem="GBe-Mn-NwR" secondAttribute="top" id="4Iz-jg-heY"/>
                             <constraint firstAttribute="bottom" secondItem="AZF-D8-b3q" secondAttribute="bottom" id="Fi1-rF-QOq"/>
                             <constraint firstItem="G8g-si-Snl" firstAttribute="trailing" secondItem="O5N-Lj-VEV" secondAttribute="trailing" id="Mdt-h7-npP"/>
+                            <constraint firstItem="Nts-dx-jww" firstAttribute="leading" secondItem="G8g-si-Snl" secondAttribute="leading" constant="16" id="S41-wG-fg7"/>
                             <constraint firstItem="AZF-D8-b3q" firstAttribute="leading" secondItem="G8g-si-Snl" secondAttribute="leading" id="iFz-a0-gbh"/>
+                            <constraint firstItem="G8g-si-Snl" firstAttribute="bottom" secondItem="Nts-dx-jww" secondAttribute="bottom" constant="16" id="kut-LS-mdj"/>
                             <constraint firstItem="O5N-Lj-VEV" firstAttribute="leading" secondItem="G8g-si-Snl" secondAttribute="leading" id="mYj-hz-54W"/>
                             <constraint firstItem="AZF-D8-b3q" firstAttribute="trailing" secondItem="G8g-si-Snl" secondAttribute="trailing" id="yNP-rn-wt9"/>
                             <constraint firstItem="G8g-si-Snl" firstAttribute="bottom" secondItem="O5N-Lj-VEV" secondAttribute="bottom" id="ySz-RV-smd"/>
@@ -43,5 +52,6 @@
     </scenes>
     <resources>
         <image name="Splashscreen" width="532" height="900.5"/>
+        <image name="mapboxLogo" width="800" height="180"/>
     </resources>
 </document>
