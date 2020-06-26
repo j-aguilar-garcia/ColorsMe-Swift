@@ -39,7 +39,7 @@ extension ColorMapInteractor: ColorMapInteractorInterface {
         let oldSliderValue = oldValue
         guard let visibleAnnotations = mapView.visibleAnnotations as? [CMAnnotation] else { return }
 
-        if visibleAnnotations.count == 0 {
+        if visibleAnnotations.isEmpty {
             result = 0.5
         } else {
             let countRedColors = visibleAnnotations.filter { $0.color! == EmotionalColor.Red }.count

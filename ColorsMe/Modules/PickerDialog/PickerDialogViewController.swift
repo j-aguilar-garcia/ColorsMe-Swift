@@ -40,6 +40,21 @@ final class PickerDialogViewController: UIViewController {
         pickerView.selectRow(AppData.selectedFilterIndex, inComponent: 0, animated: false)
         presenter.viewDidLoad()
     }
+    
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        if let popover = self.popoverPresentationController {
+            let width = UIScreen.main.bounds.width
+            let height = UIScreen.main.bounds.height
+
+            popover.sourceRect = CGRect(
+                x: (width / 2) - (popover.sourceRect.width / 2),
+                y: (height / 2) - (popover.sourceRect.height / 2),
+                width: popover.sourceRect.width, height: popover.sourceRect.height)
+        }
+        super.viewWillTransition(to: size, with: coordinator)
+    }
+
 
 }
 
