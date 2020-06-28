@@ -42,29 +42,36 @@ class TextViewViewController: UIViewController {
         switch pageType {
         case .aboutus:
             key = AppConfiguration.default.aboutUs
-            let text = downloadTextFrom(url: AppConfiguration.default.aboutUsUrl)
-            display(text)
+            downloadTextFrom(url: AppConfiguration.default.aboutUsUrl, completion: { (downloadedText) in
+                self.display(downloadedText)
+            })
         case .privacypolicy:
             key = AppConfiguration.default.privacyPolicy
-            let text = downloadTextFrom(url: AppConfiguration.default.privacyPolicyUrl)
-            display(text)
+            downloadTextFrom(url: AppConfiguration.default.privacyPolicyUrl, completion: { (downloadedText) in
+                self.display(downloadedText)
+            })
         }
     }
     
-    private func downloadTextFrom(url: String) -> String {
-        var downloadedText = ""
+    private func downloadTextFrom(url: String, completion: @escaping (String) -> Void) {
         let downloadUrl = URL(string: url)!
 
         let task = URLSession.shared.downloadTask(with: downloadUrl) { localURL, urlResponse, error in
+            guard error == nil else {
+                DispatchQueue.main.async {
+                    completion("")
+                }
+                return
+            }
             if let localURL = localURL {
                 if let string = try? String(contentsOf: localURL) {
-                    downloadedText = string
+                    DispatchQueue.main.async {
+                        completion(string)
+                    }
                 }
             }
         }
-        
         task.resume()
-        return downloadedText
     }
 
 }

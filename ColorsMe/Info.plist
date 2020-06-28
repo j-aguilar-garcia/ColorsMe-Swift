@@ -24,10 +24,6 @@
 	<true/>
 	<key>MGLMapboxAccessToken</key>
 	<string>pk.eyJ1Ijoic3BhZ25vbG8iLCJhIjoiY2thbWs0b2szMDhiajJxcGMyaWxnOTYwciJ9.PepbgWNEWwGvPOy6Z8imcg</string>
-	<key>MKDirectionsApplicationSupportedModes</key>
-	<array>
-		<string>MKDirectionsModeOther</string>
-	</array>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>For the best experience of the app the use of the location is needed. This allows you to share your colors.</string>
 	<key>UIApplicationSceneManifest</key>
@@ -61,6 +57,8 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
