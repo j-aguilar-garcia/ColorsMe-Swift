@@ -54,7 +54,7 @@ final class EmotionalDiaryViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        hintColorLabel.text = "Green means Happy | Red means sick"
+        hintColorLabel.text = "Green means Happy | Red means Sad"
         questionView.dropShadow()
 
         tableView.dataSource = self

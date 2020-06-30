@@ -245,22 +245,25 @@ extension ColorMapViewController: ColorMapViewInterface, EmotionalDiaryDelegate 
             if animated {
                 UIView.animate(withDuration: 0.5, delay: 0.2, animations: {
                     self.scaleView.frame = hideScaleViewFrame
-                })
+                }) { finish in
+                    self.scaleView.isHidden = true
+                }
                 return
             }
             self.scaleView.frame = hideScaleViewFrame
+            self.scaleView.isHidden = true
         }
     }
     
     func showScale(_ animated: Bool = true) {
         DispatchQueue.main.async {
             let showScaleViewFrame = CGRect(x: UIScreen.main.bounds.origin.x, y: self.scaleView.frame.minY, width: self.scaleView.frame.width, height: self.scaleView.frame.height)
-            
+            self.scaleView.isHidden = false
+
             if self.scaleView.frame.equalTo(showScaleViewFrame) {
                 return
             }
             self.scaleView.frame = CGRect(x: UIScreen.main.bounds.origin.x - self.scaleView.frame.width - 8, y: self.scaleView.frame.minY, width: self.scaleView.frame.width, height: self.scaleView.frame.height)
-            
             if animated {
                 UIView.animate(withDuration: 0.5, delay: 0.2, animations: {
                     self.scaleView.frame = showScaleViewFrame
