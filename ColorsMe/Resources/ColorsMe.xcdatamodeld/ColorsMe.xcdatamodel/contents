@@ -20,8 +20,9 @@
             <entry key="CloudCoreScopes" value="private"/>
         </userInfo>
     </entity>
-    <configuration name="Cloud" usedWithCloudKit="YES"/>
-    <configuration name="Local"/>
+    <configuration name="Cloud" usedWithCloudKit="YES">
+        <memberEntity name="UserAnnotation"/>
+    </configuration>
     <elements>
         <element name="UserAnnotation" positionX="-63" positionY="-18" width="128" height="208"/>
     </elements>
