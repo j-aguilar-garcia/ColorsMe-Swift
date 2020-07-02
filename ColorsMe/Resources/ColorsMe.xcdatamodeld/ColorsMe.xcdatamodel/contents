@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="16119" systemVersion="19F101" minimumToolsVersion="Automatic" sourceLanguage="Swift" usedWithCloudKit="YES" userDefinedModelVersionIdentifier="">
     <entity name="UserAnnotation" representedClassName="UserAnnotation" syncable="YES" codeGenerationType="class">
-        <attribute name="beObjectId" attributeType="String" defaultValueString="" spotlightIndexingEnabled="YES">
-            <userInfo>
-                <entry key="CloudCoreType" value="recordID"/>
-            </userInfo>
-        </attribute>
+        <attribute name="beObjectId" attributeType="String" defaultValueString="" spotlightIndexingEnabled="YES"/>
         <attribute name="city" optional="YES" attributeType="String"/>
         <attribute name="color" optional="YES" attributeType="String"/>
         <attribute name="country" optional="YES" attributeType="String"/>
@@ -16,9 +12,6 @@
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="title" optional="YES" attributeType="String"/>
-        <userInfo>
-            <entry key="CloudCoreScopes" value="private"/>
-        </userInfo>
     </entity>
     <configuration name="Cloud" usedWithCloudKit="YES">
         <memberEntity name="UserAnnotation"/>
