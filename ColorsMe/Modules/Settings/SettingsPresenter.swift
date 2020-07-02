@@ -8,7 +8,6 @@
 
 import Foundation
 import UIKit
-import CloudCore
 
 final class SettingsPresenter {
     

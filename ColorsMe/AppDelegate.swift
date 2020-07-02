@@ -10,7 +10,6 @@ import UIKit
 import CoreData
 import Unrealm
 import Sentry
-import CloudCore
 import SwiftyBeaver
 import UserNotifications
 let log = SwiftyBeaver.self

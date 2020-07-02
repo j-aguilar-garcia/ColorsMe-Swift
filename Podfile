@@ -10,7 +10,6 @@ target 'ColorsMe' do
     pod 'Mapbox-iOS-SDK', '~> 5.9'
     pod 'MapboxGeocoder.swift', '~> 0.12'
     pod 'SwiftyBeaver'
-    pod 'CloudCore'
     pod 'Unrealm'
     pod 'Sentry', :git => 'https://github.com/getsentry/sentry-cocoa.git', :tag => '5.1.0'
     pod 'Turf', '~> 0.3'

@@ -8,7 +8,6 @@
 
 import Foundation
 import CoreData
-import CloudCore
 import Mapbox
 import MapboxGeocoder
 import Reachability

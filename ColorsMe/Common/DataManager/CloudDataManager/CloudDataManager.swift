@@ -219,7 +219,7 @@ class CloudDataManager : CloudDataManagerProtocol {
             do {
                 try data.write(to: tokenFile)
                 let tokenData = try NSKeyedArchiver.archivedData(withRootObject: token, requiringSecureCoding: false)
-                UserDefaults.standard.set(tokenData, forKey: "lastHistoryCloudToken")
+                UserDefaults.standard.set(data, forKey: "lastHistoryCloudToken")
             } catch {
                 log.error("###\(#function): Failed to write token data. Error = \(error)")
             }

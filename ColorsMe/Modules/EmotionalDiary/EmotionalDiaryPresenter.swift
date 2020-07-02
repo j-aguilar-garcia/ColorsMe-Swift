@@ -8,7 +8,7 @@
 
 import Foundation
 import CoreData
-import CloudCore
+import UIKit
 
 final class EmotionalDiaryPresenter {
 
